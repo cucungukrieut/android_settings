@@ -19,6 +19,9 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<universum.studios.android.ui.widget.CheckBoxWidget android:id="@android:id/checkbox"
+												 xmlns:android="http://schemas.android.com/apk/res/android"
+												 android:layout_width="wrap_content"
+												 android:layout_height="wrap_content"
+												 android:clickable="false"
+												 android:focusable="false" />

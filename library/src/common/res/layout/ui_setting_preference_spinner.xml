@@ -19,6 +19,24 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<universum.studios.android.ui.widget.LinearLayoutWidget xmlns:android="http://schemas.android.com/apk/res/android"
+													 xmlns:tools="http://schemas.android.com/tools"
+													 android:layout_width="match_parent"
+													 android:layout_height="wrap_content"
+													 android:baselineAligned="false"
+													 android:descendantFocusability="blocksDescendants"
+													 android:gravity="center_vertical"
+													 android:minHeight="?android:attr/listPreferredItemHeight"
+													 android:orientation="horizontal"
+													 android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+													 android:paddingRight="?android:attr/listPreferredItemPaddingRight">
+
+	<universum.studios.android.ui.widget.SpinnerWidget
+		android:id="@+id/ui_setting_spinner"
+		style="?android:attr/dropDownSpinnerStyle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="?attr/uiSpacingSecondary"
+		android:layout_marginTop="?attr/uiSpacingSecondary"
+		tools:listitem="@layout/ui_setting_spinner_view" />
+</universum.studios.android.ui.widget.LinearLayoutWidget>

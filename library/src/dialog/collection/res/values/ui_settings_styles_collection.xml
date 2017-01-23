@@ -19,6 +19,10 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<resources>
+
+	<!-- Style for SettingSelectionDialogPreference. -->
+	<style name="Ui.Settings.DialogPreference.Selection">
+		<item name="dialogId">@id/ui_settings_dialog_selection</item>
+	</style>
+</resources>

@@ -19,6 +19,6 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
+<manifest package="universum.studios.android.setting.dialog.input">
 	<application/>
 </manifest>

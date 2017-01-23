@@ -88,5 +88,8 @@ dependencies {
     }
 }
 
+// Apply all modules configuration.
+apply from: 'gradle/module-all.gradle'
+
 // Apply PUBLISH script.
 apply from: '../publish/publish.gradle'

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * =================================================================================================
+ *                             Copyright (C) 2017 Universum Studios
+ * =================================================================================================
+ *         Licensed under the Apache License, Version 2.0 or later (further "License" only).
+ * *************************************************************************************************
+ * You may use this file only in compliance with the License. More details and copy of this License
+ * you may obtain at
+ *
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * You can redistribute, modify or publish any part of the code written within this file but as it
+ * is described in the License, the software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES or CONDITIONS OF ANY KIND.
+ *
+ * See the License for the specific language governing permissions and limitations under the License.
+ * =================================================================================================
+ */
+-->
+<universum.studios.android.ui.widget.LinearLayoutWidget xmlns:android="http://schemas.android.com/apk/res/android"
+													 xmlns:tools="http://schemas.android.com/tools"
+													 android:layout_width="match_parent"
+													 android:layout_height="wrap_content"
+													 android:baselineAligned="false"
+													 android:gravity="center_vertical"
+													 android:minHeight="?android:attr/listPreferredItemHeight"
+													 android:orientation="horizontal"
+													 android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+													 android:paddingRight="0dp">
+
+	<LinearLayout
+		android:id="@+id/icon_frame"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="start|center_vertical"
+		android:minWidth="56dp"
+		android:orientation="horizontal"
+		android:paddingBottom="4dp"
+		android:paddingRight="12dp"
+		android:paddingTop="4dp">
+
+		<universum.studios.android.ui.widget.ImageViewWidget
+			android:id="@android:id/icon"
+			style="?attr/uiSettingHeaderIconStyle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			tools:src="@drawable/ui_settings_vc_settings" />
+	</LinearLayout>
+
+	<FrameLayout
+		android:orientation="vertical"
+		android:layout_width="0dip"
+		android:layout_height="match_parent"
+		android:layout_weight="1">
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:paddingBottom="?attr/uiSpacingSecondary"
+			android:paddingRight="?attr/uiSpacingSecondary"
+			android:paddingTop="?attr/uiSpacingSecondary"
+			android:layout_gravity="center_vertical">
+
+			<universum.studios.android.ui.widget.TextViewWidget
+				android:id="@android:id/title"
+				style="?attr/uiSettingHeaderTitleStyle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:fadingEdge="horizontal"
+				tools:text="Header title" />
+
+			<universum.studios.android.ui.widget.TextViewWidget
+				android:id="@android:id/summary"
+				style="?attr/uiSettingHeaderSummaryStyle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				tools:text="Header summary text." />
+		</LinearLayout>
+
+		<View
+			android:id="@+id/ui_setting_divider"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/uiSettingHeaderDividerHeight"
+			android:layout_gravity="bottom"
+			android:background="?attr/uiSettingHeaderDivider"/>
+	</FrameLayout>
+</universum.studios.android.ui.widget.LinearLayoutWidget>

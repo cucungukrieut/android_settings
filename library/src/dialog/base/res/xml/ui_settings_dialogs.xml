@@ -19,6 +19,11 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<Dialogs xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<EditDialog android:id="@id/ui_settings_dialog_edit"/>
+	<DatePickerDialog android:id="@id/ui_settings_dialog_date"/>
+	<TimePickerDialog android:id="@id/ui_settings_dialog_time"/>
+	<ColorPickerDialog android:id="@id/ui_settings_dialog_color"/>
+	<SelectionDialog android:id="@id/ui_settings_dialog_selection"/>
+</Dialogs>

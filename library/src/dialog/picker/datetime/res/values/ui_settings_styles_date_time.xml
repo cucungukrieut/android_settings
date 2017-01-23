@@ -19,6 +19,15 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<resources>
+
+	<!-- Style for SettingDateDialogPreference. -->
+	<style name="Ui.Settings.DialogPreference.Date">
+		<item name="dialogId">@id/ui_settings_dialog_date</item>
+	</style>
+
+	<!-- Style for SettingTimeDialogPreference. -->
+	<style name="Ui.Settings.DialogPreference.Time">
+		<item name="dialogId">@id/ui_settings_dialog_time</item>
+	</style>
+</resources>

@@ -1,0 +1,47 @@
+/**
+ * Library Module options ==========================================================================
+ */
+android {
+    defaultConfig {
+        consumerProguardFiles 'proguard-rules.pro'
+    }
+
+    sourceSets {
+        main.manifest.srcFile 'src/main/AndroidManifest.xml'
+        main.java.srcDirs = [
+                'src/main/java',
+                'src/core/java',
+                'src/common/java',
+                'src/dialog/base/java',
+                'src/dialog/collection/java',
+                'src/dialog/input/java',
+                'src/dialog/picker/color/java',
+                'src/dialog/picker/datetime/java'
+        ]
+        main.res.srcDirs = [
+                'src/main/res',
+                'src/core/res',
+                'src/common/res',
+                'src/dialog/base/res',
+                'src/dialog/collection/res',
+                'src/dialog/input/res',
+                'src/dialog/picker/color/res',
+                'src/dialog/picker/datetime/res'
+        ]
+    }
+}
+
+/**
+ * Library Module dependencies =====================================================================
+ */
+dependencies {
+    final String supportVersion = project.property('android.support.version')
+    compile 'com.android.support:appcompat-v7:' + supportVersion
+    compile 'com.android.support:support-vector-drawable:' + supportVersion
+    compile 'com.android.support:recyclerview-v7:' + supportVersion
+    compile 'universum.studios.android:widget-adapters-core:1.0.0@aar'
+    compile 'universum.studios.android:widget-adapters-list:1.0.0@aar'
+    compile 'universum.studios.android:widget-adapters-spinner:1.0.0@aar'
+    compile 'universum.studios.android:ui:0.9.0@aar'
+    compile 'universum.studios.android:dialogs:0.9.0@aar'
+}

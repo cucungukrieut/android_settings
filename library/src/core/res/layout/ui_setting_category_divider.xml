@@ -19,6 +19,24 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<universum.studios.android.ui.widget.LinearLayoutWidget xmlns:android="http://schemas.android.com/apk/res/android"
+													 xmlns:tools="http://schemas.android.com/tools"
+													 android:layout_width="match_parent"
+													 android:layout_height="wrap_content"
+													 android:background="?attr/uiSettingCategoryDividerBackground"
+													 android:orientation="vertical">
+
+	<universum.studios.android.ui.widget.ImageViewWidget
+		android:id="@+id/ui_setting_category_divider_shadow_top"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="1dp"
+		android:background="?attr/uiSettingCategoryDividerShadowTop" />
+
+	<universum.studios.android.ui.widget.ImageViewWidget
+		android:id="@+id/ui_setting_category_divider_shadow_bottom"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?attr/uiSettingCategoryDividerShadowBottom"
+		tools:visibility="visible" />
+</universum.studios.android.ui.widget.LinearLayoutWidget>

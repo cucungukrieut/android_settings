@@ -19,6 +19,18 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<resources>
+
+	<!-- Style for SettingColorDialogPreference. -->
+	<style name="Ui.Settings.DialogPreference.Color">
+		<item name="android:widgetLayout">@layout/ui_setting_widget_color_view</item>
+		<item name="dialogId">@id/ui_settings_dialog_color</item>
+		<item name="dialogColor">?attr/colorAccent</item>
+	</style>
+
+	<!-- Style for SettingColorView widget. -->
+	<style name="Ui.Settings.ColorView" parent="">
+		<item name="android:maxWidth">16dp</item>
+		<item name="android:maxHeight">16dp</item>
+	</style>
+</resources>

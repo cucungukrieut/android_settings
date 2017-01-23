@@ -19,6 +19,23 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<resources>
+
+	<!-- Settings collection theme attributes. -->
+	<declare-styleable name="Ui.Settings.Theme.Collection">
+		<!-- Style for SettingSelectionDialogPreference preference. -->
+		<attr name="uiSettingSelectionDialogPreferenceStyle" format="reference"/>
+	</declare-styleable>
+
+	<!-- SettingSelectionDialogPreference attributes. -->
+	<declare-styleable name="Ui.Settings.SelectionDialogPreference">
+		<!-- Re-used. -->
+		<attr name="android:entries"/>
+		<!-- Re-used. -->
+		<attr name="android:entryValues"/>
+		<!-- Re-used. -->
+		<attr name="dialogSelectionMode"/>
+		<!-- Re-used. -->
+		<attr name="dialogEmptySelectionAllowed"/>
+	</declare-styleable>
+</resources>

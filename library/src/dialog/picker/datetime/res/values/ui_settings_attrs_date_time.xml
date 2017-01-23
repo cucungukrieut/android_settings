@@ -19,6 +19,37 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<resources>
+
+	<!-- Settings date/time theme attributes. -->
+	<declare-styleable name="Ui.Settings.Theme.DateTime">
+		<!-- Style for SettingDateDialogPreference preference. -->
+		<attr name="uiSettingDateDialogPreferenceStyle" format="reference"/>
+		<!-- Style for SettingTimeDialogPreference preference. -->
+		<attr name="uiSettingTimeDialogPreferenceStyle" format="reference"/>
+	</declare-styleable>
+
+	<!-- SettingDateDialogPreference attributes. -->
+	<declare-styleable name="Ui.Settings.DateDialogPreference">
+		<!-- Re-used. -->
+		<attr name="uiSettingDateFormat"/>
+		<!-- Re-used. -->
+		<attr name="dialogDate"/>
+		<!-- Re-used. -->
+		<attr name="dialogMinDate"/>
+		<!-- Re-used. -->
+		<attr name="dialogMaxDate"/>
+	</declare-styleable>
+
+	<!-- SettingTimeDialogPreference attributes. -->
+	<declare-styleable name="Ui.Settings.TimeDialogPreference">
+		<!-- Re-used. -->
+		<attr name="uiSettingDateFormat"/>
+		<!-- Re-used. -->
+		<attr name="dialogTime"/>
+		<!-- Re-used. -->
+		<attr name="dialogTimePickers"/>
+		<!-- Re-used. -->
+		<attr name="dialogTimeQuantityText"/>
+	</declare-styleable>
+</resources>

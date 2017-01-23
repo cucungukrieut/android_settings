@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * =================================================================================================
+ *                             Copyright (C) 2017 Universum Studios
+ * =================================================================================================
+ *         Licensed under the Apache License, Version 2.0 or later (further "License" only).
+ * *************************************************************************************************
+ * You may use this file only in compliance with the License. More details and copy of this License
+ * you may obtain at
+ *
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * You can redistribute, modify or publish any part of the code written within this file but as it
+ * is described in the License, the software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES or CONDITIONS OF ANY KIND.
+ *
+ * See the License for the specific language governing permissions and limitations under the License.
+ * =================================================================================================
+ */
+-->
+<resources>
+
+	<!-- ### SETTINGS ========================================================================== -->
+
+	<!-- Parent style for settings TextView widgets. -->
+	<style name="Ui.Settings.Widget.TextView" parent="Ui.Widget.TextView"/>
+
+	<!-- Parent light style for settings TextView widgets. -->
+	<style name="Ui.Settings.Widget.Light.TextView" parent="Ui.Widget.Light.TextView"/>
+
+	<!-- Style for ListView widget presenting collection of settings. -->
+	<style name="Ui.Settings.Widget.ListView" parent="Ui.Widget.ListView">
+		<item name="android:divider">?attr/uiSettingDivider</item>
+		<item name="android:dividerHeight">?attr/uiSettingDividerHeight</item>
+		<item name="android:paddingLeft">@dimen/ui_settings_list_view_padding_horizontal</item>
+		<item name="android:paddingRight">@dimen/ui_settings_list_view_padding_horizontal</item>
+	</style>
+
+	<!-- Light style for ListView widget presenting collection of settings. -->
+	<style name="Ui.Settings.Widget.Light.ListView" parent="Ui.Settings.Widget.ListView"/>
+
+	<!-- ### PREFERENCE ======================================================================== -->
+
+	<!-- Style for SettingPreference. -->
+	<style name="Ui.Settings.Preference" parent="">
+		<item name="android:layout">@layout/ui_setting_preference</item>
+	</style>
+
+	<!-- Style for SettingPreferenceCategory. -->
+	<style name="Ui.Settings.Preference.Category">
+		<item name="android:layout">@layout/ui_setting_category</item>
+		<item name="android:shouldDisableView">false</item>
+		<item name="android:selectable">false</item>
+	</style>
+
+	<!-- Style for informational SettingPreference. -->
+	<style name="Ui.Settings.Preference.Information">
+		<item name="android:enabled">false</item>
+		<item name="android:shouldDisableView">false</item>
+	</style>
+
+	<!-- ### WIDGET ============================================================================ -->
+
+	<!-- Style for TextView widget of settings category item. -->
+	<style name="Ui.Settings.Widget.TextView.Category">
+		<item name="android:textAppearance">@style/Ui.Settings.TextAppearance.Category</item>
+		<item name="android:maxLines">1</item>
+		<item name="android:ellipsize">end</item>
+	</style>
+
+	<!-- Light style for TextView widget of settings category item. -->
+	<style name="Ui.Settings.Widget.Light.TextView.Category" parent="Ui.Settings.Widget.TextView.Category"/>
+
+	<!-- Style for icon ImageView widget of setting item. -->
+	<style name="Ui.Settings.Widget.ImageView.Icon" parent="">
+		<item name="android:minWidth">24dp</item>
+		<item name="android:minHeight">24dp</item>
+		<item name="android:maxWidth">24dp</item>
+		<item name="android:maxHeight">24dp</item>
+		<item name="uiTint">?attr/colorAccent</item>
+	</style>
+
+	<!-- Light style for icon ImageView of setting item. -->
+	<style name="Ui.Settings.Widget.Light.ImageView.Icon" parent="Ui.Settings.Widget.ImageView.Icon"/>
+
+	<!-- Style for title TextView widget of setting item. -->
+	<style name="Ui.Settings.Widget.TextView.Title">
+		<item name="android:textAppearance">@style/Ui.Settings.TextAppearance.Title</item>
+		<item name="android:maxLines">1</item>
+		<item name="android:ellipsize">marquee</item>
+	</style>
+
+	<!-- Light style for title TextView widget of setting item. -->
+	<style name="Ui.Settings.Widget.Light.TextView.Title" parent="Ui.Settings.Widget.TextView.Title"/>
+
+	<!-- Style for summary TextView widget of setting item. -->
+	<style name="Ui.Settings.Widget.TextView.Summary">
+		<item name="android:textAppearance">@style/Ui.Settings.TextAppearance.Summary</item>
+		<item name="android:maxLines">4</item>
+		<item name="android:ellipsize">end</item>
+	</style>
+
+	<!-- Light style for summary TextView widget of setting item. -->
+	<style name="Ui.Settings.Widget.Light.TextView.Summary" parent="Ui.Settings.Widget.TextView.Summary"/>
+</resources>

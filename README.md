@@ -3,15 +3,15 @@ Android Settings
 
 ## Download ##
 
-Download the latest **[release](https://github.com/universum-studios/android_settings/releases/tag/1.0.0-beta1 "Latest Releases page")** or **add as dependency** in your project via:
+Download the latest **[release](https://github.com/universum-studios/android_settings/releases/tag/0.9.0 "Latest Releases page")** or **add as dependency** in your project via:
 
 ### Gradle ###
 
-    compile 'universum.studios.android:settings:1.0.0-beta1@aar'
+    compile 'universum.studios.android:settings:0.9.0@aar'
 
 ## Compatibility ##
 
-Available from the **Android [API Level 9](http://developer.android.com/about/versions/android-2.3.html "See API highlights")**.
+Available from the **Android [API Level 14](http://developer.android.com/about/versions/android-4.0.html "See API highlights")**.
 
 ### Dependencies ###
 

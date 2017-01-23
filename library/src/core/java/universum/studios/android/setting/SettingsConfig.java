@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
 /*
  * =================================================================================================
  *                             Copyright (C) 2017 Universum Studios
  * =================================================================================================
  *         Licensed under the Apache License, Version 2.0 or later (further "License" only).
- * *************************************************************************************************
+ * -------------------------------------------------------------------------------------------------
  * You may use this file only in compliance with the License. More details and copy of this License
  * you may obtain at
  *
@@ -18,7 +16,22 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * =================================================================================================
  */
--->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+package universum.studios.android.setting;
+
+/**
+ * Configuration options for the Settings library.
+ *
+ * @author Martin Albedinsky
+ */
+public final class SettingsConfig {
+
+	/**
+	 * Flag indicating whether the output the Settings library trough log-cat is enabled or not.
+	 */
+	public static boolean LOG_ENABLED = true;
+
+	/**
+	 * Flag indicating whether the debug output for the Settings library trough log-cat is enabled or not.
+	 */
+	public static boolean DEBUG_LOG_ENABLED = false;
+}

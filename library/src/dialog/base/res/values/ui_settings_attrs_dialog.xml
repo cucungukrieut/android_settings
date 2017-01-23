@@ -19,6 +19,35 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<resources>
+
+	<!-- Settings DialogPreference attributes. -->
+	<declare-styleable name="Ui.Settings.DialogPreference">
+		<!-- Re-used. -->
+		<attr name="dialogId"/>
+		<!-- Re-used. -->
+		<attr name="dialogIcon"/>
+		<!-- Re-used. -->
+		<attr name="dialogVectorIcon"/>
+		<!-- Re-used. -->
+		<attr name="dialogTitle"/>
+		<!-- Re-used. -->
+		<attr name="dialogContent"/>
+		<!-- Re-used. -->
+		<attr name="dialogPositiveButton"/>
+		<!-- Re-used. -->
+		<attr name="dialogNeutralButton"/>
+		<!-- Re-used. -->
+		<attr name="dialogNegativeButton"/>
+		<!-- Re-used. -->
+		<attr name="dialogButtonsWidthMode"/>
+		<!-- Re-used. -->
+		<attr name="dialogCancelable"/>
+		<!-- Re-used. -->
+		<attr name="dialogDismissOnRestore"/>
+		<!-- Re-used. -->
+		<attr name="dialogRemain"/>
+		<!-- Re-used. -->
+		<attr name="dialogTheme"/>
+	</declare-styleable>
+</resources>

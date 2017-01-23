@@ -19,6 +19,31 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<resources>
+
+	<!-- Settings color theme attributes. -->
+	<declare-styleable name="Ui.Settings.Theme.Color">
+		<!-- Style for SettingColorDialogPreference preference. -->
+		<attr name="uiSettingColorDialogPreferenceStyle" format="reference"/>
+		<!-- Style for SettingColorView widget. -->
+		<attr name="uiSettingColorViewStyle" format="reference"/>
+	</declare-styleable>
+
+	<!-- SettingColorDialogPreference attributes. -->
+	<declare-styleable name="Ui.Settings.ColorDialogPreference">
+		<!-- Re-used. -->
+		<attr name="dialogColor"/>
+		<!-- Re-used. -->
+		<attr name="dialogColorCanvas"/>
+	</declare-styleable>
+
+	<!-- SettingColorView attributes. -->
+	<declare-styleable name="Ui.Settings.ColorView">
+		<!-- Re-used. -->
+		<attr name="android:color"/>
+		<!-- Re-used. -->
+		<attr name="android:maxWidth"/>
+		<!-- Re-used. -->
+		<attr name="android:maxHeight"/>
+	</declare-styleable>
+</resources>

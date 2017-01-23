@@ -19,6 +19,9 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<resources>
+
+	<string name="ui_setting_dialog_button_ok">OK</string>
+	<string name="ui_setting_dialog_button_cancel">Cancel</string>
+	<string name="ui_setting_dialog_button_set">Set</string>
+</resources>

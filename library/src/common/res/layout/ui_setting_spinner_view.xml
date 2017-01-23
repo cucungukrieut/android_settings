@@ -19,6 +19,24 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  xmlns:tools="http://schemas.android.com/tools"
+			  android:layout_width="match_parent"
+			  android:layout_height="wrap_content"
+			  android:orientation="vertical">
+
+	<universum.studios.android.ui.widget.TextViewWidget
+		android:id="@android:id/title"
+		style="?attr/uiSettingTitleStyle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:fadingEdge="horizontal"
+		tools:text="Preference title" />
+
+	<universum.studios.android.ui.widget.TextViewWidget
+		android:id="@android:id/summary"
+		style="?attr/uiSettingSummaryStyle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		tools:text="Preference summary text." />
+</LinearLayout>

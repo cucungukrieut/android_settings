@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * =================================================================================================
+ *                             Copyright (C) 2017 Universum Studios
+ * =================================================================================================
+ *         Licensed under the Apache License, Version 2.0 or later (further "License" only).
+ * *************************************************************************************************
+ * You may use this file only in compliance with the License. More details and copy of this License
+ * you may obtain at
+ *
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * You can redistribute, modify or publish any part of the code written within this file but as it
+ * is described in the License, the software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES or CONDITIONS OF ANY KIND.
+ *
+ * See the License for the specific language governing permissions and limitations under the License.
+ * =================================================================================================
+ */
+-->
+<resources>
+
+	<!-- Preference theme attributes and theirs default values provided by the Android framework. -->
+	<!--
+		<item name="preferenceScreenStyle">@style/Preference.PreferenceScreen</item>
+		<item name="preferenceActivityStyle">@style/PreferenceActivity</item>
+		<item name="preferenceFragmentStyle">@style/PreferenceFragment</item>
+		<item name="preferenceCategoryStyle">@style/Preference.Category</item>
+		<item name="preferenceStyle">@style/Preference</item>
+		<item name="preferenceInformationStyle">@style/Preference.Information</item>
+		<item name="checkBoxPreferenceStyle">@style/Preference.CheckBoxPreference</item>
+		<item name="switchPreferenceStyle">@style/Preference.SwitchPreference</item>
+		<item name="seekBarPreferenceStyle">@style/Preference.SeekBarPreference</item>
+		<item name="yesNoPreferenceStyle">@style/Preference.DialogPreference.YesNoPreference</item>
+		<item name="dialogPreferenceStyle">@style/Preference.DialogPreference</item>
+		<item name="editTextPreferenceStyle">@style/Preference.DialogPreference.EditTextPreference</item>
+		<item name="ringtonePreferenceStyle">@style/Preference.RingtonePreference</item>
+		<item name="preferenceLayoutChild">@layout/preference_child</item>
+		<item name="preferencePanelStyle">@style/PreferencePanel</item>
+		<item name="preferenceHeaderPanelStyle">@style/PreferenceHeaderPanel</item>
+		<item name="preferenceListStyle">@style/PreferenceHeaderList</item>
+		<item name="preferenceFragmentListStyle">@style/PreferenceFragmentList</item>
+		<item name="preferenceFragmentPaddingSide">@dimen/preference_fragment_padding_side</item>
+		<item name="detailsElementBackground">@drawable/panel_bg_holo_dark</item>
+	-->
+
+	<!-- Theme for settings screen. -->
+	<style name="Ui.Settings.Theme" parent="Ui.Theme">
+
+		<!-- ## CONFIGURATION ================================================================== -->
+
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+
+		<!-- ## METRICS ======================================================================== -->
+
+		<item name="android:listPreferredItemPaddingLeft">@dimen/ui_settings_list_item_padding_start</item>
+		<item name="android:listPreferredItemPaddingRight">@dimen/ui_settings_list_item_padding_end</item>
+
+		<!-- ## CATEGORIES ===================================================================== -->
+
+		<item name="android:preferenceCategoryStyle">@style/Ui.Settings.Preference.Category</item>
+		<item name="uiSettingCategoryStyle">@style/Ui.Settings.Widget.TextView.Category</item>
+		<item name="uiSettingCategoryDividerBackground">@drawable/ui_settings_bg_category_divider</item>
+		<item name="uiSettingCategoryDividerShadowTop">@drawable/ui_setting_sdw_category_divider_top</item>
+		<item name="uiSettingCategoryDividerShadowBottom">@drawable/ui_setting_sdw_category_divider_bottom</item>
+
+		<!-- ## HEADERS ======================================================================== -->
+
+		<item name="uiSettingHeaderIconStyle">?attr/uiSettingIconStyle</item>
+		<item name="uiSettingHeaderTitleStyle">?attr/uiSettingTitleStyle</item>
+		<item name="uiSettingHeaderSummaryStyle">?attr/uiSettingSummaryStyle</item>
+		<item name="uiSettingHeaderDivider">?attr/uiSettingDivider</item>
+		<item name="uiSettingHeaderDividerHeight">?attr/uiSettingDividerHeight</item>
+
+		<!-- ## PREFERENCES ==================================================================== -->
+
+		<item name="android:preferenceLayoutChild">@layout/ui_setting_preference</item>
+		<item name="android:preferenceStyle">@style/Ui.Settings.Preference</item>
+		<item name="android:preferenceInformationStyle">@style/Ui.Settings.Preference.Information</item>
+		<item name="android:switchPreferenceStyle">@style/Ui.Settings.Preference.Switch</item>
+		<item name="android:checkBoxPreferenceStyle">@style/Ui.Settings.Preference.CheckBox</item>
+		<item name="android:dialogPreferenceStyle">@style/Ui.Settings.DialogPreference</item>
+		<item name="uiSettingSeekBarPreferenceStyle">@style/Ui.Settings.Preference.SeekBar</item>
+		<item name="uiSettingSpinnerPreferenceStyle">@style/Ui.Settings.Preference.Spinner</item>
+		<item name="uiSettingSelectionDialogPreferenceStyle">@style/Ui.Settings.DialogPreference.Selection</item>
+		<item name="uiSettingDateDialogPreferenceStyle">@style/Ui.Settings.DialogPreference.Date</item>
+		<item name="uiSettingTimeDialogPreferenceStyle">@style/Ui.Settings.DialogPreference.Time</item>
+		<item name="uiSettingEditDialogPreferenceStyle">@style/Ui.Settings.DialogPreference.Edit</item>
+		<item name="uiSettingColorDialogPreferenceStyle">@style/Ui.Settings.DialogPreference.Color</item>
+		<item name="uiSettingColorViewStyle">@style/Ui.Settings.ColorView</item>
+
+		<!-- ## WIDGETS ======================================================================== -->
+
+		<item name="android:dropDownSpinnerStyle">@style/Ui.Settings.Widget.Spinner.DropDown</item>
+		<item name="uiSettingsListViewStyle">@style/Ui.Settings.Widget.ListView</item>
+		<item name="uiSettingIconStyle">@style/Ui.Settings.Widget.ImageView.Icon</item>
+		<item name="uiSettingTitleStyle">@style/Ui.Settings.Widget.TextView.Title</item>
+		<item name="uiSettingSummaryStyle">@style/Ui.Settings.Widget.TextView.Summary</item>
+		<item name="uiSettingDivider">@drawable/ui_settings_divider</item>
+		<item name="uiSettingDividerHeight">1dp</item>
+
+		<!-- ### THEMES ======================================================================== -->
+
+		<item name="dialogTheme">@style/Dialog.Theme</item>
+	</style>
+
+	<!-- Light theme for settings screen. -->
+	<style name="Ui.Settings.Theme.Light" parent="Ui.Theme.Light">
+
+		<!-- ## CONFIGURATION ================================================================== -->
+
+		<item name="windowActionBar">false</item>
+		<item name="windowNoTitle">true</item>
+
+		<!-- ## METRICS ======================================================================== -->
+
+		<item name="android:listPreferredItemPaddingLeft">@dimen/ui_settings_list_item_padding_start</item>
+		<item name="android:listPreferredItemPaddingRight">@dimen/ui_settings_list_item_padding_end</item>
+
+		<!-- ## CATEGORIES ===================================================================== -->
+
+		<item name="android:preferenceCategoryStyle">@style/Ui.Settings.Preference.Category</item>
+		<item name="uiSettingCategoryStyle">@style/Ui.Settings.Widget.TextView.Category</item>
+		<item name="uiSettingCategoryDividerBackground">@drawable/ui_settings_bg_category_divider</item>
+		<item name="uiSettingCategoryDividerShadowTop">@drawable/ui_setting_sdw_category_divider_top</item>
+		<item name="uiSettingCategoryDividerShadowBottom">@drawable/ui_setting_sdw_category_divider_bottom</item>
+
+		<!-- ## HEADERS ======================================================================== -->
+
+		<item name="uiSettingHeaderIconStyle">?attr/uiSettingIconStyle</item>
+		<item name="uiSettingHeaderTitleStyle">?attr/uiSettingTitleStyle</item>
+		<item name="uiSettingHeaderSummaryStyle">?attr/uiSettingSummaryStyle</item>
+		<item name="uiSettingHeaderDivider">?attr/uiSettingDivider</item>
+		<item name="uiSettingHeaderDividerHeight">?attr/uiSettingDividerHeight</item>
+
+		<!-- ## PREFERENCES ==================================================================== -->
+
+		<item name="android:preferenceLayoutChild">@layout/ui_setting_preference</item>
+		<item name="android:preferenceStyle">@style/Ui.Settings.Preference</item>
+		<item name="android:preferenceInformationStyle">@style/Ui.Settings.Preference.Information</item>
+		<item name="android:switchPreferenceStyle">@style/Ui.Settings.Preference.Switch</item>
+		<item name="android:checkBoxPreferenceStyle">@style/Ui.Settings.Preference.CheckBox</item>
+		<item name="android:dialogPreferenceStyle">@style/Ui.Settings.DialogPreference</item>
+		<item name="uiSettingSeekBarPreferenceStyle">@style/Ui.Settings.Preference.SeekBar</item>
+		<item name="uiSettingSpinnerPreferenceStyle">@style/Ui.Settings.Preference.Spinner</item>
+		<item name="uiSettingSelectionDialogPreferenceStyle">@style/Ui.Settings.DialogPreference.Selection</item>
+		<item name="uiSettingDateDialogPreferenceStyle">@style/Ui.Settings.DialogPreference.Date</item>
+		<item name="uiSettingTimeDialogPreferenceStyle">@style/Ui.Settings.DialogPreference.Time</item>
+		<item name="uiSettingEditDialogPreferenceStyle">@style/Ui.Settings.DialogPreference.Edit</item>
+		<item name="uiSettingColorDialogPreferenceStyle">@style/Ui.Settings.DialogPreference.Color</item>
+		<item name="uiSettingColorViewStyle">@style/Ui.Settings.ColorView</item>
+
+		<!-- ## WIDGETS ======================================================================== -->
+
+		<item name="android:dropDownSpinnerStyle">@style/Ui.Settings.Widget.Light.Spinner.DropDown</item>
+		<item name="uiSettingsListViewStyle">@style/Ui.Settings.Widget.Light.ListView</item>
+		<item name="uiSettingIconStyle">@style/Ui.Settings.Widget.Light.ImageView.Icon</item>
+		<item name="uiSettingTitleStyle">@style/Ui.Settings.Widget.Light.TextView.Title</item>
+		<item name="uiSettingSummaryStyle">@style/Ui.Settings.Widget.Light.TextView.Summary</item>
+		<item name="uiSettingDivider">@drawable/ui_settings_divider</item>
+		<item name="uiSettingDividerHeight">1dp</item>
+
+		<!-- ### THEMES ======================================================================== -->
+
+		<item name="dialogTheme">@style/Dialog.Theme.Light</item>
+	</style>
+</resources>

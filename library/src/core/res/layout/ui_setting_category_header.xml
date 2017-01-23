@@ -19,6 +19,14 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<universum.studios.android.ui.widget.TextViewWidget android:id="@android:id/title"
+												 style="?attr/uiSettingCategoryStyle"
+												 xmlns:android="http://schemas.android.com/apk/res/android"
+												 xmlns:tools="http://schemas.android.com/tools"
+												 android:layout_width="match_parent"
+												 android:layout_height="wrap_content"
+												 android:paddingBottom="?attr/uiSpacingSecondary"
+												 android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+												 android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+												 android:paddingTop="?attr/uiSpacingSecondary"
+												 tools:text="Category header" />

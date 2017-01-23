@@ -19,6 +19,21 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<resources>
+
+	<!-- Settings input theme attributes. -->
+	<declare-styleable name="Ui.Settings.Theme.Input">
+		<!-- Style for SettingEditDialogPreference preference. -->
+		<attr name="uiSettingEditDialogPreferenceStyle" format="reference"/>
+	</declare-styleable>
+
+	<!-- SettingEditDialogPreference attributes. -->
+	<declare-styleable name="Ui.Settings.EditDialogPreference">
+		<!-- Re-used. -->
+		<attr name="dialogHint"/>
+		<!-- Re-used. -->
+		<attr name="dialogInputStyle"/>
+		<!-- Re-used. -->
+		<attr name="dialogShowSoftKeyboard"/>
+	</declare-styleable>
+</resources>

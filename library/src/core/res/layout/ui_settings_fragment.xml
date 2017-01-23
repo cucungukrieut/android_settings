@@ -19,6 +19,27 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<universum.studios.android.ui.widget.FrameLayoutWidget xmlns:android="http://schemas.android.com/apk/res/android"
+													xmlns:tools="http://schemas.android.com/tools"
+													android:layout_width="match_parent"
+													android:layout_height="match_parent">
+
+	<universum.studios.android.ui.widget.EmptyView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		tools:text="No preferences"
+		tools:visibility="invisible" />
+
+	<universum.studios.android.ui.widget.ListViewWidget
+		android:id="@android:id/list"
+		style="?attr/uiSettingsListViewStyle"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:cacheColorHint="@android:color/transparent"
+		android:clipToPadding="false"
+		android:drawSelectorOnTop="false"
+		android:scrollbarAlwaysDrawVerticalTrack="true"
+		tools:listitem="@layout/ui_setting_preference"
+		tools:visibility="visible" />
+</universum.studios.android.ui.widget.FrameLayoutWidget>

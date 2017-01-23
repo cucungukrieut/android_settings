@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
 /*
  * =================================================================================================
  *                             Copyright (C) 2017 Universum Studios
  * =================================================================================================
  *         Licensed under the Apache License, Version 2.0 or later (further "License" only).
- * *************************************************************************************************
+ * -------------------------------------------------------------------------------------------------
  * You may use this file only in compliance with the License. More details and copy of this License
  * you may obtain at
  *
@@ -18,7 +16,7 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * =================================================================================================
  */
--->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+/**
+ * @author Martin Albedinsky
+ */
+package universum.studios.android.setting.widget;

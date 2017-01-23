@@ -19,6 +19,14 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.setting">
-	<application/>
-</manifest>
+<resources>
+
+	<!-- ### METRICS =========================================================================== -->
+
+	<dimen name="ui_settings_list_item_padding_start">32dp</dimen>
+	<dimen name="ui_settings_list_item_padding_end">32dp</dimen>
+
+	<!-- ### SETTINGS ========================================================================== -->
+
+	<dimen name="ui_settings_list_view_padding_horizontal">72dp</dimen>
+</resources>
