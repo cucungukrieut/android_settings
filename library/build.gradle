@@ -27,6 +27,7 @@ android {
 
     defaultConfig {
         minSdkVersion project.property('library.minSdkVersion')
+        consumerProguardFiles 'proguard-rules.pro'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,9 +42,26 @@ android {
     }
 
     sourceSets {
+        main.manifest.srcFile 'src/main/AndroidManifest.xml'
         main.java.srcDirs = [
                 'src/main/java',
-                '../library-core/src/main/java',
+                'src/core/java',
+                'src/common/java',
+                'src/dialog/base/java',
+                'src/dialog/collection/java',
+                'src/dialog/input/java',
+                'src/dialog/picker/color/java',
+                'src/dialog/picker/datetime/java'
+        ]
+        main.res.srcDirs = [
+                'src/main/res',
+                'src/core/res',
+                'src/common/res',
+                'src/dialog/base/res',
+                'src/dialog/collection/res',
+                'src/dialog/input/res',
+                'src/dialog/picker/color/res',
+                'src/dialog/picker/datetime/res'
         ]
     }
 
@@ -66,6 +84,14 @@ dependencies {
      * RELEASE DEPENDENCIES ------------------------------------------------------------------------
      */
     compile 'com.android.support:support-annotations:' + supportVersion
+    compile 'com.android.support:appcompat-v7:' + supportVersion
+    compile 'com.android.support:support-vector-drawable:' + supportVersion
+    compile 'com.android.support:recyclerview-v7:' + supportVersion
+    compile 'universum.studios.android:widget-adapters-core:1.0.0@aar'
+    compile 'universum.studios.android:widget-adapters-list:1.0.0@aar'
+    compile 'universum.studios.android:widget-adapters-spinner:1.0.0@aar'
+    compile 'universum.studios.android:ui:0.9.0@aar'
+    compile 'universum.studios.android:dialogs:0.9.0@aar'
 
     /*
      * TEST DEPENDENCIES ---------------------------------------------------------------------------
@@ -87,9 +113,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
 }
-
-// Apply all modules configuration.
-apply from: 'gradle/module-all.gradle'
 
 // Apply PUBLISH script.
 apply from: '../publish/publish.gradle'
