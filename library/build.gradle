@@ -35,6 +35,9 @@ android {
         release {
             minifyEnabled false
         }
+        modules {
+            minifyEnabled false
+        }
         debug {
             minifyEnabled false
             testCoverageEnabled true
@@ -42,8 +45,7 @@ android {
     }
 
     sourceSets {
-        main.manifest.srcFile 'src/main/AndroidManifest.xml'
-        main.java.srcDirs = [
+        release.java.srcDirs = [
                 'src/main/java',
                 'src/core/java',
                 'src/common/java',
@@ -53,7 +55,8 @@ android {
                 'src/dialog/picker/color/java',
                 'src/dialog/picker/datetime/java'
         ]
-        main.res.srcDirs = [
+        debug.java.srcDirs = release.java.srcDirs
+        release.res.srcDirs = [
                 'src/main/res',
                 'src/core/res',
                 'src/common/res',
@@ -63,6 +66,7 @@ android {
                 'src/dialog/picker/color/res',
                 'src/dialog/picker/datetime/res'
         ]
+        debug.res.srcDirs = release.res.srcDirs
     }
 
     compileOptions {
@@ -86,7 +90,6 @@ dependencies {
     compile 'com.android.support:support-annotations:' + supportVersion
     compile 'com.android.support:appcompat-v7:' + supportVersion
     compile 'com.android.support:support-vector-drawable:' + supportVersion
-    compile 'com.android.support:recyclerview-v7:' + supportVersion
     compile 'universum.studios.android:widget-adapters-core:1.0.0@aar'
     compile 'universum.studios.android:widget-adapters-list:1.0.0@aar'
     compile 'universum.studios.android:widget-adapters-spinner:1.0.0@aar'

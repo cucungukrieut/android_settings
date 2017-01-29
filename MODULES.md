@@ -22,6 +22,7 @@ as usually.
         }
     }
 
-**[Core](https://github.com/universum-studios/android_settings/tree/master/library/src/main)**
+## Available modules ##
+> Following modules are available in the [latest](https://github.com/universum-studios/android_settings/releases "Latest Releases page") release.
 
-    compile 'universum.studios.android:settings-core:1.0.0@aar'
+- **[Core](https://github.com/universum-studios/android_settings/tree/master/library-core)**

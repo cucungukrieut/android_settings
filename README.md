@@ -1,4 +1,4 @@
-Android Settings
+Settings
 ===============
 
 ## Download ##
@@ -16,6 +16,14 @@ Available from the **Android [API Level 14](http://developer.android.com/about/v
 ### Dependencies ###
 
 - [`com.android.support:support-annotations`](https://developer.android.com/topic/libraries/support-library/packages.html#annotations)
+- [`com.android.support:support-v4`](https://developer.android.com/topic/libraries/support-library/packages.html#v4)
+- [`com.android.support:appcompat-v7`](https://developer.android.com/topic/libraries/support-library/packages.html#v7)
+- [`com.android.support:support-vector-drawable`](https://developer.android.com/topic/libraries/support-library/packages.html#vector-drawable)
+- [`universum.studios.android:widget-adapters-core`](https://github.com/universum-studios/android_widget_adapters/MODULES.md)
+- [`universum.studios.android:widget-adapters-list`](https://github.com/universum-studios/android_widget_adapters/MODULES.md)
+- [`universum.studios.android:widget-adapters-spinner`](https://github.com/universum-studios/android_widget_adapters/MODULES.md)
+- [`universum.studios.android:ui`](https://github.com/universum-studios/android_widget_ui)
+- [`universum.studios.android:dialogs`](https://github.com/universum-studios/android_widget_dialogs)
 
 ## License ##
 

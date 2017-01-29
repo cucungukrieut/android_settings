@@ -16,4 +16,12 @@
 # See the License for the specific language governing permissions and limitations under the License.
 # ==================================================================================================
 ##
-# No rules are required.
+# Keep names of all classes and theris methods form the Settings package.
+-keepnames class universum.studios.android.setting.** { *; }
+# Keep constructors for all setting widgets.
+-keepclasseswithmembers class universum.studios.android.setting.widget.** {
+    public <init>(android.content.Context);
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+    public <init>(android.content.Context, android.util.AttributeSet, int, int);
+}

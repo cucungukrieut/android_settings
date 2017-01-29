@@ -14,7 +14,15 @@ added in the future.**
 
 > Use below rules to keep **"sensitive"** source code of the library.
 
-    # No special rules are required. Library may be fully obfuscated.
+    # Keep names of all classes and theris methods form the Settings package.
+    -keepnames class universum.studios.android.setting.** { *; }
+    # Keep constructors for all setting widgets.
+    -keepclasseswithmembers class universum.studios.android.setting.widget.** {
+        public <init>(android.content.Context);
+        public <init>(android.content.Context, android.util.AttributeSet);
+        public <init>(android.content.Context, android.util.AttributeSet, int);
+        public <init>(android.content.Context, android.util.AttributeSet, int, int);
+    }
 
 > Use below rules to keep **entire** source code of the library.
 
