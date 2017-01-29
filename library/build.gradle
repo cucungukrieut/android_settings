@@ -46,25 +46,34 @@ android {
 
     sourceSets {
         release.java.srcDirs = [
-                'src/main/java',
-                'src/core/java',
-                'src/common/java',
-                'src/dialog/base/java',
-                'src/dialog/collection/java',
-                'src/dialog/input/java',
-                'src/dialog/picker/color/java',
-                'src/dialog/picker/datetime/java'
+                '../library-core/src/main/java',
+                '../library-activity/src/main/java',
+                '../library-fragment/src/main/java',
+                '../library-dialog-base/src/main/java',
+                '../library-dialog-collection/src/main/java',
+                '../library-dialog-color/src/main/java',
+                '../library-dialog-datetime/src/main/java',
+                '../library-dialog-edit/src/main/java',
+                '../library-empty/src/main/java',
+                '../library-menu/src/main/java',
+                '../library-selection/src/main/java',
+                '../library-slider/src/main/java'
         ]
         debug.java.srcDirs = release.java.srcDirs
         release.res.srcDirs = [
                 'src/main/res',
-                'src/core/res',
-                'src/common/res',
-                'src/dialog/base/res',
-                'src/dialog/collection/res',
-                'src/dialog/input/res',
-                'src/dialog/picker/color/res',
-                'src/dialog/picker/datetime/res'
+                '../library-core/src/main/res',
+                '../library-activity/src/main/res',
+                '../library-fragment/src/main/res',
+                '../library-dialog-base/src/main/res',
+                '../library-dialog-collection/src/main/res',
+                '../library-dialog-color/src/main/res',
+                '../library-dialog-datetime/src/main/res',
+                '../library-dialog-edit/src/main/res',
+                '../library-empty/src/main/res',
+                '../library-menu/src/main/res',
+                '../library-selection/src/main/res',
+                '../library-slider/src/main/res'
         ]
         debug.res.srcDirs = release.res.srcDirs
     }

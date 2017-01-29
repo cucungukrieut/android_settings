@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * =================================================================================================
+ *                             Copyright (C) 2017 Universum Studios
+ * =================================================================================================
+ *         Licensed under the Apache License, Version 2.0 or later (further "License" only).
+ * *************************************************************************************************
+ * You may use this file only in compliance with the License. More details and copy of this License
+ * you may obtain at
+ *
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * You can redistribute, modify or publish any part of the code written within this file but as it
+ * is described in the License, the software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES or CONDITIONS OF ANY KIND.
+ *
+ * See the License for the specific language governing permissions and limitations under the License.
+ * =================================================================================================
+ */
+-->
+<resources>
+
+	<!-- todo: Move these attributes to the UI library. -->
+	<declare-styleable name="Ui.Attrs">
+		<attr name="uiVectorIcon" format="reference"/>
+	</declare-styleable>
+
+	<!-- Settings attributes. -->
+	<declare-styleable name="Ui.Settings">
+		<!-- Format to be used to format date value. -->
+		<attr name="uiSettingDateFormat" format="string"/>
+	</declare-styleable>
+
+	<!-- Settings theme attributes. -->
+	<declare-styleable name="Ui.Settings.Theme">
+
+		<!-- ## CONTEXT ======================================================================== -->
+
+		<!-- Style for SettingsActivity. -->
+		<attr name="uiSettingsActivityStyle" format="reference"/>
+		<!-- Style for SettingsFragment. -->
+		<attr name="uiSettingsFragmentStyle" format="reference"/>
+
+		<!-- ## CATEGORIES ===================================================================== -->
+
+		<!-- Background for settings category divider displayed behind top and bottom shadow. -->
+		<attr name="uiSettingCategoryDividerBackground" format="reference"/>
+		<!-- Top shadow for settings category divider. -->
+		<attr name="uiSettingCategoryDividerShadowTop" format="reference"/>
+		<!-- Bottom shadow for settings category divider. Note, that this shadow is not displayed for the last divider. -->
+		<attr name="uiSettingCategoryDividerShadowBottom" format="reference"/>
+
+		<!-- ## HEADERS ======================================================================== -->
+
+		<!-- Style for icon ImageView widget of settings header item. -->
+		<attr name="uiSettingHeaderIconStyle" format="reference"/>
+		<!-- Style for title TextView widget of settings header item. -->
+		<attr name="uiSettingHeaderTitleStyle" format="reference"/>
+		<!-- Style for summary TextView widget of settings header item. -->
+		<attr name="uiSettingHeaderSummaryStyle" format="reference"/>
+		<!-- Divider for settings header's collection view. -->
+		<attr name="uiSettingHeaderDivider" format="reference"/>
+		<!-- Height of divider for settings header's collection view. -->
+		<attr name="uiSettingHeaderDividerHeight" format="dimension"/>
+
+		<!-- ## SETTINGS ======================================================================= -->
+
+		<!-- Style for ListView widget presenting collection of settings. -->
+		<attr name="uiSettingsListViewStyle" format="reference"/>
+		<!-- Style for TextView widget displaying settings category text. -->
+		<attr name="uiSettingCategoryStyle" format="reference"/>
+		<!-- Style for icon ImageView widget of setting item. -->
+		<attr name="uiSettingIconStyle" format="reference"/>
+		<!-- Style for title TextView widget of setting item. -->
+		<attr name="uiSettingTitleStyle" format="reference"/>
+		<!-- Style for summary TextView widget of setting item. -->
+		<attr name="uiSettingSummaryStyle" format="reference"/>
+		<!-- Divider for single setting item. -->
+		<attr name="uiSettingDivider" format="reference"/>
+		<!-- Height of divider for single setting item. -->
+		<attr name="uiSettingDividerHeight" format="dimension"/>
+	</declare-styleable>
+
+	<!-- SettingsPreference attributes. -->
+	<declare-styleable name="Ui.Settings.Preference">
+		<!-- Re-used. -->
+		<attr name="uiVectorIcon"/>
+	</declare-styleable>
+</resources>

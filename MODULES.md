@@ -26,3 +26,14 @@ as usually.
 > Following modules are available in the [latest](https://github.com/universum-studios/android_settings/releases "Latest Releases page") release.
 
 - **[Core](https://github.com/universum-studios/android_settings/tree/master/library-core)**
+- **[Activity](https://github.com/universum-studios/android_settings/tree/master/library-activity)**
+- **[Fragment](https://github.com/universum-studios/android_settings/tree/master/library-fragment)**
+- **[Selection](https://github.com/universum-studios/android_settings/tree/master/library-selection)**
+- **[Menu](https://github.com/universum-studios/android_settings/tree/master/library-menu)**
+- **[Empty](https://github.com/universum-studios/android_settings/tree/master/library-empty)**
+- **[@Dialog](https://github.com/universum-studios/android_settings/tree/master/library-dialog_group)**
+- **[Dialog-Base](https://github.com/universum-studios/android_settings/tree/master/library-dialog-base)**
+- **[Dialog-Collection](https://github.com/universum-studios/android_settings/tree/master/library-dialog-collection)**
+- **[Dialog-Edit](https://github.com/universum-studios/android_settings/tree/master/library-dialog-edit)**
+- **[Dialog-DateTime](https://github.com/universum-studios/android_settings/tree/master/library-dialog-datetime)**
+- **[Dialog-Color](https://github.com/universum-studios/android_settings/tree/master/library-dialog-color)**
