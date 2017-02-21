@@ -35,8 +35,10 @@ android {
         release {
             minifyEnabled false
         }
-        modules {
-            minifyEnabled false
+        if (!Boolean.parseBoolean(System.getenv('TRAVIS'))) {
+            modules {
+                minifyEnabled false
+            }
         }
         debug {
             minifyEnabled false
