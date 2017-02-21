@@ -21,11 +21,6 @@
 -->
 <resources>
 
-	<!-- todo: Move these attributes to the UI library. -->
-	<declare-styleable name="Ui.Attrs">
-		<attr name="uiVectorIcon" format="reference"/>
-	</declare-styleable>
-
 	<!-- Settings attributes. -->
 	<declare-styleable name="Ui.Settings">
 		<!-- Format to be used to format date value. -->
