@@ -34,7 +34,6 @@ import android.view.View;
 import universum.studios.android.dialog.Dialog;
 import universum.studios.android.dialog.EditDialog;
 import universum.studios.android.dialog.view.InputConfig;
-import universum.studios.android.setting.R;
 
 /**
  * A {@link SettingDialogPreference} implementation that may be used to allow to a user to specify

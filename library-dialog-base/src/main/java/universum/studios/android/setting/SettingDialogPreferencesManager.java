@@ -33,7 +33,6 @@ import android.util.SparseArray;
 import universum.studios.android.dialog.Dialog;
 import universum.studios.android.dialog.manage.DialogController;
 import universum.studios.android.dialog.manage.DialogXmlFactory;
-import universum.studios.android.setting.R;
 
 /**
  * Manager that may be used to manage {@link SettingDialogPreference dialog prefernces} presented on

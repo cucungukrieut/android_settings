@@ -63,7 +63,12 @@ dependencies {
      * RELEASE DEPENDENCIES ------------------------------------------------------------------------
      */
     compile releaseDependencies.androidSupportAnnotations
-    // todo: releaseCompile "universum.studios.android:settings-core:${libraryVersion}@aar"
+    compile releaseDependencies.androidSupportAppCompatV7
+    compile releaseDependencies.androidUniversumUi
+    compile releaseDependencies.androidUniversumWidgetAdaptersCore
+    compile releaseDependencies.androidUniversumWidgetAdaptersListBase
+    compile releaseDependencies.androidUniversumWidgetAdaptersSpinner
+    releaseCompile "universum.studios.android:settings-core:${libraryVersion}@aar"
 
     /*
      * DEBUG DEPENDENCIES --------------------------------------------------------------------------

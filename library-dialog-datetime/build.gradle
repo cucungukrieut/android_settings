@@ -66,13 +66,12 @@ dependencies {
     compile releaseDependencies.androidSupportAppCompatV7
     compile releaseDependencies.androidUniversumUi
     compile releaseDependencies.androidUniversumDialogs
-    // todo: releaseCompile "universum.studios.android:settings-core:${libraryVersion}@aar"
-    // todo: releaseCompile "universum.studios.android:settings-dialog-base:${libraryVersion}@aar"
+    releaseCompile "universum.studios.android:settings-core:${libraryVersion}@aar"
+    releaseCompile "universum.studios.android:settings-dialog-base:${libraryVersion}@aar"
 
     /*
      * DEBUG DEPENDENCIES --------------------------------------------------------------------------
      */
-    debugCompile project(':library-core')
     debugCompile project(':library-dialog-base')
 }
 

@@ -61,7 +61,6 @@ android {
         ]
         debug.java.srcDirs = release.java.srcDirs
         release.res.srcDirs = [
-                'src/main/res',
                 '../library-core/src/main/res',
                 '../library-activity/src/main/res',
                 '../library-fragment/src/main/res',

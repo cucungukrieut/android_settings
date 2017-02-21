@@ -24,8 +24,8 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
-import universum.studios.android.setting.R;
 import universum.studios.android.setting.SettingSwitchPreference;
+import universum.studios.android.setting.R;
 import universum.studios.android.ui.widget.SwitchWidget;
 
 /**

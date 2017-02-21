@@ -21,6 +21,7 @@ ext {
             androidSupportVectorDrawable: "com.android.support:support-vector-drawable:${androidSupportVersion}",
             androidUniversumWidgetAdaptersCore: "universum.studios.android:widget-adapters-core:${androidUniversumWidgetAdaptersVersion}@aar",
             androidUniversumWidgetAdaptersList: "universum.studios.android:widget-adapters-list:${androidUniversumWidgetAdaptersVersion}@aar",
+            androidUniversumWidgetAdaptersListBase: "universum.studios.android:widget-adapters-list-base:${androidUniversumWidgetAdaptersVersion}@aar",
             androidUniversumWidgetAdaptersSpinner: "universum.studios.android:widget-adapters-spinner:${androidUniversumWidgetAdaptersVersion}@aar",
             androidUniversumUi: "universum.studios.android:ui:${androidUniversumUiVersion}@aar",
             androidUniversumDialogs: "universum.studios.android:dialogs:${androidUniversumDialogsVersion}@aar"
