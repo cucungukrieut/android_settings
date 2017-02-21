@@ -3,6 +3,7 @@ Settings
 
 [![Build Status](https://travis-ci.org/universum-studios/android_settings.svg?branch=master)](https://travis-ci.org/universum-studios/android_settings)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/562af4ff63714b9ebb626350598774d4)](https://www.codacy.com/app/universum-studios/android_settings?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=universum-studios/android_settings&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/562af4ff63714b9ebb626350598774d4)](https://www.codacy.com/app/universum-studios/android_settings?utm_source=github.com&utm_medium=referral&utm_content=universum-studios/android_settings&utm_campaign=Badge_Coverage)
 
 ## Download ##
 [![Download](https://api.bintray.com/packages/universum-studios/android/universum.studios.android%3Asettings/images/download.svg)](https://bintray.com/universum-studios/android/universum.studios.android%3Asettings/_latestVersion)
