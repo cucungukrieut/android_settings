@@ -1,17 +1,21 @@
 Settings
 ===============
 
-## Download ##
+[![Build Status](https://travis-ci.org/universum-studios/android_settings.svg?branch=master)](https://travis-ci.org/universum-studios/android_settings)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/562af4ff63714b9ebb626350598774d4)](https://www.codacy.com/app/universum-studios/android_settings?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=universum-studios/android_settings&amp;utm_campaign=Badge_Grade)
 
-Download the latest **[release](https://github.com/universum-studios/android_settings/releases/tag/0.9.0 "Latest Releases page")** or **add as dependency** in your project via:
+## Download ##
+[![Download](https://api.bintray.com/packages/universum-studios/android/universum.studios.android%3Asettings/images/download.svg)](https://bintray.com/universum-studios/android/universum.studios.android%3Asettings/_latestVersion)
+
+Download the latest **[release](https://github.com/universum-studios/android_settings/releases "Latest Releases page")** or **add as dependency** in your project via:
 
 ### Gradle ###
 
-    compile 'universum.studios.android:settings:0.9.0@aar'
+    compile "universum.studios.android:settings:${DESIRED_VERSION}@aar"
 
 ## Compatibility ##
 
-Available from the **Android [API Level 14](http://developer.android.com/about/versions/android-4.0.html "See API highlights")**.
+Supported down to the **Android [API Level 14](http://developer.android.com/about/versions/android-4.0.html "See API highlights")**.
 
 ### Dependencies ###
 
@@ -22,8 +26,8 @@ Available from the **Android [API Level 14](http://developer.android.com/about/v
 - [`universum.studios.android:widget-adapters-core`](https://github.com/universum-studios/android_widget_adapters/MODULES.md)
 - [`universum.studios.android:widget-adapters-list`](https://github.com/universum-studios/android_widget_adapters/MODULES.md)
 - [`universum.studios.android:widget-adapters-spinner`](https://github.com/universum-studios/android_widget_adapters/MODULES.md)
-- [`universum.studios.android:ui`](https://github.com/universum-studios/android_widget_ui)
-- [`universum.studios.android:dialogs`](https://github.com/universum-studios/android_widget_dialogs)
+- [`universum.studios.android:ui`](https://github.com/universum-studios/android_ui)
+- [`universum.studios.android:dialogs`](https://github.com/universum-studios/android_dialogs)
 
 ## License ##
 

@@ -31,34 +31,30 @@ task classesJar(type: Jar) {
  */
 task generateJavadoc(type: Javadoc) {
     source isModule ? android.sourceSets.main.java.sourceFiles : android.sourceSets.release.java.sourceFiles
-    def Properties properties = new Properties()
-    properties.load(project.rootProject.file('local.properties').newDataInputStream())
-    def String sdkDir = properties.getProperty('sdk.dir')
     options {
         author = true
         memberLevel = JavadocMemberLevel.PROTECTED
         header = project.property('maven.pom.project.name') + ' ' + project.property('maven.pom.version') + ' Documentation'
-        links 'http://docs.oracle.com/javase/8/docs/api/'
-        linksOffline 'http://developer.android.com/reference', sdkDir + '\\docs\\reference'
+        links "http://docs.oracle.com/javase/8/docs/api/"
+        linksOffline "http://developer.android.com/reference", "${android.sdkDirectory}\\docs\\reference"
     }
     if (JavaVersion.current().isJava8Compatible()) {
         // Uncomment this when Javadoc tool outputs some (not resolvable) errors like 'reference not found for R.attr#...'.
         //options.addStringOption('Xdoclint:none', '-quiet')
     }
     // Append class path with dependencies.
-    def String mavenLocalDir = project.property('maven.url.local')
-    def String supportVersion = project.property('android.support.version')
+    final String mavenLocalDirectory = System.getenv('MAVEN_URL_LOCAL')
     classpath += files(
             android.getBootClasspath(),
-            sdkDir + '\\extras\\android\\m2repository\\com\\android\\support\\support-annotations\\' + supportVersion + '\\support-annotations-' + supportVersion + '.jar',
-            sdkDir + '\\extras\\android\\m2repository\\com\\android\\support\\support-v4\\' + supportVersion + '\\support-v4-' + supportVersion + '-sources.jar',
-            sdkDir + '\\extras\\android\\m2repository\\com\\android\\support\\appcompat-v7\\' + supportVersion + '\\appcompat-v7-' + supportVersion + '-sources.jar',
-            sdkDir + '\\extras\\android\\m2repository\\com\\android\\support\\support-vector-drawable\\' + supportVersion + '\\support-vector-drawable-' + supportVersion + '-sources.jar',
-            mavenLocalDir + '\\universum\\studios\\android\\widget-adapters-core\\1.0.0\\widget-adapters-core-1.0.0-sources.jar',
-            mavenLocalDir + '\\universum\\studios\\android\\widget-adapters-list\\1.0.0\\widget-adapters-list-1.0.0-sources.jar',
-            mavenLocalDir + '\\universum\\studios\\android\\widget-adapters-spinner\\1.0.0\\widget-adapters-spinner-1.0.0-sources.jar',
-            mavenLocalDir + '\\universum\\studios\\android\\ui\\0.9.0\\ui-0.9.0-sources.jar',
-            mavenLocalDir + '\\universum\\studios\\android\\dialogs\\0.9.0\\dialogs-0.9.0-sources.jar'
+            "${android.sdkDirectory}\\extras\\android\\m2repository\\com\\android\\support\\support-annotations\\${androidSupportVersion}\\support-annotations-${androidSupportVersion}.jar",
+            "${android.sdkDirectory}\\extras\\android\\m2repository\\com\\android\\support\\support-v4\\${androidSupportVersion}\\support-v4-${androidSupportVersion}-sources.jar",
+            "${android.sdkDirectory}\\extras\\android\\m2repository\\com\\android\\support\\appcompat-v7\\${androidSupportVersion}\\appcompat-v7-${androidSupportVersion}-sources.jar",
+            "${android.sdkDirectory}\\extras\\android\\m2repository\\com\\android\\support\\support-vector-drawable\\${androidSupportVersion}\\support-vector-drawable-${androidSupportVersion}-sources.jar",
+            "${mavenLocalDirectory}\\universum\\studios\\android\\widget-adapters-core\\${androidUniversumWidgetAdaptersVersion}\\widget-adapters-core-${androidUniversumWidgetAdaptersVersion}-sources.jar",
+            "${mavenLocalDirectory}\\universum\\studios\\android\\widget-adapters-list\\${androidUniversumWidgetAdaptersVersion}\\widget-adapters-list-${androidUniversumWidgetAdaptersVersion}-sources.jar",
+            "${mavenLocalDirectory}\\universum\\studios\\android\\widget-adapters-spinner\\${androidUniversumWidgetAdaptersVersion}\\widget-adapters-spinner-${androidUniversumWidgetAdaptersVersion}-sources.jar",
+            "${mavenLocalDirectory}\\universum\\studios\\android\\ui\\${androidUniversumUiVersion}\\ui-${androidUniversumUiVersion}-sources.jar",
+            "${mavenLocalDirectory}\\universum\\studios\\android\\dialogs\\${androidUniversumDialogsVersion}\\dialogs-${androidUniversumDialogsVersion}-sources.jar"
     )
     failOnError false
 }

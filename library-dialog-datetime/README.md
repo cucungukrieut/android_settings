@@ -5,7 +5,7 @@ Settings-Dialog-DateTime
 
 ### Gradle ###
 
-    compile 'universum.studios.android:settings-dialog-datetime:0.9.0@aar'
+    compile "universum.studios.android:settings-dialog-datetime:${DESIRED_VERSION}@aar"
 
 _depends on:_
 [settings-core](https://github.com/universum-studios/android_settings/tree/master/library-core),

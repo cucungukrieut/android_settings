@@ -5,7 +5,7 @@ Settings-Fragment
 
 ### Gradle ###
 
-    compile 'universum.studios.android:settings-fragment:0.9.0@aar'
+    compile "universum.studios.android:settings-fragment:${DESIRED_VERSION}@aar"
 
 _depends on:_
 [settings-core](https://github.com/universum-studios/android_settings/tree/master/library-core)

@@ -5,7 +5,7 @@ Settings-Dialog-Collection
 
 ### Gradle ###
 
-    compile 'universum.studios.android:settings-dialog-collection:0.9.0@aar'
+    compile "universum.studios.android:settings-dialog-collection:${DESIRED_VERSION}@aar"
 
 _depends on:_
 [settings-core](https://github.com/universum-studios/android_settings/tree/master/library-core),

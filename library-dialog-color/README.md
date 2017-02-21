@@ -5,7 +5,7 @@ Settings-Dialog-Color
 
 ### Gradle ###
 
-    compile 'universum.studios.android:settings-dialog-color:0.9.0@aar'
+    compile "universum.studios.android:settings-dialog-color:${DESIRED_VERSION}@aar"
 
 _depends on:_
 [settings-core](https://github.com/universum-studios/android_settings/tree/master/library-core),

@@ -18,14 +18,13 @@
  */
 package universum.studios.android.setting;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Martin Albedinsky
@@ -33,11 +32,15 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public final class SettingsConfigTest {
 
-	@Test
-	public void useAppContext() throws Exception {
-		// Context of the app under test.
-		Context appContext = InstrumentationRegistry.getTargetContext();
+	/**
+	 * Log TAG.
+	 */
+	@SuppressWarnings("unused")
+	private static final String TAG = "SettingsConfigTest";
 
-		assertEquals("universum.studios.android.setting.test", appContext.getPackageName());
+	@Test
+	public void testConfiguration() {
+		assertThat(SettingsConfig.LOG_ENABLED, is(true));
+		assertThat(SettingsConfig.DEBUG_LOG_ENABLED, is(false));
 	}
 }
