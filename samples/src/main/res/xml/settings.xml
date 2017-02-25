@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * =================================================================================================
+ *                             Copyright (C) 2017 Universum Studios
+ * =================================================================================================
+ *         Licensed under the Apache License, Version 2.0 or later (further "License" only).
+ * *************************************************************************************************
+ * You may use this file only in compliance with the License. More details and copy of this License
+ * you may obtain at
+ *
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * You can redistribute, modify or publish any part of the code written within this file but as it
+ * is described in the License, the software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES or CONDITIONS OF ANY KIND.
+ *
+ * See the License for the specific language governing permissions and limitations under the License.
+ * =================================================================================================
+ */
+-->
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- Wireless & networks =================================================================== -->
+
+	<header android:title="@string/settings_wireless_and_networks_category" />
+
+	<header
+		android:fragment="universum.studios.android.samples.setting.ui.fragment.EmptySettingsFragment"
+		android:icon="@drawable/vc_wifi"
+		android:title="@string/settings_wireless_and_networks_wifi_title" />
+
+	<header
+		android:fragment="universum.studios.android.samples.setting.ui.fragment.EmptySettingsFragment"
+		android:icon="@drawable/vc_bluetooth"
+		android:title="@string/settings_wireless_and_networks_bluetooth_title" />
+
+	<header
+		android:fragment="universum.studios.android.samples.setting.ui.fragment.EmptySettingsFragment"
+		android:icon="@drawable/vc_data_usage"
+		android:title="@string/settings_wireless_and_networks_data_usage_title" />
+
+	<header
+		android:fragment="universum.studios.android.samples.setting.ui.fragment.EmptySettingsFragment"
+		android:icon="@drawable/vc_more_horiz"
+		android:title="@string/settings_wireless_and_networks_more_title" />
+
+	<!-- Device ================================================================================ -->
+
+	<header android:title="@string/settings_device_category" />
+
+	<header
+		android:fragment="universum.studios.android.samples.setting.ui.fragment.device.DisplaySettingsFragment"
+		android:icon="@drawable/vc_brightness"
+		android:title="@string/settings_device_display_title" />
+
+	<header
+		android:fragment="universum.studios.android.samples.setting.ui.fragment.EmptySettingsFragment"
+		android:icon="@drawable/vc_notifications"
+		android:title="@string/settings_device_sound_and_notification_title" />
+
+	<header
+		android:fragment="universum.studios.android.samples.setting.ui.fragment.EmptySettingsFragment"
+		android:icon="@drawable/vc_apps"
+		android:title="@string/settings_device_apps_title" />
+
+	<header
+		android:fragment="universum.studios.android.samples.setting.ui.fragment.EmptySettingsFragment"
+		android:icon="@drawable/vc_storage"
+		android:title="@string/settings_device_storage_and_usb" />
+
+	<header
+		android:fragment="universum.studios.android.samples.setting.ui.fragment.EmptySettingsFragment"
+		android:icon="@drawable/vc_battery"
+		android:title="@string/settings_device_battery_title" />
+
+	<header
+		android:fragment="universum.studios.android.samples.setting.ui.fragment.EmptySettingsFragment"
+		android:icon="@drawable/vc_memory"
+		android:title="@string/settings_device_memory_title" />
+
+	<header
+		android:fragment="universum.studios.android.samples.setting.ui.fragment.EmptySettingsFragment"
+		android:icon="@drawable/vc_preson"
+		android:title="@string/settings_device_users_title" />
+
+	<header
+		android:fragment="universum.studios.android.samples.setting.ui.fragment.EmptySettingsFragment"
+		android:icon="@drawable/vc_tap_and_pay"
+		android:title="@string/settings_device_tap_and_pay" />
+</preference-headers>

@@ -107,6 +107,7 @@ dependencies {
     compile releaseDependencies.androidUniversumWidgetAdaptersCore
     compile releaseDependencies.androidUniversumWidgetAdaptersList
     compile releaseDependencies.androidUniversumWidgetAdaptersSpinner
+    compile releaseDependencies.androidUniversumGraphicsColorUtil
     compile releaseDependencies.androidUniversumUi
     compile releaseDependencies.androidUniversumDialogs
 

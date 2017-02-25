@@ -19,28 +19,24 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.samples.setting"
-		  xmlns:android="http://schemas.android.com/apk/res/android">
+<!--suppress AndroidElementNotAllowed -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<application
-		android:allowBackup="true"
-		android:icon="@mipmap/samples_ic_launcher"
-		android:label="@string/app_name"
-		android:supportsRtl="true"
-		android:theme="@style/Theme">
+	<!--
+		Add empty preference at the top of preferences hierarchy so for example animations for the
+		switch preference below will work properly.
+	-->
+	<universum.studios.android.setting.SettingEmptyPreference />
 
-		<activity
-			android:name=".ui.MainActivity"
-			android:theme="@style/Theme.Navigation">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
+	<universum.studios.android.setting.SettingSwitchPreference
+		android:key="@string/preference_display_adaptive_brightness"
+		android:title="@string/settings_display_adaptive_brightness_title"
+		android:summary="@string/settings_display_adaptive_brightness_summary"
+		android:defaultValue="false"/>
 
-			<meta-data android:name="universum.studios.android.samples.SamplesMetaData.NAVIGATION_MENU" android:resource="@menu/navigation"/>
-			<meta-data android:name="universum.studios.android.samples.SamplesMetaData.INTRO_TEXT" android:resource="@string/app_intro"/>
-		</activity>
-
-		<activity android:name=".ui.SettingsActivity" />
-	</application>
-</manifest>
+	<universum.studios.android.setting.SettingSwitchPreference
+		android:key="@string/preference_display_press_power_button_twice_for_camera"
+		android:title="@string/settings_display_press_power_button_twice_for_camera_title"
+		android:summary="@string/settings_display_press_power_button_twice_for_camera_summary"
+		android:defaultValue="true"/>
+</PreferenceScreen>

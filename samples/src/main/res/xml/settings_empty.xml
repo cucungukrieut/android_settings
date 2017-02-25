@@ -19,28 +19,7 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.samples.setting"
-		  xmlns:android="http://schemas.android.com/apk/res/android">
-
-	<application
-		android:allowBackup="true"
-		android:icon="@mipmap/samples_ic_launcher"
-		android:label="@string/app_name"
-		android:supportsRtl="true"
-		android:theme="@style/Theme">
-
-		<activity
-			android:name=".ui.MainActivity"
-			android:theme="@style/Theme.Navigation">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-
-			<meta-data android:name="universum.studios.android.samples.SamplesMetaData.NAVIGATION_MENU" android:resource="@menu/navigation"/>
-			<meta-data android:name="universum.studios.android.samples.SamplesMetaData.INTRO_TEXT" android:resource="@string/app_intro"/>
-		</activity>
-
-		<activity android:name=".ui.SettingsActivity" />
-	</application>
-</manifest>
+<!--suppress AndroidElementNotAllowed -->
+<PreferenceScreen>
+	<universum.studios.android.setting.SettingEmptyPreference />
+</PreferenceScreen>

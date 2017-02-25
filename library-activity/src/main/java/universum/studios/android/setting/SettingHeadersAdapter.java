@@ -170,35 +170,22 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	}
 
 	/**
-	 * @throws UnsupportedOperationException Use {@link #swapHeaders(List)} instead.
-	 */
-	@Nullable
-	@Override
-	public final List<Item> swapItems(@Nullable List<Item> items) {
-		throw new UnsupportedOperationException("Cannot swap items of SettingHeadersAdapter directly!");
-	}
-
-	/**
-	 * Like {@link #changeHeaders(List)}, but this will also return the old headers supplied to this
-	 * adapter before (if any).
-	 */
-	@Nullable
-	public List<PreferenceActivity.Header> swapHeaders(@Nullable List<PreferenceActivity.Header> headers) {
-		final List<PreferenceActivity.Header> oldHeaders = mHeaders;
-		changeHeaders(headers);
-		return oldHeaders;
-	}
-
-	/**
 	 * @throws UnsupportedOperationException Use {@link #changeHeaders(List)} instead.
 	 */
 	@Override
 	public final void changeItems(@Nullable List<Item> items) {
-		throw new UnsupportedOperationException("Cannot change items of SettingHeadersAdapter directly!");
+		throw new UnsupportedOperationException("Cannot change items of SettingHeadersAdapter directly! Use changeHeaders(...) instead.");
 	}
 
 	/**
-	 * Changes the current data set of this adapter for the given <var>headers</var>.
+	 * Same as {@link #swapHeaders(List)} where the old headers are ignored.
+	 */
+	public void changeHeaders(@Nullable List<PreferenceActivity.Header> headers) {
+		swapHeaders(headers);
+	}
+
+	/**
+	 * Swaps the current data set of this adapter for the given <var>headers</var>.
 	 * <p>
 	 * <b>Note</b>, that as this adapter uses multiple view types to present its data set, the specified
 	 * headers are transformed into data set of {@link Item Items}. The items data set may be obtained
@@ -208,14 +195,18 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 *
 	 * @param headers The headers for which to create a new data set. May be {@code null} to clear
 	 *                the current data set.
+	 * @see #changeHeaders(List)
 	 */
-	public void changeHeaders(@Nullable List<PreferenceActivity.Header> headers) {
+	@Nullable
+	public List<PreferenceActivity.Header> swapHeaders(@Nullable List<PreferenceActivity.Header> headers) {
+		final List<PreferenceActivity.Header> oldHeaders = mHeaders;
 		this.mHeaders = headers;
 		if (headers != null && !headers.isEmpty()) {
-			super.changeItems(createItemsFromHeaders(headers));
+			super.swapItems(createItemsFromHeaders(headers));
 		} else {
-			super.changeItems(Collections.<Item>emptyList());
+			super.swapItems(Collections.<Item>emptyList());
 		}
+		return oldHeaders;
 	}
 
 	/**
@@ -251,6 +242,15 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 		// Add category divider also at the end of all items.
 		items.add(new Item(VIEW_TYPE_CATEGORY_DIVIDER, null));
 		return items;
+	}
+
+	/**
+	 * @throws UnsupportedOperationException Use {@link #swapHeaders(List)} instead.
+	 */
+	@Nullable
+	@Override
+	public final List<Item> swapItems(@Nullable List<Item> items) {
+		throw new UnsupportedOperationException("Cannot swap items of SettingHeadersAdapter directly! Use swapHeaders(...) instead.");
 	}
 
 	/**

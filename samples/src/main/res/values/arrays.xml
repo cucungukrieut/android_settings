@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	
+	<string-array name="preference_preview_notification_sound_entries">
+		<item>None</item>
+		<item>Arcturus</item>
+		<item>Capella</item>
+		<item>Mira</item>
+		<item>Procyon</item>
+	</string-array>
+
+	<string-array name="preference_preview_lock_screen_entries">
+		<item>Always</item>
+		<item>After 5 minutes of inactivity</item>
+		<item>When battery dies</item>
+	</string-array>
+</resources>

@@ -18,6 +18,7 @@
  */
 package universum.studios.android.samples.setting.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import universum.studios.android.fragment.manage.FragmentController;
 import universum.studios.android.fragment.manage.FragmentRequest;
 import universum.studios.android.fragment.manage.FragmentRequestInterceptor;
 import universum.studios.android.fragment.transition.FragmentTransitions;
+import universum.studios.android.samples.setting.ui.fragment.PreviewSettingsFragment;
 import universum.studios.android.samples.ui.SamplesMainFragment;
 import universum.studios.android.samples.ui.SamplesNavigationActivity;
 
@@ -62,6 +64,12 @@ public final class MainActivity extends SamplesNavigationActivity implements Fra
 			case R.id.navigation_item_home:
 				fragmentController.newRequest(new SamplesMainFragment()).execute();
 				return true;
+			case R.id.navigation_item_preview:
+				fragmentController.newRequest(new PreviewSettingsFragment()).execute();
+				return true;
+			case R.id.navigation_item_settings:
+				startActivity(new Intent(this, SettingsActivity.class));
+				return false;
 		}
 		return true;
 	}

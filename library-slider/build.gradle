@@ -64,6 +64,7 @@ dependencies {
      */
     compile releaseDependencies.androidSupportAnnotations
     compile releaseDependencies.androidSupportAppCompatV7
+    compile releaseDependencies.androidUniversumGraphicsColorUtil
     compile releaseDependencies.androidUniversumUi
     releaseCompile "universum.studios.android:settings-core:${libraryVersion}@aar"
 

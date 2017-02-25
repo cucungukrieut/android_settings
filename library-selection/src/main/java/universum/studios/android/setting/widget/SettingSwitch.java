@@ -21,6 +21,10 @@ package universum.studios.android.setting.widget;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.AttrRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -71,7 +75,7 @@ public class SettingSwitch extends SwitchWidget {
 	/**
 	 * Same as {@link #SettingSwitch(Context, AttributeSet)} without attributes.
 	 */
-	public SettingSwitch(Context context) {
+	public SettingSwitch(@NonNull Context context) {
 		this(context, null);
 	}
 
@@ -79,14 +83,14 @@ public class SettingSwitch extends SwitchWidget {
 	 * Same as {@link #SettingSwitch(Context, AttributeSet, int)} with {@link  R.attr#switchStyle}
 	 * as attribute for default style.
 	 */
-	public SettingSwitch(Context context, AttributeSet attrs) {
+	public SettingSwitch(@NonNull Context context, @Nullable AttributeSet attrs) {
 		this(context, attrs, R.attr.switchStyle);
 	}
 
 	/**
 	 * Same as {@link #SettingSwitch(Context, AttributeSet, int, int)} with {@code 0} as default style.
 	 */
-	public SettingSwitch(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingSwitch(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
@@ -101,7 +105,7 @@ public class SettingSwitch extends SwitchWidget {
 	 */
 	@SuppressWarnings("unused")
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingSwitch(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	public SettingSwitch(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
