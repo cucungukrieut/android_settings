@@ -51,7 +51,7 @@ import android.widget.SeekBar;
  *
  * @author Martin Albedinsky
  */
-class SettingSeekBarPreference extends SettingPreference {
+public class SettingSeekBarPreference extends SettingPreference {
 
 	/**
 	 * Interface ===================================================================================
@@ -181,14 +181,14 @@ class SettingSeekBarPreference extends SettingPreference {
 	 * data from the current theme provided by the specified <var>context</var>.
 	 */
 	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-		final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SeekBarPreference, defStyleAttr, defStyleRes);
-		for (int i = 0; i < typedArray.getIndexCount(); i++) {
-			final int index = typedArray.getIndex(i);
+		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SeekBarPreference, defStyleAttr, defStyleRes);
+		for (int i = 0; i < attributes.getIndexCount(); i++) {
+			final int index = attributes.getIndex(i);
 			if (index == R.styleable.Ui_Settings_SeekBarPreference_android_max) {
-				this.mMaxProgress = typedArray.getInt(index, mMaxProgress);
+				this.mMaxProgress = attributes.getInt(index, mMaxProgress);
 			}
 		}
-		typedArray.recycle();
+		attributes.recycle();
 	}
 
 	/**

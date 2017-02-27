@@ -73,12 +73,6 @@ import universum.studios.android.dialog.adapter.DialogSelectionAdapter;
  * <h3>Xml attributes</h3>
  * See {@link R.styleable#Ui_Settings_SelectionDialogPreference SettingSelectionDialogPreference Attributes}
  *
- * <h3>Dialog Xml attributes</h3>
- * <ul>
- * <li>{@link R.attr#dialogSelectionMode dialogSelectionMode}</li>
- * <li>{@link R.attr#dialogEmptySelectionAllowed dialogEmptySelectionAllowed}</li>
- * </ul>
- *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingSelectionDialogPreferenceStyle uiSettingSelectionDialogPreferenceStyle}
  *
@@ -253,10 +247,10 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 * data from the current theme provided by the specified <var>context</var>.
 	 */
 	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-		final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SelectionDialogPreference, defStyleAttr, defStyleRes);
-		setEntries(typedArray.getTextArray(R.styleable.Ui_Settings_SelectionDialogPreference_android_entries));
-		setEntryValues(typedArray.getTextArray(R.styleable.Ui_Settings_SelectionDialogPreference_android_entryValues));
-		typedArray.recycle();
+		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SelectionDialogPreference, defStyleAttr, defStyleRes);
+		setEntries(attributes.getTextArray(R.styleable.Ui_Settings_SelectionDialogPreference_android_entries));
+		setEntryValues(attributes.getTextArray(R.styleable.Ui_Settings_SelectionDialogPreference_android_entryValues));
+		attributes.recycle();
 		this.mSummaryTextBuilder = new DefaultSummaryTextBuilder(SUMMARY_ENTRIES_SEPARATOR);
 	}
 
@@ -277,16 +271,16 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	@SuppressWarnings("ResourceType")
 	protected void onConfigureDialogOptions(@NonNull SelectionDialog.SelectionOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
 		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);
-		final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SelectionDialogPreference, defStyleAttr, defStyleRes);
-		for (int i = 0; i < typedArray.getIndexCount(); i++) {
-			final int index = typedArray.getIndex(i);
+		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SelectionDialogPreference, defStyleAttr, defStyleRes);
+		for (int i = 0; i < attributes.getIndexCount(); i++) {
+			final int index = attributes.getIndex(i);
 			if (index == R.styleable.Ui_Settings_SelectionDialogPreference_dialogSelectionMode) {
-				options.selectionMode(typedArray.getInt(index, options.selectionMode()));
+				options.selectionMode(attributes.getInt(index, options.selectionMode()));
 			} else if (index == R.styleable.Ui_Settings_SelectionDialogPreference_dialogEmptySelectionAllowed) {
-				options.emptySelectionAllowed(typedArray.getBoolean(index, options.shouldAllowEmptySelection()));
+				options.emptySelectionAllowed(attributes.getBoolean(index, options.shouldAllowEmptySelection()));
 			}
 		}
-		typedArray.recycle();
+		attributes.recycle();
 	}
 
 	/**

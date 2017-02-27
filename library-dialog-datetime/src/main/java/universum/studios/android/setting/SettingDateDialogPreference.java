@@ -58,13 +58,6 @@ import universum.studios.android.dialog.Dialog;
  * <h3>Xml attributes</h3>
  * See {@link R.styleable#Ui_Settings_DateDialogPreference SettingDateDialogPreference Attributes}
  *
- * <h3>Dialog Xml attributes</h3>
- * <ul>
- * <li>{@link R.attr#dialogDate dialogDate}</li>
- * <li>{@link R.attr#dialogMinDate dialogMinDate}</li>
- * <li>{@link R.attr#dialogMaxDate dialogMaxDate}</li>
- * </ul>
- *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingDateDialogPreferenceStyle uiSettingDateDialogPreferenceStyle}
  *
@@ -167,24 +160,24 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	protected void onConfigureDialogOptions(@NonNull DatePickerDialog.DateOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
 		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);
 		String formatPattern = FORMAT_PATTERN;
-		final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DateDialogPreference, defStyleAttr, defStyleRes);
-		for (int i = 0; i < typedArray.getIndexCount(); i++) {
-			final int index = typedArray.getIndex(i);
+		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DateDialogPreference, defStyleAttr, defStyleRes);
+		for (int i = 0; i < attributes.getIndexCount(); i++) {
+			final int index = attributes.getIndex(i);
 			if (index == R.styleable.Ui_Settings_DateDialogPreference_uiSettingDateFormat) {
-				final String dateFormat = typedArray.getString(index);
+				final String dateFormat = attributes.getString(index);
 				formatPattern = TextUtils.isEmpty(dateFormat) ? formatPattern : dateFormat;
 			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDate) {
-				final Long date = parseDate(typedArray.getString(index));
+				final Long date = parseDate(attributes.getString(index));
 				if (date != null) options.date(date);
 			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogMinDate) {
-				final Long date = parseDate(typedArray.getString(index));
+				final Long date = parseDate(attributes.getString(index));
 				if (date != null) options.minDate(date);
 			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogMaxDate) {
-				final Long date = parseDate(typedArray.getString(index));
+				final Long date = parseDate(attributes.getString(index));
 				if (date != null) options.maxDate(date);
 			}
 		}
-		typedArray.recycle();
+		attributes.recycle();
 		setFormat(new SimpleDateFormat(formatPattern, Locale.getDefault()));
 	}
 

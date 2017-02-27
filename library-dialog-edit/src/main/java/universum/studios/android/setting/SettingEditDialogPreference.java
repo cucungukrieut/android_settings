@@ -54,13 +54,6 @@ import universum.studios.android.dialog.view.InputConfig;
  * <h3>Xml attributes</h3>
  * See {@link R.styleable#Ui_Settings_EditDialogPreference SettingEditDialogPreference Attributes}
  *
- * <h3>Dialog Xml attributes</h3>
- * <ul>
- * <li>{@link R.attr#dialogHint dialogHint}</li>
- * <li>{@link R.attr#dialogInputStyle dialogInputStyle}</li>
- * <li>{@link R.attr#dialogShowSoftKeyboard dialogShowSoftKeyboard}</li>
- * </ul>
- *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingEditDialogPreferenceStyle uiSettingEditDialogPreferenceStyle}
  *
@@ -153,20 +146,20 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 	@Override
 	protected void onConfigureDialogOptions(@NonNull EditDialog.EditOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
 		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);
-		final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_EditDialogPreference, defStyleAttr, defStyleRes);
-		for (int i = 0; i < typedArray.getIndexCount(); i++) {
-			final int index = typedArray.getIndex(i);
+		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_EditDialogPreference, defStyleAttr, defStyleRes);
+		for (int i = 0; i < attributes.getIndexCount(); i++) {
+			final int index = attributes.getIndex(i);
 			if (index == R.styleable.Ui_Settings_EditDialogPreference_dialogHint) {
-				options.hint(typedArray.getText(index));
+				options.hint(attributes.getText(index));
 			} else if (index == R.styleable.Ui_Settings_EditDialogPreference_dialogInputStyle) {
 				final InputConfig inputConfig = new InputConfig();
-				inputConfig.fromStyle(context, typedArray.getResourceId(index, 0));
+				inputConfig.fromStyle(context, attributes.getResourceId(index, 0));
 				options.inputConfig(inputConfig);
 			} else if (index == R.styleable.Ui_Settings_EditDialogPreference_dialogShowSoftKeyboard) {
-				options.showSoftKeyboard(typedArray.getBoolean(index, options.shouldShowSoftKeyboard()));
+				options.showSoftKeyboard(attributes.getBoolean(index, options.shouldShowSoftKeyboard()));
 			}
 		}
-		typedArray.recycle();
+		attributes.recycle();
 	}
 
 	/**

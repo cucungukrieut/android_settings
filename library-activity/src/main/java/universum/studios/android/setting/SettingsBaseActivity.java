@@ -519,11 +519,16 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 				final View preferencesFrameView = preferencesPanelViewGroup.getChildAt(preferencesPanelViewGroup.getChildCount() - 1);
 				if (preferencesFrameView != null) {
 					((ViewGroup) preferencesFrameView).setOnHierarchyChangeListener(new ViewGroup.OnHierarchyChangeListener() {
+
+						/**
+						 */
 						@Override
 						public void onChildViewAdded(View parent, View child) {
 							preferencesFrameView.setPadding(0, 0, 0, 0);
 						}
 
+						/**
+						 */
 						@Override
 						public void onChildViewRemoved(View parent, View child) {
 							// Ignored.

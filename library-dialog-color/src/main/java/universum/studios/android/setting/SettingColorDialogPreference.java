@@ -55,12 +55,6 @@ import universum.studios.android.setting.widget.SettingColorView;
  * <h3>Xml attributes</h3>
  * See {@link R.styleable#Ui_Settings_ColorDialogPreference SettingColorDialogPreference Attributes}
  *
- * <h3>Dialog Xml attributes</h3>
- * <ul>
- * <li>{@link R.attr#dialogColor dialogColor}</li>
- * <li>{@link R.attr#dialogColorCanvas dialogColorCanvas}</li>
- * </ul>
- *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingColorDialogPreferenceStyle uiSettingColorDialogPreferenceStyle}
  *
@@ -162,16 +156,16 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	protected void onConfigureDialogOptions(@NonNull ColorPickerDialog.ColorOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
 		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);
 		int canvasColor = options.canvasColor();
-		final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_ColorDialogPreference, defStyleAttr, defStyleRes);
-		for (int i = 0; i < typedArray.getIndexCount(); i++) {
-			final int index = typedArray.getIndex(i);
+		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_ColorDialogPreference, defStyleAttr, defStyleRes);
+		for (int i = 0; i < attributes.getIndexCount(); i++) {
+			final int index = attributes.getIndex(i);
 			if (index == R.styleable.Ui_Settings_ColorDialogPreference_dialogColor) {
-				options.color(typedArray.getColor(index, options.color()));
+				options.color(attributes.getColor(index, options.color()));
 			} else if (index == R.styleable.Ui_Settings_ColorDialogPreference_dialogColorCanvas) {
-				canvasColor = typedArray.getColor(index, canvasColor);
+				canvasColor = attributes.getColor(index, canvasColor);
 			}
 		}
-		typedArray.recycle();
+		attributes.recycle();
 		options.canvasColor(canvasColor);
 	}
 

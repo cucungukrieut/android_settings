@@ -79,36 +79,16 @@ class PreferenceDecorator {
 	private final Preference mPreference;
 
 	/**
-	 * Set of attributes to be used to parse typed values for the attached preference whenever
-	 * {@link #processAttributes(Context, AttributeSet, int, int)} is called.
-	 */
-	private final int[] mStyleableAttrs;
-
-	/**
 	 * Constructors ================================================================================
 	 */
 
 	/**
-	 * Same as {@link #PreferenceDecorator(Preference, int[])} with {@code null} <var>styleableAttrs</var>.
-	 */
-	PreferenceDecorator(Preference preference) {
-		this(preference, null);
-	}
-
-	/**
 	 * Creates a new instance of PreferenceDecorator for the given <var>preference</var>.
 	 *
-	 * @param preference     The preference for which to create new decorator.
-	 * @param styleableAttrs Set of styleable attributes specific for the preference. These attributes
-	 *                       will be used to obtain an instance of {@link TypedArray} passed to
-	 *                       {@link #onProcessTypedValues(Context, TypedArray)} whenever
-	 *                       {@link #processAttributes(Context, AttributeSet, int, int)} is called.
-	 *                       May be {@code null} if the preference does not have any additional
-	 *                       attributes to be processed by the decorator.
+	 * @param preference The preference for which to create new decorator.
 	 */
-	PreferenceDecorator(Preference preference, int[] styleableAttrs) {
+	PreferenceDecorator(Preference preference) {
 		this.mPreference = preference;
-		this.mStyleableAttrs = styleableAttrs;
 	}
 
 	/**
@@ -125,28 +105,11 @@ class PreferenceDecorator {
 	 * @param defStyleRes  Resource id of the default style for the attached preference.
 	 */
 	void processAttributes(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-		final TypedArray preferenceTypedArray = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_Preference, defStyleAttr, defStyleRes);
-		if (preferenceTypedArray.hasValue(R.styleable.Ui_Settings_Preference_uiVectorIcon)) {
-			setVectorIcon(preferenceTypedArray.getResourceId(R.styleable.Ui_Settings_Preference_uiVectorIcon, 0));
+		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_Preference, defStyleAttr, defStyleRes);
+		if (attributes.hasValue(R.styleable.Ui_Settings_Preference_uiVectorIcon)) {
+			setVectorIcon(attributes.getResourceId(R.styleable.Ui_Settings_Preference_uiVectorIcon, 0));
 		}
-		preferenceTypedArray.recycle();
-		if (mStyleableAttrs != null) {
-			final TypedArray typedArray = context.obtainStyledAttributes(attrs, mStyleableAttrs, defStyleAttr, defStyleRes);
-			onProcessTypedValues(context, typedArray);
-			typedArray.recycle();
-		}
-	}
-
-	/**
-	 * Invoked from {@link #processAttributes(Context, AttributeSet, int, int)} to process all values
-	 * from the given <var>typedArray</var> that are related to the attached preference.
-	 *
-	 * @param context    The context that can be used to access resource values.
-	 * @param typedArray The typed array obtained for the styleable attributes supplied to this decorator
-	 *                   during its initialization.
-	 */
-	void onProcessTypedValues(Context context, TypedArray typedArray) {
-		// May be implemented by the inheritance hierarchies.
+		attributes.recycle();
 	}
 
 	/**
@@ -187,7 +150,7 @@ class PreferenceDecorator {
 	 * {@link Preference#onBindView(View)} method is invoked.
 	 *
 	 * @param view The view/holder bound by the preference where the decorator may perform
-	 *                   additional modifications.
+	 *             additional modifications.
 	 */
 	void onBindView(@NonNull View view) {
 		final View iconFrameView = view.findViewById(R.id.icon_frame);
