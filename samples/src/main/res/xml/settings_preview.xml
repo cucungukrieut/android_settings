@@ -15,7 +15,7 @@
 			android:summary="Set date"
 			android:title="Expiration date"
 			app:dialogNegativeButton="Dismiss"
-			app:dialogMinDate="current-(0000-06-00)"
+			app:dialogDateMin="current-(0000-06-00)"
 			app:dialogDate="current-(0000-06-00)"/>
 
 		<universum.studios.android.setting.SettingTimeDialogPreference
@@ -58,8 +58,8 @@
 		<universum.studios.android.setting.SettingSeekBarPreference
 			android:key="@string/preference_preview_notification_sound_volume"
 			android:title="Notification sound volume"
-			android:icon="@drawable/vc_notifications"
-			android:defaultValue="50"/>
+			android:defaultValue="50"
+			app:uiVectorIcon="@drawable/vc_notifications"/>
 
 		<universum.studios.android.setting.SettingSpinnerPreference
 			android:key="@string/preference_preview_lock_screen"

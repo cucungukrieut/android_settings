@@ -32,6 +32,7 @@ import android.util.SparseArray;
 
 import universum.studios.android.dialog.Dialog;
 import universum.studios.android.dialog.manage.DialogController;
+import universum.studios.android.dialog.manage.DialogFactory;
 import universum.studios.android.dialog.manage.DialogXmlFactory;
 
 /**
@@ -81,7 +82,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	/**
 	 * Factory providing dialog instances for {@link #mDialogController}.
 	 */
-	private DialogController.DialogFactory mDialogFactory;
+	private DialogFactory mDialogFactory;
 
 	/**
 	 * Boolean flag indicating whether this manager is attached to preference screen or not.
@@ -106,11 +107,11 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 
 	/**
 	 * Creates a new instance of SettingDialogPreferencesManager without either {@link DialogController}
-	 * nor default {@link DialogController.DialogFactory}.
+	 * nor default {@link DialogFactory}.
 	 * <p>
 	 * These should be specified via {@link #setDialogController(DialogController)} and
-	 * {@link #setDialogFactory(DialogController.DialogFactory)} otherwise the new manager will throw
-	 * an exception if functionality related to dialogs is requested.
+	 * {@link #setDialogFactory(DialogFactory)} otherwise the new manager will throw an exception if
+	 * functionality related to dialogs is requested.
 	 *
 	 * @see #SettingDialogPreferencesManager(Activity)
 	 * @see #SettingDialogPreferencesManager(Fragment)
@@ -162,7 +163,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * context.
 	 * <p>
 	 * This constructor creates this manager with default instance of {@link DialogController}. The
-	 * dialog factory need to be specified via {@link #setDialogFactory(DialogController.DialogFactory)}
+	 * dialog factory need to be specified via {@link #setDialogFactory(DialogFactory)}
 	 *
 	 * @param fragmentManager The fragment manager used to instantiate the default dialog controller.
 	 * @see DialogController#DialogController(FragmentManager)
@@ -179,11 +180,11 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @param dialogController Dialog controller used to show dialogs for clicked preferences.
 	 * @param dialogFactory    Factory providing dialog instances for the given dialog controller.
 	 */
-	private SettingDialogPreferencesManager(DialogController dialogController, DialogController.DialogFactory dialogFactory) {
+	private SettingDialogPreferencesManager(DialogController dialogController, DialogFactory dialogFactory) {
 		this.mDialogController = dialogController;
 		this.mDialogFactory = dialogFactory;
 		if (mDialogController != null && mDialogFactory != null) {
-			mDialogController.setDialogFactory(mDialogFactory);
+			mDialogController.setFactory(mDialogFactory);
 		}
 	}
 
@@ -196,16 +197,16 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * dialog preferences.
 	 * <p>
 	 * <b>Note</b>, that if the specified dialog controller does not have specified any dialog factory,
-	 * the one specified for this manager will be set to it via {@link DialogController#setDialogFactory(DialogController.DialogFactory)}.
+	 * the one specified for this manager will be set to it via {@link DialogController#setFactory(DialogFactory)}.
 	 *
 	 * @param dialogController The desired dialog controller.
 	 * @see #getDialogController()
-	 * @see #setDialogFactory(DialogController.DialogFactory)
+	 * @see #setDialogFactory(DialogFactory)
 	 */
 	public void setDialogController(@NonNull DialogController dialogController) {
 		this.mDialogController = dialogController;
-		if (!mDialogController.hasDialogFactory()) {
-			mDialogController.setDialogFactory(mDialogFactory);
+		if (!mDialogController.hasFactory()) {
+			mDialogController.setFactory(mDialogFactory);
 		}
 	}
 
@@ -225,26 +226,26 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	/**
 	 * Sets a factory that provides dialog instances associated with the clicked dialog preferences.
 	 * The given factory will be attached to the current dialog controller via
-	 * {@link DialogController#setDialogFactory(DialogController.DialogFactory)}.
+	 * {@link DialogController#setFactory(DialogFactory)}.
 	 *
 	 * @param dialogFactory The desired dialog factory. May be {@code null} to clear the current one.
 	 * @see #getDialogFactory()
 	 * @see #setDialogController(DialogController)
 	 */
-	public void setDialogFactory(@Nullable DialogController.DialogFactory dialogFactory) {
-		mDialogController.setDialogFactory(mDialogFactory = dialogFactory);
+	public void setDialogFactory(@Nullable DialogFactory dialogFactory) {
+		mDialogController.setFactory(mDialogFactory = dialogFactory);
 	}
 
 	/**
 	 * Returns the current dialog factory set to this manager.
 	 *
-	 * @return Default dialog factory or the one specified via {@link #setDialogFactory(DialogController.DialogFactory)}
-	 * @see #setDialogFactory(DialogController.DialogFactory)
+	 * @return Default dialog factory or the one specified via {@link #setDialogFactory(DialogFactory)}
+	 * @see #setDialogFactory(DialogFactory)
 	 * @see #SettingDialogPreferencesManager(Activity)
 	 * @see #SettingDialogPreferencesManager(Fragment)
 	 */
 	@Nullable
-	public DialogController.DialogFactory getDialogFactory() {
+	public DialogFactory getDialogFactory() {
 		return mDialogFactory;
 	}
 
@@ -368,7 +369,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	public boolean onDialogPreferenceClick(@NonNull SettingDialogPreference dialogPreference) {
 		final int dialogId = dialogPreference.getDialogId();
 		if (dialogId != SettingDialogPreference.NO_DIALOG_ID) {
-			final DialogController.DialogFactory dialogFactory = mDialogController.getDialogFactory();
+			final DialogFactory dialogFactory = mDialogController.getFactory();
 			if (dialogFactory == null) {
 				throw new NullPointerException("No dialog factory specified to provide dialogs for preferences!");
 			}
@@ -396,7 +397,8 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @return {@code True} if the preference dialog has been successfully shown, {@code false} otherwise.
 	 */
 	protected boolean onShowPreferenceDialog(@NonNull DialogController dialogController, @NonNull SettingDialogPreference preference) {
-		return dialogController.showDialog(preference.getDialogId(), preference.getDialogOptions());
+		dialogController.newRequest(preference.getDialogId(), preference.getDialogOptions()).execute();
+		return true;
 	}
 
 	/**

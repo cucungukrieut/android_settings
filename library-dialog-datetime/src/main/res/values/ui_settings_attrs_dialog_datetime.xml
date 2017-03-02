@@ -36,9 +36,9 @@
 		<!-- Re-used. -->
 		<attr name="dialogDate"/>
 		<!-- Re-used. -->
-		<attr name="dialogMinDate"/>
+		<attr name="dialogDateMin"/>
 		<!-- Re-used. -->
-		<attr name="dialogMaxDate"/>
+		<attr name="dialogDateMax"/>
 	</declare-styleable>
 
 	<!-- SettingTimeDialogPreference attributes. -->

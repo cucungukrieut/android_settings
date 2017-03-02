@@ -169,10 +169,10 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDate) {
 				final Long date = parseDate(attributes.getString(index));
 				if (date != null) options.date(date);
-			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogMinDate) {
+			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDateMin) {
 				final Long date = parseDate(attributes.getString(index));
 				if (date != null) options.minDate(date);
-			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogMaxDate) {
+			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDateMax) {
 				final Long date = parseDate(attributes.getString(index));
 				if (date != null) options.maxDate(date);
 			}
