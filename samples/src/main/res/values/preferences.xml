@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * =================================================================================================
+ *                             Copyright (C) 2017 Universum Studios
+ * =================================================================================================
+ *         Licensed under the Apache License, Version 2.0 or later (further "License" only).
+ * *************************************************************************************************
+ * You may use this file only in compliance with the License. More details and copy of this License
+ * you may obtain at
+ *
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * You can redistribute, modify or publish any part of the code written within this file but as it
+ * is described in the License, the software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES or CONDITIONS OF ANY KIND.
+ *
+ * See the License for the specific language governing permissions and limitations under the License.
+ * =================================================================================================
+ */
+-->
+<resources>
+
+	<!-- ### PREVIEW =========================================================================== -->
+
+	<!-- ## PREVIEW:Primary -->
+
+	<string name="preference_preview_flashlight">universum.studios.android.samples.setting.PREFERENCE.Preview.Flashlight</string>
+	<string name="preference_preview_expiration_date">universum.studios.android.samples.setting.PREFERENCE.Preview.ExpirationDate</string>
+	<string name="preference_preview_alarm_time">universum.studios.android.samples.setting.PREFERENCE.Preview.AlarmTime</string>
+
+	<!-- ## PREVIEW:Secondary -->
+
+	<string name="preference_preview_theme_color">universum.studios.android.samples.setting.PREFERENCE.Preview.ThemeColor</string>
+	<string name="preference_preview_backup_photos">universum.studios.android.samples.setting.PREFERENCE.Preview.BackupPhotos</string>
+	<string name="preference_preview_nickname">universum.studios.android.samples.setting.PREFERENCE.Preview.Nickname</string>
+
+	<!-- ## PREVIEW:Other -->
+
+	<string name="preference_preview_notification_sound">universum.studios.android.samples.setting.PREFERENCE.Preview.NotificationSound</string>
+	<string-array name="preference_preview_notification_sound_entry_values">
+		<item>sound_notification_none</item>
+		<item>sound_notification_arcturus</item>
+		<item>sound_notification_capella</item>
+		<item>sound_notification_mira</item>
+		<item>sound_notification_procyon</item>
+	</string-array>
+	<string name="preference_preview_notification_sound_default">[\"sound_notification_capella\"]</string>
+	<string name="preference_preview_notification_sound_volume">universum.studios.android.samples.setting.PREFERENCE.Preview.NotificationSoundVolume</string>
+	<string name="preference_preview_lock_screen">universum.studios.android.samples.setting.PREFERENCE.Preview.LockScreen</string>
+	<string-array name="preference_preview_lock_screen_entry_values">
+		<item>always</item>
+		<item>after_5_minutes_of_inactivity</item>
+		<item>when_battery_dies</item>
+	</string-array>
+	<string name="preference_preview_lock_screen_default">always</string>
+	<string name="preference_preview_app_version">universum.studios.android.samples.setting.PREFERENCE.Preview.AppVersion</string>
+
+	<!-- ### DISPLAY =========================================================================== -->
+
+	<string name="preference_display_adaptive_brightness">universum.studios.android.samples.setting.PREFERENCE.Display.AdaptiveBrightness</string>
+	<string name="preference_display_press_power_button_twice_for_camera">universum.studios.android.samples.setting.PREFERENCE.Display.PressPowerButtonTwiceForCamera</string>
+</resources>

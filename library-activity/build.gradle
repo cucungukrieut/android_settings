@@ -55,6 +55,7 @@ android {
  */
 repositories {
     maven { url = '../artifacts/' }
+    mavenLocal()
     maven { url "http://dl.bintray.com/universum-studios/android" }
 }
 
@@ -65,6 +66,8 @@ dependencies {
     compile releaseDependencies.androidSupportAnnotations
     compile releaseDependencies.androidSupportAppCompatV7
     compile releaseDependencies.androidUniversumUi
+    compile releaseDependencies.androidUniversumFontCore
+    compile releaseDependencies.androidUniversumFontUtil
     compile releaseDependencies.androidUniversumWidgetAdaptersCore
     compile releaseDependencies.androidUniversumWidgetAdaptersList
     releaseCompile "universum.studios.android:settings-core:${libraryVersion}@aar"

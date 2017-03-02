@@ -65,7 +65,7 @@ import universum.studios.android.widget.adapter.ViewHolder;
  *
  * @author Martin Albedinsky
  */
-class SettingSpinnerPreference extends SettingPreference {
+public class SettingSpinnerPreference extends SettingPreference {
 
 	/**
 	 * Interface ===================================================================================
@@ -92,7 +92,7 @@ class SettingSpinnerPreference extends SettingPreference {
 	 * Listener that is used to receive callbacks about changes in selection within the Spinner widget
 	 * of this preference.
 	 */
-	private final AdapterView.OnItemSelectedListener mListener = new AdapterView.OnItemSelectedListener() {
+	private final AdapterView.OnItemSelectedListener LISTENER = new AdapterView.OnItemSelectedListener() {
 
 		/**
 		 */
@@ -206,20 +206,20 @@ class SettingSpinnerPreference extends SettingPreference {
 	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		this.mAdapter = new EntriesAdapter(context);
 		this.mAdapter.setTitle(getTitle());
-		final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SpinnerPreference, defStyleAttr, defStyleRes);
-		for (int i = 0; i < typedArray.getIndexCount(); i++) {
-			final int index = typedArray.getIndex(i);
+		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SpinnerPreference, defStyleAttr, defStyleRes);
+		for (int i = 0; i < attributes.getIndexCount(); i++) {
+			final int index = attributes.getIndex(i);
 			if (index == R.styleable.Ui_Settings_SpinnerPreference_android_entries) {
-				setEntries(typedArray.getTextArray(index));
+				setEntries(attributes.getTextArray(index));
 			} else if (index == R.styleable.Ui_Settings_SpinnerPreference_android_entryValues) {
-				setEntryValues(typedArray.getTextArray(index));
+				setEntryValues(attributes.getTextArray(index));
 			} else if (index == R.styleable.Ui_Settings_SpinnerPreference_uiSettingSpinnerViewLayout) {
-				mAdapter.setViewLayoutResource(typedArray.getResourceId(index, R.layout.ui_setting_spinner_view));
+				mAdapter.setViewLayoutResource(attributes.getResourceId(index, R.layout.ui_setting_spinner_view));
 			} else if (index == R.styleable.Ui_Settings_SpinnerPreference_uiSettingSpinnerDropDownViewLayout) {
-				mAdapter.setDropDownViewLayoutResource(typedArray.getResourceId(index, R.layout.ui_setting_spinner_drop_down_view));
+				mAdapter.setDropDownViewLayoutResource(attributes.getResourceId(index, R.layout.ui_setting_spinner_drop_down_view));
 			}
 		}
-		typedArray.recycle();
+		attributes.recycle();
 	}
 
 	/**
@@ -393,7 +393,7 @@ class SettingSpinnerPreference extends SettingPreference {
 			if (valueIndex != EntriesAdapter.NO_POSITION) {
 				spinner.setSelection(valueIndex, false);
 			}
-			spinner.setOnItemSelectedListener(mListener);
+			spinner.setOnItemSelectedListener(LISTENER);
 			this.mSpinner = spinner;
 		}
 	}

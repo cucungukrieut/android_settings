@@ -56,23 +56,7 @@ import universum.studios.android.dialog.DialogOptions;
  * may be performed by the subclasses of this preference.
  *
  * <h3>Dialog Xml attributes</h3>
- * <ul>
- * <li>{@link R.attr#dialogStringOptions dialogStringOptions}</li>
- * <li>{@link R.attr#dialogIcon dialogIcon}</li>
- * <li>{@link R.attr#dialogVectorIcon dialogVectorIcon}</li>
- * <li>{@link R.attr#dialogTitle dialogTitle}</li>
- * <li>{@link R.attr#dialogContent dialogContent}</li>
- * <li>{@link R.attr#dialogContentFlags dialogContentFlags}</li>
- * <li>{@link R.attr#dialogPositiveButton dialogPositiveButton}</li>
- * <li>{@link R.attr#dialogNegativeButton dialogNegativeButton}</li>
- * <li>{@link R.attr#dialogNeutralButton dialogNeutralButton}</li>
- * <li>{@link R.attr#dialogInfoButton dialogInfoButton}</li>
- * <li>{@link R.attr#dialogButtonsWidthMode dialogButtonsWidthMode}</li>
- * <li>{@link R.attr#dialogCancelable dialogCancelable}</li>
- * <li>{@link R.attr#dialogDismissOnRestore dialogDismissOnRestore}</li>
- * <li>{@link R.attr#dialogRemain dialogRemain}</li>
- * <li>{@link R.attr#dialogTheme dialogTheme}</li>
- * </ul>
+ * {@link R.styleable#Ui_Settings_DialogPreference SettingDialogPreference Attributes}
  *
  * <h3>Default style attribute</h3>
  * {@link android.R.attr#dialogPreferenceStyle android:dialogPreferenceStyle}
@@ -204,38 +188,38 @@ public class SettingDialogPreference<Options extends DialogOptions<Options>> ext
 	 */
 	@SuppressWarnings("ResourceType")
 	protected void onConfigureDialogOptions(@NonNull Options options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
-		final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DialogPreference, defStyleAttr, defStyleRes);
-		for (int i = 0; i < typedArray.getIndexCount(); i++) {
-			final int index = typedArray.getIndex(i);
+		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DialogPreference, defStyleAttr, defStyleRes);
+		for (int i = 0; i < attributes.getIndexCount(); i++) {
+			final int index = attributes.getIndex(i);
 			if (index == R.styleable.Ui_Settings_DialogPreference_dialogId) {
-				this.mDialogId = typedArray.getResourceId(index, NO_DIALOG_ID);
+				this.mDialogId = attributes.getResourceId(index, NO_DIALOG_ID);
 			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogIcon) {
-				options.icon(typedArray.getResourceId(index, options.icon()));
+				options.icon(attributes.getResourceId(index, options.icon()));
 			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogVectorIcon) {
-				options.vectorIcon(typedArray.getResourceId(index, options.vectorIcon()));
+				options.vectorIcon(attributes.getResourceId(index, options.vectorIcon()));
 			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogTitle) {
-				options.title(typedArray.getText(index));
+				options.title(attributes.getText(index));
 			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogContent) {
-				options.content(typedArray.getText(index));
+				options.content(attributes.getText(index));
 			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogPositiveButton) {
-				options.positiveButton(typedArray.getText(index));
+				options.positiveButton(attributes.getText(index));
 			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogNeutralButton) {
-				options.neutralButton(typedArray.getText(index));
+				options.neutralButton(attributes.getText(index));
 			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogNegativeButton) {
-				options.negativeButton(typedArray.getText(index));
+				options.negativeButton(attributes.getText(index));
 			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogButtonsWidthMode) {
-				options.buttonsWidthMode(typedArray.getInt(index, options.buttonsWidthMode()));
+				options.buttonsWidthMode(attributes.getInt(index, options.buttonsWidthMode()));
 			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogCancelable) {
-				options.cancelable(typedArray.getBoolean(index, options.shouldBeCancelable()));
+				options.cancelable(attributes.getBoolean(index, options.shouldBeCancelable()));
 			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogDismissOnRestore) {
-				options.dismissOnRestore(typedArray.getBoolean(index, options.shouldDismissOnRestore()));
+				options.dismissOnRestore(attributes.getBoolean(index, options.shouldDismissOnRestore()));
 			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogRemain) {
-				options.remain(typedArray.getBoolean(index, options.shouldRemain()));
+				options.remain(attributes.getBoolean(index, options.shouldRemain()));
 			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogTheme) {
-				options.theme(typedArray.getResourceId(index, options.theme()));
+				options.theme(attributes.getResourceId(index, options.theme()));
 			}
 		}
-		typedArray.recycle();
+		attributes.recycle();
 	}
 
 	/**

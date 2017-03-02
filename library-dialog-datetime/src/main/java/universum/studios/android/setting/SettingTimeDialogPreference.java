@@ -58,13 +58,6 @@ import universum.studios.android.dialog.TimePickerDialog;
  * <h3>Xml attributes</h3>
  * See {@link R.styleable#Ui_Settings_TimeDialogPreference SettingTimeDialogPreference Attributes}
  *
- * <h3>Dialog Xml attributes</h3>
- * <ul>
- * <li>{@link R.attr#dialogTime dialogTime}</li>
- * <li>{@link R.attr#dialogTimePickers dialogTimePickers}</li>
- * <li>{@link R.attr#dialogTimeQuantityText dialogTimeQuantityText}</li>
- * </ul>
- *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingTimeDialogPreferenceStyle uiSettingTimeDialogPreferenceStyle}
  *

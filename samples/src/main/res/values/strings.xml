@@ -31,4 +31,54 @@
 	<!-- ### NAVIGATION ======================================================================== -->
 
 	<string name="navigation_item_home">Home</string>
+	<string name="navigation_item_preview">Preview</string>
+	<string name="navigation_item_settings">Settings</string>
+
+	<!-- ### HOME ============================================================================== -->
+
+	<string name="home_title">Settings preview</string>
+
+	<!-- ### SETTINGS ========================================================================== -->
+
+	<!-- ## SETTINGS:Wireless & networks -->
+
+	<string name="settings_wireless_and_networks_category">Wireless &amp; networks</string>
+	<string name="settings_wireless_and_networks_wifi_title">Wi-Fi</string>
+	<string name="settings_wireless_and_networks_bluetooth_title">Bluetooth</string>
+	<string name="settings_wireless_and_networks_data_usage_title">Data usage</string>
+	<string name="settings_wireless_and_networks_more_title">More</string>
+
+	<!-- ## SETTINGS:Device -->
+
+	<string name="settings_device_category">Device</string>
+	<string name="settings_device_display_title">Display</string>
+	<string name="settings_device_sound_and_notification_title">Sound &amp; notification</string>
+	<string name="settings_device_apps_title">Apps</string>
+	<string name="settings_device_storage_and_usb">Storage &amp; USB</string>
+	<string name="settings_device_battery_title">Battery</string>
+	<string name="settings_device_memory_title">Memory</string>
+	<string name="settings_device_users_title">Users</string>
+	<string name="settings_device_tap_and_pay">Tap &amp; pay</string>
+
+	<!-- ## SETTINGS:Display -->
+
+	<string name="settings_display_brightness_level_title">Brightness level</string>
+	<string name="settings_display_adaptive_brightness_title">Adaptive brightness</string>
+    <string name="settings_display_adaptive_brightness_summary">
+        Optimize brightness level for available light.
+    </string>
+	<string name="settings_display_press_power_button_twice_for_camera_title">Press power button twice for camera</string>
+    <string name="settings_display_press_power_button_twice_for_camera_summary">
+        Quickly open camera without unlocking your screen.
+    </string>
+
+	<!-- ## SETTINGS:Personal -->
+
+	<string name="settings_personal_category">Personal</string>
+	<string name="settings_personal_location_title">Location</string>
+	<string name="settings_personal_security_title">Security</string>
+	<string name="settings_personal_accounts_title">Accounts</string>
+	<string name="settings_personal_google_title">Google</string>
+	<string name="settings_personal_language_and_input">Language &amp; input</string>
+	<string name="settings_personal_backup_and_reset">Backup &amp; reset</string>
 </resources>

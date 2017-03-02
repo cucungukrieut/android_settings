@@ -28,6 +28,8 @@ Supported down to the **Android [API Level 14](http://developer.android.com/abou
 - [`universum.studios.android:widget-adapters-list`](https://github.com/universum-studios/android_widget_adapters/MODULES.md)
 - [`universum.studios.android:widget-adapters-spinner`](https://github.com/universum-studios/android_widget_adapters/MODULES.md)
 - [`universum.studios.android:ui`](https://github.com/universum-studios/android_ui)
+- [`universum.studios.android:font-core`](https://github.com/universum-studios/android_font/MODULES.md)
+- [`universum.studios.android:font-util`](https://github.com/universum-studios/android_font/MODULES.md)
 - [`universum.studios.android:dialogs`](https://github.com/universum-studios/android_dialogs)
 
 ## License ##

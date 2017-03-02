@@ -33,5 +33,11 @@ public final class SettingsConfig {
 	/**
 	 * Flag indicating whether the debug output for the Settings library trough log-cat is enabled or not.
 	 */
-	public static boolean DEBUG_LOG_ENABLED = false;
+	public static boolean DEBUG_LOG_ENABLED;
+
+	/**
+	 */
+	private SettingsConfig() {
+		// Creation of instances of this class is not publicly allowed.
+	}
 }

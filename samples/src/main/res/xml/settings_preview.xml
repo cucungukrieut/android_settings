@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress AndroidElementNotAllowed -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+				  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<universum.studios.android.setting.SettingPreferenceCategory android:title="Primary settings">
+
+		<universum.studios.android.setting.SettingSwitchPreference
+			android:key="@string/preference_preview_flashlight"
+			android:summary="Always enable flashlight on application\'s startup."
+			android:title="Flashlight" />
+
+		<universum.studios.android.setting.SettingDateDialogPreference
+			android:key="@string/preference_preview_expiration_date"
+			android:summary="Set date"
+			android:title="Expiration date"
+			app:dialogNegativeButton="Dismiss"
+			app:dialogDateMin="current-(0000-06-00)"
+			app:dialogDate="current-(0000-06-00)"/>
+
+		<universum.studios.android.setting.SettingTimeDialogPreference
+			android:key="@string/preference_preview_alarm_time"
+			android:summary="Set time"
+			android:title="Alarm time"
+			android:defaultValue="06:00 AM"
+			app:dialogId="@id/ui_settings_dialog_time"/>
+	</universum.studios.android.setting.SettingPreferenceCategory>
+
+	<universum.studios.android.setting.SettingPreferenceCategory android:title="Secondary settings">
+
+		<universum.studios.android.setting.SettingColorDialogPreference
+			android:key="@string/preference_preview_theme_color"
+			android:summary="Pick the color that best matches your style."
+			android:defaultValue="?attr/colorAccent"
+			android:title="Theme color" />
+
+		<universum.studios.android.setting.SettingCheckBoxPreference
+			android:key="@string/preference_preview_backup_photos"
+			android:summary="Upload photos to the cloud after they are stored in the gallery."
+			android:title="Backup photos" />
+
+		<universum.studios.android.setting.SettingEditDialogPreference
+			android:key="@string/preference_preview_nickname"
+			android:summary="Set nickname"
+			android:title="Player nickname"
+			app:dialogHint="nickname"/>
+	</universum.studios.android.setting.SettingPreferenceCategory>
+
+	<universum.studios.android.setting.SettingPreferenceCategory android:title="Other settings">
+
+		<universum.studios.android.setting.SettingSelectionDialogPreference
+			android:key="@string/preference_preview_notification_sound"
+			android:title="Preferred notification sound"
+			android:entries="@array/preference_preview_notification_sound_entries"
+			android:entryValues="@array/preference_preview_notification_sound_entry_values"
+			android:defaultValue="@string/preference_preview_notification_sound_default"/>
+
+		<universum.studios.android.setting.SettingSeekBarPreference
+			android:key="@string/preference_preview_notification_sound_volume"
+			android:title="Notification sound volume"
+			android:defaultValue="50"
+			app:uiVectorIcon="@drawable/vc_notifications"/>
+
+		<universum.studios.android.setting.SettingSpinnerPreference
+			android:key="@string/preference_preview_lock_screen"
+			android:title="Lock screen"
+			android:entries="@array/preference_preview_lock_screen_entries"
+			android:entryValues="@array/preference_preview_lock_screen_entry_values"
+			android:defaultValue="@string/preference_preview_lock_screen_default"/>
+
+		<universum.studios.android.setting.SettingPreference
+			android:key="@string/preference_preview_app_version"
+			android:summary="1.0.0 (13423)"
+			android:title="Application version"
+			android:selectable="false"/>
+	</universum.studios.android.setting.SettingPreferenceCategory>
+</PreferenceScreen>

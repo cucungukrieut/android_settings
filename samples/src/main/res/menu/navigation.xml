@@ -27,5 +27,13 @@
 			android:id="@+id/navigation_item_home"
 			android:checked="true"
 			android:title="@string/navigation_item_home" />
+
+		<item
+			android:id="@+id/navigation_item_preview"
+			android:title="@string/navigation_item_preview" />
+
+		<item
+			android:id="@+id/navigation_item_settings"
+			android:title="@string/navigation_item_settings" />
 	</group>
 </menu>

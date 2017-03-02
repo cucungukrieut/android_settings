@@ -27,6 +27,7 @@ android {
 
     defaultConfig {
         minSdkVersion project.property('library.minSdkVersion')
+        vectorDrawables.useSupportLibrary = true
         consumerProguardFiles 'proguard-rules.pro'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -107,7 +108,10 @@ dependencies {
     compile releaseDependencies.androidUniversumWidgetAdaptersCore
     compile releaseDependencies.androidUniversumWidgetAdaptersList
     compile releaseDependencies.androidUniversumWidgetAdaptersSpinner
+    compile releaseDependencies.androidUniversumGraphicsColorUtil
     compile releaseDependencies.androidUniversumUi
+    compile releaseDependencies.androidUniversumFontCore
+    compile releaseDependencies.androidUniversumFontUtil
     compile releaseDependencies.androidUniversumDialogs
 
     /*
