@@ -328,7 +328,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 */
 	@Nullable
 	public SettingDialogPreference findDialogPreference(int dialogId) {
-		return mDialogPreferences != null ? mDialogPreferences.get(dialogId) : null;
+		return mDialogPreferences == null ? null : mDialogPreferences.get(dialogId);
 	}
 
 	/**

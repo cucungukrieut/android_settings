@@ -397,7 +397,9 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 			case VIEW_TYPE_HEADER:
 				final Item item = getItem(position);
 				final HeaderHolder headerHolder = (HeaderHolder) viewHolder;
-				if (item.header.iconRes != 0) {
+				if (item.header.iconRes == 0) {
+					headerHolder.iconFrame.setVisibility(View.GONE);
+				} else {
 					headerHolder.iconFrame.setVisibility(View.VISIBLE);
 					if (mUseVectorIcons) {
 						headerHolder.icon.setImageDrawable(ResourceUtils.getVectorDrawable(
@@ -408,8 +410,6 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 					} else {
 						headerHolder.icon.setImageResource(item.header.iconRes);
 					}
-				} else {
-					headerHolder.iconFrame.setVisibility(View.GONE);
 				}
 				headerHolder.title.setText(item.header.getTitle(mResources));
 				final CharSequence summary = item.header.getSummary(mResources);

@@ -279,13 +279,13 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	 * Returns the content (root) view of this activity.
 	 *
 	 * @return This activity's content view.
-	 * @throws NullPointerException If content view of this activity has not been created yet.
+	 * @throws IllegalStateException If content view of this activity has not been created yet.
 	 * @see #onContentChanged()
 	 */
 	@NonNull
 	protected final View getContentView() {
 		if (mContentView == null) {
-			throw new NullPointerException("Activity(" + getClass() + ") does not have content view created yet!");
+			throw new IllegalStateException("Activity(" + getClass() + ") does not have content view created yet!");
 		}
 		return mContentView;
 	}
@@ -416,9 +416,9 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	/**
 	 */
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		delegate().onSaveInstanceState(outState);
+	protected void onSaveInstanceState(Bundle state) {
+		super.onSaveInstanceState(state);
+		delegate().onSaveInstanceState(state);
 	}
 
 	/**
