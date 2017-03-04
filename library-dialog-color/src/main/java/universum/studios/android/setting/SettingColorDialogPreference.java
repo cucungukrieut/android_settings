@@ -53,7 +53,8 @@ import universum.studios.android.setting.widget.SettingColorView;
  * Default value for this preference is parsed as color {@link Integer}. See {@link TypedArray#getColor(int, int)}.
  *
  * <h3>Xml attributes</h3>
- * See {@link R.styleable#Ui_Settings_ColorDialogPreference SettingColorDialogPreference Attributes}
+ * See {@link SettingDialogPreference},
+ * {@link R.styleable#Ui_Settings_ColorDialogPreference SettingColorDialogPreference Attributes}
  *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingColorDialogPreferenceStyle uiSettingColorDialogPreferenceStyle}
@@ -63,10 +64,6 @@ import universum.studios.android.setting.widget.SettingColorView;
 public final class SettingColorDialogPreference extends SettingDialogPreference<ColorPickerDialog.ColorOptions> {
 
 	/**
-	 * Interface ===================================================================================
-	 */
-
-	/**
 	 * Constants ===================================================================================
 	 */
 
@@ -74,6 +71,10 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingColorDialogPreference";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -125,7 +126,7 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	}
 
 	/**
-	 * Creates a new instance of SettingColorDialogPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingColorDialogPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
@@ -253,9 +254,10 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 			switch (button) {
 				case Dialog.BUTTON_POSITIVE:
 					setColor(((ColorPickerDialog) dialog).getColor());
-					break;
+					return true;
+				default:
+					return true;
 			}
-			return true;
 		}
 		return super.onHandleDialogButtonClick(dialog, button);
 	}

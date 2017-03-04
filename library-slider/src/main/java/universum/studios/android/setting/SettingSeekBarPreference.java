@@ -44,7 +44,8 @@ import android.widget.SeekBar;
  * Default value for this preference is parsed as {@link Integer}. See {@link TypedArray#getInt(int, int)}.
  *
  * <h3>Xml attributes</h3>
- * See {@link R.styleable#Ui_Settings_SeekBarPreference SettingSeekBarPreference Attributes}
+ * See {@link SettingPreference},
+ * {@link R.styleable#Ui_Settings_SeekBarPreference SettingSeekBarPreference Attributes}
  *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingSeekBarPreferenceStyle uiSettingSeekBarPreferenceStyle}
@@ -54,10 +55,6 @@ import android.widget.SeekBar;
 public class SettingSeekBarPreference extends SettingPreference {
 
 	/**
-	 * Interface ===================================================================================
-	 */
-
-	/**
 	 * Constants ===================================================================================
 	 */
 
@@ -65,6 +62,15 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingSeekBarPreference";
+
+	/**
+	 * Maximum value for slider's progress.
+	 */
+	private static final int PROGRESS_MAX = 100;
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -109,7 +115,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 *
 	 * @see #onBindView(View)
 	 */
-	private int mMaxProgress = 100;
+	private int mMaxProgress = PROGRESS_MAX;
 
 	/**
 	 * Boolean flag indicating whether the progress value for this preference has been set or not.
@@ -154,7 +160,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 	}
 
 	/**
-	 * Creates a new instance of SettingSeekBarPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingSeekBarPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.

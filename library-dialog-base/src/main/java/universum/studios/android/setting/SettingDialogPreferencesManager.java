@@ -54,10 +54,6 @@ import universum.studios.android.dialog.manage.DialogXmlFactory;
 public class SettingDialogPreferencesManager implements SettingDialogPreference.OnClickListener {
 
 	/**
-	 * Interface ===================================================================================
-	 */
-
-	/**
 	 * Constants ===================================================================================
 	 */
 
@@ -65,6 +61,10 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * Log TAG.
 	 */
 	private static final String TAG = "SettingDialogPreferencesManager";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -397,8 +397,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @return {@code True} if the preference dialog has been successfully shown, {@code false} otherwise.
 	 */
 	protected boolean onShowPreferenceDialog(@NonNull DialogController dialogController, @NonNull SettingDialogPreference preference) {
-		dialogController.newRequest(preference.getDialogId(), preference.getDialogOptions()).execute();
-		return true;
+		return dialogController.newRequest(preference.getDialogId()).dialogOptions(preference.getDialogOptions()).execute() != null;
 	}
 
 	/**

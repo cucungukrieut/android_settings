@@ -56,7 +56,8 @@ import universum.studios.android.dialog.Dialog;
  * using {@link DatePickerDialog.DateParser#parse(String)}. See {@link TypedArray#getString(int)}.
  *
  * <h3>Xml attributes</h3>
- * See {@link R.styleable#Ui_Settings_DateDialogPreference SettingDateDialogPreference Attributes}
+ * See {@link SettingDateTimeDialogPreference},
+ * {@link R.styleable#Ui_Settings_DateDialogPreference SettingDateDialogPreference Attributes}
  *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingDateDialogPreferenceStyle uiSettingDateDialogPreferenceStyle}
@@ -64,10 +65,6 @@ import universum.studios.android.dialog.Dialog;
  * @author Martin Albedinsky
  */
 public final class SettingDateDialogPreference extends SettingDateTimeDialogPreference<DatePickerDialog.DateOptions> {
-
-	/**
-	 * Interface ===================================================================================
-	 */
 
 	/**
 	 * Constants ===================================================================================
@@ -82,6 +79,10 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * Default pattern for the date format.
 	 */
 	private static final String FORMAT_PATTERN = "MMM dd, yyyy";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -119,7 +120,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	}
 
 	/**
-	 * Creates a new instance of SettingInputPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingInputPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
@@ -186,7 +187,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	@Override
 	long onParseDefaultValue(@NonNull Object defaultValue) {
 		final Long date = parseDate((String) defaultValue);
-		return date != null ? date : 0;
+		return date == null ? 0 : date;
 	}
 
 	/**
@@ -197,7 +198,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * @see #getDate()
 	 */
 	public void setDate(@Nullable Date date) {
-		setDate(date != null ? date.getTime() : 0);
+		setDate(date == null ? 0 : date.getTime());
 	}
 
 	/**
@@ -263,9 +264,10 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 			switch (button) {
 				case Dialog.BUTTON_POSITIVE:
 					setDate(((DatePickerDialog) dialog).getDate());
-					break;
+					return true;
+				default:
+					return true;
 			}
-			return true;
 		}
 		return super.onHandleDialogButtonClick(dialog, button);
 	}

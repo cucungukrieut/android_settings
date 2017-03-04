@@ -36,13 +36,15 @@ import android.view.ViewGroup;
  * preference in preference screen. This may be useful to fix a problem when view of the first
  * preference in preference screen is not being animated properly or at all.
  *
+ * <h3>Xml attributes</h3>
+ * See {@link SettingPreference}
+ *
+ * <h3>Default style attribute</h3>
+ * {@code none}
+ *
  * @author Martin Albedinsky
  */
 public class SettingEmptyPreference extends SettingPreference {
-
-	/**
-	 * Interface ===================================================================================
-	 */
 
 	/**
 	 * Constants ===================================================================================
@@ -52,6 +54,10 @@ public class SettingEmptyPreference extends SettingPreference {
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingEmptyPreference";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -86,11 +92,12 @@ public class SettingEmptyPreference extends SettingPreference {
 	 */
 	public SettingEmptyPreference(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-		this.init(context, attrs, defStyleAttr, 0);
+		setEnabled(false);
+		setSelectable(false);
 	}
 
 	/**
-	 * Creates a new instance of SettingEmptyPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingEmptyPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
@@ -98,28 +105,17 @@ public class SettingEmptyPreference extends SettingPreference {
 	 *                     this preference within a theme of the given context.
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
+	@SuppressWarnings("unused")
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	public SettingEmptyPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
-		this.init(context, attrs, defStyleAttr, defStyleRes);
+		setEnabled(false);
+		setSelectable(false);
 	}
 
 	/**
 	 * Methods =====================================================================================
 	 */
-
-	/**
-	 * Called from one of constructors of this setting preference to perform its initialization.
-	 * <p>
-	 * Initialization is done via parsing of the specified <var>attrs</var> set and obtaining for
-	 * this preference specific data from it that can be used to configure this new preference instance.
-	 * The specified <var>defStyleAttr</var> and <var>defStyleRes</var> are used to obtain default
-	 * data from the current theme provided by the specified <var>context</var>.
-	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-		setEnabled(false);
-		setSelectable(false);
-	}
 
 	/**
 	 */

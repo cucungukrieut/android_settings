@@ -35,13 +35,15 @@ import android.widget.Switch;
  * Extended {@link SwitchPreference} that provides additional features supported by the <b>Settings</b>
  * library.
  *
+ * <h3>Xml attributes</h3>
+ * See {@link SwitchPreference}
+ *
+ * <h3>Default style attribute</h3>
+ * {@link android.R.attr#switchPreferenceStyle android:switchPreferenceStyle}
+ *
  * @author Martin Albedinsky
  */
 public class SettingSwitchPreference extends SwitchPreference {
-
-	/**
-	 * Interface ===================================================================================
-	 */
 
 	/**
 	 * Constants ===================================================================================
@@ -51,6 +53,10 @@ public class SettingSwitchPreference extends SwitchPreference {
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingSwitchPreference";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -95,7 +101,7 @@ public class SettingSwitchPreference extends SwitchPreference {
 	}
 
 	/**
-	 * Creates a new instance of SettingSwitchPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingSwitchPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.

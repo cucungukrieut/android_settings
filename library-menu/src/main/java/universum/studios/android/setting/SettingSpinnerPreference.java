@@ -58,7 +58,8 @@ import universum.studios.android.widget.adapter.ViewHolder;
  * value that should be by default selected. See {@link TypedArray#getString(int)}.
  *
  * <h3>Xml attributes</h3>
- * See {@link R.styleable#Ui_Settings_SpinnerPreference SettingSpinnerPreference Attributes}
+ * See {@link SettingPreference},
+ * {@link R.styleable#Ui_Settings_SpinnerPreference SettingSpinnerPreference Attributes}
  *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingSpinnerPreferenceStyle uiSettingSpinnerPreferenceStyle}
@@ -68,10 +69,6 @@ import universum.studios.android.widget.adapter.ViewHolder;
 public class SettingSpinnerPreference extends SettingPreference {
 
 	/**
-	 * Interface ===================================================================================
-	 */
-
-	/**
 	 * Constants ===================================================================================
 	 */
 
@@ -79,6 +76,10 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingSpinnerPreference";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -177,7 +178,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 	}
 
 	/**
-	 * Creates a new instance of SettingSpinnerPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingSpinnerPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
@@ -249,10 +250,10 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 */
 	public void setEntries(@Nullable CharSequence[] entries) {
 		this.mEntries = entries;
-		if (entries != null) {
-			this.mAdapter.changeItems(Arrays.asList(entries));
-		} else {
+		if (entries == null) {
 			this.mAdapter.changeItems(Collections.<CharSequence>emptyList());
+		} else {
+			this.mAdapter.changeItems(Arrays.asList(entries));
 		}
 	}
 
@@ -340,10 +341,11 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * @see #getValue()
 	 */
 	private int getValueIndex() {
-		if (!TextUtils.isEmpty(mValue) && mEntryValues != null && mEntryValues.length > 0) {
-			for (int i = 0; i < mEntryValues.length; i++) {
-				if (TextUtils.equals(mValue, mEntryValues[i])) return i;
-			}
+		if (TextUtils.isEmpty(mValue) || mEntryValues == null || mEntryValues.length == 0) {
+			return EntriesAdapter.NO_POSITION;
+		}
+		for (int i = 0; i < mEntryValues.length; i++) {
+			if (TextUtils.equals(mValue, mEntryValues[i])) return i;
 		}
 		return EntriesAdapter.NO_POSITION;
 	}

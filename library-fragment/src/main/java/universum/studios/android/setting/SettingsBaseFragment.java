@@ -38,10 +38,6 @@ import android.view.ViewGroup;
 public abstract class SettingsBaseFragment extends PreferenceFragment {
 
 	/**
-	 * Interface ===================================================================================
-	 */
-
-	/**
 	 * Constants ===================================================================================
 	 */
 
@@ -49,6 +45,10 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingsBaseFragmentCompat";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -70,17 +70,17 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		final TypedArray typedArray = inflater.getContext().obtainStyledAttributes(
+		final TypedArray attributes = inflater.getContext().obtainStyledAttributes(
 				null,
 				R.styleable.Ui_Settings_Fragment,
 				R.attr.uiSettingsFragmentStyle,
 				0
 		);
-		final int layoutResource = typedArray.getResourceId(
+		final int layoutResource = attributes.getResourceId(
 				R.styleable.Ui_Settings_Fragment_android_layout,
 				R.layout.ui_settings_fragment
 		);
-		typedArray.recycle();
+		attributes.recycle();
 		return inflater.inflate(layoutResource, container, false);
 	}
 

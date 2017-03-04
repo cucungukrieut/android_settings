@@ -61,10 +61,6 @@ import java.util.List;
 public abstract class SettingsBaseActivity extends PreferenceActivity {
 
 	/**
-	 * Interface ===================================================================================
-	 */
-
-	/**
 	 * Constants ===================================================================================
 	 */
 
@@ -77,6 +73,10 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	 * Bundle key used by parent {@link PreferenceActivity} to save and restore list of headers.
 	 */
 	private static final String BUNDLE_HEADERS = ":android:headers";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -136,7 +136,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	 */
 	@NonNull
 	protected final AppCompatDelegate delegate() {
-		return mCompatDelegate != null ? mCompatDelegate : (mCompatDelegate = AppCompatDelegate.create(this, null));
+		return mCompatDelegate == null ? (mCompatDelegate = AppCompatDelegate.create(this, null)) : mCompatDelegate;
 	}
 
 	/**
@@ -324,6 +324,9 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 				final ActionBar actionBar = getSupportActionBar();
 				actionBar.setDisplayHomeAsUpEnabled(true);
 				mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
+					/**
+					 */
 					@Override
 					public void onClick(View v) {
 						onBackPressed();

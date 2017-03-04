@@ -56,6 +56,7 @@ import universum.studios.android.dialog.DialogOptions;
  * may be performed by the subclasses of this preference.
  *
  * <h3>Dialog Xml attributes</h3>
+ * See {@link SettingPreference},
  * {@link R.styleable#Ui_Settings_DialogPreference SettingDialogPreference Attributes}
  *
  * <h3>Default style attribute</h3>
@@ -64,6 +65,22 @@ import universum.studios.android.dialog.DialogOptions;
  * @author Martin Albedinsky
  */
 public class SettingDialogPreference<Options extends DialogOptions<Options>> extends SettingPreference {
+
+	/**
+	 * Constants ===================================================================================
+	 */
+
+	/**
+	 * Log TAG.
+	 */
+	// private static final String TAG = "SettingDialogPreference";
+
+	/**
+	 * Constant identifying no dialog id.
+	 *
+	 * @see #getDialogId()
+	 */
+	public static final int NO_DIALOG_ID = -1;
 
 	/**
 	 * Interface ===================================================================================
@@ -84,22 +101,6 @@ public class SettingDialogPreference<Options extends DialogOptions<Options>> ext
 		 */
 		boolean onDialogPreferenceClick(@NonNull SettingDialogPreference dialogPreference);
 	}
-
-	/**
-	 * Constants ===================================================================================
-	 */
-
-	/**
-	 * Log TAG.
-	 */
-	// private static final String TAG = "SettingDialogPreference";
-
-	/**
-	 * Constant identifying no dialog id.
-	 *
-	 * @see #getDialogId()
-	 */
-	public static final int NO_DIALOG_ID = -1;
 
 	/**
 	 * Static members ==============================================================================
@@ -150,7 +151,7 @@ public class SettingDialogPreference<Options extends DialogOptions<Options>> ext
 	}
 
 	/**
-	 * Creates a new instance of SettingDialogPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingDialogPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.

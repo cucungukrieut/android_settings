@@ -56,7 +56,8 @@ import universum.studios.android.dialog.TimePickerDialog;
  * using {@link TimePickerDialog.TimeParser#parse(String)}. See {@link TypedArray#getString(int)}.
  *
  * <h3>Xml attributes</h3>
- * See {@link R.styleable#Ui_Settings_TimeDialogPreference SettingTimeDialogPreference Attributes}
+ * See {@link SettingDateTimeDialogPreference},
+ * {@link R.styleable#Ui_Settings_TimeDialogPreference SettingTimeDialogPreference Attributes}
  *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingTimeDialogPreferenceStyle uiSettingTimeDialogPreferenceStyle}
@@ -64,10 +65,6 @@ import universum.studios.android.dialog.TimePickerDialog;
  * @author Martin Albedinsky
  */
 public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference<TimePickerDialog.TimeOptions> {
-
-	/**
-	 * Interface ===================================================================================
-	 */
 
 	/**
 	 * Constants ===================================================================================
@@ -82,6 +79,10 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * Default pattern for the time format.
 	 */
 	private static final String FORMAT_PATTERN = "hh:mm a";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -119,7 +120,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	}
 
 	/**
-	 * Creates a new instance of SettingInputPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingInputPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
@@ -161,22 +162,22 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	protected void onConfigureDialogOptions(@NonNull TimePickerDialog.TimeOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
 		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);
 		String formatPattern = FORMAT_PATTERN;
-		final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_TimeDialogPreference, defStyleAttr, defStyleRes);
-		for (int i = 0; i < typedArray.getIndexCount(); i++) {
-			final int index = typedArray.getIndex(i);
+		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_TimeDialogPreference, defStyleAttr, defStyleRes);
+		for (int i = 0; i < attributes.getIndexCount(); i++) {
+			final int index = attributes.getIndex(i);
 			if (index == R.styleable.Ui_Settings_TimeDialogPreference_uiSettingDateFormat) {
-				final String dateFormat = typedArray.getString(index);
+				final String dateFormat = attributes.getString(index);
 				formatPattern = TextUtils.isEmpty(dateFormat) ? formatPattern : dateFormat;
 			} else if (index == R.styleable.Ui_Settings_TimeDialogPreference_dialogTime) {
-				final Long time = parseTime(typedArray.getString(index));
+				final Long time = parseTime(attributes.getString(index));
 				if (time != null) options.time(time);
 			} else if (index == R.styleable.Ui_Settings_TimeDialogPreference_dialogTimePickers) {
-				options.timePickers(typedArray.getInt(index, options.timePickers()));
+				options.timePickers(attributes.getInt(index, options.timePickers()));
 			} else if (index == R.styleable.Ui_Settings_TimeDialogPreference_dialogTimeQuantityText) {
-				options.timeQuantityText(typedArray.getResourceId(index, 0));
+				options.timeQuantityText(attributes.getResourceId(index, 0));
 			}
 		}
-		typedArray.recycle();
+		attributes.recycle();
 		setFormat(new SimpleDateFormat(formatPattern, Locale.getDefault()));
 	}
 
@@ -185,7 +186,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	@Override
 	long onParseDefaultValue(@NonNull Object defaultValue) {
 		final Long time = parseTime((String) defaultValue);
-		return time != null ? time : 0;
+		return time == null ? 0 : time;
 	}
 
 	/**
@@ -196,7 +197,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * @see #getTime()
 	 */
 	public void setTime(@Nullable Date time) {
-		setTime(time != null ? time.getTime() : 0);
+		setTime(time == null ? 0 : time.getTime());
 	}
 
 	/**
@@ -262,9 +263,10 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 			switch (button) {
 				case Dialog.BUTTON_POSITIVE:
 					setTime(((TimePickerDialog) dialog).getTime());
-					break;
+					return true;
+				default:
+					return true;
 			}
-			return true;
 		}
 		return super.onHandleDialogButtonClick(dialog, button);
 	}

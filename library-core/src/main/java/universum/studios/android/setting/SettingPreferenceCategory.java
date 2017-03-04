@@ -32,13 +32,15 @@ import android.util.AttributeSet;
  * Extended {@link PreferenceCategory} that provides additional features supported by the <b>Settings</b>
  * library.
  *
+ * <h3>Xml attributes</h3>
+ * See {@link PreferenceCategory}
+ *
+ * <h3>Default style attribute</h3>
+ * {@link android.R.attr#preferenceCategoryStyle android:preferenceCategoryStyle}
+ *
  * @author Martin Albedinsky
  */
 public class SettingPreferenceCategory extends PreferenceCategory {
-
-	/**
-	 * Interface ===================================================================================
-	 */
 
 	/**
 	 * Constants ===================================================================================
@@ -48,6 +50,10 @@ public class SettingPreferenceCategory extends PreferenceCategory {
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingPreferenceCategory";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -85,7 +91,7 @@ public class SettingPreferenceCategory extends PreferenceCategory {
 	}
 
 	/**
-	 * Creates a new instance of SettingPreferenceCategory within the given <var>context</var>.
+	 * Creates a new instance of SettingPreferenceCategory for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.

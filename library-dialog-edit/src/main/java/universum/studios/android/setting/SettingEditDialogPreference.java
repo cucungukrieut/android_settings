@@ -52,7 +52,8 @@ import universum.studios.android.dialog.view.InputConfig;
  * Default value for this preference is parsed as {@link String}. See {@link TypedArray#getString(int)}.
  *
  * <h3>Xml attributes</h3>
- * See {@link R.styleable#Ui_Settings_EditDialogPreference SettingEditDialogPreference Attributes}
+ * See {@link SettingDialogPreference},
+ * {@link R.styleable#Ui_Settings_EditDialogPreference SettingEditDialogPreference Attributes}
  *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingEditDialogPreferenceStyle uiSettingEditDialogPreferenceStyle}
@@ -62,10 +63,6 @@ import universum.studios.android.dialog.view.InputConfig;
 public class SettingEditDialogPreference extends SettingDialogPreference<EditDialog.EditOptions> {
 
 	/**
-	 * Interface ===================================================================================
-	 */
-
-	/**
 	 * Constants ===================================================================================
 	 */
 
@@ -73,6 +70,10 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingEditDialogPreference";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -124,7 +125,7 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 	}
 
 	/**
-	 * Creates a new instance of SettingEditDialogPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingEditDialogPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
@@ -152,9 +153,7 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 			if (index == R.styleable.Ui_Settings_EditDialogPreference_dialogHint) {
 				options.hint(attributes.getText(index));
 			} else if (index == R.styleable.Ui_Settings_EditDialogPreference_dialogInputStyle) {
-				final InputConfig inputConfig = new InputConfig();
-				inputConfig.fromStyle(context, attributes.getResourceId(index, 0));
-				options.inputConfig(inputConfig);
+				options.inputConfig(InputConfig.fromStyle(context, attributes.getResourceId(index, 0)));
 			} else if (index == R.styleable.Ui_Settings_EditDialogPreference_dialogShowSoftKeyboard) {
 				options.showSoftKeyboard(attributes.getBoolean(index, options.shouldShowSoftKeyboard()));
 			}
@@ -257,9 +256,10 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 			switch (button) {
 				case Dialog.BUTTON_POSITIVE:
 					setInput(((EditDialog) dialog).getInput().toString());
-					break;
+					return true;
+				default:
+					return true;
 			}
-			return true;
 		}
 		return super.onHandleDialogButtonClick(dialog, button);
 	}

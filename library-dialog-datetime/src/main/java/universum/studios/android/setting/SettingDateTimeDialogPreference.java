@@ -48,10 +48,6 @@ import universum.studios.android.dialog.DialogOptions;
 public abstract class SettingDateTimeDialogPreference<Options extends DialogOptions<Options>> extends SettingDialogPreference<Options> {
 
 	/**
-	 * Interface ===================================================================================
-	 */
-
-	/**
 	 * Constants ===================================================================================
 	 */
 
@@ -59,6 +55,10 @@ public abstract class SettingDateTimeDialogPreference<Options extends DialogOpti
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingDateTimeDialogPreference";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -115,7 +115,7 @@ public abstract class SettingDateTimeDialogPreference<Options extends DialogOpti
 	}
 
 	/**
-	 * Creates a new instance of SettingDateTimeDialogPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingDateTimeDialogPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.

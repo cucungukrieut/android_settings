@@ -58,10 +58,6 @@ import universum.studios.android.widget.adapter.ViewHolder;
 public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.Item, ViewHolder> {
 
 	/**
-	 * Interface ===================================================================================
-	 */
-
-	/**
 	 * Constants ===================================================================================
 	 */
 
@@ -93,6 +89,10 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 * @see #isEnabled(int)
 	 */
 	public static final int VIEW_TYPE_HEADER = 2;
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -201,10 +201,10 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	public List<PreferenceActivity.Header> swapHeaders(@Nullable List<PreferenceActivity.Header> headers) {
 		final List<PreferenceActivity.Header> oldHeaders = mHeaders;
 		this.mHeaders = headers;
-		if (headers != null && !headers.isEmpty()) {
-			super.swapItems(createItemsFromHeaders(headers));
-		} else {
+		if (headers == null || headers.isEmpty()) {
 			super.swapItems(Collections.<Item>emptyList());
+		} else {
+			super.swapItems(createItemsFromHeaders(headers));
 		}
 		return oldHeaders;
 	}
@@ -349,15 +349,16 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	@Override
 	protected View onCreateView(@NonNull ViewGroup parent, int position) {
 		final int viewType = currentViewType();
-		switch (currentViewType()) {
+		switch (viewType) {
 			case VIEW_TYPE_CATEGORY:
 				return inflate(R.layout.ui_setting_category_header, parent);
 			case VIEW_TYPE_CATEGORY_DIVIDER:
 				return inflate(R.layout.ui_setting_category_divider, parent);
 			case VIEW_TYPE_HEADER:
 				return inflate(R.layout.ui_setting_header, parent);
+			default:
+				throw unknownViewTypeAtPositionException(viewType, position);
 		}
-		throw unknownViewTypeAtPositionException(viewType, position);
 	}
 
 	/**
@@ -366,15 +367,16 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	@Override
 	protected ViewHolder onCreateViewHolder(@NonNull View itemView, int position) {
 		final int viewType = currentViewType();
-		switch (currentViewType()) {
+		switch (viewType) {
 			case VIEW_TYPE_CATEGORY:
 				return new CategoryHolder(itemView);
 			case VIEW_TYPE_CATEGORY_DIVIDER:
 				return new CategoryDividerHolder(itemView);
 			case VIEW_TYPE_HEADER:
 				return new HeaderHolder(itemView);
+			default:
+				throw unknownViewTypeAtPositionException(viewType, position);
 		}
-		throw unknownViewTypeAtPositionException(viewType, position);
 	}
 
 	/**
@@ -382,7 +384,8 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	@Override
 	@SuppressWarnings("ResourceType")
 	protected void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-		switch (currentViewType()) {
+		final int viewType = currentViewType();
+		switch (viewType) {
 			case VIEW_TYPE_CATEGORY:
 				final PreferenceActivity.Header categoryHeader = getItem(position).header;
 				((CategoryHolder) viewHolder).title.setText(categoryHeader.getTitle(mResources));
@@ -418,6 +421,8 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 				}
 				headerHolder.divider.setVisibility(item.showDivider ? View.VISIBLE : View.GONE);
 				break;
+			default:
+				throw unknownViewTypeAtPositionException(viewType, position);
 		}
 	}
 

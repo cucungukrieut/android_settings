@@ -32,6 +32,8 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
 
 import universum.studios.android.setting.R;
 
@@ -41,7 +43,8 @@ import universum.studios.android.setting.R;
  * color via {@link #setCanvasColor(int)} that should be drawn behind the primary color.
  *
  * <h3>Xml attributes</h3>
- * See {@link R.styleable#Ui_Settings_ColorView SettingColorView Attributes}
+ * See {@link View},
+ * {@link R.styleable#Ui_Settings_ColorView SettingColorView Attributes}
  *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingColorViewStyle uiSettingColorViewStyle}
@@ -51,10 +54,6 @@ import universum.studios.android.setting.R;
 public class SettingColorView extends View {
 
 	/**
-	 * Interface ===================================================================================
-	 */
-
-	/**
 	 * Constants ===================================================================================
 	 */
 
@@ -62,6 +61,10 @@ public class SettingColorView extends View {
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingColorView";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -91,7 +94,7 @@ public class SettingColorView extends View {
 	 * Raw color specified via {@link #setColor(int)}. This color is used as base for color used to
 	 * draw primary graphics of this view.
 	 */
-	private int mRawColor = Color.argb(255, 255, 255, 255);
+	private int mRawColor = Color.WHITE;
 
 	/**
 	 * Modified {@link #mRawColor} by the current alpha value of this view.
@@ -141,7 +144,7 @@ public class SettingColorView extends View {
 	}
 
 	/**
-	 * Creates a new instance of SettingColorView within the given <var>context</var>.
+	 * Creates a new instance of SettingColorView for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new view presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this view.
@@ -169,18 +172,36 @@ public class SettingColorView extends View {
 	 */
 	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		this.mMaxWidth = mMaxHeight = Integer.MAX_VALUE;
-		final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_ColorView, defStyleAttr, defStyleRes);
-		for (int i = 0; i < typedArray.getIndexCount(); i++) {
-			final int index = typedArray.getIndex(i);
+		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_ColorView, defStyleAttr, defStyleRes);
+		for (int i = 0; i < attributes.getIndexCount(); i++) {
+			final int index = attributes.getIndex(i);
 			if (index == R.styleable.Ui_Settings_ColorView_android_color) {
-				setColor(typedArray.getColor(index, mRawColor));
+				setColor(attributes.getColor(index, mRawColor));
 			} else if (index == R.styleable.Ui_Settings_ColorView_android_maxWidth) {
-				this.mMaxWidth = typedArray.getDimensionPixelSize(index, mMaxWidth);
+				this.mMaxWidth = attributes.getDimensionPixelSize(index, mMaxWidth);
 			} else if (index == R.styleable.Ui_Settings_ColorView_android_maxHeight) {
-				this.mMaxHeight = typedArray.getDimensionPixelSize(index, mMaxHeight);
+				this.mMaxHeight = attributes.getDimensionPixelSize(index, mMaxHeight);
 			}
 		}
-		typedArray.recycle();
+		attributes.recycle();
+	}
+
+	/**
+	 */
+	@Override
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+	public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent event) {
+		super.onInitializeAccessibilityEvent(event);
+		event.setClassName(SettingColorView.class.getName());
+	}
+
+	/**
+	 */
+	@Override
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+	public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
+		super.onInitializeAccessibilityNodeInfo(info);
+		info.setClassName(SettingColorView.class.getName());
 	}
 
 	/**
