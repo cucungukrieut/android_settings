@@ -371,7 +371,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 		if (dialogId != SettingDialogPreference.NO_DIALOG_ID) {
 			final DialogFactory dialogFactory = mDialogController.getFactory();
 			if (dialogFactory == null) {
-				throw new NullPointerException("No dialog factory specified to provide dialogs for preferences!");
+				throw new IllegalStateException("No dialog factory specified to provide dialogs for preferences!");
 			}
 			if (!dialogFactory.isDialogProvided(dialogId)) {
 				Log.w(

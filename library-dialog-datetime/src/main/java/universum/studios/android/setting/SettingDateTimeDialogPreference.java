@@ -45,7 +45,7 @@ import universum.studios.android.dialog.DialogOptions;
  *
  * @author Martin Albedinsky
  */
-public abstract class SettingDateTimeDialogPreference<Options extends DialogOptions<Options>> extends SettingDialogPreference<Options> {
+public abstract class SettingDateTimeDialogPreference<O extends DialogOptions<O>> extends SettingDialogPreference<O> {
 
 	/**
 	 * Constants ===================================================================================

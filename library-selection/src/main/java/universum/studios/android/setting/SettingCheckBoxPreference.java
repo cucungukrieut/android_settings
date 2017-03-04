@@ -147,7 +147,7 @@ public class SettingCheckBoxPreference extends CheckBoxPreference {
 		this.ensureDecorator();
 		mDecorator.onBindView(view);
 		final View checkableView = view.findViewById(android.R.id.checkbox);
-		if (checkableView != null && checkableView instanceof Checkable) {
+		if (checkableView instanceof Checkable) {
 			((Checkable) checkableView).setChecked(isChecked());
 		}
 	}

@@ -148,7 +148,7 @@ public class SettingSwitchPreference extends SwitchPreference {
 		this.ensureDecorator();
 		mDecorator.onBindView(view);
 		final View checkableView = view.findViewById(R.id.ui_setting_switch);
-		if (checkableView != null && checkableView instanceof Checkable) {
+		if (checkableView instanceof Checkable) {
 			if (checkableView instanceof Switch) {
 				final Switch switchView = (Switch) checkableView;
 				switchView.setOnCheckedChangeListener(null);

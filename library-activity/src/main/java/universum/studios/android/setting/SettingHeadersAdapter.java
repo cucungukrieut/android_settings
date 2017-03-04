@@ -464,7 +464,7 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 		 * Boolean flag indicating whether there should be visible divider in the view inflated for
 		 * this item.
 		 */
-		private boolean showDivider = false;
+		private boolean showDivider;
 
 		/**
 		 * Creates a new instance of Item with the specified <var>viewType</var> and <var>header</var>
