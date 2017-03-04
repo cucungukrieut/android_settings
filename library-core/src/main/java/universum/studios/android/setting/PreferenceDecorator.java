@@ -42,10 +42,6 @@ import universum.studios.android.ui.util.ResourceUtils;
 class PreferenceDecorator {
 
 	/**
-	 * Interface ===================================================================================
-	 */
-
-	/**
 	 * Constants ===================================================================================
 	 */
 
@@ -64,6 +60,10 @@ class PreferenceDecorator {
 	 * Name of the field that indicates whether the preference can recycle its layout or not.
 	 */
 	private static final String FIELD_NAME_CAN_RECYCLE_LAYOUT = "mCanRecycleLayout";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -155,7 +155,7 @@ class PreferenceDecorator {
 	void onBindView(@NonNull View view) {
 		final View iconFrameView = view.findViewById(R.id.icon_frame);
 		if (iconFrameView != null) {
-			iconFrameView.setVisibility(mPreference.getIcon() != null ? View.VISIBLE : View.GONE);
+			iconFrameView.setVisibility(mPreference.getIcon() == null ? View.GONE : View.VISIBLE);
 		}
 	}
 

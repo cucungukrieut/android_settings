@@ -71,7 +71,8 @@ import universum.studios.android.dialog.adapter.DialogSelectionAdapter;
  * See {@link TypedArray#getString(int)}.
  *
  * <h3>Xml attributes</h3>
- * See {@link R.styleable#Ui_Settings_SelectionDialogPreference SettingSelectionDialogPreference Attributes}
+ * See {@link SettingDialogPreference},
+ * {@link R.styleable#Ui_Settings_SelectionDialogPreference SettingSelectionDialogPreference Attributes}
  *
  * <h3>Default style attribute</h3>
  * {@link R.attr#uiSettingSelectionDialogPreferenceStyle uiSettingSelectionDialogPreferenceStyle}
@@ -79,6 +80,20 @@ import universum.studios.android.dialog.adapter.DialogSelectionAdapter;
  * @author Martin Albedinsky
  */
 public class SettingSelectionDialogPreference extends SettingDialogPreference<SelectionDialog.SelectionOptions> {
+
+	/**
+	 * Constants ===================================================================================
+	 */
+
+	/**
+	 * Log TAG.
+	 */
+	// private static final String TAG = "SettingSelectionDialogPreference";
+
+	/**
+	 * Default separator for entry items presented in the summary text.
+	 */
+	private static final String SUMMARY_ENTRIES_SEPARATOR = ", ";
 
 	/**
 	 * Interface ===================================================================================
@@ -125,20 +140,6 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 		@NonNull
 		CharSequence build();
 	}
-
-	/**
-	 * Constants ===================================================================================
-	 */
-
-	/**
-	 * Log TAG.
-	 */
-	// private static final String TAG = "SettingSelectionDialogPreference";
-
-	/**
-	 * Default separator for entry items presented in the summary text.
-	 */
-	private static final String SUMMARY_ENTRIES_SEPARATOR = ", ";
 
 	/**
 	 * Static members ==============================================================================
@@ -220,7 +221,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	}
 
 	/**
-	 * Creates a new instance of SettingSelectionDialogPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingSelectionDialogPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
@@ -371,7 +372,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 *                    default one.
 	 */
 	public void setSummaryTextBuilder(@Nullable SummaryTextBuilder textBuilder) {
-		this.mSummaryTextBuilder = textBuilder != null ? textBuilder : new DefaultSummaryTextBuilder(SUMMARY_ENTRIES_SEPARATOR);
+		this.mSummaryTextBuilder = textBuilder == null ? new DefaultSummaryTextBuilder(SUMMARY_ENTRIES_SEPARATOR) : textBuilder;
 	}
 
 	/**
@@ -387,7 +388,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
 		if (restorePersistedValue) {
 			final String persistedValues = getPersistedString(null);
-			setSelection(persistedValues != null ? createSelectionFromPersistedValues(persistedValues) : mSelection);
+			setSelection(persistedValues == null ? mSelection : createSelectionFromPersistedValues(persistedValues));
 		} else {
 			setSelection(createSelectionFromPersistedValues((String) defaultValue));
 		}
@@ -556,9 +557,10 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 			switch (button) {
 				case Dialog.BUTTON_POSITIVE:
 					setSelection(((SelectionDialog) dialog).getSelection());
-					break;
+					return true;
+				default:
+					return true;
 			}
-			return true;
 		}
 		return super.onHandleDialogButtonClick(dialog, button);
 	}

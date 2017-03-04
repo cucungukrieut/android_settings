@@ -34,13 +34,15 @@ import android.widget.Checkable;
  * Extended {@link CheckBoxPreference} that provides additional features supported by the <b>Settings</b>
  * library.
  *
+ * <h3>Xml attributes</h3>
+ * See {@link CheckBoxPreference}
+ *
+ * <h3>Default style attribute</h3>
+ * {@link android.R.attr#checkBoxPreferenceStyle android:checkBoxPreferenceStyle}
+ *
  * @author Martin Albedinsky
  */
 public class SettingCheckBoxPreference extends CheckBoxPreference {
-
-	/**
-	 * Interface ===================================================================================
-	 */
 
 	/**
 	 * Constants ===================================================================================
@@ -50,6 +52,10 @@ public class SettingCheckBoxPreference extends CheckBoxPreference {
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingCheckBoxPreference";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -94,7 +100,7 @@ public class SettingCheckBoxPreference extends CheckBoxPreference {
 	}
 
 	/**
-	 * Creates a new instance of SettingCheckBoxPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingCheckBoxPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
@@ -141,7 +147,7 @@ public class SettingCheckBoxPreference extends CheckBoxPreference {
 		this.ensureDecorator();
 		mDecorator.onBindView(view);
 		final View checkableView = view.findViewById(android.R.id.checkbox);
-		if (checkableView != null && checkableView instanceof Checkable) {
+		if (checkableView instanceof Checkable) {
 			((Checkable) checkableView).setChecked(isChecked());
 		}
 	}

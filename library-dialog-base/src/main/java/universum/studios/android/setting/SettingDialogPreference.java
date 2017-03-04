@@ -56,14 +56,32 @@ import universum.studios.android.dialog.DialogOptions;
  * may be performed by the subclasses of this preference.
  *
  * <h3>Dialog Xml attributes</h3>
+ * See {@link SettingPreference},
  * {@link R.styleable#Ui_Settings_DialogPreference SettingDialogPreference Attributes}
  *
  * <h3>Default style attribute</h3>
  * {@link android.R.attr#dialogPreferenceStyle android:dialogPreferenceStyle}
  *
+ * @param <O> Type of the dialog options specific for type of the dialog associated with this preference.
  * @author Martin Albedinsky
  */
-public class SettingDialogPreference<Options extends DialogOptions<Options>> extends SettingPreference {
+public class SettingDialogPreference<O extends DialogOptions<O>> extends SettingPreference {
+
+	/**
+	 * Constants ===================================================================================
+	 */
+
+	/**
+	 * Log TAG.
+	 */
+	// private static final String TAG = "SettingDialogPreference";
+
+	/**
+	 * Constant identifying no dialog id.
+	 *
+	 * @see #getDialogId()
+	 */
+	public static final int NO_DIALOG_ID = -1;
 
 	/**
 	 * Interface ===================================================================================
@@ -86,22 +104,6 @@ public class SettingDialogPreference<Options extends DialogOptions<Options>> ext
 	}
 
 	/**
-	 * Constants ===================================================================================
-	 */
-
-	/**
-	 * Log TAG.
-	 */
-	// private static final String TAG = "SettingDialogPreference";
-
-	/**
-	 * Constant identifying no dialog id.
-	 *
-	 * @see #getDialogId()
-	 */
-	public static final int NO_DIALOG_ID = -1;
-
-	/**
 	 * Static members ==============================================================================
 	 */
 
@@ -119,7 +121,7 @@ public class SettingDialogPreference<Options extends DialogOptions<Options>> ext
 	 *
 	 * @see #onCreateDialogOptions(Resources)
 	 */
-	private Options mDialogOptions;
+	private O mDialogOptions;
 
 	/**
 	 * Constructors ================================================================================
@@ -150,7 +152,7 @@ public class SettingDialogPreference<Options extends DialogOptions<Options>> ext
 	}
 
 	/**
-	 * Creates a new instance of SettingDialogPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingDialogPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
@@ -187,7 +189,7 @@ public class SettingDialogPreference<Options extends DialogOptions<Options>> ext
 	 * @param options The options created via {@link #onCreateDialogOptions(Resources)}.
 	 */
 	@SuppressWarnings("ResourceType")
-	protected void onConfigureDialogOptions(@NonNull Options options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	protected void onConfigureDialogOptions(@NonNull O options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DialogPreference, defStyleAttr, defStyleRes);
 		for (int i = 0; i < attributes.getIndexCount(); i++) {
 			final int index = attributes.getIndex(i);
@@ -233,8 +235,8 @@ public class SettingDialogPreference<Options extends DialogOptions<Options>> ext
 	 */
 	@NonNull
 	@SuppressWarnings("unchecked")
-	protected Options onCreateDialogOptions(@NonNull Resources resources) {
-		return (Options) new DialogOptions(resources);
+	protected O onCreateDialogOptions(@NonNull Resources resources) {
+		return (O) new DialogOptions(resources);
 	}
 
 	/**
@@ -247,7 +249,7 @@ public class SettingDialogPreference<Options extends DialogOptions<Options>> ext
 	 * @param listener The desired callback. May be {@code null} to clear the current one.
 	 */
 	public void setOnClickListener(@Nullable final OnClickListener listener) {
-		setOnPreferenceClickListener(listener != null ? new OnPreferenceClickListener() {
+		setOnPreferenceClickListener(listener == null ? null : new OnPreferenceClickListener() {
 
 			/**
 			 */
@@ -255,7 +257,7 @@ public class SettingDialogPreference<Options extends DialogOptions<Options>> ext
 			public boolean onPreferenceClick(Preference preference) {
 				return listener.onDialogPreferenceClick((SettingDialogPreference) preference);
 			}
-		} : null);
+		});
 	}
 
 	/**
@@ -277,7 +279,7 @@ public class SettingDialogPreference<Options extends DialogOptions<Options>> ext
 	 * @return This preference's dialog options.
 	 */
 	@NonNull
-	public Options getDialogOptions() {
+	public O getDialogOptions() {
 		return mDialogOptions;
 	}
 

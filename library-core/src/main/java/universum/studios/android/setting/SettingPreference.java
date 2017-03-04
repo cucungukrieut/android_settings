@@ -33,13 +33,15 @@ import android.view.View;
  * Extended {@link Preference} that provides additional features supported by the <b>Settings</b>
  * library.
  *
+ * <h3>Xml attributes</h3>
+ * See {@link Preference}
+ *
+ * <h3>Default style attribute</h3>
+ * {@link android.R.attr#preferenceStyle android:preferenceStyle}
+ *
  * @author Martin Albedinsky
  */
 public class SettingPreference extends Preference {
-
-	/**
-	 * Interface ===================================================================================
-	 */
 
 	/**
 	 * Constants ===================================================================================
@@ -49,6 +51,10 @@ public class SettingPreference extends Preference {
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingPreference";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -93,7 +99,7 @@ public class SettingPreference extends Preference {
 	}
 
 	/**
-	 * Creates a new instance of SettingPreference within the given <var>context</var>.
+	 * Creates a new instance of SettingPreference for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new setting preference presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.

@@ -61,10 +61,6 @@ import java.util.List;
 public abstract class SettingsBaseActivity extends PreferenceActivity {
 
 	/**
-	 * Interface ===================================================================================
-	 */
-
-	/**
 	 * Constants ===================================================================================
 	 */
 
@@ -77,6 +73,10 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	 * Bundle key used by parent {@link PreferenceActivity} to save and restore list of headers.
 	 */
 	private static final String BUNDLE_HEADERS = ":android:headers";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -136,7 +136,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	 */
 	@NonNull
 	protected final AppCompatDelegate delegate() {
-		return mCompatDelegate != null ? mCompatDelegate : (mCompatDelegate = AppCompatDelegate.create(this, null));
+		return mCompatDelegate == null ? (mCompatDelegate = AppCompatDelegate.create(this, null)) : mCompatDelegate;
 	}
 
 	/**
@@ -279,13 +279,13 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	 * Returns the content (root) view of this activity.
 	 *
 	 * @return This activity's content view.
-	 * @throws NullPointerException If content view of this activity has not been created yet.
+	 * @throws IllegalStateException If content view of this activity has not been created yet.
 	 * @see #onContentChanged()
 	 */
 	@NonNull
 	protected final View getContentView() {
 		if (mContentView == null) {
-			throw new NullPointerException("Activity(" + getClass() + ") does not have content view created yet!");
+			throw new IllegalStateException("Activity(" + getClass() + ") does not have content view created yet!");
 		}
 		return mContentView;
 	}
@@ -324,6 +324,9 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 				final ActionBar actionBar = getSupportActionBar();
 				actionBar.setDisplayHomeAsUpEnabled(true);
 				mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
+					/**
+					 */
 					@Override
 					public void onClick(View v) {
 						onBackPressed();
@@ -413,9 +416,9 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	/**
 	 */
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		delegate().onSaveInstanceState(outState);
+	protected void onSaveInstanceState(Bundle state) {
+		super.onSaveInstanceState(state);
+		delegate().onSaveInstanceState(state);
 	}
 
 	/**

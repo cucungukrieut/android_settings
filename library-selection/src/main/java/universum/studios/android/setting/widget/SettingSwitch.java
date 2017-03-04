@@ -27,6 +27,8 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
 
 import universum.studios.android.setting.SettingSwitchPreference;
 import universum.studios.android.setting.R;
@@ -43,13 +45,15 @@ import universum.studios.android.ui.widget.SwitchWidget;
  * <b>Note, that due to workaround described above, this switch widget should be only used for purpose
  * of preference layouts. For application layouts use rather {@link SwitchWidget}.</b>
  *
+ * <h3>Xml attributes</h3>
+ * See {@link SwitchWidget}
+ *
+ * <h3>Default style attribute</h3>
+ * {@link R.attr#switchStyle switchStyle}
+ *
  * @author Martin Albedinsky
  */
 public class SettingSwitch extends SwitchWidget {
-
-	/**
-	 * Interface ===================================================================================
-	 */
 
 	/**
 	 * Constants ===================================================================================
@@ -59,6 +63,10 @@ public class SettingSwitch extends SwitchWidget {
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingSwitch";
+
+	/**
+	 * Interface ===================================================================================
+	 */
 
 	/**
 	 * Static members ==============================================================================
@@ -95,7 +103,7 @@ public class SettingSwitch extends SwitchWidget {
 	}
 
 	/**
-	 * Creates a new instance of SettingSwitch within the given <var>context</var>.
+	 * Creates a new instance of SettingSwitch for the given <var>context</var>.
 	 *
 	 * @param context      Context in which will be the new view presented.
 	 * @param attrs        Set of Xml attributes used to configure the new instance of this view.
@@ -112,6 +120,24 @@ public class SettingSwitch extends SwitchWidget {
 	/**
 	 * Methods =====================================================================================
 	 */
+
+	/**
+	 */
+	@Override
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+	public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent event) {
+		super.onInitializeAccessibilityEvent(event);
+		event.setClassName(SettingSwitch.class.getName());
+	}
+
+	/**
+	 */
+	@Override
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+	public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
+		super.onInitializeAccessibilityNodeInfo(info);
+		info.setClassName(SettingSwitch.class.getName());
+	}
 
 	/**
 	 * @return {@code True} whenever the current visibility of this widget is {@link View#VISIBLE}.
