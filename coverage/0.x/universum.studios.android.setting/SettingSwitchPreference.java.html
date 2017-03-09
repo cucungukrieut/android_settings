@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SettingSwitchPreference.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">universum.studios.android.setting</a> &gt; <span class="el_source">SettingSwitchPreference.java</span></div><h1>SettingSwitchPreference.java</h1><pre class="source lang-java linenums">/*
+ * =================================================================================================
+ *                             Copyright (C) 2017 Universum Studios
+ * =================================================================================================
+ *         Licensed under the Apache License, Version 2.0 or later (further &quot;License&quot; only).
+ * -------------------------------------------------------------------------------------------------
+ * You may use this file only in compliance with the License. More details and copy of this License 
+ * you may obtain at
+ * 
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * You can redistribute, modify or publish any part of the code written within this file but as it 
+ * is described in the License, the software distributed under the License is distributed on an 
+ * &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES or CONDITIONS OF ANY KIND.
+ * 
+ * See the License for the specific language governing permissions and limitations under the License.
+ * =================================================================================================
+ */
+package universum.studios.android.setting;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.os.Build;
+import android.preference.SwitchPreference;
+import android.support.annotation.AttrRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.Checkable;
+import android.widget.Switch;
+
+/**
+ * Extended {@link SwitchPreference} that provides additional features supported by the &lt;b&gt;Settings&lt;/b&gt;
+ * library.
+ *
+ * &lt;h3&gt;Xml attributes&lt;/h3&gt;
+ * See {@link SwitchPreference}
+ *
+ * &lt;h3&gt;Default style attribute&lt;/h3&gt;
+ * {@link android.R.attr#switchPreferenceStyle android:switchPreferenceStyle}
+ *
+ * @author Martin Albedinsky
+ */
+public class SettingSwitchPreference extends SwitchPreference {
+
+	/**
+	 * Constants ===================================================================================
+	 */
+
+	/**
+	 * Log TAG.
+	 */
+	// private static final String TAG = &quot;SettingSwitchPreference&quot;;
+
+	/**
+	 * Interface ===================================================================================
+	 */
+
+	/**
+	 * Static members ==============================================================================
+	 */
+
+	/**
+	 * Members =====================================================================================
+	 */
+
+	/**
+	 * Decorator used to extend API of this setting preference by functionality otherwise not supported
+	 * or not available due to current API level.
+	 */
+	private PreferenceDecorator mDecorator;
+
+	/**
+	 * Constructors ================================================================================
+	 */
+
+	/**
+	 * Same as {@link #SettingSwitchPreference(Context, AttributeSet)} without attributes.
+	 */
+	public SettingSwitchPreference(@NonNull Context context) {
+<span class="nc" id="L83">		this(context, null);</span>
+<span class="nc" id="L84">	}</span>
+
+	/**
+	 * Same as {@link #SettingSwitchPreference(Context, AttributeSet, int)} with
+	 * {@link android.R.attr#switchPreferenceStyle} as attribute for default style.
+	 */
+	public SettingSwitchPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+<span class="nc" id="L91">		this(context, attrs, android.R.attr.switchPreferenceStyle);</span>
+<span class="nc" id="L92">	}</span>
+
+	/**
+	 * Same as {@link #SettingSwitchPreference(Context, AttributeSet, int, int)} with {@code 0} as
+	 * default style.
+	 */
+	public SettingSwitchPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+<span class="nc" id="L99">		super(context, attrs, defStyleAttr);</span>
+<span class="nc" id="L100">		this.init(context, attrs, defStyleAttr, 0);</span>
+<span class="nc" id="L101">	}</span>
+
+	/**
+	 * Creates a new instance of SettingSwitchPreference for the given &lt;var&gt;context&lt;/var&gt;.
+	 *
+	 * @param context      Context in which will be the new setting preference presented.
+	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
+	 * @param defStyleAttr An attribute which contains a reference to a default style resource for
+	 *                     this preference within a theme of the given context.
+	 * @param defStyleRes  Resource id of the default style for the new preference.
+	 */
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public SettingSwitchPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+<span class="nc" id="L114">		super(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L115">		this.init(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L116">	}</span>
+
+	/**
+	 * Methods =====================================================================================
+	 */
+
+	/**
+	 * Called from one of constructors of this setting preference to perform its initialization.
+	 * &lt;p&gt;
+	 * Initialization is done via parsing of the specified &lt;var&gt;attrs&lt;/var&gt; set and obtaining for
+	 * this preference specific data from it that can be used to configure this new preference instance.
+	 * The specified &lt;var&gt;defStyleAttr&lt;/var&gt; and &lt;var&gt;defStyleRes&lt;/var&gt; are used to obtain default
+	 * data from the current theme provided by the specified &lt;var&gt;context&lt;/var&gt;.
+	 */
+	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+<span class="nc" id="L131">		this.ensureDecorator();</span>
+		// Enable layout recycling otherwise checkbox animations are not working.
+<span class="nc" id="L133">		mDecorator.setCanRecycleLayout(true);</span>
+<span class="nc" id="L134">	}</span>
+
+	/**
+	 * Ensures that the decorator for this view is initialized.
+	 */
+	private void ensureDecorator() {
+<span class="nc bnc" id="L140" title="All 2 branches missed.">		if (mDecorator == null) this.mDecorator = new PreferenceDecorator(this);</span>
+<span class="nc" id="L141">	}</span>
+
+	/**
+	 */
+	@Override
+	public void onBindView(View view) {
+<span class="nc" id="L147">		super.onBindView(view);</span>
+<span class="nc" id="L148">		this.ensureDecorator();</span>
+<span class="nc" id="L149">		mDecorator.onBindView(view);</span>
+<span class="nc" id="L150">		final View checkableView = view.findViewById(R.id.ui_setting_switch);</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">		if (checkableView instanceof Checkable) {</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">			if (checkableView instanceof Switch) {</span>
+<span class="nc" id="L153">				final Switch switchView = (Switch) checkableView;</span>
+<span class="nc" id="L154">				switchView.setOnCheckedChangeListener(null);</span>
+			}
+<span class="nc" id="L156">			((Checkable) checkableView).setChecked(isChecked());</span>
+		}
+<span class="nc" id="L158">	}</span>
+
+	/**
+	 * Inner classes ===============================================================================
+	 */
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.3.0</div></body></html>

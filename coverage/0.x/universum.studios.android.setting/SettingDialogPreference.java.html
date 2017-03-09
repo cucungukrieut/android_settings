@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SettingDialogPreference.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">universum.studios.android.setting</a> &gt; <span class="el_source">SettingDialogPreference.java</span></div><h1>SettingDialogPreference.java</h1><pre class="source lang-java linenums">/*
+ * =================================================================================================
+ *                             Copyright (C) 2017 Universum Studios
+ * =================================================================================================
+ *         Licensed under the Apache License, Version 2.0 or later (further &quot;License&quot; only).
+ * -------------------------------------------------------------------------------------------------
+ * You may use this file only in compliance with the License. More details and copy of this License 
+ * you may obtain at
+ * 
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * You can redistribute, modify or publish any part of the code written within this file but as it 
+ * is described in the License, the software distributed under the License is distributed on an 
+ * &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES or CONDITIONS OF ANY KIND.
+ * 
+ * See the License for the specific language governing permissions and limitations under the License.
+ * =================================================================================================
+ */
+package universum.studios.android.setting;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.os.Build;
+import android.preference.Preference;
+import android.support.annotation.AttrRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.TextView;
+
+import universum.studios.android.dialog.Dialog;
+import universum.studios.android.dialog.DialogOptions;
+
+/**
+ * A {@link SettingPreference} implementation that may be used to show a preference dialog. Each
+ * dialog preference has specified id of the associated dialog, via {@link R.attr#dialogId dialog:dialogId}
+ * attribute, that may be obtained via {@link #getDialogId()}. Dialog preference also provides an
+ * options for its associated dialog that may be obtained via {@link #getDialogOptions()}. Default
+ * values for the dialog options are parsed from the Xml for the attributes specified in the section
+ * below.
+ * &lt;p&gt;
+ * Subclasses should override {@link #onCreateDialogOptions(Resources)} to create type of options
+ * that are specific for theirs associated type of dialog along with
+ * {@link #onConfigureDialogOptions(DialogOptions, Context, AttributeSet, int, int)} where these
+ * options should be configured from the provided {@link AttributeSet}. Also
+ * {@link #onHandleDialogButtonClick(Dialog, int)} should be override to provide default handling of
+ * dialog button click event.
+ *
+ * &lt;h3&gt;Default value&lt;/h3&gt;
+ * This preference implementation does not parse any default value. However parsing of default value
+ * may be performed by the subclasses of this preference.
+ *
+ * &lt;h3&gt;Dialog Xml attributes&lt;/h3&gt;
+ * See {@link SettingPreference},
+ * {@link R.styleable#Ui_Settings_DialogPreference SettingDialogPreference Attributes}
+ *
+ * &lt;h3&gt;Default style attribute&lt;/h3&gt;
+ * {@link android.R.attr#dialogPreferenceStyle android:dialogPreferenceStyle}
+ *
+ * @param &lt;O&gt; Type of the dialog options specific for type of the dialog associated with this preference.
+ * @author Martin Albedinsky
+ */
+public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; extends SettingPreference {
+
+	/**
+	 * Constants ===================================================================================
+	 */
+
+	/**
+	 * Log TAG.
+	 */
+	// private static final String TAG = &quot;SettingDialogPreference&quot;;
+
+	/**
+	 * Constant identifying no dialog id.
+	 *
+	 * @see #getDialogId()
+	 */
+	public static final int NO_DIALOG_ID = -1;
+
+	/**
+	 * Interface ===================================================================================
+	 */
+
+	/**
+	 * Listener that may be used to receive a callback that a specific dialog preference has been clicked.
+	 *
+	 * @author Martin Albedinsky
+	 */
+	public interface OnClickListener {
+
+		/**
+		 * Invoked whenever the specified &lt;var&gt;dialogPreference&lt;/var&gt; has been clicked.
+		 *
+		 * @param dialogPreference The clicked dialog preference.
+		 * @return {@code True} if the click event has been handled, {@code false} otherwise.
+		 */
+		boolean onDialogPreferenceClick(@NonNull SettingDialogPreference dialogPreference);
+	}
+
+	/**
+	 * Static members ==============================================================================
+	 */
+
+	/**
+	 * Members =====================================================================================
+	 */
+
+	/**
+	 * Id of the dialog associated with this dialog preference.
+	 */
+<span class="nc" id="L117">	private int mDialogId = NO_DIALOG_ID;</span>
+
+	/**
+	 * Dialog options specific for this type of dialog preference.
+	 *
+	 * @see #onCreateDialogOptions(Resources)
+	 */
+	private O mDialogOptions;
+
+	/**
+	 * Constructors ================================================================================
+	 */
+
+	/**
+	 * Same as {@link #SettingDialogPreference(Context, AttributeSet)} without attributes.
+	 */
+	public SettingDialogPreference(@NonNull Context context) {
+<span class="nc" id="L134">		this(context, null);</span>
+<span class="nc" id="L135">	}</span>
+
+	/**
+	 * Same as {@link #SettingDialogPreference(Context, AttributeSet, int)} with
+	 * {@link android.R.attr#dialogPreferenceStyle} as attribute for default style.
+	 */
+	public SettingDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+<span class="nc" id="L142">		this(context, attrs, android.R.attr.dialogPreferenceStyle);</span>
+<span class="nc" id="L143">	}</span>
+
+	/**
+	 * Same as {@link #SettingDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
+	 * default style.
+	 */
+	public SettingDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+<span class="nc" id="L150">		super(context, attrs, defStyleAttr);</span>
+<span class="nc" id="L151">		this.init(context, attrs, defStyleAttr, 0);</span>
+<span class="nc" id="L152">	}</span>
+
+	/**
+	 * Creates a new instance of SettingDialogPreference for the given &lt;var&gt;context&lt;/var&gt;.
+	 *
+	 * @param context      Context in which will be the new setting preference presented.
+	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
+	 * @param defStyleAttr An attribute which contains a reference to a default style resource for
+	 *                     this preference within a theme of the given context.
+	 * @param defStyleRes  Resource id of the default style for the new preference.
+	 */
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public SettingDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+<span class="nc" id="L165">		super(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L166">		this.init(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L167">	}</span>
+
+	/**
+	 * Methods =====================================================================================
+	 */
+
+	/**
+	 * Called from one of constructors of this setting preference to perform its initialization.
+	 * &lt;p&gt;
+	 * Initialization is done via parsing of the specified &lt;var&gt;attrs&lt;/var&gt; set and obtaining for
+	 * this preference specific data from it that can be used to configure this new preference instance.
+	 * The specified &lt;var&gt;defStyleAttr&lt;/var&gt; and &lt;var&gt;defStyleRes&lt;/var&gt; are used to obtain default
+	 * data from the current theme provided by the specified &lt;var&gt;context&lt;/var&gt;.
+	 */
+	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+<span class="nc" id="L182">		this.mDialogOptions = onCreateDialogOptions(context.getResources());</span>
+<span class="nc" id="L183">		onConfigureDialogOptions(mDialogOptions, context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L184">	}</span>
+
+	/**
+	 * Called from one of constructors to configure dialog options specific for this dialog preference.
+	 *
+	 * @param options The options created via {@link #onCreateDialogOptions(Resources)}.
+	 */
+	@SuppressWarnings(&quot;ResourceType&quot;)
+	protected void onConfigureDialogOptions(@NonNull O options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+<span class="nc" id="L193">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DialogPreference, defStyleAttr, defStyleRes);</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
+<span class="nc" id="L195">			final int index = attributes.getIndex(i);</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_DialogPreference_dialogId) {</span>
+<span class="nc" id="L197">				this.mDialogId = attributes.getResourceId(index, NO_DIALOG_ID);</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogIcon) {</span>
+<span class="nc" id="L199">				options.icon(attributes.getResourceId(index, options.icon()));</span>
+<span class="nc bnc" id="L200" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogVectorIcon) {</span>
+<span class="nc" id="L201">				options.vectorIcon(attributes.getResourceId(index, options.vectorIcon()));</span>
+<span class="nc bnc" id="L202" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogTitle) {</span>
+<span class="nc" id="L203">				options.title(attributes.getText(index));</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogContent) {</span>
+<span class="nc" id="L205">				options.content(attributes.getText(index));</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogPositiveButton) {</span>
+<span class="nc" id="L207">				options.positiveButton(attributes.getText(index));</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogNeutralButton) {</span>
+<span class="nc" id="L209">				options.neutralButton(attributes.getText(index));</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogNegativeButton) {</span>
+<span class="nc" id="L211">				options.negativeButton(attributes.getText(index));</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogButtonsWidthMode) {</span>
+<span class="nc" id="L213">				options.buttonsWidthMode(attributes.getInt(index, options.buttonsWidthMode()));</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogCancelable) {</span>
+<span class="nc" id="L215">				options.cancelable(attributes.getBoolean(index, options.shouldBeCancelable()));</span>
+<span class="nc bnc" id="L216" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogDismissOnRestore) {</span>
+<span class="nc" id="L217">				options.dismissOnRestore(attributes.getBoolean(index, options.shouldDismissOnRestore()));</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogRemain) {</span>
+<span class="nc" id="L219">				options.remain(attributes.getBoolean(index, options.shouldRemain()));</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogTheme) {</span>
+<span class="nc" id="L221">				options.theme(attributes.getResourceId(index, options.theme()));</span>
+			}
+		}
+<span class="nc" id="L224">		attributes.recycle();</span>
+<span class="nc" id="L225">	}</span>
+
+	/**
+	 * Called to create instance of dialog options specific for this dialog preference.
+	 * &lt;p&gt;
+	 * Default implementation creates instance of {@link DialogOptions}.
+	 *
+	 * @param resources Application resources that may be used supply default values from resources
+	 *                  for the options.
+	 * @return New instance of dialog options.
+	 */
+	@NonNull
+	@SuppressWarnings(&quot;unchecked&quot;)
+	protected O onCreateDialogOptions(@NonNull Resources resources) {
+<span class="nc" id="L239">		return (O) new DialogOptions(resources);</span>
+	}
+
+	/**
+	 * Registers a callback to be invoked whenever this dialog preference is clicked.
+	 * &lt;p&gt;
+	 * &lt;b&gt;Note&lt;/b&gt;, that this method uses {@link #setOnPreferenceClickListener(OnPreferenceClickListener)}
+	 * to register the requested callback. Any previously registered {@link OnPreferenceClickListener}
+	 * will be replaced.
+	 *
+	 * @param listener The desired callback. May be {@code null} to clear the current one.
+	 */
+	public void setOnClickListener(@Nullable final OnClickListener listener) {
+<span class="nc bnc" id="L252" title="All 2 branches missed.">		setOnPreferenceClickListener(listener == null ? null : new OnPreferenceClickListener() {</span>
+
+			/**
+			 */
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+<span class="nc" id="L258">				return listener.onDialogPreferenceClick((SettingDialogPreference) preference);</span>
+			}
+		});
+<span class="nc" id="L261">	}</span>
+
+	/**
+	 * Returns id of the dialog associated with this dialog preference.
+	 *
+	 * @return This preference's associated dialog id.
+	 * @see R.attr#dialogId dialog:dialogId
+	 */
+	public final int getDialogId() {
+<span class="nc" id="L270">		return mDialogId;</span>
+	}
+
+	/**
+	 * Returns the dialog options specific for the dialog associated with this dialog preference.
+	 * &lt;p&gt;
+	 * Subclasses may override this method and provide the dialog options with the current preferred
+	 * value so it may be properly displayed in the associated dialog.
+	 *
+	 * @return This preference's dialog options.
+	 */
+	@NonNull
+	public O getDialogOptions() {
+<span class="nc" id="L283">		return mDialogOptions;</span>
+	}
+
+	/**
+	 * Performs synchronization of the summary view of this dialog preference.
+	 * &lt;p&gt;
+	 * Default implementation takes the summary text provided by {@link #onGetSummaryText()} method
+	 * and sets is text for the summary view, changing its visibility so the summary view is visible
+	 * if there is some summary text available or gone if there is no summary text available.
+	 * &lt;p&gt;
+	 * This method may be called from {@link #onBindView(View)}.
+	 *
+	 * @param view The root view of this preference.
+	 */
+	protected void synchronizeSummaryView(@NonNull View view) {
+<span class="nc" id="L298">		final TextView summaryView = (TextView) view.findViewById(android.R.id.summary);</span>
+<span class="nc bnc" id="L299" title="All 2 branches missed.">		if (summaryView != null) {</span>
+<span class="nc" id="L300">			final CharSequence summaryText = onGetSummaryText();</span>
+<span class="nc bnc" id="L301" title="All 2 branches missed.">			if (TextUtils.isEmpty(summaryText)) {</span>
+<span class="nc" id="L302">				summaryView.setVisibility(View.GONE);</span>
+			} else {
+<span class="nc" id="L304">				summaryView.setText(summaryText);</span>
+<span class="nc" id="L305">				summaryView.setVisibility(View.VISIBLE);</span>
+			}
+		}
+<span class="nc" id="L308">	}</span>
+
+	/**
+	 * Called from {@link #synchronizeSummaryView(View)} to retrieve the current summary text for
+	 * this dialog preference.
+	 * &lt;p&gt;
+	 * Default implementation returns the text provided by {@link #getSummary()} method.
+	 *
+	 * @return The actual summary text that should be presented in the summary view of this preference.
+	 */
+	@Nullable
+	protected CharSequence onGetSummaryText() {
+<span class="nc" id="L320">		return getSummary();</span>
+	}
+
+	/**
+	 * Handles click event for the specified &lt;var&gt;button&lt;/var&gt; occurred in the given &lt;var&gt;dialog&lt;/var&gt;.
+	 *
+	 * @param dialog The dialog where the button has been clicked.
+	 * @param button The clicked dialog button.
+	 * @return {@code True} if the dialog has id associated with this preference and the button click
+	 * event has been successfully handled by this preference, {@code false} otherwise so it should
+	 * be handled by the caller.
+	 */
+	public boolean handleOnDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+<span class="nc bnc" id="L333" title="All 4 branches missed.">		return dialog.getDialogId() == mDialogId &amp;&amp; onHandleDialogButtonClick(dialog, button);</span>
+	}
+
+	/**
+	 * Called from {@link #handleOnDialogButtonClick(Dialog, int)} if the given &lt;var&gt;dialog&lt;/var&gt; has
+	 * id associated with this dialog preference.
+	 *
+	 * @param dialog The dialog where the button has been clicked.
+	 * @param button The clicked dialog button.
+	 * @return {@code True} if the button click event has been successfully handled, {@code false}
+	 * otherwise.
+	 */
+	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+<span class="nc" id="L346">		return false;</span>
+	}
+
+	/**
+	 * Inner classes ===============================================================================
+	 */
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.3.0</div></body></html>

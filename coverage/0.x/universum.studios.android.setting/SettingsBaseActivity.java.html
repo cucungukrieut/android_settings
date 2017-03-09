@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SettingsBaseActivity.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">universum.studios.android.setting</a> &gt; <span class="el_source">SettingsBaseActivity.java</span></div><h1>SettingsBaseActivity.java</h1><pre class="source lang-java linenums">/*
+ * =================================================================================================
+ *                             Copyright (C) 2017 Universum Studios
+ * =================================================================================================
+ *         Licensed under the Apache License, Version 2.0 or later (further &quot;License&quot; only).
+ * -------------------------------------------------------------------------------------------------
+ * You may use this file only in compliance with the License. More details and copy of this License 
+ * you may obtain at
+ * 
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * You can redistribute, modify or publish any part of the code written within this file but as it 
+ * is described in the License, the software distributed under the License is distributed on an 
+ * &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES or CONDITIONS OF ANY KIND.
+ * 
+ * See the License for the specific language governing permissions and limitations under the License.
+ * =================================================================================================
+ */
+package universum.studios.android.setting;
+
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.preference.PreferenceActivity;
+import android.support.annotation.CallSuper;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.XmlRes;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.Toolbar;
+import android.util.AndroidRuntimeException;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+
+import java.util.List;
+
+/**
+ * A {@link PreferenceActivity} implementation that uses {@link AppCompatDelegate} to provide
+ * compatibility support features like attaching of custom action bar via {@link #setSupportActionBar(Toolbar)}.
+ * &lt;p&gt;
+ * This activity also intercepts default setting of list adapter with headers and uses {@link SettingHeadersAdapter}
+ * to provide item views for the loaded preference headers via {@link #loadHeadersFromResource(int, List)}.
+ * The headers adapter is specified via {@link #setHeadersAdapter(ListAdapter)} and the current one
+ * may be obtained via {@link #setHeadersAdapter(ListAdapter)}. The headers that has been loaded and
+ * are used by the headers adapter may be obtained via {@link #getHeaders()}.
+ * &lt;p&gt;
+ * If a {@link Toolbar} should be presented in the activity's view hierarchy, it may be added via
+ * {@link #addToolbar()} which also attacheds the added toolbar as support action bar.
+ *
+ * &lt;h3&gt;Theme style attribute&lt;/h3&gt;
+ * {@link R.attr#uiSettingsActivityStyle uiSettingsActivityStyle}
+ *
+ * @author Martin Albedinsky
+ */
+<span class="nc" id="L61">public abstract class SettingsBaseActivity extends PreferenceActivity {</span>
+
+	/**
+	 * Constants ===================================================================================
+	 */
+
+	/**
+	 * Log TAG.
+	 */
+	// private static final String TAG = &quot;SettingsBaseActivity&quot;;
+
+	/**
+	 * Bundle key used by parent {@link PreferenceActivity} to save and restore list of headers.
+	 */
+	private static final String BUNDLE_HEADERS = &quot;:android:headers&quot;;
+
+	/**
+	 * Interface ===================================================================================
+	 */
+
+	/**
+	 * Static members ==============================================================================
+	 */
+
+	/**
+	 * Corrector used by instances of SettingsBaseActivity to correct/modify theirs root layout to
+	 * match actual Material design guidelines.
+	 */
+<span class="nc" id="L89">	private static final LayoutCorrector sLayoutCorrector = new BasicLayoutCorrector();</span>
+
+	/**
+	 * Members =====================================================================================
+	 */
+
+	/**
+	 * Application compatibility delegate used by this activity to provide compatibility features.
+	 */
+	private AppCompatDelegate mCompatDelegate;
+
+	/**
+	 * Current content view of this activity. Should be always valid whenever {@link #onContentChanged()}
+	 * is received.
+	 */
+	private View mContentView;
+
+	/**
+	 * Toolbar added into view hierarchy of this activity via {@link #addToolbar()}.
+	 */
+	private Toolbar mToolbar;
+
+	/**
+	 * List containing preference headers inflated for this activity via {@link #loadHeadersFromResource(int, List)}.
+	 */
+	private List&lt;Header&gt; mHeaders;
+
+	/**
+	 * Adapter providing item views for inflated preference headers.
+	 *
+	 * @see #setHeadersAdapter(ListAdapter)
+	 */
+	private ListAdapter mHeadersAdapter;
+
+	/**
+	 * Constructors ================================================================================
+	 */
+
+	/**
+	 * Methods =====================================================================================
+	 */
+
+	/**
+	 * Returns the application compatibility delegate that is used by this activity to provide
+	 * compatibility features like attaching of support action bar via {@link #setSupportActionBar(Toolbar)}.
+	 *
+	 * @return This activity's compatibility delegate.
+	 */
+	@NonNull
+	protected final AppCompatDelegate delegate() {
+<span class="nc bnc" id="L139" title="All 2 branches missed.">		return mCompatDelegate == null ? (mCompatDelegate = AppCompatDelegate.create(this, null)) : mCompatDelegate;</span>
+	}
+
+	/**
+	 */
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+<span class="nc" id="L146">		delegate().installViewFactory();</span>
+<span class="nc" id="L147">		delegate().onCreate(savedInstanceState);</span>
+<span class="nc" id="L148">		super.onCreate(savedInstanceState);</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">		if (savedInstanceState != null) {</span>
+<span class="nc" id="L150">			this.mHeaders = savedInstanceState.getParcelableArrayList(BUNDLE_HEADERS);</span>
+		}
+<span class="nc bnc" id="L152" title="All 2 branches missed.">		if (mHeaders != null) {</span>
+<span class="nc" id="L153">			setHeadersAdapter(new SettingHeadersAdapter(this, mHeaders));</span>
+		}
+<span class="nc" id="L155">	}</span>
+
+	/**
+	 */
+	@Override
+	public void loadHeadersFromResource(@XmlRes int resid, @NonNull List&lt;Header&gt; target) {
+<span class="nc" id="L161">		super.loadHeadersFromResource(resid, this.mHeaders = target);</span>
+<span class="nc" id="L162">	}</span>
+
+	/**
+	 * Returns the list of headers that has been loaded via {@link #loadHeadersFromResource(int, List)}.
+	 *
+	 * @return The loaded list of headers or {@code null} if no headers has been loaded yet.
+	 */
+	@Nullable
+	protected final List&lt;Header&gt; getHeaders() {
+<span class="nc" id="L171">		return mHeaders;</span>
+	}
+
+	/**
+	 * Sets an adapter that will provide item views for preference items to be presented in the
+	 * view hierarchy of this activity.
+	 *
+	 * @param adapter The desired adapter providing headers for this activity's list view. May be
+	 *                {@code null} to clear the current one.
+	 */
+	public void setHeadersAdapter(@Nullable ListAdapter adapter) {
+<span class="nc" id="L182">		super.setListAdapter(mHeadersAdapter = adapter);</span>
+<span class="nc" id="L183">	}</span>
+
+	/**
+	 * Returns the current headers adapter specified for this activity.
+	 *
+	 * @return This activity's headers adapter or {@code null} if there was no adapter specified yet.
+	 * @see #setHeadersAdapter(ListAdapter)
+	 */
+	@Nullable
+	public ListAdapter getHeadersAdapter() {
+<span class="nc" id="L193">		return mHeadersAdapter;</span>
+	}
+
+	/**
+	 * This method does nothing.
+	 *
+	 * @deprecated Use {@link #setHeadersAdapter(ListAdapter)} instead.
+	 */
+	@Override
+	@Deprecated
+	public final void setListAdapter(ListAdapter adapter) {
+		// Ignored.
+<span class="nc" id="L205">	}</span>
+
+	/**
+	 * @return Always {@code null}.
+	 * @deprecated Use {@link #getHeadersAdapter()} instead.
+	 */
+	@Override
+	@Deprecated
+	public final ListAdapter getListAdapter() {
+<span class="nc" id="L214">		return null;</span>
+	}
+
+	/**
+	 */
+	@Override
+	protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+<span class="nc" id="L221">		super.onPostCreate(savedInstanceState);</span>
+<span class="nc" id="L222">		delegate().onPostCreate(savedInstanceState);</span>
+<span class="nc" id="L223">	}</span>
+
+	/**
+	 */
+	@NonNull
+	@Override
+	public MenuInflater getMenuInflater() {
+<span class="nc" id="L230">		return delegate().getMenuInflater();</span>
+	}
+
+	/**
+	 */
+	@Override
+	public void invalidateOptionsMenu() {
+<span class="nc" id="L237">		delegate().invalidateOptionsMenu();</span>
+<span class="nc" id="L238">	}</span>
+
+	/**
+	 */
+	@Override
+	public void setContentView(@LayoutRes int layoutResID) {
+<span class="nc" id="L244">		delegate().setContentView(layoutResID);</span>
+<span class="nc" id="L245">	}</span>
+
+	/**
+	 */
+	@Override
+	public void setContentView(View view) {
+<span class="nc" id="L251">		delegate().setContentView(view);</span>
+<span class="nc" id="L252">	}</span>
+
+	/**
+	 */
+	@Override
+	public void setContentView(View view, ViewGroup.LayoutParams params) {
+<span class="nc" id="L258">		delegate().setContentView(view, params);</span>
+<span class="nc" id="L259">	}</span>
+
+	/**
+	 */
+	@Override
+	public void addContentView(View view, ViewGroup.LayoutParams params) {
+<span class="nc" id="L265">		delegate().addContentView(view, params);</span>
+<span class="nc" id="L266">	}</span>
+
+	/**
+	 */
+	@Override
+	@CallSuper
+	public void onContentChanged() {
+<span class="nc" id="L273">		super.onContentChanged();</span>
+<span class="nc" id="L274">		this.mContentView = ((ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content)).getChildAt(0);</span>
+<span class="nc" id="L275">		sLayoutCorrector.correctLayout(mContentView);</span>
+<span class="nc" id="L276">	}</span>
+
+	/**
+	 * Returns the content (root) view of this activity.
+	 *
+	 * @return This activity's content view.
+	 * @throws IllegalStateException If content view of this activity has not been created yet.
+	 * @see #onContentChanged()
+	 */
+	@NonNull
+	protected final View getContentView() {
+<span class="nc bnc" id="L287" title="All 2 branches missed.">		if (mContentView == null) {</span>
+<span class="nc" id="L288">			throw new IllegalStateException(&quot;Activity(&quot; + getClass() + &quot;) does not have content view created yet!&quot;);</span>
+		}
+<span class="nc" id="L290">		return mContentView;</span>
+	}
+
+	/**
+	 * Adds {@link Toolbar} into view hierarchy of this activity if it has not been added yet.
+	 * &lt;p&gt;
+	 * This implementation creates a new instance of the toolbar via {@link #onCreateToolbar(LayoutInflater, ViewGroup)}
+	 * if it is not created and added yet and adds it into this activity's content view at the
+	 * {@code 0} position, which is at the top. Also the added toolbar is attached to this activity
+	 * as support action bar via {@link #setSupportActionBar(Toolbar)} and if this activity is not
+	 * currently in state of hiding headers, the displaying of home as up for the attached action bar
+	 * is enabled via {@link ActionBar#setDisplayHomeAsUpEnabled(boolean)} and {@link View.OnClickListener}
+	 * is attached to the toolbar via {@link Toolbar#setNavigationOnClickListener(View.OnClickListener)}
+	 * which when its {@link View.OnClickListener#onClick(View)} callback is fired calls
+	 * {@link #onBackPressed()} of this activity.
+	 *
+	 * @return The added toolbar.
+	 * @throws AndroidRuntimeException If the content view of this activity is not a ViewGroup, which
+	 *                                 should not happen.
+	 * @see #getToolbar()
+	 * @see #getSupportActionBar()
+	 */
+	@NonNull
+	@SuppressWarnings(&quot;ConstantConditions&quot;)
+	protected Toolbar addToolbar() {
+<span class="nc bnc" id="L315" title="All 2 branches missed.">		if (!(mContentView instanceof ViewGroup)) {</span>
+<span class="nc" id="L316">			throw new AndroidRuntimeException(&quot;Cannot add Toolbar. The content view of activity(&quot; + getClass() + &quot;) is not a ViewGroup!&quot;);</span>
+		}
+<span class="nc bnc" id="L318" title="All 2 branches missed.">		if (mToolbar == null) {</span>
+<span class="nc" id="L319">			this.mToolbar = onCreateToolbar(getLayoutInflater(), (ViewGroup) mContentView);</span>
+			// Add Toolbar at the top of layout which is LinearLayout.
+<span class="nc" id="L321">			((ViewGroup) mContentView).addView(mToolbar, 0);</span>
+<span class="nc" id="L322">			setSupportActionBar(mToolbar);</span>
+<span class="nc bnc" id="L323" title="All 2 branches missed.">			if (onIsHidingHeaders()) {</span>
+<span class="nc" id="L324">				final ActionBar actionBar = getSupportActionBar();</span>
+<span class="nc" id="L325">				actionBar.setDisplayHomeAsUpEnabled(true);</span>
+<span class="nc" id="L326">				mToolbar.setNavigationOnClickListener(new View.OnClickListener() {</span>
+
+					/**
+					 */
+					@Override
+					public void onClick(View v) {
+<span class="nc" id="L332">						onBackPressed();</span>
+<span class="nc" id="L333">					}</span>
+				});
+			}
+		}
+<span class="nc" id="L337">		return mToolbar;</span>
+	}
+
+	/**
+	 * Invoked as result to call of {@link #addToolbar()} to create a new instance of {@link Toolbar}
+	 * that will be added into view hierarchy of this activity.
+	 * &lt;p&gt;
+	 * This implementation by default inflates {@link R.layout#ui_toolbar} layout which contains
+	 * single Toolbar. Subclasses may override this method to create or inflate custom toolbar.
+	 *
+	 * @param inflater Layout inflater that may be used to inflate the requested toolbar.
+	 * @param root     This activity's root view.
+	 * @return Instance of toolbar to be added into this activity's view hierarchy.
+	 */
+	@NonNull
+	protected Toolbar onCreateToolbar(@NonNull LayoutInflater inflater, @NonNull ViewGroup root) {
+<span class="nc" id="L353">		return (Toolbar) inflater.inflate(R.layout.ui_toolbar, root, false);</span>
+	}
+
+	/**
+	 * Returns the toolbar added to the view hierarchy of this activity via {@link #addToolbar()}.
+	 * &lt;p&gt;
+	 * If added, this toolbar may be also obtained as support action bar via {@link #getSupportActionBar()}.
+	 *
+	 * @return This activity's toolbar if added, {@code null} otherwise.
+	 */
+	@Nullable
+	protected Toolbar getToolbar() {
+<span class="nc" id="L365">		return mToolbar;</span>
+	}
+
+	/**
+	 */
+	@Override
+	public View findViewById(@IdRes int id) {
+<span class="nc" id="L372">		return delegate().findViewById(id);</span>
+	}
+
+	/**
+	 * Attaches the given &lt;var&gt;toolbar&lt;/var&gt; to this activity as support action bar.
+	 *
+	 * @param toolbar The desired toolbar to attach as action bar. May be {@code null} to clear the
+	 *                current one.
+	 * @see #getSupportActionBar()
+	 */
+	public void setSupportActionBar(@Nullable Toolbar toolbar) {
+<span class="nc" id="L383">		delegate().setSupportActionBar(toolbar);</span>
+<span class="nc" id="L384">	}</span>
+
+	/**
+	 * Returns the support action bar attached to this activity via {@link #setSupportActionBar(Toolbar)}.
+	 *
+	 * @return This activity's support action bar or {@code null} if there is no action bar attached.
+	 */
+	@Nullable
+	public ActionBar getSupportActionBar() {
+<span class="nc" id="L393">		return delegate().getSupportActionBar();</span>
+	}
+
+	/**
+	 */
+	@Override
+	protected void onPostResume() {
+<span class="nc" id="L400">		super.onPostResume();</span>
+<span class="nc" id="L401">		delegate().onPostResume();</span>
+<span class="nc" id="L402">	}</span>
+
+	/**
+	 */
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+<span class="nc bnc" id="L408" title="All 2 branches missed.">		if (!(mHeadersAdapter instanceof SettingHeadersAdapter)) {</span>
+<span class="nc" id="L409">			super.onListItemClick(l, v, position, id);</span>
+<span class="nc" id="L410">			return;</span>
+		}
+<span class="nc" id="L412">		final SettingHeadersAdapter.Item item = (SettingHeadersAdapter.Item) mHeadersAdapter.getItem(position);</span>
+<span class="nc" id="L413">		onHeaderClick(item.getHeader(), position);</span>
+<span class="nc" id="L414">	}</span>
+
+	/**
+	 */
+	@Override
+	protected void onSaveInstanceState(Bundle state) {
+<span class="nc" id="L420">		super.onSaveInstanceState(state);</span>
+<span class="nc" id="L421">		delegate().onSaveInstanceState(state);</span>
+<span class="nc" id="L422">	}</span>
+
+	/**
+	 */
+	@Override
+	protected void onTitleChanged(CharSequence title, int color) {
+<span class="nc" id="L428">		super.onTitleChanged(title, color);</span>
+<span class="nc" id="L429">		delegate().setTitle(title);</span>
+<span class="nc" id="L430">	}</span>
+
+	/**
+	 */
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+<span class="nc" id="L436">		super.onConfigurationChanged(newConfig);</span>
+<span class="nc" id="L437">		delegate().onConfigurationChanged(newConfig);</span>
+<span class="nc" id="L438">	}</span>
+
+	/**
+	 */
+	@Override
+	protected void onStop() {
+<span class="nc" id="L444">		super.onStop();</span>
+<span class="nc" id="L445">		delegate().onStop();</span>
+<span class="nc" id="L446">	}</span>
+
+	/**
+	 */
+	@Override
+	protected void onDestroy() {
+<span class="nc" id="L452">		super.onDestroy();</span>
+<span class="nc" id="L453">		delegate().onDestroy();</span>
+<span class="nc" id="L454">	}</span>
+
+	/**
+	 * Inner classes ===============================================================================
+	 */
+
+	/**
+	 * Interface for correctors used to correct/modify the view hierarchy of {@link SettingsBaseActivity}
+	 * so it matches actual Material design guidelines.
+	 */
+	private interface LayoutCorrector {
+
+		/**
+		 * Performs correction/modification of the given &lt;var&gt;layout&lt;/var&gt;.
+		 *
+		 * @param layout The root layout to be corrected/modified.
+		 */
+		void correctLayout(View layout);
+	}
+
+	/**
+	 * A {@link LayoutCorrector} basic implementation that performs layout corrections related to
+	 * all Android platform versions.
+	 */
+<span class="nc" id="L478">	private static class BasicLayoutCorrector implements LayoutCorrector {</span>
+
+		/**
+		 */
+		@Override
+		public void correctLayout(View layout) {
+<span class="nc bnc" id="L484" title="All 2 branches missed.">			if (layout instanceof ViewGroup) {</span>
+<span class="nc" id="L485">				final View firstChild = ((ViewGroup) layout).getChildAt(0);</span>
+<span class="nc bnc" id="L486" title="All 4 branches missed.">				if (firstChild instanceof ViewGroup &amp;&amp; ((ViewGroup) firstChild).getChildCount() &gt; 1) {</span>
+<span class="nc" id="L487">					final ViewGroup panelsContainer = (ViewGroup) firstChild;</span>
+<span class="nc" id="L488">					correctHeadersPanel(panelsContainer.getChildAt(0));</span>
+<span class="nc" id="L489">					correctPreferencesPanel(panelsContainer.getChildAt(1));</span>
+				}
+			}
+<span class="nc" id="L492">		}</span>
+
+		/**
+		 * Performs correction of the given &lt;var&gt;headersPanelView&lt;/var&gt;.
+		 * &lt;p&gt;
+		 * This implementation clears padding of the given headers panel view and also of the headers
+		 * list view presented in view hierarchy of the panel view.
+		 *
+		 * @param headersPanelView The headers panel view to be corrected.
+		 */
+		void correctHeadersPanel(View headersPanelView) {
+<span class="nc" id="L503">			headersPanelView.setPadding(0, 0, 0, 0);</span>
+<span class="nc" id="L504">			final ListView headersListView = (ListView) headersPanelView.findViewById(android.R.id.list);</span>
+<span class="nc" id="L505">			headersListView.setPadding(0, 0, 0, 0);</span>
+<span class="nc" id="L506">			headersListView.setDivider(null);</span>
+<span class="nc" id="L507">			headersListView.setDividerHeight(0);</span>
+<span class="nc" id="L508">		}</span>
+
+		/**
+		 * Performs correction of the given &lt;var&gt;preferencesPanelView&lt;/var&gt;.
+		 * &lt;p&gt;
+		 * This implementation clears padding of the given preferences panel view and also of the
+		 * preferences frame view, if presented in the view hierarchy of the panel view.
+		 *
+		 * @param preferencesPanelView The preferences panel view to be corrected.
+		 */
+		void correctPreferencesPanel(View preferencesPanelView) {
+<span class="nc" id="L519">			preferencesPanelView.setPadding(0, 0, 0, 0);</span>
+<span class="nc bnc" id="L520" title="All 4 branches missed.">			if (preferencesPanelView instanceof ViewGroup &amp;&amp; ((ViewGroup) preferencesPanelView).getChildCount() &gt; 0) {</span>
+<span class="nc" id="L521">				final ViewGroup preferencesPanelViewGroup = (ViewGroup) preferencesPanelView;</span>
+<span class="nc" id="L522">				final View preferencesFrameView = preferencesPanelViewGroup.getChildAt(preferencesPanelViewGroup.getChildCount() - 1);</span>
+<span class="nc bnc" id="L523" title="All 2 branches missed.">				if (preferencesFrameView != null) {</span>
+<span class="nc" id="L524">					((ViewGroup) preferencesFrameView).setOnHierarchyChangeListener(new ViewGroup.OnHierarchyChangeListener() {</span>
+
+						/**
+						 */
+						@Override
+						public void onChildViewAdded(View parent, View child) {
+<span class="nc" id="L530">							preferencesFrameView.setPadding(0, 0, 0, 0);</span>
+<span class="nc" id="L531">						}</span>
+
+						/**
+						 */
+						@Override
+						public void onChildViewRemoved(View parent, View child) {
+							// Ignored.
+<span class="nc" id="L538">						}</span>
+					});
+				}
+			}
+<span class="nc" id="L542">		}</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.3.0</div></body></html>

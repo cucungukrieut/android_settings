@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SettingColorDialogPreference.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">universum.studios.android.setting</a> &gt; <span class="el_source">SettingColorDialogPreference.java</span></div><h1>SettingColorDialogPreference.java</h1><pre class="source lang-java linenums">/*
+ * =================================================================================================
+ *                             Copyright (C) 2017 Universum Studios
+ * =================================================================================================
+ *         Licensed under the Apache License, Version 2.0 or later (further &quot;License&quot; only).
+ * -------------------------------------------------------------------------------------------------
+ * You may use this file only in compliance with the License. More details and copy of this License 
+ * you may obtain at
+ * 
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * You can redistribute, modify or publish any part of the code written within this file but as it 
+ * is described in the License, the software distributed under the License is distributed on an 
+ * &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES or CONDITIONS OF ANY KIND.
+ * 
+ * See the License for the specific language governing permissions and limitations under the License.
+ * =================================================================================================
+ */
+package universum.studios.android.setting;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.AttrRes;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
+import android.util.AttributeSet;
+import android.view.View;
+
+import universum.studios.android.dialog.ColorPickerDialog;
+import universum.studios.android.dialog.Dialog;
+import universum.studios.android.setting.widget.SettingColorView;
+
+/**
+ * A {@link SettingDialogPreference} implementation that may be used to allow to a user to pick
+ * its preferred color for a specific setting preference.
+ * &lt;p&gt;
+ * This preference implementation by default displays the preferred color via {@link SettingColorView}
+ * widget in the widget area (at the end of layout hierarchy). The preferred color may be specified
+ * via {@link #setColor(int)} and obtained via {@link #getColor()}.
+ * &lt;p&gt;
+ * When {@link #handleOnDialogButtonClick(Dialog, int)} is called, this preference implementation
+ * handles only {@link ColorPickerDialog} type of dialog. If its {@link Dialog#BUTTON_POSITIVE} button
+ * has been clicked, the color provided via {@link ColorPickerDialog#getColor()} is set as color for
+ * this preference via {@link #setColor(int)}.
+ *
+ * &lt;h3&gt;Default value&lt;/h3&gt;
+ * Default value for this preference is parsed as color {@link Integer}. See {@link TypedArray#getColor(int, int)}.
+ *
+ * &lt;h3&gt;Xml attributes&lt;/h3&gt;
+ * See {@link SettingDialogPreference},
+ * {@link R.styleable#Ui_Settings_ColorDialogPreference SettingColorDialogPreference Attributes}
+ *
+ * &lt;h3&gt;Default style attribute&lt;/h3&gt;
+ * {@link R.attr#uiSettingColorDialogPreferenceStyle uiSettingColorDialogPreferenceStyle}
+ *
+ * @author Martin Albedinsky
+ */
+public final class SettingColorDialogPreference extends SettingDialogPreference&lt;ColorPickerDialog.ColorOptions&gt; {
+
+	/**
+	 * Constants ===================================================================================
+	 */
+
+	/**
+	 * Log TAG.
+	 */
+	// private static final String TAG = &quot;SettingColorDialogPreference&quot;;
+
+	/**
+	 * Interface ===================================================================================
+	 */
+
+	/**
+	 * Static members ==============================================================================
+	 */
+
+	/**
+	 * Members =====================================================================================
+	 */
+
+	/**
+	 * Boolean flag indicating whether the color value for this preference has been set or not.
+	 * This flag is used to handle case when the same value is being specified for this preference,
+	 * but for the first time, to properly refresh view of this preference and notify listeners about
+	 * the change.
+	 */
+	private boolean mColorSet;
+
+	/**
+	 * Current color value specified for this preference. This may be either value specified by the
+	 * user, default value or persisted value.
+	 */
+<span class="nc" id="L99">	private int mColor = Color.TRANSPARENT;</span>
+
+	/**
+	 * Constructors ================================================================================
+	 */
+
+	/**
+	 * Same as {@link #SettingColorDialogPreference(Context, AttributeSet)} without attributes.
+	 */
+	public SettingColorDialogPreference(@NonNull Context context) {
+<span class="nc" id="L109">		this(context, null);</span>
+<span class="nc" id="L110">	}</span>
+
+	/**
+	 * Same as {@link #SettingColorDialogPreference(Context, AttributeSet, int)} with
+	 * {@link R.attr#uiSettingColorDialogPreferenceStyle} as attribute for default style.
+	 */
+	public SettingColorDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+<span class="nc" id="L117">		this(context, attrs, R.attr.uiSettingColorDialogPreferenceStyle);</span>
+<span class="nc" id="L118">	}</span>
+
+	/**
+	 * Same as {@link #SettingColorDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
+	 * default style.
+	 */
+	public SettingColorDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+<span class="nc" id="L125">		super(context, attrs, defStyleAttr);</span>
+<span class="nc" id="L126">	}</span>
+
+	/**
+	 * Creates a new instance of SettingColorDialogPreference for the given &lt;var&gt;context&lt;/var&gt;.
+	 *
+	 * @param context      Context in which will be the new setting preference presented.
+	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
+	 * @param defStyleAttr An attribute which contains a reference to a default style resource for
+	 *                     this preference within a theme of the given context.
+	 * @param defStyleRes  Resource id of the default style for the new preference.
+	 */
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public SettingColorDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+<span class="nc" id="L139">		super(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L140">	}</span>
+
+	/**
+	 * Methods =====================================================================================
+	 */
+
+	/**
+	 */
+	@NonNull
+	@Override
+	protected ColorPickerDialog.ColorOptions onCreateDialogOptions(@NonNull Resources resources) {
+<span class="nc" id="L151">		return new ColorPickerDialog.ColorOptions(resources);</span>
+	}
+
+	/**
+	 */
+	@Override
+	protected void onConfigureDialogOptions(@NonNull ColorPickerDialog.ColorOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+<span class="nc" id="L158">		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L159">		int canvasColor = options.canvasColor();</span>
+<span class="nc" id="L160">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_ColorDialogPreference, defStyleAttr, defStyleRes);</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
+<span class="nc" id="L162">			final int index = attributes.getIndex(i);</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_ColorDialogPreference_dialogColor) {</span>
+<span class="nc" id="L164">				options.color(attributes.getColor(index, options.color()));</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_ColorDialogPreference_dialogColorCanvas) {</span>
+<span class="nc" id="L166">				canvasColor = attributes.getColor(index, canvasColor);</span>
+			}
+		}
+<span class="nc" id="L169">		attributes.recycle();</span>
+<span class="nc" id="L170">		options.canvasColor(canvasColor);</span>
+<span class="nc" id="L171">	}</span>
+
+	/**
+	 */
+	@Override
+	protected Object onGetDefaultValue(@NonNull TypedArray typedArray, int index) {
+<span class="nc" id="L177">		return typedArray.getColor(index, mColor);</span>
+	}
+
+	/**
+	 */
+	@Override
+	@SuppressWarnings(&quot;ResourceType&quot;)
+	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
+<span class="nc bnc" id="L185" title="All 2 branches missed.">		setColor(restorePersistedValue ? getPersistedInt(mColor) : (Integer) defaultValue);</span>
+<span class="nc" id="L186">	}</span>
+
+	/**
+	 * Sets a preferred color value for this preference.
+	 * &lt;p&gt;
+	 * If value of this preference changes, it is persisted and the change listener is notified
+	 * about the change.
+	 *
+	 * @param color The preferred color to be persisted as {@link Integer}.
+	 * @see #getColor()
+	 */
+	public void setColor(@ColorInt int color) {
+<span class="nc bnc" id="L198" title="All 2 branches missed.">		final boolean changed = mColor != color;</span>
+<span class="nc bnc" id="L199" title="All 6 branches missed.">		if (callChangeListener(color) &amp;&amp; (changed || !mColorSet)) {</span>
+<span class="nc" id="L200">			this.mColor = color;</span>
+<span class="nc" id="L201">			this.mColorSet = true;</span>
+<span class="nc" id="L202">			persistInt(mColor);</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">			if (changed) {</span>
+<span class="nc" id="L204">				notifyChanged();</span>
+			}
+		}
+<span class="nc" id="L207">	}</span>
+
+	/**
+	 * Returns the preferred color value of this preference.
+	 *
+	 * @return Color integer either specified by the user, as default value or the persisted one.
+	 * @see #setColor(int)
+	 * @see #getDialogOptions()
+	 */
+	@ColorInt
+	public int getColor() {
+<span class="nc" id="L218">		return mColor;</span>
+	}
+
+	/**
+	 */
+	@Override
+	public void onBindView(View view) {
+<span class="nc" id="L225">		super.onBindView(view);</span>
+<span class="nc" id="L226">		final SettingColorView colorView = (SettingColorView) view.findViewById(R.id.ui_setting_color_view);</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">		if (colorView != null) {</span>
+<span class="nc" id="L228">			colorView.setCanvasColor(getDialogOptions().canvasColor());</span>
+<span class="nc" id="L229">			colorView.setColor(mColor);</span>
+		}
+<span class="nc" id="L231">	}</span>
+
+	/**
+	 * Dialog options of this preference with the preferred color specified as
+	 * {@link ColorPickerDialog.ColorOptions#color(int)}, if it is set.
+	 *
+	 * @see #getColor()
+	 */
+	@NonNull
+	@Override
+	public ColorPickerDialog.ColorOptions getDialogOptions() {
+<span class="nc" id="L242">		final ColorPickerDialog.ColorOptions options = super.getDialogOptions();</span>
+<span class="nc bnc" id="L243" title="All 2 branches missed.">		if (mColorSet) {</span>
+<span class="nc" id="L244">			options.color(mColor);</span>
+		}
+<span class="nc" id="L246">		return options;</span>
+	}
+
+	/**
+	 */
+	@Override
+	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+<span class="nc bnc" id="L253" title="All 2 branches missed.">		if (dialog instanceof ColorPickerDialog) {</span>
+<span class="nc bnc" id="L254" title="All 2 branches missed.">			switch (button) {</span>
+				case Dialog.BUTTON_POSITIVE:
+<span class="nc" id="L256">					setColor(((ColorPickerDialog) dialog).getColor());</span>
+<span class="nc" id="L257">					return true;</span>
+				default:
+<span class="nc" id="L259">					return true;</span>
+			}
+		}
+<span class="nc" id="L262">		return super.onHandleDialogButtonClick(dialog, button);</span>
+	}
+
+	/**
+	 * Inner classes ===============================================================================
+	 */
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.3.0</div></body></html>

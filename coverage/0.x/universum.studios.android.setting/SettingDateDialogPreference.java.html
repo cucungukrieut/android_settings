@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SettingDateDialogPreference.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">universum.studios.android.setting</a> &gt; <span class="el_source">SettingDateDialogPreference.java</span></div><h1>SettingDateDialogPreference.java</h1><pre class="source lang-java linenums">/*
+ * =================================================================================================
+ *                             Copyright (C) 2017 Universum Studios
+ * =================================================================================================
+ *         Licensed under the Apache License, Version 2.0 or later (further &quot;License&quot; only).
+ * -------------------------------------------------------------------------------------------------
+ * You may use this file only in compliance with the License. More details and copy of this License 
+ * you may obtain at
+ * 
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * You can redistribute, modify or publish any part of the code written within this file but as it 
+ * is described in the License, the software distributed under the License is distributed on an 
+ * &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES or CONDITIONS OF ANY KIND.
+ * 
+ * See the License for the specific language governing permissions and limitations under the License.
+ * =================================================================================================
+ */
+package universum.studios.android.setting;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.os.Build;
+import android.support.annotation.AttrRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import universum.studios.android.dialog.DatePickerDialog;
+import universum.studios.android.dialog.Dialog;
+
+/**
+ * A {@link SettingDateTimeDialogPreference} implementation that may be used to allow to a user to pick
+ * its preferred date for a specific setting preference.
+ * &lt;p&gt;
+ * This preference implementation by default displays the preferred date formatted by format specified
+ * via {@link #setFormat(SimpleDateFormat)} as summary text. The default format is {@code 'MMM dd, yyyy'}.
+ * If no date is specified, the standard summary text is displayed. The preferred date may be specified
+ * via {@link #setDate(long)} and obtained via {@link #getDate()} or {@link #getDateInMillis()}.
+ * &lt;p&gt;
+ * When {@link #handleOnDialogButtonClick(Dialog, int)} is called, this preference implementation
+ * handles only {@link DatePickerDialog} type of dialog. If its {@link Dialog#BUTTON_POSITIVE} button
+ * has been clicked, the date provided via {@link DatePickerDialog#getDate()} is set as date for
+ * this preference via {@link #setDate(long)}.
+ *
+ * &lt;h3&gt;Default value&lt;/h3&gt;
+ * Default value for this preference is parsed as {@link String} into &lt;b&gt;milliseconds&lt;/b&gt; value
+ * using {@link DatePickerDialog.DateParser#parse(String)}. See {@link TypedArray#getString(int)}.
+ *
+ * &lt;h3&gt;Xml attributes&lt;/h3&gt;
+ * See {@link SettingDateTimeDialogPreference},
+ * {@link R.styleable#Ui_Settings_DateDialogPreference SettingDateDialogPreference Attributes}
+ *
+ * &lt;h3&gt;Default style attribute&lt;/h3&gt;
+ * {@link R.attr#uiSettingDateDialogPreferenceStyle uiSettingDateDialogPreferenceStyle}
+ *
+ * @author Martin Albedinsky
+ */
+public final class SettingDateDialogPreference extends SettingDateTimeDialogPreference&lt;DatePickerDialog.DateOptions&gt; {
+
+	/**
+	 * Constants ===================================================================================
+	 */
+
+	/**
+	 * Log TAG.
+	 */
+	// private static final String TAG = &quot;SettingDateDialogPreference&quot;;
+
+	/**
+	 * Default pattern for the date format.
+	 */
+	private static final String FORMAT_PATTERN = &quot;MMM dd, yyyy&quot;;
+
+	/**
+	 * Interface ===================================================================================
+	 */
+
+	/**
+	 * Static members ==============================================================================
+	 */
+
+	/**
+	 * Members =====================================================================================
+	 */
+
+	/**
+	 * Constructors ================================================================================
+	 */
+
+	/**
+	 * Same as {@link #SettingDateDialogPreference(Context, AttributeSet)} without attributes.
+	 */
+	public SettingDateDialogPreference(@NonNull Context context) {
+<span class="nc" id="L103">		this(context, null);</span>
+<span class="nc" id="L104">	}</span>
+
+	/**
+	 * Same as {@link #SettingDateDialogPreference(Context, AttributeSet, int)} with
+	 * {@link R.attr#uiSettingDateDialogPreferenceStyle} as attribute for default style.
+	 */
+	public SettingDateDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+<span class="nc" id="L111">		this(context, attrs, R.attr.uiSettingDateDialogPreferenceStyle);</span>
+<span class="nc" id="L112">	}</span>
+
+	/**
+	 * Same as {@link #SettingDateDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
+	 * default style.
+	 */
+	public SettingDateDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+<span class="nc" id="L119">		super(context, attrs, defStyleAttr);</span>
+<span class="nc" id="L120">	}</span>
+
+	/**
+	 * Creates a new instance of SettingInputPreference for the given &lt;var&gt;context&lt;/var&gt;.
+	 *
+	 * @param context      Context in which will be the new setting preference presented.
+	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
+	 * @param defStyleAttr An attribute which contains a reference to a default style resource for
+	 *                     this preference within a theme of the given context.
+	 * @param defStyleRes  Resource id of the default style for the new preference.
+	 */
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public SettingDateDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+<span class="nc" id="L133">		super(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L134">	}</span>
+
+	/**
+	 * Methods =====================================================================================
+	 */
+
+	/**
+	 * Parses the specified string data as date via {@link DatePickerDialog.DateParser#parse(String)}.
+	 *
+	 * @param dateString The desired data to parse into date.
+	 * @return Parsed date in milliseconds or {@code null} if parsing failed.
+	 */
+	private static Long parseDate(String dateString) {
+<span class="nc bnc" id="L147" title="All 2 branches missed.">		return TextUtils.isEmpty(dateString) ? null : DatePickerDialog.DateParser.parse(dateString);</span>
+	}
+
+	/**
+	 */
+	@NonNull
+	@Override
+	protected DatePickerDialog.DateOptions onCreateDialogOptions(@NonNull Resources resources) {
+<span class="nc" id="L155">		return new DatePickerDialog.DateOptions(resources);</span>
+	}
+
+	/**
+	 */
+	@Override
+	protected void onConfigureDialogOptions(@NonNull DatePickerDialog.DateOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+<span class="nc" id="L162">		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L163">		String formatPattern = FORMAT_PATTERN;</span>
+<span class="nc" id="L164">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DateDialogPreference, defStyleAttr, defStyleRes);</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
+<span class="nc" id="L166">			final int index = attributes.getIndex(i);</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_DateDialogPreference_uiSettingDateFormat) {</span>
+<span class="nc" id="L168">				final String dateFormat = attributes.getString(index);</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">				formatPattern = TextUtils.isEmpty(dateFormat) ? formatPattern : dateFormat;</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDate) {</span>
+<span class="nc" id="L171">				final Long date = parseDate(attributes.getString(index));</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">				if (date != null) options.date(date);</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDateMin) {</span>
+<span class="nc" id="L174">				final Long date = parseDate(attributes.getString(index));</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">				if (date != null) options.minDate(date);</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDateMax) {</span>
+<span class="nc" id="L177">				final Long date = parseDate(attributes.getString(index));</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">				if (date != null) options.maxDate(date);</span>
+			}
+		}
+<span class="nc" id="L181">		attributes.recycle();</span>
+<span class="nc" id="L182">		setFormat(new SimpleDateFormat(formatPattern, Locale.getDefault()));</span>
+<span class="nc" id="L183">	}</span>
+
+	/**
+	 */
+	@Override
+	long onParseDefaultValue(@NonNull Object defaultValue) {
+<span class="nc" id="L189">		final Long date = parseDate((String) defaultValue);</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">		return date == null ? 0 : date;</span>
+	}
+
+	/**
+	 * Same as {@link #setDate(long)} with milliseconds value of the given &lt;var&gt;date&lt;/var&gt;.
+	 *
+	 * @param date The desired date with milliseconds value. May be {@code null} which corresponds
+	 *             to {@code 0}.
+	 * @see #getDate()
+	 */
+	public void setDate(@Nullable Date date) {
+<span class="nc bnc" id="L201" title="All 2 branches missed.">		setDate(date == null ? 0 : date.getTime());</span>
+<span class="nc" id="L202">	}</span>
+
+	/**
+	 * Sets a preferred date value for this preference.
+	 * &lt;p&gt;
+	 * If value of this preference changes, it is persisted and the change listener is notified
+	 * about the change.
+	 *
+	 * @param dateInMillis The preferred date in milliseconds to be persisted.
+	 * @see #getDateInMillis()
+	 */
+	public void setDate(long dateInMillis) {
+<span class="nc" id="L214">		setMilliseconds(dateInMillis);</span>
+<span class="nc" id="L215">	}</span>
+
+	/**
+	 * Like {@link #getDateInMillis()}, but this method may be used to check whether the date value
+	 * has been specified or not, as this method will return {@code null} Date object if there is
+	 * no date value specified.
+	 *
+	 * @return Date as date object. May be {@code null} if no date value has been specified yet.
+	 * @see #setDate(Date)
+	 * @see #getDialogOptions()
+	 */
+	@Nullable
+	public Date getDate() {
+<span class="nc bnc" id="L228" title="All 2 branches missed.">		return areMillisecondsSet() ? new Date(getDateInMillis()) : null;</span>
+	}
+
+	/**
+	 * Returns the preferred date value of this preference.
+	 *
+	 * @return Date in milliseconds either specified by the user, as default value or the persisted
+	 * one.
+	 * @see #setDate(long)
+	 * @see #getDialogOptions()
+	 */
+	public long getDateInMillis() {
+<span class="nc" id="L240">		return getMilliseconds();</span>
+	}
+
+	/**
+	 * Dialog options of this preference with the preferred date specified as
+	 * {@link DatePickerDialog.DateOptions#date(long)}, if it is set.
+	 *
+	 * @see #getDateInMillis()
+	 */
+	@NonNull
+	@Override
+	public DatePickerDialog.DateOptions getDialogOptions() {
+<span class="nc" id="L252">		final DatePickerDialog.DateOptions options = super.getDialogOptions();</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">		if (areMillisecondsSet()) {</span>
+<span class="nc" id="L254">			options.date(getDateInMillis());</span>
+		}
+<span class="nc" id="L256">		return options;</span>
+	}
+
+	/**
+	 */
+	@Override
+	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+<span class="nc bnc" id="L263" title="All 2 branches missed.">		if (dialog instanceof DatePickerDialog) {</span>
+<span class="nc bnc" id="L264" title="All 2 branches missed.">			switch (button) {</span>
+				case Dialog.BUTTON_POSITIVE:
+<span class="nc" id="L266">					setDate(((DatePickerDialog) dialog).getDate());</span>
+<span class="nc" id="L267">					return true;</span>
+				default:
+<span class="nc" id="L269">					return true;</span>
+			}
+		}
+<span class="nc" id="L272">		return super.onHandleDialogButtonClick(dialog, button);</span>
+	}
+
+	/**
+	 * Inner classes ===============================================================================
+	 */
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.3.0</div></body></html>

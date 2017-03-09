@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SettingEditDialogPreference.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">universum.studios.android.setting</a> &gt; <span class="el_source">SettingEditDialogPreference.java</span></div><h1>SettingEditDialogPreference.java</h1><pre class="source lang-java linenums">/*
+ * =================================================================================================
+ *                             Copyright (C) 2017 Universum Studios
+ * =================================================================================================
+ *         Licensed under the Apache License, Version 2.0 or later (further &quot;License&quot; only).
+ * -------------------------------------------------------------------------------------------------
+ * You may use this file only in compliance with the License. More details and copy of this License 
+ * you may obtain at
+ * 
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * You can redistribute, modify or publish any part of the code written within this file but as it 
+ * is described in the License, the software distributed under the License is distributed on an 
+ * &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES or CONDITIONS OF ANY KIND.
+ * 
+ * See the License for the specific language governing permissions and limitations under the License.
+ * =================================================================================================
+ */
+package universum.studios.android.setting;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.os.Build;
+import android.support.annotation.AttrRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.view.View;
+
+import universum.studios.android.dialog.Dialog;
+import universum.studios.android.dialog.EditDialog;
+import universum.studios.android.dialog.view.InputConfig;
+
+/**
+ * A {@link SettingDialogPreference} implementation that may be used to allow to a user to specify
+ * its preferred input text for a specific setting preference.
+ * &lt;p&gt;
+ * This preference implementation by default displays the preferred input text as its summary text
+ * if it is specified, or the standard summary text if there is no input text persisted. The preferred
+ * input text may be specified via {@link #setInput(String)} and obtained via {@link #getInput()}.
+ * &lt;p&gt;
+ * When {@link #handleOnDialogButtonClick(Dialog, int)} is called, this preference implementation
+ * handles only {@link EditDialog} type of dialog. If its {@link Dialog#BUTTON_POSITIVE} button has
+ * been clicked, the input provided via {@link EditDialog#getInput()} is set as input for this
+ * preference via {@link #setInput(String)}.
+ *
+ * &lt;h3&gt;Default value&lt;/h3&gt;
+ * Default value for this preference is parsed as {@link String}. See {@link TypedArray#getString(int)}.
+ *
+ * &lt;h3&gt;Xml attributes&lt;/h3&gt;
+ * See {@link SettingDialogPreference},
+ * {@link R.styleable#Ui_Settings_EditDialogPreference SettingEditDialogPreference Attributes}
+ *
+ * &lt;h3&gt;Default style attribute&lt;/h3&gt;
+ * {@link R.attr#uiSettingEditDialogPreferenceStyle uiSettingEditDialogPreferenceStyle}
+ *
+ * @author Martin Albedinsky
+ */
+public class SettingEditDialogPreference extends SettingDialogPreference&lt;EditDialog.EditOptions&gt; {
+
+	/**
+	 * Constants ===================================================================================
+	 */
+
+	/**
+	 * Log TAG.
+	 */
+	// private static final String TAG = &quot;SettingEditDialogPreference&quot;;
+
+	/**
+	 * Interface ===================================================================================
+	 */
+
+	/**
+	 * Static members ==============================================================================
+	 */
+
+	/**
+	 * Members =====================================================================================
+	 */
+
+	/**
+	 * Boolean flag indicating whether the input value for this preference has been set or not.
+	 * This flag is used to handle case when the same value is being specified for this preference,
+	 * but for the first time, to properly refresh view of this preference and notify listeners about
+	 * the change.
+	 */
+	private boolean mInputSet;
+
+	/**
+	 * Current input value specified for this preference. This may be either value specified by the
+	 * user, default value or persisted value.
+	 */
+	private String mInput;
+
+	/**
+	 * Constructors ================================================================================
+	 */
+
+	/**
+	 * Same as {@link #SettingEditDialogPreference(Context, AttributeSet)} without attributes.
+	 */
+	public SettingEditDialogPreference(@NonNull Context context) {
+<span class="nc" id="L108">		this(context, null);</span>
+<span class="nc" id="L109">	}</span>
+
+	/**
+	 * Same as {@link #SettingEditDialogPreference(Context, AttributeSet, int)} with
+	 * {@link R.attr#uiSettingEditDialogPreferenceStyle} as attribute for default style.
+	 */
+	public SettingEditDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+<span class="nc" id="L116">		this(context, attrs, R.attr.uiSettingEditDialogPreferenceStyle);</span>
+<span class="nc" id="L117">	}</span>
+
+	/**
+	 * Same as {@link #SettingEditDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
+	 * default style.
+	 */
+	public SettingEditDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+<span class="nc" id="L124">		super(context, attrs, defStyleAttr);</span>
+<span class="nc" id="L125">	}</span>
+
+	/**
+	 * Creates a new instance of SettingEditDialogPreference for the given &lt;var&gt;context&lt;/var&gt;.
+	 *
+	 * @param context      Context in which will be the new setting preference presented.
+	 * @param attrs        Set of Xml attributes used to configure the new instance of this preference.
+	 * @param defStyleAttr An attribute which contains a reference to a default style resource for
+	 *                     this preference within a theme of the given context.
+	 * @param defStyleRes  Resource id of the default style for the new preference.
+	 */
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public SettingEditDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+<span class="nc" id="L138">		super(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L139">	}</span>
+
+	/**
+	 * Methods =====================================================================================
+	 */
+
+	/**
+	 */
+	@Override
+	protected void onConfigureDialogOptions(@NonNull EditDialog.EditOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+<span class="nc" id="L149">		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L150">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_EditDialogPreference, defStyleAttr, defStyleRes);</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
+<span class="nc" id="L152">			final int index = attributes.getIndex(i);</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_EditDialogPreference_dialogHint) {</span>
+<span class="nc" id="L154">				options.hint(attributes.getText(index));</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_EditDialogPreference_dialogInputStyle) {</span>
+<span class="nc" id="L156">				options.inputConfig(InputConfig.fromStyle(context, attributes.getResourceId(index, 0)));</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_EditDialogPreference_dialogShowSoftKeyboard) {</span>
+<span class="nc" id="L158">				options.showSoftKeyboard(attributes.getBoolean(index, options.shouldShowSoftKeyboard()));</span>
+			}
+		}
+<span class="nc" id="L161">		attributes.recycle();</span>
+<span class="nc" id="L162">	}</span>
+
+	/**
+	 */
+	@NonNull
+	@Override
+	protected EditDialog.EditOptions onCreateDialogOptions(@NonNull Resources resources) {
+<span class="nc" id="L169">		return new EditDialog.EditOptions(resources).title(getTitle());</span>
+	}
+
+	/**
+	 */
+	@Override
+	protected Object onGetDefaultValue(@NonNull TypedArray typedArray, int index) {
+<span class="nc" id="L176">		return typedArray.getString(index);</span>
+	}
+
+	/**
+	 */
+	@Override
+	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
+<span class="nc bnc" id="L183" title="All 2 branches missed.">		setInput(restorePersistedValue ? getPersistedString(mInput) : (String) defaultValue);</span>
+<span class="nc" id="L184">	}</span>
+
+	/**
+	 * Sets a preferred input value for this preference.
+	 * &lt;p&gt;
+	 * If value of this preference changes, it is persisted and the change listener is notified
+	 * about the change.
+	 *
+	 * @param input The preferred input to be persisted.
+	 * @see #getInput()
+	 */
+	public void setInput(@Nullable String input) {
+<span class="nc bnc" id="L196" title="All 2 branches missed.">		final boolean changed = !TextUtils.equals(mInput, input);</span>
+<span class="nc bnc" id="L197" title="All 6 branches missed.">		if (callChangeListener(input) &amp;&amp; (changed || !mInputSet)) {</span>
+<span class="nc" id="L198">			this.mInput = input;</span>
+<span class="nc" id="L199">			this.mInputSet = true;</span>
+<span class="nc" id="L200">			persistString(mInput);</span>
+<span class="nc bnc" id="L201" title="All 2 branches missed.">			if (changed) {</span>
+<span class="nc" id="L202">				notifyChanged();</span>
+			}
+		}
+<span class="nc" id="L205">	}</span>
+
+	/**
+	 * Returns the preferred input value of this preference.
+	 *
+	 * @return Input either specified by the user, as default value or the persisted one.
+	 * @see #setInput(String)
+	 * @see #getDialogOptions()
+	 */
+	@Nullable
+	public String getInput() {
+<span class="nc" id="L216">		return mInput;</span>
+	}
+
+	/**
+	 */
+	@Override
+	public void onBindView(View view) {
+<span class="nc" id="L223">		super.onBindView(view);</span>
+<span class="nc" id="L224">		synchronizeSummaryView(view);</span>
+<span class="nc" id="L225">	}</span>
+
+	/**
+	 */
+	@Nullable
+	@Override
+	protected CharSequence onGetSummaryText() {
+<span class="nc bnc" id="L232" title="All 2 branches missed.">		return mInputSet ? mInput : super.onGetSummaryText();</span>
+	}
+
+	/**
+	 * Dialog options of this preference with the preferred input specified as
+	 * {@link EditDialog.EditOptions#content(CharSequence)}, if it is set.
+	 *
+	 * @see #getInput()
+	 */
+	@NonNull
+	@Override
+	public EditDialog.EditOptions getDialogOptions() {
+<span class="nc" id="L244">		final EditDialog.EditOptions options = super.getDialogOptions();</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">		if (mInputSet) {</span>
+<span class="nc" id="L246">			options.content(mInput);</span>
+		}
+<span class="nc" id="L248">		return options;</span>
+	}
+
+	/**
+	 */
+	@Override
+	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+<span class="nc bnc" id="L255" title="All 2 branches missed.">		if (dialog instanceof EditDialog) {</span>
+<span class="nc bnc" id="L256" title="All 2 branches missed.">			switch (button) {</span>
+				case Dialog.BUTTON_POSITIVE:
+<span class="nc" id="L258">					setInput(((EditDialog) dialog).getInput().toString());</span>
+<span class="nc" id="L259">					return true;</span>
+				default:
+<span class="nc" id="L261">					return true;</span>
+			}
+		}
+<span class="nc" id="L264">		return super.onHandleDialogButtonClick(dialog, button);</span>
+	}
+
+	/**
+	 * Inner classes ===============================================================================
+	 */
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.3.0</div></body></html>
