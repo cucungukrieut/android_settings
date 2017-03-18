@@ -22,13 +22,14 @@ apply plugin: 'com.android.library'
  * Library options =================================================================================
  */
 android {
-    compileSdkVersion Integer.valueOf((String) project.property('android.compileSdkVersion'))
-    buildToolsVersion project.property('android.buildToolsVersion')
+    compileSdkVersion config.build.compileSdkVersion
+    buildToolsVersion config.build.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion project.property('library.minSdkVersion')
+        minSdkVersion config.build.minSdkVersion
+        targetSdkVersion config.build.targetSdkVersion
         consumerProguardFiles 'proguard-rules.pro'
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner config.test.instrumentationRunner
     }
 
     buildTypes {
@@ -55,20 +56,25 @@ android {
  * Library dependencies ============================================================================
  */
 repositories {
-    maven { url = '../artifacts/' }
+    maven { url repos.project.artifacts }
     mavenLocal()
-    maven { url "http://dl.bintray.com/universum-studios/android" }
+    maven { url repos.bintray.universumStudiosAndroid }
 }
 
 dependencies {
     /*
      * RELEASE DEPENDENCIES ------------------------------------------------------------------------
      */
-    compile releaseDependencies.androidSupportAnnotations
-    compile releaseDependencies.androidSupportAppCompatV7
-    compile releaseDependencies.androidUniversumUi
-    compile releaseDependencies.androidUniversumFontCore
-    compile releaseDependencies.androidUniversumFontUtil
+    compile deps.androidSupport.annotations
+    compile deps.androidSupport.appCompatV7
+    compile deps.universumStudios.ui
+    compile deps.universumStudios.fontCore
+    compile deps.universumStudios.fontUtil
+
+    /*
+     * TEST DEPENDENCIES ---------------------------------------------------------------------------
+     */
+    androidTestCompile project(':test-core')
 }
 
 // Apply DEPLOY script.
