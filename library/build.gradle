@@ -22,24 +22,22 @@ apply plugin: 'com.android.library'
  * Library options =================================================================================
  */
 android {
-    compileSdkVersion Integer.valueOf((String) project.property('android.compileSdkVersion'))
-    buildToolsVersion project.property('android.buildToolsVersion')
+    compileSdkVersion config.build.compileSdkVersion
+    buildToolsVersion config.build.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion project.property('library.minSdkVersion')
-        vectorDrawables.useSupportLibrary = true
+        minSdkVersion config.build.minSdkVersion
+        targetSdkVersion config.build.targetSdkVersion
         consumerProguardFiles 'proguard-rules.pro'
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner config.test.instrumentationRunner
     }
 
     buildTypes {
         release {
             minifyEnabled false
         }
-        if (!Boolean.parseBoolean(System.getenv('TRAVIS'))) {
-            modules {
-                minifyEnabled false
-            }
+        modules {
+            minifyEnabled false
         }
         debug {
             minifyEnabled false
@@ -95,44 +93,29 @@ android {
  */
 repositories {
     mavenLocal()
-    maven { url "http://dl.bintray.com/universum-studios/android" }
+    maven { url repos.bintray.universumStudiosAndroid }
 }
 
 dependencies {
     /*
      * RELEASE DEPENDENCIES ------------------------------------------------------------------------
      */
-    compile releaseDependencies.androidSupportAnnotations
-    compile releaseDependencies.androidSupportAppCompatV7
-    compile releaseDependencies.androidSupportVectorDrawable
-    compile releaseDependencies.androidUniversumWidgetAdaptersCore
-    compile releaseDependencies.androidUniversumWidgetAdaptersList
-    compile releaseDependencies.androidUniversumWidgetAdaptersSpinner
-    compile releaseDependencies.androidUniversumGraphicsColorUtil
-    compile releaseDependencies.androidUniversumUi
-    compile releaseDependencies.androidUniversumFontCore
-    compile releaseDependencies.androidUniversumFontUtil
-    compile releaseDependencies.androidUniversumDialogs
+    compile deps.androidSupport.annotations
+    compile deps.androidSupport.appCompatV7
+    compile deps.androidSupport.vectorDrawable
+    compile deps.universumStudios.widgetAdaptersCore
+    compile deps.universumStudios.widgetAdaptersList
+    compile deps.universumStudios.widgetAdaptersSpinner
+    compile deps.universumStudios.graphicsColorUtil
+    compile deps.universumStudios.ui
+    compile deps.universumStudios.fontCore
+    compile deps.universumStudios.fontUtil
+    compile deps.universumStudios.dialogs
 
     /*
      * TEST DEPENDENCIES ---------------------------------------------------------------------------
      */
-    // Android Instrumentation test dependencies.
-    androidTestCompile testDependencies.androidSupportAnnotations
-    androidTestCompile testDependencies.androidRunner
-    androidTestCompile testDependencies.androidRules
-    androidTestCompile testDependencies.androidEspressoCore
-    androidTestCompile testDependencies.androidEspressoIntents
-    androidTestCompile(testDependencies.androidEspressoContrib) {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'com.android.support', module: 'design'
-        exclude group: 'com.android.support', module: 'recyclerview-v7'
-    }
-    // Local JUnit test dependencies.
-    testCompile testDependencies.junit
-    testCompile testDependencies.mockitoCore
+    androidTestCompile project(':test-core')
 }
 
 // Apply DEPLOY script.
