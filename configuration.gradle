@@ -11,7 +11,7 @@ def testConfig = [
 ]
 
 def libraryConfig = [
-        version: '0.9.0',
+        version          : '0.9.0',
         preReleaseVersion: '0.9.2'
 ]
 
@@ -43,11 +43,16 @@ def codacyConfig = [
         projectName: 'android_settings'
 ]
 
+def ciConfig = [
+        travis: Boolean.parseBoolean(System.getenv('TRAVIS'))
+]
+
 ext.config = [
         "build"  : buildConfig,
         "test"   : testConfig,
         "library": libraryConfig,
         "maven"  : mavenConfig,
         "bintray": bintrayConfig,
-        "codacy" : codacyConfig
+        "codacy" : codacyConfig,
+        "ci"     : ciConfig
 ]

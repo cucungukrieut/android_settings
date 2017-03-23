@@ -32,8 +32,6 @@ import android.view.View;
 import android.widget.Checkable;
 import android.widget.Switch;
 
-import universum.studios.android.setting.widget.SettingSwitch;
-
 /**
  * Extended {@link SwitchPreference} that provides additional features supported by the <b>Settings</b>
  * library.

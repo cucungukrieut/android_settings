@@ -24,7 +24,6 @@ import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
@@ -206,8 +205,8 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 
 	/**
 	 * Adds a preferences from the specified <var>preferencesResId</var> Xml resource and registers
-	 * this fragment as {@link Preference.OnPreferenceChangeListener} on the current preference
-	 * screen and calls {@link #onPreferencesAdded()}.
+	 * this fragment as {@link android.preference.Preference.OnPreferenceChangeListener} on the current
+	 * preference screen and calls {@link #onPreferencesAdded()}.
 	 */
 	@Override
 	public void addPreferencesFromResource(@XmlRes int preferencesResId) {
@@ -217,8 +216,8 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 
 	/**
 	 * Adds a preferences from the specified <var>intent</var> and registers this fragment as
-	 * {@link Preference.OnPreferenceChangeListener} on the current preference screen and calls
-	 * {@link #onPreferencesAdded()}.
+	 * {@link android.preference.Preference.OnPreferenceChangeListener} on the current preference
+	 * screen and calls {@link #onPreferencesAdded()}.
 	 */
 	@Override
 	public void addPreferencesFromIntent(@NonNull Intent intent) {
@@ -308,7 +307,8 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 		super.onViewCreated(view, savedInstanceState);
 		final ListView listView = (ListView) view.findViewById(android.R.id.list);
 		if (listView != null) {
-			final int itemPosition, itemTop;
+			final int itemPosition;
+			final int itemTop;
 			if (savedInstanceState != null) {
 				itemPosition = savedInstanceState.getInt(SAVED_STATE_FIRST_VISIBLE_ITEM_POSITION, 0);
 				itemTop = savedInstanceState.getInt(SAVED_STATE_FIRST_VISIBLE_ITEM_TOP, 0);
@@ -354,10 +354,10 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	/**
 	 */
 	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putInt(SAVED_STATE_FIRST_VISIBLE_ITEM_POSITION, mSavedFirstVisibleItemPosition);
-		outState.putInt(SAVED_STATE_FIRST_VISIBLE_ITEM_TOP, mSavedFirstVisibleItemTop);
+	public void onSaveInstanceState(Bundle state) {
+		super.onSaveInstanceState(state);
+		state.putInt(SAVED_STATE_FIRST_VISIBLE_ITEM_POSITION, mSavedFirstVisibleItemPosition);
+		state.putInt(SAVED_STATE_FIRST_VISIBLE_ITEM_TOP, mSavedFirstVisibleItemTop);
 	}
 
 	/**
