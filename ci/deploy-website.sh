@@ -6,7 +6,7 @@ set -ex
 TEMP_DIR=website-temp
 LIBRARY_NAME=settings
 LIBRARY_ARTIFACT_NAME="${LIBRARY_NAME//_/-}"
-LIBRARY_VERSION=0.9.0
+LIBRARY_VERSION=0.9.2
 LIBRARY_REPO="git@github.com:universum-studios/android_${LIBRARY_NAME}.git"
 LIBRARY_DIR_ARTIFACTS=../artifacts/universum/studios/android/$LIBRARY_ARTIFACT_NAME/$LIBRARY_VERSION/
 LIBRARY_JAVADOC_FILE_NAME="${LIBRARY_ARTIFACT_NAME}-${LIBRARY_VERSION}-javadoc.jar"
@@ -34,9 +34,7 @@ rm -rf $WEBSITE_DIR_DOC_VERSIONED
 rm -rf $WEBSITE_DIR_TESTS_VERSIONED
 rm -rf $WEBSITE_DIR_COVERAGE_VERSIONED
 
-# Copy files for website along with documentation and reports for Android tests and Coverage
-# from the primary repository.
-cp -R ../website/. .
+# Copy files for documentation and reports for Android tests and Coverage from the primary library module.
 # Documentation:
 mkdir -p $WEBSITE_DIR_DOC_VERSIONED
 cp $LIBRARY_DIR_ARTIFACTS$LIBRARY_JAVADOC_FILE_NAME $WEBSITE_DIR_DOC_VERSIONED$LIBRARY_JAVADOC_FILE_NAME

@@ -36,8 +36,10 @@ android {
         release {
             minifyEnabled false
         }
-        modules {
-            minifyEnabled false
+        if (!config.ci.travis) {
+            modules {
+                minifyEnabled false
+            }
         }
         debug {
             minifyEnabled false
@@ -76,6 +78,21 @@ android {
                 '../library-slider/src/main/res'
         ]
         debug.res.srcDirs = release.res.srcDirs
+        androidTest.java.srcDirs = [
+                '../library/src/androidTest/java',
+                '../library-core/src/androidTest/java',
+                '../library-activity/src/androidTest/java',
+                '../library-fragment/src/androidTest/java',
+                '../library-dialog-base/src/androidTest/java',
+                '../library-dialog-collection/src/androidTest/java',
+                '../library-dialog-color/src/androidTest/java',
+                '../library-dialog-datetime/src/androidTest/java',
+                '../library-dialog-edit/src/androidTest/java',
+                '../library-empty/src/androidTest/java',
+                '../library-menu/src/androidTest/java',
+                '../library-selection/src/androidTest/java',
+                '../library-slider/src/androidTest/java'
+        ]
     }
 
     compileOptions {

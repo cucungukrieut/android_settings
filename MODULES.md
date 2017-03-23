@@ -25,6 +25,8 @@ as usually.
 ## Available modules ##
 > Following modules are available in the [latest](https://github.com/universum-studios/android_settings/releases "Latest Releases page") release.
 
+**!!! Note, that the separate modules will be available for download after 1.0.0 version is released !!!**
+
 - **[Core](https://github.com/universum-studios/android_settings/tree/master/library-core)**
 - **[Activity](https://github.com/universum-studios/android_settings/tree/master/library-activity)**
 - **[Fragment](https://github.com/universum-studios/android_settings/tree/master/library-fragment)**
