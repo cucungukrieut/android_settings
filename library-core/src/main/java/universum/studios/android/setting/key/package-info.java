@@ -17,6 +17,8 @@
  * =================================================================================================
  */
 /**
+ * Groups classes that may be used for purpose of modification of keys associated with shared preferences.
+ *
  * @author Martin Albedinsky
  */
-package universum.studios.android.setting.widget;
+package universum.studios.android.setting.key;

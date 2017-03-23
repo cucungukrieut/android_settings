@@ -51,7 +51,7 @@ import universum.studios.android.dialog.manage.DialogXmlFactory;
  * @author Martin Albedinsky
  */
 @SuppressLint("LongLogTag")
-public class SettingDialogPreferencesManager implements SettingDialogPreference.OnClickListener {
+public class SettingDialogPreferenceManager implements SettingDialogPreference.OnClickListener {
 
 	/**
 	 * Constants ===================================================================================
@@ -60,7 +60,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	/**
 	 * Log TAG.
 	 */
-	private static final String TAG = "SettingDialogPreferencesManager";
+	private static final String TAG = "SettingDialogPreferenceManager";
 
 	/**
 	 * Interface ===================================================================================
@@ -113,10 +113,10 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * {@link #setDialogFactory(DialogFactory)} otherwise the new manager will throw an exception if
 	 * functionality related to dialogs is requested.
 	 *
-	 * @see #SettingDialogPreferencesManager(Activity)
-	 * @see #SettingDialogPreferencesManager(Fragment)
+	 * @see #SettingDialogPreferenceManager(Activity)
+	 * @see #SettingDialogPreferenceManager(Fragment)
 	 */
-	public SettingDialogPreferencesManager() {
+	public SettingDialogPreferenceManager() {
 		this(null, null);
 	}
 
@@ -130,12 +130,12 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 *
 	 * @param activity The activity used to instantiate the default dialog controller along with
 	 *                 default dialog factory.
-	 * @see #SettingDialogPreferencesManager(Fragment)
+	 * @see #SettingDialogPreferenceManager(Fragment)
 	 * @see DialogController#DialogController(Activity)
 	 * @see #getDialogController()
 	 * @see #getDialogFactory()
 	 */
-	public SettingDialogPreferencesManager(@NonNull Activity activity) {
+	public SettingDialogPreferenceManager(@NonNull Activity activity) {
 		this(new DialogController(activity), new DialogXmlFactory(activity, R.xml.ui_settings_dialogs));
 	}
 
@@ -149,12 +149,12 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 *
 	 * @param fragment The fragment used to instantiate the default dialog controller along with
 	 *                 default dialog factory.
-	 * @see #SettingDialogPreferencesManager(Activity)
+	 * @see #SettingDialogPreferenceManager(Activity)
 	 * @see DialogController#DialogController(Fragment)
 	 * @see #getDialogController()
 	 * @see #getDialogFactory()
 	 */
-	public SettingDialogPreferencesManager(@NonNull Fragment fragment) {
+	public SettingDialogPreferenceManager(@NonNull Fragment fragment) {
 		this(new DialogController(fragment), new DialogXmlFactory(fragment.getActivity(), R.xml.ui_settings_dialogs));
 	}
 
@@ -169,7 +169,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @see DialogController#DialogController(FragmentManager)
 	 * @see #getDialogController()
 	 */
-	public SettingDialogPreferencesManager(@NonNull FragmentManager fragmentManager) {
+	public SettingDialogPreferenceManager(@NonNull FragmentManager fragmentManager) {
 		this(new DialogController(fragmentManager), null);
 	}
 
@@ -180,7 +180,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @param dialogController Dialog controller used to show dialogs for clicked preferences.
 	 * @param dialogFactory    Factory providing dialog instances for the given dialog controller.
 	 */
-	private SettingDialogPreferencesManager(DialogController dialogController, DialogFactory dialogFactory) {
+	private SettingDialogPreferenceManager(DialogController dialogController, DialogFactory dialogFactory) {
 		this.mDialogController = dialogController;
 		this.mDialogFactory = dialogFactory;
 		if (mDialogController != null && mDialogFactory != null) {
@@ -214,9 +214,9 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * Returns the dialog controller used by this manager.
 	 *
 	 * @return Default dialog controller or the one specified via {@link #setDialogController(DialogController)}.
-	 * @see #SettingDialogPreferencesManager(Activity)
-	 * @see #SettingDialogPreferencesManager(Fragment)
-	 * @see #SettingDialogPreferencesManager(FragmentManager)
+	 * @see #SettingDialogPreferenceManager(Activity)
+	 * @see #SettingDialogPreferenceManager(Fragment)
+	 * @see #SettingDialogPreferenceManager(FragmentManager)
 	 */
 	@NonNull
 	public DialogController getDialogController() {
@@ -241,8 +241,8 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 *
 	 * @return Default dialog factory or the one specified via {@link #setDialogFactory(DialogFactory)}
 	 * @see #setDialogFactory(DialogFactory)
-	 * @see #SettingDialogPreferencesManager(Activity)
-	 * @see #SettingDialogPreferencesManager(Fragment)
+	 * @see #SettingDialogPreferenceManager(Activity)
+	 * @see #SettingDialogPreferenceManager(Fragment)
 	 */
 	@Nullable
 	public DialogFactory getDialogFactory() {

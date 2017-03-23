@@ -24,7 +24,7 @@ import android.support.annotation.Nullable;
 
 import universum.studios.android.dialog.Dialog;
 import universum.studios.android.samples.setting.R;
-import universum.studios.android.setting.SettingDialogPreferencesManager;
+import universum.studios.android.setting.SettingDialogPreferenceManager;
 import universum.studios.android.setting.SettingsBaseFragment;
 
 /**
@@ -37,13 +37,13 @@ public final class PreviewSettingsFragment extends SettingsBaseFragment
 	@SuppressWarnings("unused")
 	private static final String TAG = "PreviewSettingsFragment";
 
-	private SettingDialogPreferencesManager dialogPreferencesManager;
+	private SettingDialogPreferenceManager dialogPreferencesManager;
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.settings_preview);
-		this.dialogPreferencesManager = new SettingDialogPreferencesManager(this);
+		this.dialogPreferencesManager = new SettingDialogPreferenceManager(this);
 		this.dialogPreferencesManager.attachToPreferenceScreen(getPreferenceScreen());
 	}
 

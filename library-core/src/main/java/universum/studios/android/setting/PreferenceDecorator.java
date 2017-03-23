@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.preference.Preference;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -39,7 +40,7 @@ import universum.studios.android.ui.util.ResourceUtils;
  *
  * @author Martin Albedinsky
  */
-class PreferenceDecorator {
+abstract class PreferenceDecorator {
 
 	/**
 	 * Constants ===================================================================================
@@ -79,6 +80,11 @@ class PreferenceDecorator {
 	private final Preference mPreference;
 
 	/**
+	 * todo:
+	 */
+	private Object mDefaultValue;
+
+	/**
 	 * Constructors ================================================================================
 	 */
 
@@ -106,10 +112,73 @@ class PreferenceDecorator {
 	 */
 	void processAttributes(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_Preference, defStyleAttr, defStyleRes);
-		if (attributes.hasValue(R.styleable.Ui_Settings_Preference_uiVectorIcon)) {
-			setVectorIcon(attributes.getResourceId(R.styleable.Ui_Settings_Preference_uiVectorIcon, 0));
+		for (int i = 0; i < attributes.getIndexCount(); i++) {
+			final int index = attributes.getIndex(i);
+			if (index == R.styleable.Ui_Settings_Preference_android_defaultValue) {
+				this.mDefaultValue = onGetDefaultValue(attributes, index);
+			} else if (index == R.styleable.Ui_Settings_Preference_uiVectorIcon) {
+				setVectorIcon(attributes.getResourceId(index, 0));
+			}
 		}
 		attributes.recycle();
+	}
+
+	/**
+	 * todo:
+	 *
+	 * @param attributes
+	 * @param index
+	 * @return
+	 */
+	@Nullable
+	abstract Object onGetDefaultValue(@NonNull TypedArray attributes, int index);
+
+	/**
+	 * todo:
+	 */
+	void handleKeyChange() {
+		updateInitialValue();
+	}
+
+	/**
+	 * todo:
+	 */
+	private void updateInitialValue() {
+		final boolean shouldPersist = shouldPersist();
+		if (!shouldPersist || !mPreference.getSharedPreferences().contains(mPreference.getKey())) {
+			if (mDefaultValue != null) {
+				onUpdateInitialValue(false, mDefaultValue);
+			}
+		} else {
+			onUpdateInitialValue(true, null);
+		}
+	}
+
+	/**
+	 * todo:
+	 *
+	 * @return
+	 */
+	private boolean shouldPersist() {
+		return mPreference.getPreferenceManager() != null && mPreference.isPersistent() && mPreference.hasKey();
+	}
+
+	/**
+	 * todo:
+	 *
+	 * @param restorePersistedValue
+	 * @param defaultValue
+	 */
+	abstract void onUpdateInitialValue(boolean restorePersistedValue, @Nullable Object defaultValue);
+
+	/**
+	 * todo:
+	 *
+	 * @return
+	 */
+	@Nullable
+	Object getDefaultValue() {
+		return mDefaultValue;
 	}
 
 	/**
