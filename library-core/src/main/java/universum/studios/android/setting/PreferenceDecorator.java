@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.preference.Preference;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -39,7 +40,7 @@ import universum.studios.android.ui.util.ResourceUtils;
  *
  * @author Martin Albedinsky
  */
-class PreferenceDecorator {
+abstract class PreferenceDecorator {
 
 	/**
 	 * Constants ===================================================================================
@@ -79,6 +80,11 @@ class PreferenceDecorator {
 	private final Preference mPreference;
 
 	/**
+	 * Default value resolved from Xml attributes for the associated preference.
+	 */
+	private Object mDefaultValue;
+
+	/**
 	 * Constructors ================================================================================
 	 */
 
@@ -106,10 +112,76 @@ class PreferenceDecorator {
 	 */
 	void processAttributes(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_Preference, defStyleAttr, defStyleRes);
-		if (attributes.hasValue(R.styleable.Ui_Settings_Preference_uiVectorIcon)) {
-			setVectorIcon(attributes.getResourceId(R.styleable.Ui_Settings_Preference_uiVectorIcon, 0));
+		for (int i = 0; i < attributes.getIndexCount(); i++) {
+			final int index = attributes.getIndex(i);
+			if (index == R.styleable.Ui_Settings_Preference_android_defaultValue) {
+				this.mDefaultValue = onGetDefaultValue(attributes, index);
+			} else if (index == R.styleable.Ui_Settings_Preference_uiVectorIcon) {
+				setVectorIcon(attributes.getResourceId(index, 0));
+			}
 		}
 		attributes.recycle();
+	}
+
+	/**
+	 * todo:
+	 *
+	 * @param attributes
+	 * @param index
+	 * @return
+	 */
+	@Nullable
+	abstract Object onGetDefaultValue(@NonNull TypedArray attributes, int index);
+
+	/**
+	 * Handles change in the key of the associated preference.
+	 * <p>
+	 * This implementation dispatches update of initial value to the associated preference.
+	 */
+	void handleKeyChange() {
+		updateInitialValue();
+	}
+
+	/**
+	 * Dispatches request for update of initial value to the associated preference via
+	 * {@link #onUpdateInitialValue(boolean, Object)}.
+	 */
+	private void updateInitialValue() {
+		final boolean shouldPersist = shouldPersist();
+		if (shouldPersist && mPreference.getSharedPreferences().contains(mPreference.getKey())) {
+			onUpdateInitialValue(true, null);
+		} else if (mDefaultValue != null) {
+			onUpdateInitialValue(false, mDefaultValue);
+		}
+	}
+
+	/**
+	 * Checks whether the value of the associated preference should be persisted or not.
+	 *
+	 * @return {@code True} if value should be persisted, {@code false} otherwise.
+	 */
+	private boolean shouldPersist() {
+		return mPreference.getPreferenceManager() != null && mPreference.isPersistent() && mPreference.hasKey();
+	}
+
+	/**
+	 * Invoked to update initial value of the associated preference.
+	 *
+	 * @param restorePersistedValue {@code True} if the initial value should be restored from
+	 *                              preferences, {@code false} it the <var>defaultValue</var> should
+	 *                              be used instead.
+	 * @param defaultValue          The default value to use as initial one.
+	 */
+	abstract void onUpdateInitialValue(boolean restorePersistedValue, @Nullable Object defaultValue);
+
+	/**
+	 * Returns the default value resolved from Xml attributes for the associated preference.
+	 *
+	 * @return Default value or {@code null} if no value has been resolved.
+	 */
+	@Nullable
+	Object getDefaultValue() {
+		return mDefaultValue;
 	}
 
 	/**

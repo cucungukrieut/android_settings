@@ -80,6 +80,8 @@
 	<!-- SettingsPreference attributes. -->
 	<declare-styleable name="Ui.Settings.Preference">
 		<!-- Re-used. -->
+		<attr name="android:defaultValue"/>
+		<!-- Re-used. -->
 		<attr name="uiVectorIcon"/>
 	</declare-styleable>
 </resources>

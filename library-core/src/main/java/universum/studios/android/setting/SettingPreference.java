@@ -20,6 +20,7 @@ package universum.studios.android.setting;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.preference.Preference;
 import android.support.annotation.AttrRes;
@@ -134,7 +135,34 @@ public class SettingPreference extends Preference {
 	 * Ensures that the decorator for this view is initialized.
 	 */
 	private void ensureDecorator() {
-		if (mDecorator == null) this.mDecorator = new PreferenceDecorator(this);
+		if (mDecorator == null) this.mDecorator = new PreferenceDecorator(this) {
+
+			/**
+			 */
+			@Nullable
+			@Override
+			Object onGetDefaultValue(@NonNull TypedArray attributes, int index) {
+				return SettingPreference.this.onGetDefaultValue(attributes, index);
+			}
+
+			/**
+			 */
+			@Override
+			void onUpdateInitialValue(boolean restorePersistedValue, @Nullable Object defaultValue) {
+				SettingPreference.this.onSetInitialValue(restorePersistedValue, defaultValue);
+			}
+		};
+	}
+
+	/**
+	 */
+	@Override
+	public void setKey(@NonNull String key) {
+		final boolean keyChanged = !key.equals(getKey());
+		super.setKey(key);
+		if (keyChanged) {
+			mDecorator.handleKeyChange();
+		}
 	}
 
 	/**
