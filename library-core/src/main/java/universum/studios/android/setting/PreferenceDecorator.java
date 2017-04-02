@@ -42,7 +42,7 @@ import universum.studios.android.ui.util.ResourceUtils;
  */
 abstract class PreferenceDecorator {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -62,15 +62,15 @@ abstract class PreferenceDecorator {
 	 */
 	private static final String FIELD_NAME_CAN_RECYCLE_LAYOUT = "mCanRecycleLayout";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -84,7 +84,7 @@ abstract class PreferenceDecorator {
 	 */
 	private Object mDefaultValue;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
@@ -93,11 +93,11 @@ abstract class PreferenceDecorator {
 	 *
 	 * @param preference The preference for which to create new decorator.
 	 */
-	PreferenceDecorator(Preference preference) {
+	PreferenceDecorator(final Preference preference) {
 		this.mPreference = preference;
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -110,7 +110,7 @@ abstract class PreferenceDecorator {
 	 *                     the attached preference within a theme of the given context.
 	 * @param defStyleRes  Resource id of the default style for the attached preference.
 	 */
-	void processAttributes(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	void processAttributes(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_Preference, defStyleAttr, defStyleRes);
 		for (int i = 0; i < attributes.getIndexCount(); i++) {
 			final int index = attributes.getIndex(i);
@@ -124,11 +124,13 @@ abstract class PreferenceDecorator {
 	}
 
 	/**
-	 * todo:
+	 * Invoked to obtain default value for the associated preference from the given <var>attributes</var>
+	 * array.
 	 *
-	 * @param attributes
-	 * @param index
-	 * @return
+	 * @param attributes The attributes array from which to obtain default value.
+	 * @param index      Index at which should be the value obtained.
+	 * @return The default value specific for the preference or {@code null} if the preference does
+	 * not have default value attached.
 	 */
 	@Nullable
 	abstract Object onGetDefaultValue(@NonNull TypedArray attributes, int index);
@@ -191,7 +193,7 @@ abstract class PreferenceDecorator {
 	 * @param resId Resource id of the desired vector icon to set. May be {@code 0} to clear the
 	 *              current icon.
 	 */
-	void setVectorIcon(@DrawableRes int resId) {
+	void setVectorIcon(@DrawableRes final int resId) {
 		final Context context = mPreference.getContext();
 		mPreference.setIcon(ResourceUtils.getVectorDrawable(context.getResources(), resId, context.getTheme()));
 	}
@@ -203,7 +205,7 @@ abstract class PreferenceDecorator {
 	 *                         {@code false} otherwise.
 	 */
 	@SuppressWarnings("TryWithIdenticalCatches")
-	void setCanRecycleLayout(boolean canRecycleLayout) {
+	void setCanRecycleLayout(final boolean canRecycleLayout) {
 		if (HANDLE_CAN_RECYCLE_LAYOUT) {
 			try {
 				final Field canRecycleLayoutField = Preference.class.getDeclaredField(FIELD_NAME_CAN_RECYCLE_LAYOUT);
@@ -224,14 +226,14 @@ abstract class PreferenceDecorator {
 	 * @param view The view/holder bound by the preference where the decorator may perform
 	 *             additional modifications.
 	 */
-	void onBindView(@NonNull View view) {
+	void onBindView(@NonNull final View view) {
 		final View iconFrameView = view.findViewById(R.id.icon_frame);
 		if (iconFrameView != null) {
 			iconFrameView.setVisibility(mPreference.getIcon() == null ? View.GONE : View.VISIBLE);
 		}
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

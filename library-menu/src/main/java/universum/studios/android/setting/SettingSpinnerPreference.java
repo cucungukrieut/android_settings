@@ -68,7 +68,7 @@ import universum.studios.android.widget.adapter.ViewHolder;
  */
 public class SettingSpinnerPreference extends SettingPreference {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -77,15 +77,15 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 */
 	// private static final String TAG = "SettingSpinnerPreference";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -98,14 +98,14 @@ public class SettingSpinnerPreference extends SettingPreference {
 		/**
 		 */
 		@Override
-		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+		public void onItemSelected(@NonNull final AdapterView<?> parent, @NonNull final View view, final int position, final long id) {
 			setValueIndex(position);
 		}
 
 		/**
 		 */
 		@Override
-		public void onNothingSelected(AdapterView<?> parent) {
+		public void onNothingSelected(@NonNull final AdapterView<?> parent) {
 			// Ignored.
 		}
 	};
@@ -149,14 +149,14 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 */
 	private Spinner mSpinner;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingSpinnerPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingSpinnerPreference(@NonNull Context context) {
+	public SettingSpinnerPreference(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -164,7 +164,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * Same as {@link #SettingSpinnerPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingSpinnerPreferenceStyle} as attribute for default style.
 	 */
-	public SettingSpinnerPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingSpinnerPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, R.attr.uiSettingSpinnerPreferenceStyle);
 	}
 
@@ -172,7 +172,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * Same as {@link #SettingSpinnerPreference(Context, AttributeSet, int, int)} with {@code 0}
 	 * as default style.
 	 */
-	public SettingSpinnerPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+	public SettingSpinnerPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		this.init(context, attrs, defStyleAttr, 0);
 	}
@@ -187,12 +187,12 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingSpinnerPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingSpinnerPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		this.init(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -204,7 +204,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * The specified <var>defStyleAttr</var> and <var>defStyleRes</var> are used to obtain default
 	 * data from the current theme provided by the specified <var>context</var>.
 	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	private void init(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		this.mAdapter = new EntriesAdapter(context);
 		this.mAdapter.setTitle(getTitle());
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SpinnerPreference, defStyleAttr, defStyleRes);
@@ -236,7 +236,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 *
 	 * @param resId Resource id of the desired text array with entries.
 	 */
-	public void setEntries(@ArrayRes int resId) {
+	public void setEntries(@ArrayRes final int resId) {
 		setEntries(getContext().getResources().getTextArray(resId));
 	}
 
@@ -248,7 +248,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * @see android.R.attr#entries
 	 * @see #setEntryValues(CharSequence[])
 	 */
-	public void setEntries(@Nullable CharSequence[] entries) {
+	public void setEntries(@Nullable final CharSequence[] entries) {
 		this.mEntries = entries;
 		if (entries == null) {
 			this.mAdapter.changeItems(Collections.<CharSequence>emptyList());
@@ -274,7 +274,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 *
 	 * @param resId Resource id of the desired text array with values for entries.
 	 */
-	public void setEntryValues(@ArrayRes int resId) {
+	public void setEntryValues(@ArrayRes final int resId) {
 		setEntryValues(getContext().getResources().getTextArray(resId));
 	}
 
@@ -289,7 +289,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 *                    to clear the current ones.
 	 * @see android.R.attr#entryValues
 	 */
-	public void setEntryValues(@Nullable CharSequence[] entryValues) {
+	public void setEntryValues(@Nullable final CharSequence[] entryValues) {
 		this.mEntryValues = entryValues;
 	}
 
@@ -308,14 +308,14 @@ public class SettingSpinnerPreference extends SettingPreference {
 	/**
 	 */
 	@Override
-	protected Object onGetDefaultValue(@NonNull TypedArray typedArray, int index) {
-		return typedArray.getString(index);
+	protected Object onGetDefaultValue(@NonNull final TypedArray attributes, final int index) {
+		return attributes.getString(index);
 	}
 
 	/**
 	 */
 	@Override
-	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
+	protected void onSetInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
 		setValue(restorePersistedValue ? getPersistedString(mValue) : (String) defaultValue);
 	}
 
@@ -326,7 +326,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * @see #getValueIndex()
 	 * @see #setValue(String)
 	 */
-	void setValueIndex(int index) {
+	void setValueIndex(final int index) {
 		if (mEntryValues != null && index < mEntryValues.length) {
 			setValue(mEntryValues[index].toString());
 		}
@@ -359,7 +359,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * @param value The preferred entry value to be persisted.
 	 * @see #getValue()
 	 */
-	public void setValue(@Nullable String value) {
+	public void setValue(@Nullable final String value) {
 		final boolean changed = !TextUtils.equals(mValue, value);
 		if (callChangeListener(value) && (changed || !mValueSet)) {
 			this.mValue = value;
@@ -385,7 +385,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
+	public void onBindView(@NonNull final View view) {
 		super.onBindView(view);
 		final Spinner spinner = (Spinner) view.findViewById(R.id.ui_setting_spinner);
 		if (spinner != null) {
@@ -418,7 +418,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		this.mSpinner = null;
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 
@@ -448,7 +448,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @see SimpleSpinnerAdapter#SimpleSpinnerAdapter(Context)
 		 */
-		private EntriesAdapter(@NonNull Context context) {
+		private EntriesAdapter(@NonNull final Context context) {
 			super(context);
 		}
 
@@ -457,7 +457,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @param title The desired title text. May be {@code null} to clear the current one.
 		 */
-		void setTitle(@Nullable CharSequence title) {
+		void setTitle(@Nullable final CharSequence title) {
 			if (!TextUtils.equals(this.title, title)) {
 				this.title = title;
 				notifyDataSetChanged();
@@ -469,7 +469,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @param layoutResource The desired layout resource.
 		 */
-		void setViewLayoutResource(@LayoutRes int layoutResource) {
+		void setViewLayoutResource(@LayoutRes final int layoutResource) {
 			this.viewLayoutResource = layoutResource;
 			if (!isEmpty()) {
 				notifyDataSetChanged();
@@ -481,7 +481,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @param layoutResource The desired layout resource.
 		 */
-		void setDropDownViewLayoutResource(@LayoutRes int layoutResource) {
+		void setDropDownViewLayoutResource(@LayoutRes final int layoutResource) {
 			this.dropDownViewLayoutResource = layoutResource;
 			if (!isEmpty()) {
 				notifyDataSetChanged();
@@ -492,7 +492,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 */
 		@NonNull
 		@Override
-		protected View onCreateView(@NonNull ViewGroup parent, int position) {
+		protected View onCreateView(@NonNull final ViewGroup parent, final int position) {
 			return inflate(viewLayoutResource, parent);
 		}
 
@@ -500,7 +500,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 */
 		@Nullable
 		@Override
-		protected EntryViewHolder onCreateViewHolder(@NonNull View itemView, int position) {
+		protected EntryViewHolder onCreateViewHolder(@NonNull final View itemView, final int position) {
 			return new EntryViewHolder(itemView);
 		}
 
@@ -508,7 +508,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 */
 		@NonNull
 		@Override
-		protected View onCreateDropDownView(@NonNull ViewGroup parent, int position) {
+		protected View onCreateDropDownView(@NonNull final ViewGroup parent, final int position) {
 			return inflate(dropDownViewLayoutResource, parent);
 		}
 
@@ -516,14 +516,14 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 */
 		@Nullable
 		@Override
-		protected EntryDropDownViewHolder onCreateDropDownViewHolder(@NonNull View itemView, int position) {
+		protected EntryDropDownViewHolder onCreateDropDownViewHolder(@NonNull final View itemView, final int position) {
 			return new EntryDropDownViewHolder(itemView);
 		}
 
 		/**
 		 */
 		@Override
-		protected void onBindViewHolder(@NonNull EntryViewHolder holder, int position) {
+		protected void onBindViewHolder(@NonNull final EntryViewHolder holder, final int position) {
 			holder.titleView.setText(title);
 			holder.summaryView.setText(getSelectedItem());
 		}
@@ -531,7 +531,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		/**
 		 */
 		@Override
-		protected void onUpdateViewHolder(@NonNull EntryDropDownViewHolder holder, @NonNull CharSequence entry, int position) {
+		protected void onUpdateViewHolder(@NonNull final EntryDropDownViewHolder holder, @NonNull final CharSequence entry, final int position) {
 			holder.titleView.setText(entry);
 		}
 	}
@@ -556,7 +556,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
-		private EntryViewHolder(@NonNull View itemView) {
+		private EntryViewHolder(@NonNull final View itemView) {
 			super(itemView);
 			this.titleView = (TextView) itemView.findViewById(android.R.id.title);
 			this.summaryView = (TextView) itemView.findViewById(android.R.id.summary);
@@ -578,7 +578,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
-		private EntryDropDownViewHolder(@NonNull View itemView) {
+		private EntryDropDownViewHolder(@NonNull final View itemView) {
 			super(itemView);
 			this.titleView = (TextView) itemView.findViewById(android.R.id.title);
 		}

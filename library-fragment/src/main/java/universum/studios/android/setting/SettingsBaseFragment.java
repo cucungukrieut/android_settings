@@ -49,7 +49,7 @@ import universum.studios.android.widget.adapter.DataSet;
  */
 public abstract class SettingsBaseFragment extends PreferenceFragment {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -81,15 +81,15 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 */
 	private static final String SAVED_STATE_FIRST_VISIBLE_ITEM_TOP = SAVED_STATE_KEY_BASE + "FirstVisibleItemTop";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -133,11 +133,11 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 */
 	private int mSavedFirstVisibleItemTop;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -155,7 +155,7 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 *
 	 * @param keyModificator The desired modificator. May be {@code null} to clear the current one.
 	 */
-	protected void setPreferenceScreenKeyModificator(@Nullable PreferenceScreenKeyModificator keyModificator) {
+	protected void setPreferenceScreenKeyModificator(@Nullable final PreferenceScreenKeyModificator keyModificator) {
 		this.mKeyModificator = keyModificator;
 		if (mPreferencesAdded && mKeyModificator != null) {
 			mKeyModificator.modifyKeys(getPreferenceScreen());
@@ -170,7 +170,7 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 * permission, or {@link android.content.pm.PackageManager#PERMISSION_DENIED} if not.
 	 */
 	@CheckResult
-	protected int checkSelfPermission(@NonNull String permission) {
+	protected int checkSelfPermission(@NonNull final String permission) {
 		return ActivityCompat.checkSelfPermission(getActivity(), permission);
 	}
 
@@ -178,7 +178,7 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 */
 	@Override
 	@CheckResult
-	public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
+	public boolean shouldShowRequestPermissionRationale(@NonNull final String permission) {
 		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && super.shouldShowRequestPermissionRationale(permission);
 	}
 
@@ -191,7 +191,7 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 * @param permissions The desired set of permissions to request.
 	 * @param requestCode Code to identify this request in {@link #onRequestPermissionsResult(int, String[], int[])}.
 	 */
-	protected void supportRequestPermissions(@NonNull String[] permissions, int requestCode) {
+	protected void supportRequestPermissions(@NonNull final String[] permissions, final int requestCode) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
 			requestPermissions(permissions, requestCode);
 	}
@@ -199,7 +199,7 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	/**
 	 */
 	@Override
-	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+	public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 	}
 
@@ -209,7 +209,7 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 * preference screen and calls {@link #onPreferencesAdded()}.
 	 */
 	@Override
-	public void addPreferencesFromResource(@XmlRes int preferencesResId) {
+	public void addPreferencesFromResource(@XmlRes final int preferencesResId) {
 		super.addPreferencesFromResource(preferencesResId);
 		this.handlePreferencesAdded();
 	}
@@ -220,7 +220,7 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 * screen and calls {@link #onPreferencesAdded()}.
 	 */
 	@Override
-	public void addPreferencesFromIntent(@NonNull Intent intent) {
+	public void addPreferencesFromIntent(@NonNull final Intent intent) {
 		super.addPreferencesFromIntent(intent);
 		this.handlePreferencesAdded();
 	}
@@ -284,7 +284,7 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	/**
 	 */
 	@Override
-	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+	public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
 		final TypedArray attributes = inflater.getContext().obtainStyledAttributes(
 				null,
 				R.styleable.Ui_Settings_Fragment,
@@ -303,7 +303,7 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 * This implementation restores the first visible item's position and its offset.
 	 */
 	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
+	public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		final ListView listView = (ListView) view.findViewById(android.R.id.list);
 		if (listView != null) {
@@ -354,13 +354,13 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	/**
 	 */
 	@Override
-	public void onSaveInstanceState(Bundle state) {
+	public void onSaveInstanceState(@NonNull final Bundle state) {
 		super.onSaveInstanceState(state);
 		state.putInt(SAVED_STATE_FIRST_VISIBLE_ITEM_POSITION, mSavedFirstVisibleItemPosition);
 		state.putInt(SAVED_STATE_FIRST_VISIBLE_ITEM_TOP, mSavedFirstVisibleItemTop);
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

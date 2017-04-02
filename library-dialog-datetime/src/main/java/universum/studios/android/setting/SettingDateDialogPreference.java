@@ -66,7 +66,7 @@ import universum.studios.android.dialog.Dialog;
  */
 public final class SettingDateDialogPreference extends SettingDateTimeDialogPreference<DatePickerDialog.DateOptions> {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -80,26 +80,26 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 */
 	private static final String FORMAT_PATTERN = "MMM dd, yyyy";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingDateDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingDateDialogPreference(@NonNull Context context) {
+	public SettingDateDialogPreference(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -107,7 +107,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * Same as {@link #SettingDateDialogPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingDateDialogPreferenceStyle} as attribute for default style.
 	 */
-	public SettingDateDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingDateDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, R.attr.uiSettingDateDialogPreferenceStyle);
 	}
 
@@ -115,7 +115,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * Same as {@link #SettingDateDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingDateDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingDateDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
@@ -129,11 +129,11 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingDateDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingDateDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -143,7 +143,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * @param dateString The desired data to parse into date.
 	 * @return Parsed date in milliseconds or {@code null} if parsing failed.
 	 */
-	private static Long parseDate(String dateString) {
+	private static Long parseDate(final String dateString) {
 		return TextUtils.isEmpty(dateString) ? null : DatePickerDialog.DateParser.parse(dateString);
 	}
 
@@ -151,14 +151,20 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 */
 	@NonNull
 	@Override
-	protected DatePickerDialog.DateOptions onCreateDialogOptions(@NonNull Resources resources) {
+	protected DatePickerDialog.DateOptions onCreateDialogOptions(@NonNull final Resources resources) {
 		return new DatePickerDialog.DateOptions(resources);
 	}
 
 	/**
 	 */
 	@Override
-	protected void onConfigureDialogOptions(@NonNull DatePickerDialog.DateOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	protected void onConfigureDialogOptions(
+			@NonNull final DatePickerDialog.DateOptions options,
+			@NonNull final Context context,
+			@Nullable final AttributeSet attrs,
+			@AttrRes final int defStyleAttr,
+			@StyleRes final int defStyleRes
+	) {
 		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);
 		String formatPattern = FORMAT_PATTERN;
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DateDialogPreference, defStyleAttr, defStyleRes);
@@ -185,7 +191,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	/**
 	 */
 	@Override
-	long onParseDefaultValue(@NonNull Object defaultValue) {
+	long onParseDefaultValue(@NonNull final Object defaultValue) {
 		final Long date = parseDate((String) defaultValue);
 		return date == null ? 0 : date;
 	}
@@ -197,7 +203,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 *             to {@code 0}.
 	 * @see #getDate()
 	 */
-	public void setDate(@Nullable Date date) {
+	public void setDate(@Nullable final Date date) {
 		setDate(date == null ? 0 : date.getTime());
 	}
 
@@ -210,7 +216,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * @param dateInMillis The preferred date in milliseconds to be persisted.
 	 * @see #getDateInMillis()
 	 */
-	public void setDate(long dateInMillis) {
+	public void setDate(final long dateInMillis) {
 		setMilliseconds(dateInMillis);
 	}
 
@@ -259,7 +265,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	/**
 	 */
 	@Override
-	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+	protected boolean onHandleDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
 		if (dialog instanceof DatePickerDialog) {
 			switch (button) {
 				case Dialog.BUTTON_POSITIVE:
@@ -272,7 +278,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 		return super.onHandleDialogButtonClick(dialog, button);
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

@@ -22,6 +22,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.CallSuper;
+import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -60,7 +61,7 @@ import java.util.List;
  */
 public abstract class SettingsBaseActivity extends PreferenceActivity {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -74,11 +75,11 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	 */
 	private static final String BUNDLE_HEADERS = ":android:headers";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
@@ -86,9 +87,9 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	 * Corrector used by instances of SettingsBaseActivity to correct/modify theirs root layout to
 	 * match actual Material design guidelines.
 	 */
-	private static final LayoutCorrector sLayoutCorrector = new BasicLayoutCorrector();
+	private static final LayoutCorrector LAYOUT_CORRECTOR = new BasicLayoutCorrector();
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -120,11 +121,11 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	 */
 	private ListAdapter mHeadersAdapter;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -142,7 +143,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	/**
 	 */
 	@Override
-	protected void onCreate(@Nullable Bundle savedInstanceState) {
+	protected void onCreate(@Nullable final Bundle savedInstanceState) {
 		delegate().installViewFactory();
 		delegate().onCreate(savedInstanceState);
 		super.onCreate(savedInstanceState);
@@ -157,7 +158,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	/**
 	 */
 	@Override
-	public void loadHeadersFromResource(@XmlRes int resid, @NonNull List<Header> target) {
+	public void loadHeadersFromResource(@XmlRes final int resid, @NonNull final List<Header> target) {
 		super.loadHeadersFromResource(resid, this.mHeaders = target);
 	}
 
@@ -178,7 +179,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	 * @param adapter The desired adapter providing headers for this activity's list view. May be
 	 *                {@code null} to clear the current one.
 	 */
-	public void setHeadersAdapter(@Nullable ListAdapter adapter) {
+	public void setHeadersAdapter(@Nullable final ListAdapter adapter) {
 		super.setListAdapter(mHeadersAdapter = adapter);
 	}
 
@@ -217,7 +218,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	/**
 	 */
 	@Override
-	protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+	protected void onPostCreate(@Nullable final Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		delegate().onPostCreate(savedInstanceState);
 	}
@@ -240,28 +241,28 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	/**
 	 */
 	@Override
-	public void setContentView(@LayoutRes int layoutResID) {
+	public void setContentView(@LayoutRes final int layoutResID) {
 		delegate().setContentView(layoutResID);
 	}
 
 	/**
 	 */
 	@Override
-	public void setContentView(View view) {
+	public void setContentView(final View view) {
 		delegate().setContentView(view);
 	}
 
 	/**
 	 */
 	@Override
-	public void setContentView(View view, ViewGroup.LayoutParams params) {
+	public void setContentView(final View view, final ViewGroup.LayoutParams params) {
 		delegate().setContentView(view, params);
 	}
 
 	/**
 	 */
 	@Override
-	public void addContentView(View view, ViewGroup.LayoutParams params) {
+	public void addContentView(final View view, final ViewGroup.LayoutParams params) {
 		delegate().addContentView(view, params);
 	}
 
@@ -272,7 +273,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	public void onContentChanged() {
 		super.onContentChanged();
 		this.mContentView = ((ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content)).getChildAt(0);
-		sLayoutCorrector.correctLayout(mContentView);
+		LAYOUT_CORRECTOR.correctLayout(mContentView);
 	}
 
 	/**
@@ -349,7 +350,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	 * @return Instance of toolbar to be added into this activity's view hierarchy.
 	 */
 	@NonNull
-	protected Toolbar onCreateToolbar(@NonNull LayoutInflater inflater, @NonNull ViewGroup root) {
+	protected Toolbar onCreateToolbar(@NonNull final LayoutInflater inflater, @NonNull final ViewGroup root) {
 		return (Toolbar) inflater.inflate(R.layout.ui_toolbar, root, false);
 	}
 
@@ -368,7 +369,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	/**
 	 */
 	@Override
-	public View findViewById(@IdRes int id) {
+	public View findViewById(@IdRes final int id) {
 		return delegate().findViewById(id);
 	}
 
@@ -379,7 +380,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	 *                current one.
 	 * @see #getSupportActionBar()
 	 */
-	public void setSupportActionBar(@Nullable Toolbar toolbar) {
+	public void setSupportActionBar(@Nullable final Toolbar toolbar) {
 		delegate().setSupportActionBar(toolbar);
 	}
 
@@ -416,7 +417,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	/**
 	 */
 	@Override
-	protected void onSaveInstanceState(Bundle state) {
+	protected void onSaveInstanceState(@NonNull final Bundle state) {
 		super.onSaveInstanceState(state);
 		delegate().onSaveInstanceState(state);
 	}
@@ -424,7 +425,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	/**
 	 */
 	@Override
-	protected void onTitleChanged(CharSequence title, int color) {
+	protected void onTitleChanged(final CharSequence title, @ColorInt final int color) {
 		super.onTitleChanged(title, color);
 		delegate().setTitle(title);
 	}
@@ -432,7 +433,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 	/**
 	 */
 	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
+	public void onConfigurationChanged(@NonNull final Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		delegate().onConfigurationChanged(newConfig);
 	}
@@ -453,7 +454,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 		delegate().onDestroy();
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 
@@ -480,7 +481,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 		/**
 		 */
 		@Override
-		public void correctLayout(View layout) {
+		public void correctLayout(final View layout) {
 			if (layout instanceof ViewGroup) {
 				final View firstChild = ((ViewGroup) layout).getChildAt(0);
 				if (firstChild instanceof ViewGroup && ((ViewGroup) firstChild).getChildCount() > 1) {
@@ -499,7 +500,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 		 *
 		 * @param headersPanelView The headers panel view to be corrected.
 		 */
-		void correctHeadersPanel(View headersPanelView) {
+		void correctHeadersPanel(final View headersPanelView) {
 			headersPanelView.setPadding(0, 0, 0, 0);
 			final ListView headersListView = (ListView) headersPanelView.findViewById(android.R.id.list);
 			headersListView.setPadding(0, 0, 0, 0);
@@ -515,7 +516,7 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 		 *
 		 * @param preferencesPanelView The preferences panel view to be corrected.
 		 */
-		void correctPreferencesPanel(View preferencesPanelView) {
+		void correctPreferencesPanel(final View preferencesPanelView) {
 			preferencesPanelView.setPadding(0, 0, 0, 0);
 			if (preferencesPanelView instanceof ViewGroup && ((ViewGroup) preferencesPanelView).getChildCount() > 0) {
 				final ViewGroup preferencesPanelViewGroup = (ViewGroup) preferencesPanelView;
@@ -526,14 +527,14 @@ public abstract class SettingsBaseActivity extends PreferenceActivity {
 						/**
 						 */
 						@Override
-						public void onChildViewAdded(View parent, View child) {
+						public void onChildViewAdded(@NonNull View parent, @NonNull View child) {
 							preferencesFrameView.setPadding(0, 0, 0, 0);
 						}
 
 						/**
 						 */
 						@Override
-						public void onChildViewRemoved(View parent, View child) {
+						public void onChildViewRemoved(@NonNull View parent, @NonNull View child) {
 							// Ignored.
 						}
 					});

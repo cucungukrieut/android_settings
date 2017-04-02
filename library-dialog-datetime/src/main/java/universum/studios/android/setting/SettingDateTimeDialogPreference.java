@@ -47,7 +47,7 @@ import universum.studios.android.dialog.DialogOptions;
  */
 public abstract class SettingDateTimeDialogPreference<O extends DialogOptions<O>> extends SettingDialogPreference<O> {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -56,15 +56,15 @@ public abstract class SettingDateTimeDialogPreference<O extends DialogOptions<O>
 	 */
 	// private static final String TAG = "SettingDateTimeDialogPreference";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -87,14 +87,14 @@ public abstract class SettingDateTimeDialogPreference<O extends DialogOptions<O>
 	 */
 	private long mMilliseconds;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingDateTimeDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	SettingDateTimeDialogPreference(@NonNull Context context) {
+	SettingDateTimeDialogPreference(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -102,7 +102,7 @@ public abstract class SettingDateTimeDialogPreference<O extends DialogOptions<O>
 	 * Same as {@link #SettingDateTimeDialogPreference(Context, AttributeSet, int)} with
 	 * {@link android.R.attr#dialogPreferenceStyle} as attribute for default style.
 	 */
-	SettingDateTimeDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	SettingDateTimeDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, android.R.attr.dialogPreferenceStyle);
 	}
 
@@ -110,7 +110,7 @@ public abstract class SettingDateTimeDialogPreference<O extends DialogOptions<O>
 	 * Same as {@link #SettingDateTimeDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	SettingDateTimeDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	SettingDateTimeDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
@@ -124,25 +124,26 @@ public abstract class SettingDateTimeDialogPreference<O extends DialogOptions<O>
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	SettingDateTimeDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	SettingDateTimeDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
 	/**
 	 */
 	@Override
-	protected Object onGetDefaultValue(@NonNull TypedArray typedArray, int index) {
-		return typedArray.getString(index);
+	protected Object onGetDefaultValue(@NonNull final TypedArray attributes, final int index) {
+		return attributes.getString(index);
 	}
 
 	/**
 	 */
 	@Override
-	protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
+	@SuppressWarnings("ConstantConditions")
+	protected void onSetInitialValue(final boolean restoreValue, @Nullable final Object defaultValue) {
 		setMilliseconds(restoreValue ? getPersistedLong(mMilliseconds) : onParseDefaultValue(defaultValue));
 	}
 
@@ -163,7 +164,7 @@ public abstract class SettingDateTimeDialogPreference<O extends DialogOptions<O>
 	 * @param format The desired format.
 	 * @see SimpleDateFormat
 	 */
-	public void setFormat(@NonNull SimpleDateFormat format) {
+	public void setFormat(@NonNull final SimpleDateFormat format) {
 		this.mFormat = format;
 	}
 
@@ -177,7 +178,7 @@ public abstract class SettingDateTimeDialogPreference<O extends DialogOptions<O>
 	 * @see #getMilliseconds()
 	 * @see #areMillisecondsSet()
 	 */
-	void setMilliseconds(long milliseconds) {
+	void setMilliseconds(final long milliseconds) {
 		final boolean changed = mMilliseconds != milliseconds;
 		if (callChangeListener(milliseconds) && (changed || !mMillisecondsSet)) {
 			this.mMilliseconds = milliseconds;
@@ -212,7 +213,7 @@ public abstract class SettingDateTimeDialogPreference<O extends DialogOptions<O>
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
+	public void onBindView(@NonNull final View view) {
 		super.onBindView(view);
 		synchronizeSummaryView(view);
 	}
@@ -228,7 +229,7 @@ public abstract class SettingDateTimeDialogPreference<O extends DialogOptions<O>
 		return mMillisecondsSet && mFormat != null ? mFormat.format(mMilliseconds) : super.onGetSummaryText();
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

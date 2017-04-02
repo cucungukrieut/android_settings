@@ -55,7 +55,7 @@ import universum.studios.android.ui.widget.SwitchWidget;
  */
 public class SettingSwitch extends SwitchWidget {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -64,26 +64,26 @@ public class SettingSwitch extends SwitchWidget {
 	 */
 	// private static final String TAG = "SettingSwitch";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingSwitch(Context, AttributeSet)} without attributes.
 	 */
-	public SettingSwitch(@NonNull Context context) {
+	public SettingSwitch(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -91,14 +91,14 @@ public class SettingSwitch extends SwitchWidget {
 	 * Same as {@link #SettingSwitch(Context, AttributeSet, int)} with {@link  R.attr#switchStyle}
 	 * as attribute for default style.
 	 */
-	public SettingSwitch(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingSwitch(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, R.attr.switchStyle);
 	}
 
 	/**
 	 * Same as {@link #SettingSwitch(Context, AttributeSet, int, int)} with {@code 0} as default style.
 	 */
-	public SettingSwitch(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+	public SettingSwitch(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
@@ -113,11 +113,11 @@ public class SettingSwitch extends SwitchWidget {
 	 */
 	@SuppressWarnings("unused")
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingSwitch(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingSwitch(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -125,7 +125,7 @@ public class SettingSwitch extends SwitchWidget {
 	 */
 	@Override
 	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent event) {
+	public void onInitializeAccessibilityEvent(@NonNull final AccessibilityEvent event) {
 		super.onInitializeAccessibilityEvent(event);
 		event.setClassName(SettingSwitch.class.getName());
 	}
@@ -134,7 +134,7 @@ public class SettingSwitch extends SwitchWidget {
 	 */
 	@Override
 	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
+	public void onInitializeAccessibilityNodeInfo(@NonNull final AccessibilityNodeInfo info) {
 		super.onInitializeAccessibilityNodeInfo(info);
 		info.setClassName(SettingSwitch.class.getName());
 	}
@@ -149,7 +149,7 @@ public class SettingSwitch extends SwitchWidget {
 		return getVisibility() == VISIBLE;
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

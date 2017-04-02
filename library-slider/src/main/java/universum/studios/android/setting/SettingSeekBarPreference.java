@@ -54,7 +54,7 @@ import android.widget.SeekBar;
  */
 public class SettingSeekBarPreference extends SettingPreference {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -68,15 +68,15 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 */
 	private static final int PROGRESS_MAX = 100;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -89,21 +89,21 @@ public class SettingSeekBarPreference extends SettingPreference {
 		/**
 		 */
 		@Override
-		public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+		public void onProgressChanged(@NonNull final SeekBar seekBar, final int progress, final boolean fromUser) {
 			// Ignored. See onStopTrackingTouch(...).
 		}
 
 		/**
 		 */
 		@Override
-		public void onStartTrackingTouch(SeekBar seekBar) {
+		public void onStartTrackingTouch(@NonNull final SeekBar seekBar) {
 			// Ignored. See onStopTrackingTouch(...).
 		}
 
 		/**
 		 */
 		@Override
-		public void onStopTrackingTouch(SeekBar seekBar) {
+		public void onStopTrackingTouch(@NonNull final SeekBar seekBar) {
 			setProgress(seekBar.getProgress());
 		}
 	};
@@ -131,14 +131,14 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 */
 	private int mProgress;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingSeekBarPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingSeekBarPreference(@NonNull Context context) {
+	public SettingSeekBarPreference(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -146,7 +146,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * Same as {@link #SettingSeekBarPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingSeekBarPreferenceStyle} as attribute for default style.
 	 */
-	public SettingSeekBarPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingSeekBarPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, R.attr.uiSettingSeekBarPreferenceStyle);
 	}
 
@@ -154,7 +154,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * Same as {@link #SettingSeekBarPreference(Context, AttributeSet, int, int)} with {@code 0}
 	 * as default style.
 	 */
-	public SettingSeekBarPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+	public SettingSeekBarPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		this.init(context, attrs, defStyleAttr, 0);
 	}
@@ -169,12 +169,12 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingSeekBarPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingSeekBarPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		this.init(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -186,7 +186,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * The specified <var>defStyleAttr</var> and <var>defStyleRes</var> are used to obtain default
 	 * data from the current theme provided by the specified <var>context</var>.
 	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	private void init(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SeekBarPreference, defStyleAttr, defStyleRes);
 		for (int i = 0; i < attributes.getIndexCount(); i++) {
 			final int index = attributes.getIndex(i);
@@ -200,14 +200,15 @@ public class SettingSeekBarPreference extends SettingPreference {
 	/**
 	 */
 	@Override
-	protected Object onGetDefaultValue(@NonNull TypedArray typedArray, int index) {
-		return typedArray.getInt(index, mProgress);
+	protected Object onGetDefaultValue(@NonNull final TypedArray attributes, final int index) {
+		return attributes.getInt(index, mProgress);
 	}
 
 	/**
 	 */
 	@Override
-	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
+	@SuppressWarnings("ConstantConditions")
+	protected void onSetInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
 		setProgress(restorePersistedValue ? getPersistedInt(mProgress) : (Integer) defaultValue);
 	}
 
@@ -221,7 +222,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * @see android.R.attr#max
 	 * @see #getMaxProgress()
 	 */
-	public void setMaxProgress(int maxProgress) {
+	public void setMaxProgress(final int maxProgress) {
 		this.mMaxProgress = maxProgress;
 	}
 
@@ -244,7 +245,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * @param progress The preferred progress to be persisted. Should be from the range {@code [0, getMaxProgress()]}.
 	 * @see #getProgress()
 	 */
-	public void setProgress(int progress) {
+	public void setProgress(final int progress) {
 		final boolean changed = mProgress != progress;
 		if (callChangeListener(progress) && (changed || !mProgressSet)) {
 			this.mProgress = progress;
@@ -269,7 +270,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
+	public void onBindView(@NonNull final View view) {
 		super.onBindView(view);
 		final SeekBar seekBar = (SeekBar) view.findViewById(R.id.ui_setting_seek_bar);
 		if (seekBar != null) {
@@ -280,7 +281,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 		}
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

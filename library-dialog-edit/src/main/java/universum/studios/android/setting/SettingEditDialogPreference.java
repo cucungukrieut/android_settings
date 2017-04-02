@@ -62,7 +62,7 @@ import universum.studios.android.dialog.view.InputConfig;
  */
 public class SettingEditDialogPreference extends SettingDialogPreference<EditDialog.EditOptions> {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -71,15 +71,15 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 	 */
 	// private static final String TAG = "SettingEditDialogPreference";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -97,14 +97,14 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 	 */
 	private String mInput;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingEditDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingEditDialogPreference(@NonNull Context context) {
+	public SettingEditDialogPreference(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -112,7 +112,7 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 	 * Same as {@link #SettingEditDialogPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingEditDialogPreferenceStyle} as attribute for default style.
 	 */
-	public SettingEditDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingEditDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, R.attr.uiSettingEditDialogPreferenceStyle);
 	}
 
@@ -120,7 +120,7 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 	 * Same as {@link #SettingEditDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingEditDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingEditDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
@@ -134,18 +134,24 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingEditDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingEditDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
 	/**
 	 */
 	@Override
-	protected void onConfigureDialogOptions(@NonNull EditDialog.EditOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	protected void onConfigureDialogOptions(
+			@NonNull final EditDialog.EditOptions options,
+			@NonNull final Context context,
+			@Nullable final AttributeSet attrs,
+			@AttrRes final int defStyleAttr,
+			@StyleRes final int defStyleRes
+	) {
 		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_EditDialogPreference, defStyleAttr, defStyleRes);
 		for (int i = 0; i < attributes.getIndexCount(); i++) {
@@ -165,21 +171,21 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 	 */
 	@NonNull
 	@Override
-	protected EditDialog.EditOptions onCreateDialogOptions(@NonNull Resources resources) {
+	protected EditDialog.EditOptions onCreateDialogOptions(@NonNull final Resources resources) {
 		return new EditDialog.EditOptions(resources).title(getTitle());
 	}
 
 	/**
 	 */
 	@Override
-	protected Object onGetDefaultValue(@NonNull TypedArray typedArray, int index) {
+	protected Object onGetDefaultValue(@NonNull final TypedArray typedArray, final int index) {
 		return typedArray.getString(index);
 	}
 
 	/**
 	 */
 	@Override
-	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
+	protected void onSetInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
 		setInput(restorePersistedValue ? getPersistedString(mInput) : (String) defaultValue);
 	}
 
@@ -192,7 +198,7 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 	 * @param input The preferred input to be persisted.
 	 * @see #getInput()
 	 */
-	public void setInput(@Nullable String input) {
+	public void setInput(@Nullable final String input) {
 		final boolean changed = !TextUtils.equals(mInput, input);
 		if (callChangeListener(input) && (changed || !mInputSet)) {
 			this.mInput = input;
@@ -219,7 +225,7 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
+	public void onBindView(@NonNull final View view) {
 		super.onBindView(view);
 		synchronizeSummaryView(view);
 	}
@@ -251,7 +257,7 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 	/**
 	 */
 	@Override
-	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+	protected boolean onHandleDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
 		if (dialog instanceof EditDialog) {
 			switch (button) {
 				case Dialog.BUTTON_POSITIVE:
@@ -264,7 +270,7 @@ public class SettingEditDialogPreference extends SettingDialogPreference<EditDia
 		return super.onHandleDialogButtonClick(dialog, button);
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

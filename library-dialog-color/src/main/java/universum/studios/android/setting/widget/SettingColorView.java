@@ -53,7 +53,7 @@ import universum.studios.android.setting.R;
  */
 public class SettingColorView extends View {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -62,15 +62,15 @@ public class SettingColorView extends View {
 	 */
 	// private static final String TAG = "SettingColorView";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -116,14 +116,14 @@ public class SettingColorView extends View {
 	 */
 	private float mRadius;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingColorView(Context, AttributeSet)} without attributes.
 	 */
-	public SettingColorView(@NonNull Context context) {
+	public SettingColorView(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -131,14 +131,14 @@ public class SettingColorView extends View {
 	 * Same as {@link #SettingColorView(Context, AttributeSet, int)} with {@link R.attr#uiSettingColorViewStyle}
 	 * as attribute for default style.
 	 */
-	public SettingColorView(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingColorView(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, R.attr.uiSettingColorViewStyle);
 	}
 
 	/**
 	 * Same as {@link #SettingColorView(Context, AttributeSet, int, int)} with {@code 0} as default style.
 	 */
-	public SettingColorView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+	public SettingColorView(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		this.init(context, attrs, defStyleAttr, 0);
 	}
@@ -153,12 +153,12 @@ public class SettingColorView extends View {
 	 * @param defStyleRes  Resource id of the default style for the new view.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingColorView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingColorView(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		this.init(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -170,7 +170,7 @@ public class SettingColorView extends View {
 	 * specified <var>defStyleAttr</var> and <var>defStyleRes</var> are used to obtain default data
 	 * from the current theme provided by the specified <var>context</var>.
 	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	private void init(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		this.mMaxWidth = mMaxHeight = Integer.MAX_VALUE;
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_ColorView, defStyleAttr, defStyleRes);
 		for (int i = 0; i < attributes.getIndexCount(); i++) {
@@ -190,7 +190,7 @@ public class SettingColorView extends View {
 	 */
 	@Override
 	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent event) {
+	public void onInitializeAccessibilityEvent(@NonNull final AccessibilityEvent event) {
 		super.onInitializeAccessibilityEvent(event);
 		event.setClassName(SettingColorView.class.getName());
 	}
@@ -199,7 +199,7 @@ public class SettingColorView extends View {
 	 */
 	@Override
 	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
+	public void onInitializeAccessibilityNodeInfo(@NonNull final AccessibilityNodeInfo info) {
 		super.onInitializeAccessibilityNodeInfo(info);
 		info.setClassName(SettingColorView.class.getName());
 	}
@@ -211,7 +211,7 @@ public class SettingColorView extends View {
 	 * @see #getCanvasColor()
 	 * @see #setColor(int)
 	 */
-	public void setCanvasColor(@ColorInt int color) {
+	public void setCanvasColor(@ColorInt final int color) {
 		if (mRawCanvasColor != color || mDrawCanvasColor != color) {
 			this.mRawCanvasColor = mDrawCanvasColor = color;
 			invalidate();
@@ -234,7 +234,7 @@ public class SettingColorView extends View {
 	 * @param color The desired color.
 	 * @see #getColor()
 	 */
-	public void setColor(@ColorInt int color) {
+	public void setColor(@ColorInt final int color) {
 		if (mRawColor != color || mDrawColor != color) {
 			this.mRawColor = mDrawColor = color;
 			invalidate();
@@ -255,7 +255,7 @@ public class SettingColorView extends View {
 	/**
 	 */
 	@Override
-	protected boolean onSetAlpha(int alpha) {
+	protected boolean onSetAlpha(final int alpha) {
 		this.mDrawColor = (mRawColor << 8 >>> 8) | (alpha << 24);
 		this.mDrawCanvasColor = (mDrawCanvasColor << 8 >>> 8) | (alpha << 24);
 		return true;
@@ -264,7 +264,7 @@ public class SettingColorView extends View {
 	/**
 	 */
 	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+	protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		int width = getMeasuredWidth();
 		int height = getMeasuredHeight();
@@ -277,7 +277,7 @@ public class SettingColorView extends View {
 	/**
 	 */
 	@Override
-	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+	protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
 		this.mWidth = w;
 		this.mHeight = h;
@@ -287,7 +287,7 @@ public class SettingColorView extends View {
 	/**
 	 */
 	@Override
-	protected void onDraw(Canvas canvas) {
+	protected void onDraw(@NonNull final Canvas canvas) {
 		super.onDraw(canvas);
 		if ((mDrawCanvasColor >>> 24) != 0) {
 			mPaint.setColor(mRawCanvasColor);
@@ -299,7 +299,7 @@ public class SettingColorView extends View {
 		}
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }
