@@ -7,8 +7,9 @@ def buildConfig = [
 ]
 
 def testConfig = [
-        //instrumentationRunner: 'android.support.test.runner.AndroidJUnitRunner'
-        instrumentationRunner: 'universum.studios.android.test.MultiDexAndroidJUnitRunner'
+        // instrumentationRunner: 'android.support.test.runner.AndroidJUnitRunner'
+        // We use custom runner which supports MultiDex due to exceeded limit for methods count.
+        instrumentationRunner: 'universum.studios.android.test.runner.MultiDexAndroidJUnitRunner'
 ]
 
 def libraryConfig = [
