@@ -16,9 +16,9 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * =================================================================================================
  */
-package universum.studios.android.setting.dialog;
+package universum.studios.android.setting;
 
 /**
  * @author Martin Albedinsky
  */
-@SuppressWarnings("unused") final class DialogEditTests {}
+@SuppressWarnings("unused") final class DialogColorTests {}
