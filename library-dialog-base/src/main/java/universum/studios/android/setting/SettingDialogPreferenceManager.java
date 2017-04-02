@@ -397,7 +397,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * @return {@code True} if the preference dialog has been successfully shown, {@code false} otherwise.
 	 */
 	protected boolean onShowPreferenceDialog(@NonNull DialogController dialogController, @NonNull SettingDialogPreference preference) {
-		return dialogController.newRequest(preference.getDialogId()).dialogOptions(preference.getDialogOptions()).execute() != null;
+		return dialogController.newRequest(preference.getDialogId()).options(preference.getDialogOptions()).execute() != null;
 	}
 
 	/**

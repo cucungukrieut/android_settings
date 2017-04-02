@@ -29,6 +29,7 @@ android {
         minSdkVersion config.build.minSdkVersion
         targetSdkVersion config.build.targetSdkVersion
         consumerProguardFiles 'proguard-rules.pro'
+        multiDexEnabled true
         testInstrumentationRunner config.test.instrumentationRunner
     }
 
