@@ -46,7 +46,7 @@ import android.view.ViewGroup;
  */
 public class SettingEmptyPreference extends SettingPreference {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -55,26 +55,26 @@ public class SettingEmptyPreference extends SettingPreference {
 	 */
 	// private static final String TAG = "SettingEmptyPreference";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingEmptyPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingEmptyPreference(@NonNull Context context) {
+	public SettingEmptyPreference(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -82,7 +82,7 @@ public class SettingEmptyPreference extends SettingPreference {
 	 * Same as {@link #SettingEmptyPreference(Context, AttributeSet, int)} with {@code 0} as
 	 * attribute for default style.
 	 */
-	public SettingEmptyPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingEmptyPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
@@ -90,7 +90,7 @@ public class SettingEmptyPreference extends SettingPreference {
 	 * Same as {@link #SettingEmptyPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingEmptyPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingEmptyPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		setEnabled(false);
 		setSelectable(false);
@@ -107,13 +107,13 @@ public class SettingEmptyPreference extends SettingPreference {
 	 */
 	@SuppressWarnings("unused")
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingEmptyPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingEmptyPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		setEnabled(false);
 		setSelectable(false);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -121,13 +121,13 @@ public class SettingEmptyPreference extends SettingPreference {
 	 */
 	@Override
 	@SuppressLint("MissingSuperCall")
-	protected View onCreateView(ViewGroup parent) {
+	protected View onCreateView(@NonNull final ViewGroup parent) {
 		final Space space = new Space(parent.getContext());
 		space.setVisibility(View.GONE);
 		return space;
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

@@ -32,7 +32,7 @@ import android.support.annotation.NonNull;
  */
 public class SimplePreferenceScreenKeyModificator implements PreferenceScreenKeyModificator {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -41,15 +41,15 @@ public class SimplePreferenceScreenKeyModificator implements PreferenceScreenKey
 	 */
 	// private static final String TAG = "PreferenceScreenKeyModificator";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -59,7 +59,7 @@ public class SimplePreferenceScreenKeyModificator implements PreferenceScreenKey
 	 */
 	private final PreferenceKeyModificator mModificator;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
@@ -69,11 +69,11 @@ public class SimplePreferenceScreenKeyModificator implements PreferenceScreenKey
 	 *
 	 * @param modificator The desired modificator that should be used for preference key modification.
 	 */
-	public SimplePreferenceScreenKeyModificator(@NonNull PreferenceKeyModificator modificator) {
+	public SimplePreferenceScreenKeyModificator(@NonNull final PreferenceKeyModificator modificator) {
 		this.mModificator = modificator;
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -82,7 +82,7 @@ public class SimplePreferenceScreenKeyModificator implements PreferenceScreenKey
 	 * and calls {@link PreferenceKeyModificator#modifyKey(Preference)} for each one of them.
 	 */
 	@Override
-	public int modifyKeys(@NonNull PreferenceScreen preferenceScreen) {
+	public int modifyKeys(@NonNull final PreferenceScreen preferenceScreen) {
 		int modifiedCount = 0;
 		final int n = preferenceScreen.getPreferenceCount();
 		for (int i = 0; i < n; i++) {
@@ -91,7 +91,7 @@ public class SimplePreferenceScreenKeyModificator implements PreferenceScreenKey
 		return modifiedCount;
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

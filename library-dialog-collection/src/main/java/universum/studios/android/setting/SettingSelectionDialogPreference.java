@@ -81,7 +81,7 @@ import universum.studios.android.dialog.adapter.DialogSelectionAdapter;
  */
 public class SettingSelectionDialogPreference extends SettingDialogPreference<SelectionDialog.SelectionOptions> {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -95,7 +95,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 */
 	private static final String SUMMARY_ENTRIES_SEPARATOR = ", ";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
@@ -141,11 +141,11 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 		CharSequence build();
 	}
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -192,14 +192,14 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 */
 	private SummaryTextBuilder mSummaryTextBuilder;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingSelectionDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingSelectionDialogPreference(@NonNull Context context) {
+	public SettingSelectionDialogPreference(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -207,7 +207,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 * Same as {@link #SettingSelectionDialogPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingSelectionDialogPreferenceStyle} as attribute for default style.
 	 */
-	public SettingSelectionDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingSelectionDialogPreference(@NonNull final Context context, @Nullable AttributeSet attrs) {
 		this(context, attrs, R.attr.uiSettingSelectionDialogPreferenceStyle);
 	}
 
@@ -215,7 +215,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 * Same as {@link #SettingSelectionDialogPreference(Context, AttributeSet, int, int)} with {@code 0}
 	 * as default style.
 	 */
-	public SettingSelectionDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingSelectionDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		this.init(context, attrs, defStyleAttr, 0);
 	}
@@ -230,12 +230,12 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingSelectionDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingSelectionDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		this.init(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -247,7 +247,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 * The specified <var>defStyleAttr</var> and <var>defStyleRes</var> are used to obtain default
 	 * data from the current theme provided by the specified <var>context</var>.
 	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	private void init(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SelectionDialogPreference, defStyleAttr, defStyleRes);
 		setEntries(attributes.getTextArray(R.styleable.Ui_Settings_SelectionDialogPreference_android_entries));
 		setEntryValues(attributes.getTextArray(R.styleable.Ui_Settings_SelectionDialogPreference_android_entryValues));
@@ -270,7 +270,13 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 */
 	@Override
 	@SuppressWarnings("ResourceType")
-	protected void onConfigureDialogOptions(@NonNull SelectionDialog.SelectionOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	protected void onConfigureDialogOptions(
+			@NonNull final SelectionDialog.SelectionOptions options,
+			@NonNull final Context context,
+			@Nullable final AttributeSet attrs,
+			@AttrRes final int defStyleAttr,
+			@StyleRes final int defStyleRes
+	) {
 		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SelectionDialogPreference, defStyleAttr, defStyleRes);
 		for (int i = 0; i < attributes.getIndexCount(); i++) {
@@ -289,7 +295,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 *
 	 * @param resId Resource id of the desired text array with entries.
 	 */
-	public void setEntries(@ArrayRes int resId) {
+	public void setEntries(@ArrayRes final int resId) {
 		setEntries(getContext().getResources().getTextArray(resId));
 	}
 
@@ -300,7 +306,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 * @see android.R.attr#entries
 	 * @see #setEntryValues(CharSequence[])
 	 */
-	public void setEntries(@Nullable CharSequence[] entries) {
+	public void setEntries(@Nullable final CharSequence[] entries) {
 		this.mEntries = entries;
 		if (entries == null) {
 			this.mDialogItems = null;
@@ -330,7 +336,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 *
 	 * @param resId Resource id of the desired text array with values for entries.
 	 */
-	public void setEntryValues(@ArrayRes int resId) {
+	public void setEntryValues(@ArrayRes final int resId) {
 		setEntryValues(getContext().getResources().getTextArray(resId));
 	}
 
@@ -345,7 +351,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 *                    to clear the current ones.
 	 * @see android.R.attr#entryValues
 	 */
-	public void setEntryValues(@Nullable CharSequence[] entryValues) {
+	public void setEntryValues(@Nullable final CharSequence[] entryValues) {
 		this.mEntryValues = entryValues;
 	}
 
@@ -371,21 +377,21 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 * @param textBuilder The desired builder for the summary text. May be {@code null} to use the
 	 *                    default one.
 	 */
-	public void setSummaryTextBuilder(@Nullable SummaryTextBuilder textBuilder) {
+	public void setSummaryTextBuilder(@Nullable final SummaryTextBuilder textBuilder) {
 		this.mSummaryTextBuilder = textBuilder == null ? new DefaultSummaryTextBuilder(SUMMARY_ENTRIES_SEPARATOR) : textBuilder;
 	}
 
 	/**
 	 */
 	@Override
-	protected Object onGetDefaultValue(@NonNull TypedArray typedArray, int index) {
+	protected Object onGetDefaultValue(@NonNull final TypedArray typedArray, final int index) {
 		return typedArray.getText(index);
 	}
 
 	/**
 	 */
 	@Override
-	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
+	protected void onSetInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
 		if (restorePersistedValue) {
 			final String persistedValues = getPersistedString(null);
 			setSelection(persistedValues == null ? mSelection : createSelectionFromPersistedValues(persistedValues));
@@ -403,7 +409,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 * have been selected/persisted yet.
 	 */
 	@Nullable
-	public static String[] selectedEntryValuesFromPersistedValues(@NonNull String persistedValues) {
+	public static String[] selectedEntryValuesFromPersistedValues(@NonNull final String persistedValues) {
 		try {
 			final JSONArray persistedArray = new JSONArray(persistedValues);
 			final String[] selectedValues = new String[persistedArray.length()];
@@ -423,7 +429,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 * @param persistedValues The persisted selection values, created via {@link #createPersistableValuesFromSelection(long[])}.
 	 * @return Selection array containing indexes of the selected entries.
 	 */
-	private long[] createSelectionFromPersistedValues(String persistedValues) {
+	private long[] createSelectionFromPersistedValues(final String persistedValues) {
 		try {
 			final JSONArray persistedArray = new JSONArray(persistedValues);
 			final long[] selection = new long[persistedArray.length()];
@@ -450,7 +456,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 * @return String containing array of entry values according to the specified selection in the
 	 * Json Array format.
 	 */
-	private String createPersistableValuesFromSelection(long[] selection) {
+	private String createPersistableValuesFromSelection(final long[] selection) {
 		final JSONArray persistableArray = new JSONArray();
 		for (final long itemIndex : selection) {
 			if (((int) itemIndex) < mEntryValues.length) {
@@ -468,7 +474,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	 *                  be persisted as {@link String} in Json Array format.
 	 * @see #getSelection()
 	 */
-	public void setSelection(@Nullable long[] selection) {
+	public void setSelection(@Nullable final long[] selection) {
 		final boolean changed = !Arrays.equals(mSelection, selection);
 		final String selectionValues = createPersistableValuesFromSelection(selection);
 		if (callChangeListener(selectionValues) && (changed || !mSelectionSet)) {
@@ -516,7 +522,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
+	public void onBindView(@NonNull final View view) {
 		super.onBindView(view);
 		synchronizeSummaryView(view);
 	}
@@ -552,7 +558,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 	/**
 	 */
 	@Override
-	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+	protected boolean onHandleDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
 		if (dialog instanceof SelectionDialog) {
 			switch (button) {
 				case Dialog.BUTTON_POSITIVE:
@@ -565,7 +571,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 		return super.onHandleDialogButtonClick(dialog, button);
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 
@@ -590,7 +596,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 		 *
 		 * @param separator The desired separator used to separate entry items.
 		 */
-		private DefaultSummaryTextBuilder(@NonNull String separator) {
+		private DefaultSummaryTextBuilder(@NonNull final String separator) {
 			this.builder = new StringBuilder(64);
 			this.separator = separator;
 		}
@@ -606,7 +612,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 		/**
 		 */
 		@Override
-		public SummaryTextBuilder appendEntry(@NonNull CharSequence entry) {
+		public SummaryTextBuilder appendEntry(@NonNull final CharSequence entry) {
 			if (builder.length() > 0) {
 				builder.append(separator);
 			}

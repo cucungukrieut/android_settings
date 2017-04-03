@@ -53,7 +53,7 @@ import universum.studios.android.dialog.manage.DialogXmlFactory;
 @SuppressLint("LongLogTag")
 public class SettingDialogPreferenceManager implements SettingDialogPreference.OnClickListener {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -62,15 +62,15 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 */
 	private static final String TAG = "SettingDialogPreferenceManager";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -101,7 +101,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 */
 	private SparseArray<SettingDialogPreference> mDialogPreferences;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
@@ -135,7 +135,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * @see #getDialogController()
 	 * @see #getDialogFactory()
 	 */
-	public SettingDialogPreferenceManager(@NonNull Activity activity) {
+	public SettingDialogPreferenceManager(@NonNull final Activity activity) {
 		this(new DialogController(activity), new DialogXmlFactory(activity, R.xml.ui_settings_dialogs));
 	}
 
@@ -154,7 +154,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * @see #getDialogController()
 	 * @see #getDialogFactory()
 	 */
-	public SettingDialogPreferenceManager(@NonNull Fragment fragment) {
+	public SettingDialogPreferenceManager(@NonNull final Fragment fragment) {
 		this(new DialogController(fragment), new DialogXmlFactory(fragment.getActivity(), R.xml.ui_settings_dialogs));
 	}
 
@@ -169,7 +169,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * @see DialogController#DialogController(FragmentManager)
 	 * @see #getDialogController()
 	 */
-	public SettingDialogPreferenceManager(@NonNull FragmentManager fragmentManager) {
+	public SettingDialogPreferenceManager(@NonNull final FragmentManager fragmentManager) {
 		this(new DialogController(fragmentManager), null);
 	}
 
@@ -180,7 +180,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * @param dialogController Dialog controller used to show dialogs for clicked preferences.
 	 * @param dialogFactory    Factory providing dialog instances for the given dialog controller.
 	 */
-	private SettingDialogPreferenceManager(DialogController dialogController, DialogFactory dialogFactory) {
+	private SettingDialogPreferenceManager(final DialogController dialogController, final DialogFactory dialogFactory) {
 		this.mDialogController = dialogController;
 		this.mDialogFactory = dialogFactory;
 		if (mDialogController != null && mDialogFactory != null) {
@@ -188,7 +188,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 		}
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -203,7 +203,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * @see #getDialogController()
 	 * @see #setDialogFactory(DialogFactory)
 	 */
-	public void setDialogController(@NonNull DialogController dialogController) {
+	public void setDialogController(@NonNull final DialogController dialogController) {
 		this.mDialogController = dialogController;
 		if (!mDialogController.hasFactory()) {
 			mDialogController.setFactory(mDialogFactory);
@@ -232,7 +232,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * @see #getDialogFactory()
 	 * @see #setDialogController(DialogController)
 	 */
-	public void setDialogFactory(@Nullable DialogFactory dialogFactory) {
+	public void setDialogFactory(@Nullable final DialogFactory dialogFactory) {
 		mDialogController.setFactory(mDialogFactory = dialogFactory);
 	}
 
@@ -264,7 +264,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 *
 	 * @param preferenceScreen The preference screen to attach to.
 	 */
-	public void attachToPreferenceScreen(@NonNull PreferenceScreen preferenceScreen) {
+	public void attachToPreferenceScreen(@NonNull final PreferenceScreen preferenceScreen) {
 		if (mAttachedToPreferenceScreen) {
 			throw new IllegalStateException("Already attached to preference screen! Detach via detachFromPreferenceScreen(...) first.");
 		}
@@ -285,7 +285,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * @param preference The preference to which attach on click listener if it is a dialog preference
 	 *                   type.
 	 */
-	private void attachToPreference(Preference preference) {
+	private void attachToPreference(final Preference preference) {
 		if (preference instanceof SettingDialogPreference) {
 			final SettingDialogPreference dialogPreference = (SettingDialogPreference) preference;
 			final int dialogId = dialogPreference.getDialogId();
@@ -311,7 +311,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * @param dialogPreference The dialog preference to which has been this manager just attached.
 	 * @see #attachToPreferenceScreen(PreferenceScreen)
 	 */
-	protected void onAttachedToPreference(@NonNull SettingDialogPreference dialogPreference) {
+	protected void onAttachedToPreference(@NonNull final SettingDialogPreference dialogPreference) {
 		// May be implemented by the inheritance hierarchies.
 	}
 
@@ -327,7 +327,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * screen at this time or there is no dialog preference with such dialog id associated.
 	 */
 	@Nullable
-	public SettingDialogPreference findDialogPreference(int dialogId) {
+	public SettingDialogPreference findDialogPreference(final int dialogId) {
 		return mDialogPreferences == null ? null : mDialogPreferences.get(dialogId);
 	}
 
@@ -337,7 +337,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 *
 	 * @param preferenceScreen The preference screen from which to detach this manager.
 	 */
-	public void detachFromPreferenceScreen(@NonNull PreferenceScreen preferenceScreen) {
+	public void detachFromPreferenceScreen(@NonNull final PreferenceScreen preferenceScreen) {
 		if (mAttachedToPreferenceScreen) {
 			for (int i = 0; i < mDialogPreferences.size(); i++) {
 				final SettingDialogPreference preference = mDialogPreferences.get(mDialogPreferences.keyAt(i));
@@ -355,7 +355,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * @param dialogPreference The dialog preference from which has been this manager just detached.
 	 * @see #detachFromPreferenceScreen(PreferenceScreen)
 	 */
-	protected void onDetachedFromPreference(@NonNull SettingDialogPreference dialogPreference) {
+	protected void onDetachedFromPreference(@NonNull final SettingDialogPreference dialogPreference) {
 		// May be implemented by the inheritance hierarchies.
 	}
 
@@ -366,7 +366,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * to show the preference dialog.
 	 */
 	@Override
-	public boolean onDialogPreferenceClick(@NonNull SettingDialogPreference dialogPreference) {
+	public boolean onDialogPreferenceClick(@NonNull final SettingDialogPreference dialogPreference) {
 		final int dialogId = dialogPreference.getDialogId();
 		if (dialogId != SettingDialogPreference.NO_DIALOG_ID) {
 			final DialogFactory dialogFactory = mDialogController.getFactory();
@@ -396,8 +396,8 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * @param preference       The preference that has been clicked.
 	 * @return {@code True} if the preference dialog has been successfully shown, {@code false} otherwise.
 	 */
-	protected boolean onShowPreferenceDialog(@NonNull DialogController dialogController, @NonNull SettingDialogPreference preference) {
-		return dialogController.newRequest(preference.getDialogId()).dialogOptions(preference.getDialogOptions()).execute() != null;
+	protected boolean onShowPreferenceDialog(@NonNull final DialogController dialogController, @NonNull final SettingDialogPreference preference) {
+		return dialogController.newRequest(preference.getDialogId()).options(preference.getDialogOptions()).execute() != null;
 	}
 
 	/**
@@ -409,7 +409,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 	 * has been successfully handled by the associated dialog preference, {@code false} otherwise.
 	 * @see SettingDialogPreference#handleOnDialogButtonClick(Dialog, int)
 	 */
-	public boolean handleOnPreferenceDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+	public boolean handleOnPreferenceDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
 		if (mAttachedToPreferenceScreen) {
 			final int dialogId = dialog.getDialogId();
 			final SettingDialogPreference dialogPreference = findDialogPreference(dialogId);
@@ -422,7 +422,7 @@ public class SettingDialogPreferenceManager implements SettingDialogPreference.O
 		return false;
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

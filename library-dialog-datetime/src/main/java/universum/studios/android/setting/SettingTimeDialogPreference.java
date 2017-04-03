@@ -66,7 +66,7 @@ import universum.studios.android.dialog.TimePickerDialog;
  */
 public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference<TimePickerDialog.TimeOptions> {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -80,26 +80,26 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 */
 	private static final String FORMAT_PATTERN = "hh:mm a";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingTimeDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingTimeDialogPreference(@NonNull Context context) {
+	public SettingTimeDialogPreference(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -107,7 +107,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * Same as {@link #SettingTimeDialogPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingTimeDialogPreferenceStyle} as attribute for default style.
 	 */
-	public SettingTimeDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingTimeDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, R.attr.uiSettingTimeDialogPreferenceStyle);
 	}
 
@@ -115,7 +115,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * Same as {@link #SettingTimeDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingTimeDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingTimeDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
@@ -129,11 +129,11 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingTimeDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingTimeDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -143,7 +143,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * @param timeString The desired data to parse into time.
 	 * @return Parsed time in milliseconds or {@code null} if parsing failed.
 	 */
-	private static Long parseTime(String timeString) {
+	private static Long parseTime(final String timeString) {
 		return TextUtils.isEmpty(timeString) ? null : TimePickerDialog.TimeParser.parse(timeString);
 	}
 
@@ -151,7 +151,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 */
 	@NonNull
 	@Override
-	protected TimePickerDialog.TimeOptions onCreateDialogOptions(@NonNull Resources resources) {
+	protected TimePickerDialog.TimeOptions onCreateDialogOptions(@NonNull final Resources resources) {
 		return new TimePickerDialog.TimeOptions(resources);
 	}
 
@@ -159,7 +159,13 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 */
 	@Override
 	@SuppressWarnings("ResourceType")
-	protected void onConfigureDialogOptions(@NonNull TimePickerDialog.TimeOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	protected void onConfigureDialogOptions(
+			@NonNull final TimePickerDialog.TimeOptions options,
+			@NonNull final Context context,
+			@Nullable final AttributeSet attrs,
+			@AttrRes final int defStyleAttr,
+			@StyleRes final int defStyleRes
+	) {
 		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);
 		String formatPattern = FORMAT_PATTERN;
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_TimeDialogPreference, defStyleAttr, defStyleRes);
@@ -184,7 +190,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	/**
 	 */
 	@Override
-	long onParseDefaultValue(@NonNull Object defaultValue) {
+	long onParseDefaultValue(@NonNull final Object defaultValue) {
 		final Long time = parseTime((String) defaultValue);
 		return time == null ? 0 : time;
 	}
@@ -196,7 +202,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 *             to {@code 0}.
 	 * @see #getTime()
 	 */
-	public void setTime(@Nullable Date time) {
+	public void setTime(@Nullable final Date time) {
 		setTime(time == null ? 0 : time.getTime());
 	}
 
@@ -209,7 +215,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * @param timeInMillis The preferred time in milliseconds to be persisted.
 	 * @see #getTimeInMillis()
 	 */
-	public void setTime(long timeInMillis) {
+	public void setTime(final long timeInMillis) {
 		setMilliseconds(timeInMillis);
 	}
 
@@ -258,7 +264,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	/**
 	 */
 	@Override
-	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+	protected boolean onHandleDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
 		if (dialog instanceof TimePickerDialog) {
 			switch (button) {
 				case Dialog.BUTTON_POSITIVE:
@@ -271,7 +277,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 		return super.onHandleDialogButtonClick(dialog, button);
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

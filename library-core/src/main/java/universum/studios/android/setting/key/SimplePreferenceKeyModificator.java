@@ -30,7 +30,7 @@ import android.support.annotation.NonNull;
  */
 public class SimplePreferenceKeyModificator implements PreferenceKeyModificator {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -39,15 +39,15 @@ public class SimplePreferenceKeyModificator implements PreferenceKeyModificator 
 	 */
 	// private static final String TAG = "SimplePreferenceKeyModificator";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -56,7 +56,7 @@ public class SimplePreferenceKeyModificator implements PreferenceKeyModificator 
 	 */
 	private final KeyModificator mModificator;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
@@ -66,18 +66,18 @@ public class SimplePreferenceKeyModificator implements PreferenceKeyModificator 
 	 * @param modificator The desired modificator that should be used for key modification.
 	 * @see #modifyKey(Preference)
 	 */
-	public SimplePreferenceKeyModificator(@NonNull KeyModificator modificator) {
+	public SimplePreferenceKeyModificator(@NonNull final KeyModificator modificator) {
 		this.mModificator = modificator;
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
 	/**
 	 */
 	@Override
-	public boolean modifyKey(@NonNull Preference preference) {
+	public boolean modifyKey(@NonNull final Preference preference) {
 		final String key = preference.getKey();
 		if (key == null || key.length() == 0) {
 			return false;
@@ -90,7 +90,7 @@ public class SimplePreferenceKeyModificator implements PreferenceKeyModificator 
 		return true;
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

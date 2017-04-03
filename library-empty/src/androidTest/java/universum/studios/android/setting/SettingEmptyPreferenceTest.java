@@ -1,4 +1,4 @@
-/*
+    /*
  * =================================================================================================
  *                             Copyright (C) 2017 Universum Studios
  * =================================================================================================
@@ -16,39 +16,25 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * =================================================================================================
  */
-package universum.studios.android.setting.key;
+package universum.studios.android.setting; 
+import android.support.test.runner.AndroidJUnit4;
 
-import android.support.annotation.NonNull;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import universum.studios.android.test.BaseInstrumentedTest;
 
 /**
- * A simple interface of which implementations may be used to modify keys associated with shared preferences.
- *
  * @author Martin Albedinsky
  */
-public interface KeyModificator {
-
-	/**
-	 * Implementation of {@link KeyModificator} that does not modify any key passed to {@link #modifyKey(String)}.
-	 */
+@RunWith(AndroidJUnit4.class)
+public final class SettingEmptyPreferenceTest extends BaseInstrumentedTest {
+    
 	@SuppressWarnings("unused")
-	KeyModificator EMPTY = new KeyModificator() {
+	private static final String TAG = "SettingEmptyPreferenceTest";
 
-		/**
-		 */
-		@NonNull
-		@Override
-		public String modifyKey(@NonNull String key) {
-			return key;
-		}
-	};
-
-	/**
-	 * Modifies the specified <var>key</var> according to implementation of this modificator.
-	 *
-	 * @param key The key of which value to modify.
-	 * @return Modified key or the same key as the given one if this modificator does not perform
-	 * any modification.
-	 */
-	@NonNull
-	String modifyKey(@NonNull String key);
+    @Test
+	public void test() {
+		// todo:: implement test
+	}
 }

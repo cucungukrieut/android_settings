@@ -42,7 +42,7 @@ import android.util.AttributeSet;
  */
 public class SettingPreferenceCategory extends PreferenceCategory {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -51,26 +51,26 @@ public class SettingPreferenceCategory extends PreferenceCategory {
 	 */
 	// private static final String TAG = "SettingPreferenceCategory";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingPreferenceCategory(Context, AttributeSet)} without attributes.
 	 */
-	public SettingPreferenceCategory(@NonNull Context context) {
+	public SettingPreferenceCategory(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -78,7 +78,7 @@ public class SettingPreferenceCategory extends PreferenceCategory {
 	 * Same as {@link #SettingPreferenceCategory(Context, AttributeSet, int)} with
 	 * {@link android.R.attr#preferenceCategoryStyle} as attribute for default style.
 	 */
-	public SettingPreferenceCategory(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingPreferenceCategory(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, android.R.attr.preferenceCategoryStyle);
 	}
 
@@ -86,7 +86,7 @@ public class SettingPreferenceCategory extends PreferenceCategory {
 	 * Same as {@link #SettingPreferenceCategory(Context, AttributeSet, int, int)} with {@code 0} as default
 	 * style.
 	 */
-	public SettingPreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingPreferenceCategory(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
@@ -100,15 +100,15 @@ public class SettingPreferenceCategory extends PreferenceCategory {
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingPreferenceCategory(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingPreferenceCategory(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

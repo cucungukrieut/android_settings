@@ -45,6 +45,9 @@ android {
  * Library dependencies ============================================================================
  */
 dependencies {
+    // Android MultiDex Instrumentation test dependencies.
+    compile deps.androidSupport.multiDex
+    compile deps.androidSupport.multiDexInstrumentation
     // Android Instrumentation test dependencies.
     compile deps.test.androidSupportAnnotations
     compile deps.test.androidRunner
@@ -61,4 +64,5 @@ dependencies {
     // Local JUnit test dependencies.
     compile deps.test.junit
     compile deps.test.mockitoCore
+    compile deps.test.mockitoAndroid
 }

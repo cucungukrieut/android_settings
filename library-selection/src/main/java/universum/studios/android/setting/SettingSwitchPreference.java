@@ -46,7 +46,7 @@ import android.widget.Switch;
  */
 public class SettingSwitchPreference extends SwitchPreference {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -55,15 +55,15 @@ public class SettingSwitchPreference extends SwitchPreference {
 	 */
 	// private static final String TAG = "SettingSwitchPreference";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -73,14 +73,14 @@ public class SettingSwitchPreference extends SwitchPreference {
 	 */
 	private PreferenceDecorator mDecorator;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingSwitchPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingSwitchPreference(@NonNull Context context) {
+	public SettingSwitchPreference(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -88,7 +88,7 @@ public class SettingSwitchPreference extends SwitchPreference {
 	 * Same as {@link #SettingSwitchPreference(Context, AttributeSet, int)} with
 	 * {@link android.R.attr#switchPreferenceStyle} as attribute for default style.
 	 */
-	public SettingSwitchPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingSwitchPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, android.R.attr.switchPreferenceStyle);
 	}
 
@@ -96,9 +96,11 @@ public class SettingSwitchPreference extends SwitchPreference {
 	 * Same as {@link #SettingSwitchPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingSwitchPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingSwitchPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-		this.init(context, attrs, defStyleAttr, 0);
+		this.ensureDecorator();
+		// Enable layout recycling otherwise checkbox animations are not working.
+		mDecorator.setCanRecycleLayout(true);
 	}
 
 	/**
@@ -111,28 +113,16 @@ public class SettingSwitchPreference extends SwitchPreference {
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingSwitchPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingSwitchPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
-		this.init(context, attrs, defStyleAttr, defStyleRes);
-	}
-
-	/**
-	 * Methods =====================================================================================
-	 */
-
-	/**
-	 * Called from one of constructors of this setting preference to perform its initialization.
-	 * <p>
-	 * Initialization is done via parsing of the specified <var>attrs</var> set and obtaining for
-	 * this preference specific data from it that can be used to configure this new preference instance.
-	 * The specified <var>defStyleAttr</var> and <var>defStyleRes</var> are used to obtain default
-	 * data from the current theme provided by the specified <var>context</var>.
-	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		this.ensureDecorator();
 		// Enable layout recycling otherwise checkbox animations are not working.
 		mDecorator.setCanRecycleLayout(true);
 	}
+
+	/*
+	 * Methods =====================================================================================
+	 */
 
 	/**
 	 * Ensures that the decorator for this view is initialized.
@@ -144,14 +134,14 @@ public class SettingSwitchPreference extends SwitchPreference {
 			 */
 			@Nullable
 			@Override
-			Object onGetDefaultValue(@NonNull TypedArray attributes, int index) {
+			Object onGetDefaultValue(@NonNull final TypedArray attributes, final int index) {
 				return SettingSwitchPreference.this.onGetDefaultValue(attributes, index);
 			}
 
 			/**
 			 */
 			@Override
-			void onUpdateInitialValue(boolean restorePersistedValue, @Nullable Object defaultValue) {
+			void onUpdateInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
 				SettingSwitchPreference.this.onSetInitialValue(restorePersistedValue, defaultValue);
 			}
 		};
@@ -160,7 +150,7 @@ public class SettingSwitchPreference extends SwitchPreference {
 	/**
 	 */
 	@Override
-	public void setKey(@NonNull String key) {
+	public void setKey(@NonNull final String key) {
 		final boolean keyChanged = !key.equals(getKey());
 		super.setKey(key);
 		if (keyChanged) {
@@ -171,7 +161,7 @@ public class SettingSwitchPreference extends SwitchPreference {
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
+	public void onBindView(@NonNull final View view) {
 		super.onBindView(view);
 		this.ensureDecorator();
 		mDecorator.onBindView(view);
@@ -185,7 +175,7 @@ public class SettingSwitchPreference extends SwitchPreference {
 		}
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }
