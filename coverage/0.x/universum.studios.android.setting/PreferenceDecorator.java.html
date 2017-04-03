@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.preference.Preference;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -39,9 +40,9 @@ import universum.studios.android.ui.util.ResourceUtils;
  *
  * @author Martin Albedinsky
  */
-class PreferenceDecorator {
+abstract class PreferenceDecorator {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -54,22 +55,22 @@ class PreferenceDecorator {
 	 * Boolean flag indicating whether call to {@link #setCanRecycleLayout(boolean)} should be
 	 * handled or not.
 	 */
-<span class="nc bnc" id="L57" title="All 2 branches missed.">	private static final boolean HANDLE_CAN_RECYCLE_LAYOUT = !BuildConfig.APPLICATION_ID.contains(&quot;support&quot;);</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">	private static final boolean HANDLE_CAN_RECYCLE_LAYOUT = !BuildConfig.APPLICATION_ID.contains(&quot;support&quot;);</span>
 
 	/**
 	 * Name of the field that indicates whether the preference can recycle its layout or not.
 	 */
 	private static final String FIELD_NAME_CAN_RECYCLE_LAYOUT = &quot;mCanRecycleLayout&quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -79,6 +80,11 @@ class PreferenceDecorator {
 	private final Preference mPreference;
 
 	/**
+	 * Default value resolved from Xml attributes for the associated preference.
+	 */
+	private Object mDefaultValue;
+
+	/*
 	 * Constructors ================================================================================
 	 */
 
@@ -87,11 +93,11 @@ class PreferenceDecorator {
 	 *
 	 * @param preference The preference for which to create new decorator.
 	 */
-<span class="nc" id="L90">	PreferenceDecorator(Preference preference) {</span>
-<span class="nc" id="L91">		this.mPreference = preference;</span>
-<span class="nc" id="L92">	}</span>
+<span class="nc" id="L96">	PreferenceDecorator(final Preference preference) {</span>
+<span class="nc" id="L97">		this.mPreference = preference;</span>
+<span class="nc" id="L98">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -104,13 +110,81 @@ class PreferenceDecorator {
 	 *                     the attached preference within a theme of the given context.
 	 * @param defStyleRes  Resource id of the default style for the attached preference.
 	 */
-	void processAttributes(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-<span class="nc" id="L108">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_Preference, defStyleAttr, defStyleRes);</span>
-<span class="nc bnc" id="L109" title="All 2 branches missed.">		if (attributes.hasValue(R.styleable.Ui_Settings_Preference_uiVectorIcon)) {</span>
-<span class="nc" id="L110">			setVectorIcon(attributes.getResourceId(R.styleable.Ui_Settings_Preference_uiVectorIcon, 0));</span>
+	void processAttributes(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+<span class="nc" id="L114">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_Preference, defStyleAttr, defStyleRes);</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
+<span class="nc" id="L116">			final int index = attributes.getIndex(i);</span>
+<span class="nc bnc" id="L117" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_Preference_android_defaultValue) {</span>
+<span class="nc" id="L118">				this.mDefaultValue = onGetDefaultValue(attributes, index);</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_Preference_uiVectorIcon) {</span>
+<span class="nc" id="L120">				setVectorIcon(attributes.getResourceId(index, 0));</span>
+			}
 		}
-<span class="nc" id="L112">		attributes.recycle();</span>
-<span class="nc" id="L113">	}</span>
+<span class="nc" id="L123">		attributes.recycle();</span>
+<span class="nc" id="L124">	}</span>
+
+	/**
+	 * Invoked to obtain default value for the associated preference from the given &lt;var&gt;attributes&lt;/var&gt;
+	 * array.
+	 *
+	 * @param attributes The attributes array from which to obtain default value.
+	 * @param index      Index at which should be the value obtained.
+	 * @return The default value specific for the preference or {@code null} if the preference does
+	 * not have default value attached.
+	 */
+	@Nullable
+	abstract Object onGetDefaultValue(@NonNull TypedArray attributes, int index);
+
+	/**
+	 * Handles change in the key of the associated preference.
+	 * &lt;p&gt;
+	 * This implementation dispatches update of initial value to the associated preference.
+	 */
+	void handleKeyChange() {
+<span class="nc" id="L144">		updateInitialValue();</span>
+<span class="nc" id="L145">	}</span>
+
+	/**
+	 * Dispatches request for update of initial value to the associated preference via
+	 * {@link #onUpdateInitialValue(boolean, Object)}.
+	 */
+	private void updateInitialValue() {
+<span class="nc" id="L152">		final boolean shouldPersist = shouldPersist();</span>
+<span class="nc bnc" id="L153" title="All 4 branches missed.">		if (shouldPersist &amp;&amp; mPreference.getSharedPreferences().contains(mPreference.getKey())) {</span>
+<span class="nc" id="L154">			onUpdateInitialValue(true, null);</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">		} else if (mDefaultValue != null) {</span>
+<span class="nc" id="L156">			onUpdateInitialValue(false, mDefaultValue);</span>
+		}
+<span class="nc" id="L158">	}</span>
+
+	/**
+	 * Checks whether the value of the associated preference should be persisted or not.
+	 *
+	 * @return {@code True} if value should be persisted, {@code false} otherwise.
+	 */
+	private boolean shouldPersist() {
+<span class="nc bnc" id="L166" title="All 6 branches missed.">		return mPreference.getPreferenceManager() != null &amp;&amp; mPreference.isPersistent() &amp;&amp; mPreference.hasKey();</span>
+	}
+
+	/**
+	 * Invoked to update initial value of the associated preference.
+	 *
+	 * @param restorePersistedValue {@code True} if the initial value should be restored from
+	 *                              preferences, {@code false} it the &lt;var&gt;defaultValue&lt;/var&gt; should
+	 *                              be used instead.
+	 * @param defaultValue          The default value to use as initial one.
+	 */
+	abstract void onUpdateInitialValue(boolean restorePersistedValue, @Nullable Object defaultValue);
+
+	/**
+	 * Returns the default value resolved from Xml attributes for the associated preference.
+	 *
+	 * @return Default value or {@code null} if no value has been resolved.
+	 */
+	@Nullable
+	Object getDefaultValue() {
+<span class="nc" id="L186">		return mDefaultValue;</span>
+	}
 
 	/**
 	 * Sets a vector icon for the attached preference via {@link Preference#setIcon(Drawable)} where
@@ -119,10 +193,10 @@ class PreferenceDecorator {
 	 * @param resId Resource id of the desired vector icon to set. May be {@code 0} to clear the
 	 *              current icon.
 	 */
-	void setVectorIcon(@DrawableRes int resId) {
-<span class="nc" id="L123">		final Context context = mPreference.getContext();</span>
-<span class="nc" id="L124">		mPreference.setIcon(ResourceUtils.getVectorDrawable(context.getResources(), resId, context.getTheme()));</span>
-<span class="nc" id="L125">	}</span>
+	void setVectorIcon(@DrawableRes final int resId) {
+<span class="nc" id="L197">		final Context context = mPreference.getContext();</span>
+<span class="nc" id="L198">		mPreference.setIcon(ResourceUtils.getVectorDrawable(context.getResources(), resId, context.getTheme()));</span>
+<span class="nc" id="L199">	}</span>
 
 	/**
 	 * Sets whether this preference can recycle its layout or not.
@@ -131,19 +205,19 @@ class PreferenceDecorator {
 	 *                         {@code false} otherwise.
 	 */
 	@SuppressWarnings(&quot;TryWithIdenticalCatches&quot;)
-	void setCanRecycleLayout(boolean canRecycleLayout) {
-<span class="nc bnc" id="L135" title="All 2 branches missed.">		if (HANDLE_CAN_RECYCLE_LAYOUT) {</span>
+	void setCanRecycleLayout(final boolean canRecycleLayout) {
+<span class="nc bnc" id="L209" title="All 2 branches missed.">		if (HANDLE_CAN_RECYCLE_LAYOUT) {</span>
 			try {
-<span class="nc" id="L137">				final Field canRecycleLayoutField = Preference.class.getDeclaredField(FIELD_NAME_CAN_RECYCLE_LAYOUT);</span>
-<span class="nc" id="L138">				canRecycleLayoutField.setAccessible(true);</span>
-<span class="nc" id="L139">				canRecycleLayoutField.setBoolean(mPreference, canRecycleLayout);</span>
-<span class="nc" id="L140">			} catch (NoSuchFieldException e) {</span>
-<span class="nc" id="L141">				Log.w(TAG, &quot;Failed to set whether preference(&quot; + getClass().getSimpleName() + &quot;) can recycler its layout or not.&quot;, e);</span>
-<span class="nc" id="L142">			} catch (IllegalAccessException e) {</span>
-<span class="nc" id="L143">				Log.w(TAG, &quot;Failed to set whether preference(&quot; + getClass().getSimpleName() + &quot;) can recycler its layout or not.&quot;, e);</span>
-<span class="nc" id="L144">			}</span>
+<span class="nc" id="L211">				final Field canRecycleLayoutField = Preference.class.getDeclaredField(FIELD_NAME_CAN_RECYCLE_LAYOUT);</span>
+<span class="nc" id="L212">				canRecycleLayoutField.setAccessible(true);</span>
+<span class="nc" id="L213">				canRecycleLayoutField.setBoolean(mPreference, canRecycleLayout);</span>
+<span class="nc" id="L214">			} catch (NoSuchFieldException e) {</span>
+<span class="nc" id="L215">				Log.w(TAG, &quot;Failed to set whether preference(&quot; + getClass().getSimpleName() + &quot;) can recycler its layout or not.&quot;, e);</span>
+<span class="nc" id="L216">			} catch (IllegalAccessException e) {</span>
+<span class="nc" id="L217">				Log.w(TAG, &quot;Failed to set whether preference(&quot; + getClass().getSimpleName() + &quot;) can recycler its layout or not.&quot;, e);</span>
+<span class="nc" id="L218">			}</span>
 		}
-<span class="nc" id="L146">	}</span>
+<span class="nc" id="L220">	}</span>
 
 	/**
 	 * This should be called from the attached preference whenever its
@@ -152,14 +226,14 @@ class PreferenceDecorator {
 	 * @param view The view/holder bound by the preference where the decorator may perform
 	 *             additional modifications.
 	 */
-	void onBindView(@NonNull View view) {
-<span class="nc" id="L156">		final View iconFrameView = view.findViewById(R.id.icon_frame);</span>
-<span class="nc bnc" id="L157" title="All 2 branches missed.">		if (iconFrameView != null) {</span>
-<span class="nc bnc" id="L158" title="All 2 branches missed.">			iconFrameView.setVisibility(mPreference.getIcon() == null ? View.GONE : View.VISIBLE);</span>
+	void onBindView(@NonNull final View view) {
+<span class="nc" id="L230">		final View iconFrameView = view.findViewById(R.id.icon_frame);</span>
+<span class="nc bnc" id="L231" title="All 2 branches missed.">		if (iconFrameView != null) {</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">			iconFrameView.setVisibility(mPreference.getIcon() == null ? View.GONE : View.VISIBLE);</span>
 		}
-<span class="nc" id="L160">	}</span>
+<span class="nc" id="L234">	}</span>
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

@@ -47,7 +47,7 @@ import universum.studios.android.dialog.DialogOptions;
  */
 public abstract class SettingDateTimeDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; extends SettingDialogPreference&lt;O&gt; {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -56,15 +56,15 @@ public abstract class SettingDateTimeDialogPreference&lt;O extends DialogOptions
 	 */
 	// private static final String TAG = &quot;SettingDateTimeDialogPreference&quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -87,14 +87,14 @@ public abstract class SettingDateTimeDialogPreference&lt;O extends DialogOptions
 	 */
 	private long mMilliseconds;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingDateTimeDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	SettingDateTimeDialogPreference(@NonNull Context context) {
+	SettingDateTimeDialogPreference(@NonNull final Context context) {
 <span class="nc" id="L98">		this(context, null);</span>
 <span class="nc" id="L99">	}</span>
 
@@ -102,7 +102,7 @@ public abstract class SettingDateTimeDialogPreference&lt;O extends DialogOptions
 	 * Same as {@link #SettingDateTimeDialogPreference(Context, AttributeSet, int)} with
 	 * {@link android.R.attr#dialogPreferenceStyle} as attribute for default style.
 	 */
-	SettingDateTimeDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	SettingDateTimeDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 <span class="nc" id="L106">		this(context, attrs, android.R.attr.dialogPreferenceStyle);</span>
 <span class="nc" id="L107">	}</span>
 
@@ -110,7 +110,7 @@ public abstract class SettingDateTimeDialogPreference&lt;O extends DialogOptions
 	 * Same as {@link #SettingDateTimeDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	SettingDateTimeDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	SettingDateTimeDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 <span class="nc" id="L114">		super(context, attrs, defStyleAttr);</span>
 <span class="nc" id="L115">	}</span>
 
@@ -124,27 +124,28 @@ public abstract class SettingDateTimeDialogPreference&lt;O extends DialogOptions
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	SettingDateTimeDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	SettingDateTimeDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 <span class="nc" id="L128">		super(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L129">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
 	/**
 	 */
 	@Override
-	protected Object onGetDefaultValue(@NonNull TypedArray typedArray, int index) {
-<span class="nc" id="L139">		return typedArray.getString(index);</span>
+	protected Object onGetDefaultValue(@NonNull final TypedArray attributes, final int index) {
+<span class="nc" id="L139">		return attributes.getString(index);</span>
 	}
 
 	/**
 	 */
 	@Override
-	protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-<span class="nc bnc" id="L146" title="All 2 branches missed.">		setMilliseconds(restoreValue ? getPersistedLong(mMilliseconds) : onParseDefaultValue(defaultValue));</span>
-<span class="nc" id="L147">	}</span>
+	@SuppressWarnings(&quot;ConstantConditions&quot;)
+	protected void onSetInitialValue(final boolean restoreValue, @Nullable final Object defaultValue) {
+<span class="nc bnc" id="L147" title="All 2 branches missed.">		setMilliseconds(restoreValue ? getPersistedLong(mMilliseconds) : onParseDefaultValue(defaultValue));</span>
+<span class="nc" id="L148">	}</span>
 
 	/**
 	 * Called from {@link #onSetInitialValue(boolean, Object)} to parse the given &lt;var&gt;defaultValue&lt;/var&gt;
@@ -163,9 +164,9 @@ public abstract class SettingDateTimeDialogPreference&lt;O extends DialogOptions
 	 * @param format The desired format.
 	 * @see SimpleDateFormat
 	 */
-	public void setFormat(@NonNull SimpleDateFormat format) {
-<span class="nc" id="L167">		this.mFormat = format;</span>
-<span class="nc" id="L168">	}</span>
+	public void setFormat(@NonNull final SimpleDateFormat format) {
+<span class="nc" id="L168">		this.mFormat = format;</span>
+<span class="nc" id="L169">	}</span>
 
 	/**
 	 * Sets a preferred milliseconds value for this preference.
@@ -177,17 +178,17 @@ public abstract class SettingDateTimeDialogPreference&lt;O extends DialogOptions
 	 * @see #getMilliseconds()
 	 * @see #areMillisecondsSet()
 	 */
-	void setMilliseconds(long milliseconds) {
-<span class="nc bnc" id="L181" title="All 2 branches missed.">		final boolean changed = mMilliseconds != milliseconds;</span>
-<span class="nc bnc" id="L182" title="All 6 branches missed.">		if (callChangeListener(milliseconds) &amp;&amp; (changed || !mMillisecondsSet)) {</span>
-<span class="nc" id="L183">			this.mMilliseconds = milliseconds;</span>
-<span class="nc" id="L184">			this.mMillisecondsSet = true;</span>
-<span class="nc" id="L185">			persistLong(mMilliseconds);</span>
-<span class="nc bnc" id="L186" title="All 2 branches missed.">			if (changed) {</span>
-<span class="nc" id="L187">				notifyChanged();</span>
+	void setMilliseconds(final long milliseconds) {
+<span class="nc bnc" id="L182" title="All 2 branches missed.">		final boolean changed = mMilliseconds != milliseconds;</span>
+<span class="nc bnc" id="L183" title="All 6 branches missed.">		if (callChangeListener(milliseconds) &amp;&amp; (changed || !mMillisecondsSet)) {</span>
+<span class="nc" id="L184">			this.mMilliseconds = milliseconds;</span>
+<span class="nc" id="L185">			this.mMillisecondsSet = true;</span>
+<span class="nc" id="L186">			persistLong(mMilliseconds);</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">			if (changed) {</span>
+<span class="nc" id="L188">				notifyChanged();</span>
 			}
 		}
-<span class="nc" id="L190">	}</span>
+<span class="nc" id="L191">	}</span>
 
 	/**
 	 * Checks whether the milliseconds value is set for this preference.
@@ -196,7 +197,7 @@ public abstract class SettingDateTimeDialogPreference&lt;O extends DialogOptions
 	 * for this preference, {@code false} otherwise.
 	 */
 	boolean areMillisecondsSet() {
-<span class="nc" id="L199">		return mMillisecondsSet;</span>
+<span class="nc" id="L200">		return mMillisecondsSet;</span>
 	}
 
 	/**
@@ -206,16 +207,16 @@ public abstract class SettingDateTimeDialogPreference&lt;O extends DialogOptions
 	 * @see #setMilliseconds(long)
 	 */
 	long getMilliseconds() {
-<span class="nc" id="L209">		return mMilliseconds;</span>
+<span class="nc" id="L210">		return mMilliseconds;</span>
 	}
 
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
-<span class="nc" id="L216">		super.onBindView(view);</span>
-<span class="nc" id="L217">		synchronizeSummaryView(view);</span>
-<span class="nc" id="L218">	}</span>
+	public void onBindView(@NonNull final View view) {
+<span class="nc" id="L217">		super.onBindView(view);</span>
+<span class="nc" id="L218">		synchronizeSummaryView(view);</span>
+<span class="nc" id="L219">	}</span>
 
 	/**
 	 * This implementation formats the current date/time value, if it is set, by format specified
@@ -225,10 +226,10 @@ public abstract class SettingDateTimeDialogPreference&lt;O extends DialogOptions
 	@Nullable
 	@Override
 	protected CharSequence onGetSummaryText() {
-<span class="nc bnc" id="L228" title="All 4 branches missed.">		return mMillisecondsSet &amp;&amp; mFormat != null ? mFormat.format(mMilliseconds) : super.onGetSummaryText();</span>
+<span class="nc bnc" id="L229" title="All 4 branches missed.">		return mMillisecondsSet &amp;&amp; mFormat != null ? mFormat.format(mMilliseconds) : super.onGetSummaryText();</span>
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

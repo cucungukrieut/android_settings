@@ -63,7 +63,7 @@ import universum.studios.android.setting.widget.SettingColorView;
  */
 public final class SettingColorDialogPreference extends SettingDialogPreference&lt;ColorPickerDialog.ColorOptions&gt; {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -72,15 +72,15 @@ public final class SettingColorDialogPreference extends SettingDialogPreference&
 	 */
 	// private static final String TAG = &quot;SettingColorDialogPreference&quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -98,14 +98,14 @@ public final class SettingColorDialogPreference extends SettingDialogPreference&
 	 */
 <span class="nc" id="L99">	private int mColor = Color.TRANSPARENT;</span>
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingColorDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingColorDialogPreference(@NonNull Context context) {
+	public SettingColorDialogPreference(@NonNull final Context context) {
 <span class="nc" id="L109">		this(context, null);</span>
 <span class="nc" id="L110">	}</span>
 
@@ -113,7 +113,7 @@ public final class SettingColorDialogPreference extends SettingDialogPreference&
 	 * Same as {@link #SettingColorDialogPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingColorDialogPreferenceStyle} as attribute for default style.
 	 */
-	public SettingColorDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingColorDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 <span class="nc" id="L117">		this(context, attrs, R.attr.uiSettingColorDialogPreferenceStyle);</span>
 <span class="nc" id="L118">	}</span>
 
@@ -121,7 +121,7 @@ public final class SettingColorDialogPreference extends SettingDialogPreference&
 	 * Same as {@link #SettingColorDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingColorDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingColorDialogPreference(@NonNull final Context context, @NonNull final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 <span class="nc" id="L125">		super(context, attrs, defStyleAttr);</span>
 <span class="nc" id="L126">	}</span>
 
@@ -135,11 +135,11 @@ public final class SettingColorDialogPreference extends SettingDialogPreference&
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingColorDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingColorDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 <span class="nc" id="L139">		super(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L140">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -147,43 +147,49 @@ public final class SettingColorDialogPreference extends SettingDialogPreference&
 	 */
 	@NonNull
 	@Override
-	protected ColorPickerDialog.ColorOptions onCreateDialogOptions(@NonNull Resources resources) {
+	protected ColorPickerDialog.ColorOptions onCreateDialogOptions(@NonNull final Resources resources) {
 <span class="nc" id="L151">		return new ColorPickerDialog.ColorOptions(resources);</span>
 	}
 
 	/**
 	 */
 	@Override
-	protected void onConfigureDialogOptions(@NonNull ColorPickerDialog.ColorOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
-<span class="nc" id="L158">		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L159">		int canvasColor = options.canvasColor();</span>
-<span class="nc" id="L160">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_ColorDialogPreference, defStyleAttr, defStyleRes);</span>
-<span class="nc bnc" id="L161" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
-<span class="nc" id="L162">			final int index = attributes.getIndex(i);</span>
-<span class="nc bnc" id="L163" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_ColorDialogPreference_dialogColor) {</span>
-<span class="nc" id="L164">				options.color(attributes.getColor(index, options.color()));</span>
-<span class="nc bnc" id="L165" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_ColorDialogPreference_dialogColorCanvas) {</span>
-<span class="nc" id="L166">				canvasColor = attributes.getColor(index, canvasColor);</span>
+	protected void onConfigureDialogOptions(
+			@NonNull final ColorPickerDialog.ColorOptions options,
+			@NonNull final Context context,
+			@Nullable final AttributeSet attrs,
+			@AttrRes final int defStyleAttr,
+			@StyleRes final int defStyleRes
+	) {
+<span class="nc" id="L164">		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L165">		int canvasColor = options.canvasColor();</span>
+<span class="nc" id="L166">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_ColorDialogPreference, defStyleAttr, defStyleRes);</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
+<span class="nc" id="L168">			final int index = attributes.getIndex(i);</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_ColorDialogPreference_dialogColor) {</span>
+<span class="nc" id="L170">				options.color(attributes.getColor(index, options.color()));</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_ColorDialogPreference_dialogColorCanvas) {</span>
+<span class="nc" id="L172">				canvasColor = attributes.getColor(index, canvasColor);</span>
 			}
 		}
-<span class="nc" id="L169">		attributes.recycle();</span>
-<span class="nc" id="L170">		options.canvasColor(canvasColor);</span>
-<span class="nc" id="L171">	}</span>
+<span class="nc" id="L175">		attributes.recycle();</span>
+<span class="nc" id="L176">		options.canvasColor(canvasColor);</span>
+<span class="nc" id="L177">	}</span>
 
 	/**
 	 */
 	@Override
-	protected Object onGetDefaultValue(@NonNull TypedArray typedArray, int index) {
-<span class="nc" id="L177">		return typedArray.getColor(index, mColor);</span>
+	protected Object onGetDefaultValue(@NonNull final TypedArray attributes, final int index) {
+<span class="nc" id="L183">		return attributes.getColor(index, mColor);</span>
 	}
 
 	/**
 	 */
 	@Override
-	@SuppressWarnings(&quot;ResourceType&quot;)
-	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
-<span class="nc bnc" id="L185" title="All 2 branches missed.">		setColor(restorePersistedValue ? getPersistedInt(mColor) : (Integer) defaultValue);</span>
-<span class="nc" id="L186">	}</span>
+	@SuppressWarnings({&quot;ResourceType&quot;, &quot;ConstantConditions&quot;})
+	protected void onSetInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
+<span class="nc bnc" id="L191" title="All 2 branches missed.">		setColor(restorePersistedValue ? getPersistedInt(mColor) : (Integer) defaultValue);</span>
+<span class="nc" id="L192">	}</span>
 
 	/**
 	 * Sets a preferred color value for this preference.
@@ -194,17 +200,17 @@ public final class SettingColorDialogPreference extends SettingDialogPreference&
 	 * @param color The preferred color to be persisted as {@link Integer}.
 	 * @see #getColor()
 	 */
-	public void setColor(@ColorInt int color) {
-<span class="nc bnc" id="L198" title="All 2 branches missed.">		final boolean changed = mColor != color;</span>
-<span class="nc bnc" id="L199" title="All 6 branches missed.">		if (callChangeListener(color) &amp;&amp; (changed || !mColorSet)) {</span>
-<span class="nc" id="L200">			this.mColor = color;</span>
-<span class="nc" id="L201">			this.mColorSet = true;</span>
-<span class="nc" id="L202">			persistInt(mColor);</span>
-<span class="nc bnc" id="L203" title="All 2 branches missed.">			if (changed) {</span>
-<span class="nc" id="L204">				notifyChanged();</span>
+	public void setColor(@ColorInt final int color) {
+<span class="nc bnc" id="L204" title="All 2 branches missed.">		final boolean changed = mColor != color;</span>
+<span class="nc bnc" id="L205" title="All 6 branches missed.">		if (callChangeListener(color) &amp;&amp; (changed || !mColorSet)) {</span>
+<span class="nc" id="L206">			this.mColor = color;</span>
+<span class="nc" id="L207">			this.mColorSet = true;</span>
+<span class="nc" id="L208">			persistInt(mColor);</span>
+<span class="nc bnc" id="L209" title="All 2 branches missed.">			if (changed) {</span>
+<span class="nc" id="L210">				notifyChanged();</span>
 			}
 		}
-<span class="nc" id="L207">	}</span>
+<span class="nc" id="L213">	}</span>
 
 	/**
 	 * Returns the preferred color value of this preference.
@@ -215,20 +221,20 @@ public final class SettingColorDialogPreference extends SettingDialogPreference&
 	 */
 	@ColorInt
 	public int getColor() {
-<span class="nc" id="L218">		return mColor;</span>
+<span class="nc" id="L224">		return mColor;</span>
 	}
 
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
-<span class="nc" id="L225">		super.onBindView(view);</span>
-<span class="nc" id="L226">		final SettingColorView colorView = (SettingColorView) view.findViewById(R.id.ui_setting_color_view);</span>
-<span class="nc bnc" id="L227" title="All 2 branches missed.">		if (colorView != null) {</span>
-<span class="nc" id="L228">			colorView.setCanvasColor(getDialogOptions().canvasColor());</span>
-<span class="nc" id="L229">			colorView.setColor(mColor);</span>
+	public void onBindView(@NonNull final View view) {
+<span class="nc" id="L231">		super.onBindView(view);</span>
+<span class="nc" id="L232">		final SettingColorView colorView = (SettingColorView) view.findViewById(R.id.ui_setting_color_view);</span>
+<span class="nc bnc" id="L233" title="All 2 branches missed.">		if (colorView != null) {</span>
+<span class="nc" id="L234">			colorView.setCanvasColor(getDialogOptions().canvasColor());</span>
+<span class="nc" id="L235">			colorView.setColor(mColor);</span>
 		}
-<span class="nc" id="L231">	}</span>
+<span class="nc" id="L237">	}</span>
 
 	/**
 	 * Dialog options of this preference with the preferred color specified as
@@ -239,30 +245,30 @@ public final class SettingColorDialogPreference extends SettingDialogPreference&
 	@NonNull
 	@Override
 	public ColorPickerDialog.ColorOptions getDialogOptions() {
-<span class="nc" id="L242">		final ColorPickerDialog.ColorOptions options = super.getDialogOptions();</span>
-<span class="nc bnc" id="L243" title="All 2 branches missed.">		if (mColorSet) {</span>
-<span class="nc" id="L244">			options.color(mColor);</span>
+<span class="nc" id="L248">		final ColorPickerDialog.ColorOptions options = super.getDialogOptions();</span>
+<span class="nc bnc" id="L249" title="All 2 branches missed.">		if (mColorSet) {</span>
+<span class="nc" id="L250">			options.color(mColor);</span>
 		}
-<span class="nc" id="L246">		return options;</span>
+<span class="nc" id="L252">		return options;</span>
 	}
 
 	/**
 	 */
 	@Override
-	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
-<span class="nc bnc" id="L253" title="All 2 branches missed.">		if (dialog instanceof ColorPickerDialog) {</span>
-<span class="nc bnc" id="L254" title="All 2 branches missed.">			switch (button) {</span>
+	protected boolean onHandleDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
+<span class="nc bnc" id="L259" title="All 2 branches missed.">		if (dialog instanceof ColorPickerDialog) {</span>
+<span class="nc bnc" id="L260" title="All 2 branches missed.">			switch (button) {</span>
 				case Dialog.BUTTON_POSITIVE:
-<span class="nc" id="L256">					setColor(((ColorPickerDialog) dialog).getColor());</span>
-<span class="nc" id="L257">					return true;</span>
+<span class="nc" id="L262">					setColor(((ColorPickerDialog) dialog).getColor());</span>
+<span class="nc" id="L263">					return true;</span>
 				default:
-<span class="nc" id="L259">					return true;</span>
+<span class="nc" id="L265">					return true;</span>
 			}
 		}
-<span class="nc" id="L262">		return super.onHandleDialogButtonClick(dialog, button);</span>
+<span class="nc" id="L268">		return super.onHandleDialogButtonClick(dialog, button);</span>
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

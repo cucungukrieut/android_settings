@@ -53,7 +53,7 @@ import universum.studios.android.setting.R;
  */
 public class SettingColorView extends View {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -62,15 +62,15 @@ public class SettingColorView extends View {
 	 */
 	// private static final String TAG = &quot;SettingColorView&quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -116,14 +116,14 @@ public class SettingColorView extends View {
 	 */
 	private float mRadius;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingColorView(Context, AttributeSet)} without attributes.
 	 */
-	public SettingColorView(@NonNull Context context) {
+	public SettingColorView(@NonNull final Context context) {
 <span class="nc" id="L127">		this(context, null);</span>
 <span class="nc" id="L128">	}</span>
 
@@ -131,14 +131,14 @@ public class SettingColorView extends View {
 	 * Same as {@link #SettingColorView(Context, AttributeSet, int)} with {@link R.attr#uiSettingColorViewStyle}
 	 * as attribute for default style.
 	 */
-	public SettingColorView(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingColorView(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 <span class="nc" id="L135">		this(context, attrs, R.attr.uiSettingColorViewStyle);</span>
 <span class="nc" id="L136">	}</span>
 
 	/**
 	 * Same as {@link #SettingColorView(Context, AttributeSet, int, int)} with {@code 0} as default style.
 	 */
-	public SettingColorView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+	public SettingColorView(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 <span class="nc" id="L142">		super(context, attrs, defStyleAttr);</span>
 <span class="nc" id="L143">		this.init(context, attrs, defStyleAttr, 0);</span>
 <span class="nc" id="L144">	}</span>
@@ -153,12 +153,12 @@ public class SettingColorView extends View {
 	 * @param defStyleRes  Resource id of the default style for the new view.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingColorView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingColorView(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 <span class="nc" id="L157">		super(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L158">		this.init(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L159">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -170,7 +170,7 @@ public class SettingColorView extends View {
 	 * specified &lt;var&gt;defStyleAttr&lt;/var&gt; and &lt;var&gt;defStyleRes&lt;/var&gt; are used to obtain default data
 	 * from the current theme provided by the specified &lt;var&gt;context&lt;/var&gt;.
 	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	private void init(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 <span class="nc" id="L174">		this.mMaxWidth = mMaxHeight = Integer.MAX_VALUE;</span>
 <span class="nc" id="L175">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_ColorView, defStyleAttr, defStyleRes);</span>
 <span class="nc bnc" id="L176" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
@@ -190,7 +190,7 @@ public class SettingColorView extends View {
 	 */
 	@Override
 	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent event) {
+	public void onInitializeAccessibilityEvent(@NonNull final AccessibilityEvent event) {
 <span class="nc" id="L194">		super.onInitializeAccessibilityEvent(event);</span>
 <span class="nc" id="L195">		event.setClassName(SettingColorView.class.getName());</span>
 <span class="nc" id="L196">	}</span>
@@ -199,7 +199,7 @@ public class SettingColorView extends View {
 	 */
 	@Override
 	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
+	public void onInitializeAccessibilityNodeInfo(@NonNull final AccessibilityNodeInfo info) {
 <span class="nc" id="L203">		super.onInitializeAccessibilityNodeInfo(info);</span>
 <span class="nc" id="L204">		info.setClassName(SettingColorView.class.getName());</span>
 <span class="nc" id="L205">	}</span>
@@ -211,7 +211,7 @@ public class SettingColorView extends View {
 	 * @see #getCanvasColor()
 	 * @see #setColor(int)
 	 */
-	public void setCanvasColor(@ColorInt int color) {
+	public void setCanvasColor(@ColorInt final int color) {
 <span class="nc bnc" id="L215" title="All 4 branches missed.">		if (mRawCanvasColor != color || mDrawCanvasColor != color) {</span>
 <span class="nc" id="L216">			this.mRawCanvasColor = mDrawCanvasColor = color;</span>
 <span class="nc" id="L217">			invalidate();</span>
@@ -234,7 +234,7 @@ public class SettingColorView extends View {
 	 * @param color The desired color.
 	 * @see #getColor()
 	 */
-	public void setColor(@ColorInt int color) {
+	public void setColor(@ColorInt final int color) {
 <span class="nc bnc" id="L238" title="All 4 branches missed.">		if (mRawColor != color || mDrawColor != color) {</span>
 <span class="nc" id="L239">			this.mRawColor = mDrawColor = color;</span>
 <span class="nc" id="L240">			invalidate();</span>
@@ -255,7 +255,7 @@ public class SettingColorView extends View {
 	/**
 	 */
 	@Override
-	protected boolean onSetAlpha(int alpha) {
+	protected boolean onSetAlpha(final int alpha) {
 <span class="nc" id="L259">		this.mDrawColor = (mRawColor &lt;&lt; 8 &gt;&gt;&gt; 8) | (alpha &lt;&lt; 24);</span>
 <span class="nc" id="L260">		this.mDrawCanvasColor = (mDrawCanvasColor &lt;&lt; 8 &gt;&gt;&gt; 8) | (alpha &lt;&lt; 24);</span>
 <span class="nc" id="L261">		return true;</span>
@@ -264,7 +264,7 @@ public class SettingColorView extends View {
 	/**
 	 */
 	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+	protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
 <span class="nc" id="L268">		super.onMeasure(widthMeasureSpec, heightMeasureSpec);</span>
 <span class="nc" id="L269">		int width = getMeasuredWidth();</span>
 <span class="nc" id="L270">		int height = getMeasuredHeight();</span>
@@ -277,7 +277,7 @@ public class SettingColorView extends View {
 	/**
 	 */
 	@Override
-	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+	protected void onSizeChanged(final int w, final int h, final int oldw, final int oldh) {
 <span class="nc" id="L281">		super.onSizeChanged(w, h, oldw, oldh);</span>
 <span class="nc" id="L282">		this.mWidth = w;</span>
 <span class="nc" id="L283">		this.mHeight = h;</span>
@@ -287,7 +287,7 @@ public class SettingColorView extends View {
 	/**
 	 */
 	@Override
-	protected void onDraw(Canvas canvas) {
+	protected void onDraw(@NonNull final Canvas canvas) {
 <span class="nc" id="L291">		super.onDraw(canvas);</span>
 <span class="nc bnc" id="L292" title="All 2 branches missed.">		if ((mDrawCanvasColor &gt;&gt;&gt; 24) != 0) {</span>
 <span class="nc" id="L293">			mPaint.setColor(mRawCanvasColor);</span>
@@ -299,7 +299,7 @@ public class SettingColorView extends View {
 		}
 <span class="nc" id="L300">	}</span>
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

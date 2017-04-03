@@ -20,6 +20,7 @@ package universum.studios.android.setting;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.preference.SwitchPreference;
 import android.support.annotation.AttrRes;
@@ -45,7 +46,7 @@ import android.widget.Switch;
  */
 public class SettingSwitchPreference extends SwitchPreference {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -54,15 +55,15 @@ public class SettingSwitchPreference extends SwitchPreference {
 	 */
 	// private static final String TAG = &quot;SettingSwitchPreference&quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -72,33 +73,35 @@ public class SettingSwitchPreference extends SwitchPreference {
 	 */
 	private PreferenceDecorator mDecorator;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingSwitchPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingSwitchPreference(@NonNull Context context) {
-<span class="nc" id="L83">		this(context, null);</span>
-<span class="nc" id="L84">	}</span>
+	public SettingSwitchPreference(@NonNull final Context context) {
+<span class="nc" id="L84">		this(context, null);</span>
+<span class="nc" id="L85">	}</span>
 
 	/**
 	 * Same as {@link #SettingSwitchPreference(Context, AttributeSet, int)} with
 	 * {@link android.R.attr#switchPreferenceStyle} as attribute for default style.
 	 */
-	public SettingSwitchPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
-<span class="nc" id="L91">		this(context, attrs, android.R.attr.switchPreferenceStyle);</span>
-<span class="nc" id="L92">	}</span>
+	public SettingSwitchPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
+<span class="nc" id="L92">		this(context, attrs, android.R.attr.switchPreferenceStyle);</span>
+<span class="nc" id="L93">	}</span>
 
 	/**
 	 * Same as {@link #SettingSwitchPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingSwitchPreference(Context context, AttributeSet attrs, int defStyleAttr) {
-<span class="nc" id="L99">		super(context, attrs, defStyleAttr);</span>
-<span class="nc" id="L100">		this.init(context, attrs, defStyleAttr, 0);</span>
-<span class="nc" id="L101">	}</span>
+	public SettingSwitchPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
+<span class="nc" id="L100">		super(context, attrs, defStyleAttr);</span>
+<span class="nc" id="L101">		this.ensureDecorator();</span>
+		// Enable layout recycling otherwise checkbox animations are not working.
+<span class="nc" id="L103">		mDecorator.setCanRecycleLayout(true);</span>
+<span class="nc" id="L104">	}</span>
 
 	/**
 	 * Creates a new instance of SettingSwitchPreference for the given &lt;var&gt;context&lt;/var&gt;.
@@ -110,54 +113,69 @@ public class SettingSwitchPreference extends SwitchPreference {
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingSwitchPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
-<span class="nc" id="L114">		super(context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L115">		this.init(context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L116">	}</span>
+	public SettingSwitchPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
+<span class="nc" id="L117">		super(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L118">		this.ensureDecorator();</span>
+		// Enable layout recycling otherwise checkbox animations are not working.
+<span class="nc" id="L120">		mDecorator.setCanRecycleLayout(true);</span>
+<span class="nc" id="L121">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
-
-	/**
-	 * Called from one of constructors of this setting preference to perform its initialization.
-	 * &lt;p&gt;
-	 * Initialization is done via parsing of the specified &lt;var&gt;attrs&lt;/var&gt; set and obtaining for
-	 * this preference specific data from it that can be used to configure this new preference instance.
-	 * The specified &lt;var&gt;defStyleAttr&lt;/var&gt; and &lt;var&gt;defStyleRes&lt;/var&gt; are used to obtain default
-	 * data from the current theme provided by the specified &lt;var&gt;context&lt;/var&gt;.
-	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-<span class="nc" id="L131">		this.ensureDecorator();</span>
-		// Enable layout recycling otherwise checkbox animations are not working.
-<span class="nc" id="L133">		mDecorator.setCanRecycleLayout(true);</span>
-<span class="nc" id="L134">	}</span>
 
 	/**
 	 * Ensures that the decorator for this view is initialized.
 	 */
 	private void ensureDecorator() {
-<span class="nc bnc" id="L140" title="All 2 branches missed.">		if (mDecorator == null) this.mDecorator = new PreferenceDecorator(this);</span>
-<span class="nc" id="L141">	}</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">		if (mDecorator == null) this.mDecorator = new PreferenceDecorator(this) {</span>
+
+			/**
+			 */
+			@Nullable
+			@Override
+			Object onGetDefaultValue(@NonNull final TypedArray attributes, final int index) {
+<span class="nc" id="L138">				return SettingSwitchPreference.this.onGetDefaultValue(attributes, index);</span>
+			}
+
+			/**
+			 */
+			@Override
+			void onUpdateInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
+<span class="nc" id="L145">				SettingSwitchPreference.this.onSetInitialValue(restorePersistedValue, defaultValue);</span>
+<span class="nc" id="L146">			}</span>
+		};
+<span class="nc" id="L148">	}</span>
 
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
-<span class="nc" id="L147">		super.onBindView(view);</span>
-<span class="nc" id="L148">		this.ensureDecorator();</span>
-<span class="nc" id="L149">		mDecorator.onBindView(view);</span>
-<span class="nc" id="L150">		final View checkableView = view.findViewById(R.id.ui_setting_switch);</span>
-<span class="nc bnc" id="L151" title="All 2 branches missed.">		if (checkableView instanceof Checkable) {</span>
-<span class="nc bnc" id="L152" title="All 2 branches missed.">			if (checkableView instanceof Switch) {</span>
-<span class="nc" id="L153">				final Switch switchView = (Switch) checkableView;</span>
-<span class="nc" id="L154">				switchView.setOnCheckedChangeListener(null);</span>
-			}
-<span class="nc" id="L156">			((Checkable) checkableView).setChecked(isChecked());</span>
+	public void setKey(@NonNull final String key) {
+<span class="nc bnc" id="L154" title="All 2 branches missed.">		final boolean keyChanged = !key.equals(getKey());</span>
+<span class="nc" id="L155">		super.setKey(key);</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">		if (keyChanged) {</span>
+<span class="nc" id="L157">			mDecorator.handleKeyChange();</span>
 		}
-<span class="nc" id="L158">	}</span>
+<span class="nc" id="L159">	}</span>
 
 	/**
+	 */
+	@Override
+	public void onBindView(@NonNull final View view) {
+<span class="nc" id="L165">		super.onBindView(view);</span>
+<span class="nc" id="L166">		this.ensureDecorator();</span>
+<span class="nc" id="L167">		mDecorator.onBindView(view);</span>
+<span class="nc" id="L168">		final View checkableView = view.findViewById(R.id.ui_setting_switch);</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">		if (checkableView instanceof Checkable) {</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">			if (checkableView instanceof Switch) {</span>
+<span class="nc" id="L171">				final Switch switchView = (Switch) checkableView;</span>
+<span class="nc" id="L172">				switchView.setOnCheckedChangeListener(null);</span>
+			}
+<span class="nc" id="L174">			((Checkable) checkableView).setChecked(isChecked());</span>
+		}
+<span class="nc" id="L176">	}</span>
+
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

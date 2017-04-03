@@ -55,7 +55,7 @@ import universum.studios.android.ui.widget.SwitchWidget;
  */
 public class SettingSwitch extends SwitchWidget {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -64,26 +64,26 @@ public class SettingSwitch extends SwitchWidget {
 	 */
 	// private static final String TAG = &quot;SettingSwitch&quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingSwitch(Context, AttributeSet)} without attributes.
 	 */
-	public SettingSwitch(@NonNull Context context) {
+	public SettingSwitch(@NonNull final Context context) {
 <span class="nc" id="L87">		this(context, null);</span>
 <span class="nc" id="L88">	}</span>
 
@@ -91,14 +91,14 @@ public class SettingSwitch extends SwitchWidget {
 	 * Same as {@link #SettingSwitch(Context, AttributeSet, int)} with {@link  R.attr#switchStyle}
 	 * as attribute for default style.
 	 */
-	public SettingSwitch(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingSwitch(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 <span class="nc" id="L95">		this(context, attrs, R.attr.switchStyle);</span>
 <span class="nc" id="L96">	}</span>
 
 	/**
 	 * Same as {@link #SettingSwitch(Context, AttributeSet, int, int)} with {@code 0} as default style.
 	 */
-	public SettingSwitch(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+	public SettingSwitch(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 <span class="nc" id="L102">		super(context, attrs, defStyleAttr);</span>
 <span class="nc" id="L103">	}</span>
 
@@ -113,11 +113,11 @@ public class SettingSwitch extends SwitchWidget {
 	 */
 	@SuppressWarnings(&quot;unused&quot;)
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingSwitch(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingSwitch(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 <span class="nc" id="L117">		super(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L118">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -125,7 +125,7 @@ public class SettingSwitch extends SwitchWidget {
 	 */
 	@Override
 	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	public void onInitializeAccessibilityEvent(@NonNull AccessibilityEvent event) {
+	public void onInitializeAccessibilityEvent(@NonNull final AccessibilityEvent event) {
 <span class="nc" id="L129">		super.onInitializeAccessibilityEvent(event);</span>
 <span class="nc" id="L130">		event.setClassName(SettingSwitch.class.getName());</span>
 <span class="nc" id="L131">	}</span>
@@ -134,7 +134,7 @@ public class SettingSwitch extends SwitchWidget {
 	 */
 	@Override
 	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-	public void onInitializeAccessibilityNodeInfo(@NonNull AccessibilityNodeInfo info) {
+	public void onInitializeAccessibilityNodeInfo(@NonNull final AccessibilityNodeInfo info) {
 <span class="nc" id="L138">		super.onInitializeAccessibilityNodeInfo(info);</span>
 <span class="nc" id="L139">		info.setClassName(SettingSwitch.class.getName());</span>
 <span class="nc" id="L140">	}</span>
@@ -149,7 +149,7 @@ public class SettingSwitch extends SwitchWidget {
 <span class="nc bnc" id="L149" title="All 2 branches missed.">		return getVisibility() == VISIBLE;</span>
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

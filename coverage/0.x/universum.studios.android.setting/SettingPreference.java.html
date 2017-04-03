@@ -20,6 +20,7 @@ package universum.studios.android.setting;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.preference.Preference;
 import android.support.annotation.AttrRes;
@@ -43,7 +44,7 @@ import android.view.View;
  */
 public class SettingPreference extends Preference {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -52,15 +53,15 @@ public class SettingPreference extends Preference {
 	 */
 	// private static final String TAG = &quot;SettingPreference&quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -70,33 +71,33 @@ public class SettingPreference extends Preference {
 	 */
 	private PreferenceDecorator mDecorator;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingPreference(@NonNull Context context) {
-<span class="nc" id="L81">		this(context, null);</span>
-<span class="nc" id="L82">	}</span>
+	public SettingPreference(@NonNull final Context context) {
+<span class="nc" id="L82">		this(context, null);</span>
+<span class="nc" id="L83">	}</span>
 
 	/**
 	 * Same as {@link #SettingPreference(Context, AttributeSet, int)} with
 	 * {@link android.R.attr#preferenceStyle} as attribute for default style.
 	 */
-	public SettingPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
-<span class="nc" id="L89">		this(context, attrs, android.R.attr.preferenceStyle);</span>
-<span class="nc" id="L90">	}</span>
+	public SettingPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
+<span class="nc" id="L90">		this(context, attrs, android.R.attr.preferenceStyle);</span>
+<span class="nc" id="L91">	}</span>
 
 	/**
 	 * Same as {@link #SettingPreference(Context, AttributeSet, int, int)} with {@code 0} as default
 	 * style.
 	 */
-	public SettingPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
-<span class="nc" id="L97">		super(context, attrs, defStyleAttr);</span>
-<span class="nc" id="L98">		this.init(context, attrs, defStyleAttr, 0);</span>
-<span class="nc" id="L99">	}</span>
+	public SettingPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
+<span class="nc" id="L98">		super(context, attrs, defStyleAttr);</span>
+<span class="nc" id="L99">		this.init(context, attrs, defStyleAttr, 0);</span>
+<span class="nc" id="L100">	}</span>
 
 	/**
 	 * Creates a new instance of SettingPreference for the given &lt;var&gt;context&lt;/var&gt;.
@@ -108,12 +109,12 @@ public class SettingPreference extends Preference {
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
-<span class="nc" id="L112">		super(context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L113">		this.init(context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L114">	}</span>
+	public SettingPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
+<span class="nc" id="L113">		super(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L114">		this.init(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L115">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -125,28 +126,55 @@ public class SettingPreference extends Preference {
 	 * The specified &lt;var&gt;defStyleAttr&lt;/var&gt; and &lt;var&gt;defStyleRes&lt;/var&gt; are used to obtain default
 	 * data from the current theme provided by the specified &lt;var&gt;context&lt;/var&gt;.
 	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-<span class="nc" id="L129">		this.ensureDecorator();</span>
-<span class="nc" id="L130">		mDecorator.processAttributes(context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L131">	}</span>
+	private void init(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+<span class="nc" id="L130">		this.ensureDecorator();</span>
+<span class="nc" id="L131">		mDecorator.processAttributes(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L132">	}</span>
 
 	/**
 	 * Ensures that the decorator for this view is initialized.
 	 */
 	private void ensureDecorator() {
-<span class="nc bnc" id="L137" title="All 2 branches missed.">		if (mDecorator == null) this.mDecorator = new PreferenceDecorator(this);</span>
-<span class="nc" id="L138">	}</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">		if (mDecorator == null) this.mDecorator = new PreferenceDecorator(this) {</span>
+
+			/**
+			 */
+			@Nullable
+			@Override
+			Object onGetDefaultValue(@NonNull final TypedArray attributes, final int index) {
+<span class="nc" id="L145">				return SettingPreference.this.onGetDefaultValue(attributes, index);</span>
+			}
+
+			/**
+			 */
+			@Override
+			void onUpdateInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
+<span class="nc" id="L152">				SettingPreference.this.onSetInitialValue(restorePersistedValue, defaultValue);</span>
+<span class="nc" id="L153">			}</span>
+		};
+<span class="nc" id="L155">	}</span>
 
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
-<span class="nc" id="L144">		super.onBindView(view);</span>
-<span class="nc" id="L145">		this.ensureDecorator();</span>
-<span class="nc" id="L146">		mDecorator.onBindView(view);</span>
-<span class="nc" id="L147">	}</span>
+	public void setKey(@NonNull final String key) {
+<span class="nc bnc" id="L161" title="All 2 branches missed.">		final boolean keyChanged = !key.equals(getKey());</span>
+<span class="nc" id="L162">		super.setKey(key);</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">		if (keyChanged) {</span>
+<span class="nc" id="L164">			mDecorator.handleKeyChange();</span>
+		}
+<span class="nc" id="L166">	}</span>
 
 	/**
+	 */
+	@Override
+	public void onBindView(@NonNull final View view) {
+<span class="nc" id="L172">		super.onBindView(view);</span>
+<span class="nc" id="L173">		this.ensureDecorator();</span>
+<span class="nc" id="L174">		mDecorator.onBindView(view);</span>
+<span class="nc" id="L175">	}</span>
+
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

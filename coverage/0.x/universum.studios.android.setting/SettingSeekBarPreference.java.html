@@ -54,7 +54,7 @@ import android.widget.SeekBar;
  */
 public class SettingSeekBarPreference extends SettingPreference {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -68,15 +68,15 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 */
 	private static final int PROGRESS_MAX = 100;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -89,21 +89,21 @@ public class SettingSeekBarPreference extends SettingPreference {
 		/**
 		 */
 		@Override
-		public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+		public void onProgressChanged(@NonNull final SeekBar seekBar, final int progress, final boolean fromUser) {
 			// Ignored. See onStopTrackingTouch(...).
 <span class="nc" id="L94">		}</span>
 
 		/**
 		 */
 		@Override
-		public void onStartTrackingTouch(SeekBar seekBar) {
+		public void onStartTrackingTouch(@NonNull final SeekBar seekBar) {
 			// Ignored. See onStopTrackingTouch(...).
 <span class="nc" id="L101">		}</span>
 
 		/**
 		 */
 		@Override
-		public void onStopTrackingTouch(SeekBar seekBar) {
+		public void onStopTrackingTouch(@NonNull final SeekBar seekBar) {
 <span class="nc" id="L107">			setProgress(seekBar.getProgress());</span>
 <span class="nc" id="L108">		}</span>
 	};
@@ -131,14 +131,14 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 */
 	private int mProgress;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingSeekBarPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingSeekBarPreference(@NonNull Context context) {
+	public SettingSeekBarPreference(@NonNull final Context context) {
 <span class="nc" id="L142">		this(context, null);</span>
 <span class="nc" id="L143">	}</span>
 
@@ -146,7 +146,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * Same as {@link #SettingSeekBarPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingSeekBarPreferenceStyle} as attribute for default style.
 	 */
-	public SettingSeekBarPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingSeekBarPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 <span class="nc" id="L150">		this(context, attrs, R.attr.uiSettingSeekBarPreferenceStyle);</span>
 <span class="nc" id="L151">	}</span>
 
@@ -154,7 +154,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * Same as {@link #SettingSeekBarPreference(Context, AttributeSet, int, int)} with {@code 0}
 	 * as default style.
 	 */
-	public SettingSeekBarPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+	public SettingSeekBarPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 <span class="nc" id="L158">		super(context, attrs, defStyleAttr);</span>
 <span class="nc" id="L159">		this.init(context, attrs, defStyleAttr, 0);</span>
 <span class="nc" id="L160">	}</span>
@@ -169,12 +169,12 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingSeekBarPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingSeekBarPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 <span class="nc" id="L173">		super(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L174">		this.init(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L175">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -186,7 +186,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * The specified &lt;var&gt;defStyleAttr&lt;/var&gt; and &lt;var&gt;defStyleRes&lt;/var&gt; are used to obtain default
 	 * data from the current theme provided by the specified &lt;var&gt;context&lt;/var&gt;.
 	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	private void init(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 <span class="nc" id="L190">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SeekBarPreference, defStyleAttr, defStyleRes);</span>
 <span class="nc bnc" id="L191" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
 <span class="nc" id="L192">			final int index = attributes.getIndex(i);</span>
@@ -200,16 +200,17 @@ public class SettingSeekBarPreference extends SettingPreference {
 	/**
 	 */
 	@Override
-	protected Object onGetDefaultValue(@NonNull TypedArray typedArray, int index) {
-<span class="nc" id="L204">		return typedArray.getInt(index, mProgress);</span>
+	protected Object onGetDefaultValue(@NonNull final TypedArray attributes, final int index) {
+<span class="nc" id="L204">		return attributes.getInt(index, mProgress);</span>
 	}
 
 	/**
 	 */
 	@Override
-	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
-<span class="nc bnc" id="L211" title="All 2 branches missed.">		setProgress(restorePersistedValue ? getPersistedInt(mProgress) : (Integer) defaultValue);</span>
-<span class="nc" id="L212">	}</span>
+	@SuppressWarnings(&quot;ConstantConditions&quot;)
+	protected void onSetInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
+<span class="nc bnc" id="L212" title="All 2 branches missed.">		setProgress(restorePersistedValue ? getPersistedInt(mProgress) : (Integer) defaultValue);</span>
+<span class="nc" id="L213">	}</span>
 
 	/**
 	 * Sets a maximum value for the progress that may be specified for this preference.
@@ -221,9 +222,9 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * @see android.R.attr#max
 	 * @see #getMaxProgress()
 	 */
-	public void setMaxProgress(int maxProgress) {
-<span class="nc" id="L225">		this.mMaxProgress = maxProgress;</span>
-<span class="nc" id="L226">	}</span>
+	public void setMaxProgress(final int maxProgress) {
+<span class="nc" id="L226">		this.mMaxProgress = maxProgress;</span>
+<span class="nc" id="L227">	}</span>
 
 	/**
 	 * Returns the maximum value for progress specified for this preference.
@@ -232,7 +233,7 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * @see #setMaxProgress(int)
 	 */
 	public int getMaxProgress() {
-<span class="nc" id="L235">		return mMaxProgress;</span>
+<span class="nc" id="L236">		return mMaxProgress;</span>
 	}
 
 	/**
@@ -244,17 +245,17 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * @param progress The preferred progress to be persisted. Should be from the range {@code [0, getMaxProgress()]}.
 	 * @see #getProgress()
 	 */
-	public void setProgress(int progress) {
-<span class="nc bnc" id="L248" title="All 2 branches missed.">		final boolean changed = mProgress != progress;</span>
-<span class="nc bnc" id="L249" title="All 6 branches missed.">		if (callChangeListener(progress) &amp;&amp; (changed || !mProgressSet)) {</span>
-<span class="nc" id="L250">			this.mProgress = progress;</span>
-<span class="nc" id="L251">			this.mProgressSet = true;</span>
-<span class="nc" id="L252">			persistInt(mProgress);</span>
-<span class="nc bnc" id="L253" title="All 2 branches missed.">			if (changed) {</span>
-<span class="nc" id="L254">				notifyChanged();</span>
+	public void setProgress(final int progress) {
+<span class="nc bnc" id="L249" title="All 2 branches missed.">		final boolean changed = mProgress != progress;</span>
+<span class="nc bnc" id="L250" title="All 6 branches missed.">		if (callChangeListener(progress) &amp;&amp; (changed || !mProgressSet)) {</span>
+<span class="nc" id="L251">			this.mProgress = progress;</span>
+<span class="nc" id="L252">			this.mProgressSet = true;</span>
+<span class="nc" id="L253">			persistInt(mProgress);</span>
+<span class="nc bnc" id="L254" title="All 2 branches missed.">			if (changed) {</span>
+<span class="nc" id="L255">				notifyChanged();</span>
 			}
 		}
-<span class="nc" id="L257">	}</span>
+<span class="nc" id="L258">	}</span>
 
 	/**
 	 * Returns the preferred progress value of this preference.
@@ -263,24 +264,24 @@ public class SettingSeekBarPreference extends SettingPreference {
 	 * @see #setProgress(int)
 	 */
 	public int getProgress() {
-<span class="nc" id="L266">		return mProgress;</span>
+<span class="nc" id="L267">		return mProgress;</span>
 	}
 
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
-<span class="nc" id="L273">		super.onBindView(view);</span>
-<span class="nc" id="L274">		final SeekBar seekBar = (SeekBar) view.findViewById(R.id.ui_setting_seek_bar);</span>
-<span class="nc bnc" id="L275" title="All 2 branches missed.">		if (seekBar != null) {</span>
-<span class="nc" id="L276">			seekBar.setOnSeekBarChangeListener(null);</span>
-<span class="nc" id="L277">			seekBar.setMax(mMaxProgress);</span>
-<span class="nc" id="L278">			seekBar.setProgress(mProgress);</span>
-<span class="nc" id="L279">			seekBar.setOnSeekBarChangeListener(mListener);</span>
+	public void onBindView(@NonNull final View view) {
+<span class="nc" id="L274">		super.onBindView(view);</span>
+<span class="nc" id="L275">		final SeekBar seekBar = (SeekBar) view.findViewById(R.id.ui_setting_seek_bar);</span>
+<span class="nc bnc" id="L276" title="All 2 branches missed.">		if (seekBar != null) {</span>
+<span class="nc" id="L277">			seekBar.setOnSeekBarChangeListener(null);</span>
+<span class="nc" id="L278">			seekBar.setMax(mMaxProgress);</span>
+<span class="nc" id="L279">			seekBar.setProgress(mProgress);</span>
+<span class="nc" id="L280">			seekBar.setOnSeekBarChangeListener(mListener);</span>
 		}
-<span class="nc" id="L281">	}</span>
+<span class="nc" id="L282">	}</span>
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

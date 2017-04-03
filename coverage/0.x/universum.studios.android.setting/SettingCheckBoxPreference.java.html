@@ -20,6 +20,7 @@ package universum.studios.android.setting;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.preference.CheckBoxPreference;
 import android.support.annotation.AttrRes;
@@ -44,7 +45,7 @@ import android.widget.Checkable;
  */
 public class SettingCheckBoxPreference extends CheckBoxPreference {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -53,15 +54,15 @@ public class SettingCheckBoxPreference extends CheckBoxPreference {
 	 */
 	// private static final String TAG = &quot;SettingCheckBoxPreference&quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -71,33 +72,35 @@ public class SettingCheckBoxPreference extends CheckBoxPreference {
 	 */
 	private PreferenceDecorator mDecorator;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingCheckBoxPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingCheckBoxPreference(@NonNull Context context) {
-<span class="nc" id="L82">		this(context, null);</span>
-<span class="nc" id="L83">	}</span>
+	public SettingCheckBoxPreference(@NonNull final Context context) {
+<span class="nc" id="L83">		this(context, null);</span>
+<span class="nc" id="L84">	}</span>
 
 	/**
 	 * Same as {@link #SettingCheckBoxPreference(Context, AttributeSet, int)} with
 	 * {@link android.R.attr#checkBoxPreferenceStyle} as attribute for default style.
 	 */
-	public SettingCheckBoxPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
-<span class="nc" id="L90">		this(context, attrs, android.R.attr.checkBoxPreferenceStyle);</span>
-<span class="nc" id="L91">	}</span>
+	public SettingCheckBoxPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
+<span class="nc" id="L91">		this(context, attrs, android.R.attr.checkBoxPreferenceStyle);</span>
+<span class="nc" id="L92">	}</span>
 
 	/**
 	 * Same as {@link #SettingCheckBoxPreference(Context, AttributeSet, int, int)} with {@code 0}
 	 * as default style.
 	 */
-	public SettingCheckBoxPreference(Context context, AttributeSet attrs, int defStyleAttr) {
-<span class="nc" id="L98">		super(context, attrs, defStyleAttr);</span>
-<span class="nc" id="L99">		this.init(context, attrs, defStyleAttr, 0);</span>
-<span class="nc" id="L100">	}</span>
+	public SettingCheckBoxPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
+<span class="nc" id="L99">		super(context, attrs, defStyleAttr);</span>
+<span class="nc" id="L100">		this.ensureDecorator();</span>
+		// Enable layout recycling otherwise checkbox animations are not working.
+<span class="nc" id="L102">		mDecorator.setCanRecycleLayout(true);</span>
+<span class="nc" id="L103">	}</span>
 
 	/**
 	 * Creates a new instance of SettingCheckBoxPreference for the given &lt;var&gt;context&lt;/var&gt;.
@@ -109,50 +112,65 @@ public class SettingCheckBoxPreference extends CheckBoxPreference {
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingCheckBoxPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
-<span class="nc" id="L113">		super(context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L114">		this.init(context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L115">	}</span>
+	public SettingCheckBoxPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
+<span class="nc" id="L116">		super(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L117">		this.ensureDecorator();</span>
+		// Enable layout recycling otherwise checkbox animations are not working.
+<span class="nc" id="L119">		mDecorator.setCanRecycleLayout(true);</span>
+<span class="nc" id="L120">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
-
-	/**
-	 * Called from one of constructors of this setting preference to perform its initialization.
-	 * &lt;p&gt;
-	 * Initialization is done via parsing of the specified &lt;var&gt;attrs&lt;/var&gt; set and obtaining for
-	 * this preference specific data from it that can be used to configure this new preference instance.
-	 * The specified &lt;var&gt;defStyleAttr&lt;/var&gt; and &lt;var&gt;defStyleRes&lt;/var&gt; are used to obtain default
-	 * data from the current theme provided by the specified &lt;var&gt;context&lt;/var&gt;.
-	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-<span class="nc" id="L130">		this.ensureDecorator();</span>
-		// Enable layout recycling otherwise checkbox animations are not working.
-<span class="nc" id="L132">		mDecorator.setCanRecycleLayout(true);</span>
-<span class="nc" id="L133">	}</span>
 
 	/**
 	 * Ensures that the decorator for this view is initialized.
 	 */
 	private void ensureDecorator() {
-<span class="nc bnc" id="L139" title="All 2 branches missed.">		if (mDecorator == null) this.mDecorator = new PreferenceDecorator(this);</span>
-<span class="nc" id="L140">	}</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">		if (mDecorator == null) this.mDecorator = new PreferenceDecorator(this) {</span>
+
+			/**
+			 */
+			@Nullable
+			@Override
+			Object onGetDefaultValue(@NonNull final TypedArray attributes, final int index) {
+<span class="nc" id="L137">				return SettingCheckBoxPreference.this.onGetDefaultValue(attributes, index);</span>
+			}
+
+			/**
+			 */
+			@Override
+			void onUpdateInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
+<span class="nc" id="L144">				SettingCheckBoxPreference.this.onSetInitialValue(restorePersistedValue, defaultValue);</span>
+<span class="nc" id="L145">			}</span>
+		};
+<span class="nc" id="L147">	}</span>
 
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
-<span class="nc" id="L146">		super.onBindView(view);</span>
-<span class="nc" id="L147">		this.ensureDecorator();</span>
-<span class="nc" id="L148">		mDecorator.onBindView(view);</span>
-<span class="nc" id="L149">		final View checkableView = view.findViewById(android.R.id.checkbox);</span>
-<span class="nc bnc" id="L150" title="All 2 branches missed.">		if (checkableView instanceof Checkable) {</span>
-<span class="nc" id="L151">			((Checkable) checkableView).setChecked(isChecked());</span>
+	public void setKey(@NonNull final String key) {
+<span class="nc bnc" id="L153" title="All 2 branches missed.">		final boolean keyChanged = !key.equals(getKey());</span>
+<span class="nc" id="L154">		super.setKey(key);</span>
+<span class="nc bnc" id="L155" title="All 2 branches missed.">		if (keyChanged) {</span>
+<span class="nc" id="L156">			mDecorator.handleKeyChange();</span>
 		}
-<span class="nc" id="L153">	}</span>
+<span class="nc" id="L158">	}</span>
 
 	/**
+	 */
+	@Override
+	public void onBindView(@NonNull final View view) {
+<span class="nc" id="L164">		super.onBindView(view);</span>
+<span class="nc" id="L165">		this.ensureDecorator();</span>
+<span class="nc" id="L166">		mDecorator.onBindView(view);</span>
+<span class="nc" id="L167">		final View checkableView = view.findViewById(android.R.id.checkbox);</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">		if (checkableView instanceof Checkable) {</span>
+<span class="nc" id="L169">			((Checkable) checkableView).setChecked(isChecked());</span>
+		}
+<span class="nc" id="L171">	}</span>
+
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

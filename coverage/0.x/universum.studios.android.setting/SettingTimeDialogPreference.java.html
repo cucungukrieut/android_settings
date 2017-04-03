@@ -66,7 +66,7 @@ import universum.studios.android.dialog.TimePickerDialog;
  */
 public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference&lt;TimePickerDialog.TimeOptions&gt; {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -80,26 +80,26 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 */
 	private static final String FORMAT_PATTERN = &quot;hh:mm a&quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingTimeDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingTimeDialogPreference(@NonNull Context context) {
+	public SettingTimeDialogPreference(@NonNull final Context context) {
 <span class="nc" id="L103">		this(context, null);</span>
 <span class="nc" id="L104">	}</span>
 
@@ -107,7 +107,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * Same as {@link #SettingTimeDialogPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingTimeDialogPreferenceStyle} as attribute for default style.
 	 */
-	public SettingTimeDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingTimeDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 <span class="nc" id="L111">		this(context, attrs, R.attr.uiSettingTimeDialogPreferenceStyle);</span>
 <span class="nc" id="L112">	}</span>
 
@@ -115,7 +115,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * Same as {@link #SettingTimeDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingTimeDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingTimeDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 <span class="nc" id="L119">		super(context, attrs, defStyleAttr);</span>
 <span class="nc" id="L120">	}</span>
 
@@ -129,11 +129,11 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingTimeDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingTimeDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 <span class="nc" id="L133">		super(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L134">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -143,7 +143,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * @param timeString The desired data to parse into time.
 	 * @return Parsed time in milliseconds or {@code null} if parsing failed.
 	 */
-	private static Long parseTime(String timeString) {
+	private static Long parseTime(final String timeString) {
 <span class="nc bnc" id="L147" title="All 2 branches missed.">		return TextUtils.isEmpty(timeString) ? null : TimePickerDialog.TimeParser.parse(timeString);</span>
 	}
 
@@ -151,7 +151,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 */
 	@NonNull
 	@Override
-	protected TimePickerDialog.TimeOptions onCreateDialogOptions(@NonNull Resources resources) {
+	protected TimePickerDialog.TimeOptions onCreateDialogOptions(@NonNull final Resources resources) {
 <span class="nc" id="L155">		return new TimePickerDialog.TimeOptions(resources);</span>
 	}
 
@@ -159,34 +159,40 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 */
 	@Override
 	@SuppressWarnings(&quot;ResourceType&quot;)
-	protected void onConfigureDialogOptions(@NonNull TimePickerDialog.TimeOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
-<span class="nc" id="L163">		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L164">		String formatPattern = FORMAT_PATTERN;</span>
-<span class="nc" id="L165">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_TimeDialogPreference, defStyleAttr, defStyleRes);</span>
-<span class="nc bnc" id="L166" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
-<span class="nc" id="L167">			final int index = attributes.getIndex(i);</span>
-<span class="nc bnc" id="L168" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_TimeDialogPreference_uiSettingDateFormat) {</span>
-<span class="nc" id="L169">				final String dateFormat = attributes.getString(index);</span>
-<span class="nc bnc" id="L170" title="All 2 branches missed.">				formatPattern = TextUtils.isEmpty(dateFormat) ? formatPattern : dateFormat;</span>
-<span class="nc bnc" id="L171" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_TimeDialogPreference_dialogTime) {</span>
-<span class="nc" id="L172">				final Long time = parseTime(attributes.getString(index));</span>
-<span class="nc bnc" id="L173" title="All 2 branches missed.">				if (time != null) options.time(time);</span>
-<span class="nc bnc" id="L174" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_TimeDialogPreference_dialogTimePickers) {</span>
-<span class="nc" id="L175">				options.timePickers(attributes.getInt(index, options.timePickers()));</span>
-<span class="nc bnc" id="L176" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_TimeDialogPreference_dialogTimeQuantityText) {</span>
-<span class="nc" id="L177">				options.timeQuantityText(attributes.getResourceId(index, 0));</span>
+	protected void onConfigureDialogOptions(
+			@NonNull final TimePickerDialog.TimeOptions options,
+			@NonNull final Context context,
+			@Nullable final AttributeSet attrs,
+			@AttrRes final int defStyleAttr,
+			@StyleRes final int defStyleRes
+	) {
+<span class="nc" id="L169">		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L170">		String formatPattern = FORMAT_PATTERN;</span>
+<span class="nc" id="L171">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_TimeDialogPreference, defStyleAttr, defStyleRes);</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
+<span class="nc" id="L173">			final int index = attributes.getIndex(i);</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_TimeDialogPreference_uiSettingDateFormat) {</span>
+<span class="nc" id="L175">				final String dateFormat = attributes.getString(index);</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">				formatPattern = TextUtils.isEmpty(dateFormat) ? formatPattern : dateFormat;</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_TimeDialogPreference_dialogTime) {</span>
+<span class="nc" id="L178">				final Long time = parseTime(attributes.getString(index));</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">				if (time != null) options.time(time);</span>
+<span class="nc bnc" id="L180" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_TimeDialogPreference_dialogTimePickers) {</span>
+<span class="nc" id="L181">				options.timePickers(attributes.getInt(index, options.timePickers()));</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_TimeDialogPreference_dialogTimeQuantityText) {</span>
+<span class="nc" id="L183">				options.timeQuantityText(attributes.getResourceId(index, 0));</span>
 			}
 		}
-<span class="nc" id="L180">		attributes.recycle();</span>
-<span class="nc" id="L181">		setFormat(new SimpleDateFormat(formatPattern, Locale.getDefault()));</span>
-<span class="nc" id="L182">	}</span>
+<span class="nc" id="L186">		attributes.recycle();</span>
+<span class="nc" id="L187">		setFormat(new SimpleDateFormat(formatPattern, Locale.getDefault()));</span>
+<span class="nc" id="L188">	}</span>
 
 	/**
 	 */
 	@Override
-	long onParseDefaultValue(@NonNull Object defaultValue) {
-<span class="nc" id="L188">		final Long time = parseTime((String) defaultValue);</span>
-<span class="nc bnc" id="L189" title="All 2 branches missed.">		return time == null ? 0 : time;</span>
+	long onParseDefaultValue(@NonNull final Object defaultValue) {
+<span class="nc" id="L194">		final Long time = parseTime((String) defaultValue);</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">		return time == null ? 0 : time;</span>
 	}
 
 	/**
@@ -196,9 +202,9 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 *             to {@code 0}.
 	 * @see #getTime()
 	 */
-	public void setTime(@Nullable Date time) {
-<span class="nc bnc" id="L200" title="All 2 branches missed.">		setTime(time == null ? 0 : time.getTime());</span>
-<span class="nc" id="L201">	}</span>
+	public void setTime(@Nullable final Date time) {
+<span class="nc bnc" id="L206" title="All 2 branches missed.">		setTime(time == null ? 0 : time.getTime());</span>
+<span class="nc" id="L207">	}</span>
 
 	/**
 	 * Sets a preferred time value for this preference.
@@ -209,9 +215,9 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * @param timeInMillis The preferred time in milliseconds to be persisted.
 	 * @see #getTimeInMillis()
 	 */
-	public void setTime(long timeInMillis) {
-<span class="nc" id="L213">		setMilliseconds(timeInMillis);</span>
-<span class="nc" id="L214">	}</span>
+	public void setTime(final long timeInMillis) {
+<span class="nc" id="L219">		setMilliseconds(timeInMillis);</span>
+<span class="nc" id="L220">	}</span>
 
 	/**
 	 * Like {@link #getTimeInMillis()}, but this method may be used to check whether the time value
@@ -224,7 +230,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 */
 	@Nullable
 	public Date getTime() {
-<span class="nc bnc" id="L227" title="All 2 branches missed.">		return areMillisecondsSet() ? new Date(getTimeInMillis()) : null;</span>
+<span class="nc bnc" id="L233" title="All 2 branches missed.">		return areMillisecondsSet() ? new Date(getTimeInMillis()) : null;</span>
 	}
 
 	/**
@@ -236,7 +242,7 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	 * @see #getDialogOptions()
 	 */
 	public long getTimeInMillis() {
-<span class="nc" id="L239">		return getMilliseconds();</span>
+<span class="nc" id="L245">		return getMilliseconds();</span>
 	}
 
 	/**
@@ -248,30 +254,30 @@ public class SettingTimeDialogPreference extends SettingDateTimeDialogPreference
 	@NonNull
 	@Override
 	public TimePickerDialog.TimeOptions getDialogOptions() {
-<span class="nc" id="L251">		final TimePickerDialog.TimeOptions options = super.getDialogOptions();</span>
-<span class="nc bnc" id="L252" title="All 2 branches missed.">		if (areMillisecondsSet()) {</span>
-<span class="nc" id="L253">			options.time(getTimeInMillis());</span>
+<span class="nc" id="L257">		final TimePickerDialog.TimeOptions options = super.getDialogOptions();</span>
+<span class="nc bnc" id="L258" title="All 2 branches missed.">		if (areMillisecondsSet()) {</span>
+<span class="nc" id="L259">			options.time(getTimeInMillis());</span>
 		}
-<span class="nc" id="L255">		return options;</span>
+<span class="nc" id="L261">		return options;</span>
 	}
 
 	/**
 	 */
 	@Override
-	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
-<span class="nc bnc" id="L262" title="All 2 branches missed.">		if (dialog instanceof TimePickerDialog) {</span>
-<span class="nc bnc" id="L263" title="All 2 branches missed.">			switch (button) {</span>
+	protected boolean onHandleDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
+<span class="nc bnc" id="L268" title="All 2 branches missed.">		if (dialog instanceof TimePickerDialog) {</span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">			switch (button) {</span>
 				case Dialog.BUTTON_POSITIVE:
-<span class="nc" id="L265">					setTime(((TimePickerDialog) dialog).getTime());</span>
-<span class="nc" id="L266">					return true;</span>
+<span class="nc" id="L271">					setTime(((TimePickerDialog) dialog).getTime());</span>
+<span class="nc" id="L272">					return true;</span>
 				default:
-<span class="nc" id="L268">					return true;</span>
+<span class="nc" id="L274">					return true;</span>
 			}
 		}
-<span class="nc" id="L271">		return super.onHandleDialogButtonClick(dialog, button);</span>
+<span class="nc" id="L277">		return super.onHandleDialogButtonClick(dialog, button);</span>
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

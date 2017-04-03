@@ -66,7 +66,7 @@ import universum.studios.android.dialog.Dialog;
  */
 public final class SettingDateDialogPreference extends SettingDateTimeDialogPreference&lt;DatePickerDialog.DateOptions&gt; {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -80,26 +80,26 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 */
 	private static final String FORMAT_PATTERN = &quot;MMM dd, yyyy&quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingDateDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingDateDialogPreference(@NonNull Context context) {
+	public SettingDateDialogPreference(@NonNull final Context context) {
 <span class="nc" id="L103">		this(context, null);</span>
 <span class="nc" id="L104">	}</span>
 
@@ -107,7 +107,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * Same as {@link #SettingDateDialogPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingDateDialogPreferenceStyle} as attribute for default style.
 	 */
-	public SettingDateDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingDateDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 <span class="nc" id="L111">		this(context, attrs, R.attr.uiSettingDateDialogPreferenceStyle);</span>
 <span class="nc" id="L112">	}</span>
 
@@ -115,7 +115,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * Same as {@link #SettingDateDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingDateDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingDateDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 <span class="nc" id="L119">		super(context, attrs, defStyleAttr);</span>
 <span class="nc" id="L120">	}</span>
 
@@ -129,11 +129,11 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingDateDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingDateDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 <span class="nc" id="L133">		super(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L134">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -143,7 +143,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * @param dateString The desired data to parse into date.
 	 * @return Parsed date in milliseconds or {@code null} if parsing failed.
 	 */
-	private static Long parseDate(String dateString) {
+	private static Long parseDate(final String dateString) {
 <span class="nc bnc" id="L147" title="All 2 branches missed.">		return TextUtils.isEmpty(dateString) ? null : DatePickerDialog.DateParser.parse(dateString);</span>
 	}
 
@@ -151,43 +151,49 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 */
 	@NonNull
 	@Override
-	protected DatePickerDialog.DateOptions onCreateDialogOptions(@NonNull Resources resources) {
+	protected DatePickerDialog.DateOptions onCreateDialogOptions(@NonNull final Resources resources) {
 <span class="nc" id="L155">		return new DatePickerDialog.DateOptions(resources);</span>
 	}
 
 	/**
 	 */
 	@Override
-	protected void onConfigureDialogOptions(@NonNull DatePickerDialog.DateOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
-<span class="nc" id="L162">		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L163">		String formatPattern = FORMAT_PATTERN;</span>
-<span class="nc" id="L164">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DateDialogPreference, defStyleAttr, defStyleRes);</span>
-<span class="nc bnc" id="L165" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
-<span class="nc" id="L166">			final int index = attributes.getIndex(i);</span>
-<span class="nc bnc" id="L167" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_DateDialogPreference_uiSettingDateFormat) {</span>
-<span class="nc" id="L168">				final String dateFormat = attributes.getString(index);</span>
-<span class="nc bnc" id="L169" title="All 2 branches missed.">				formatPattern = TextUtils.isEmpty(dateFormat) ? formatPattern : dateFormat;</span>
-<span class="nc bnc" id="L170" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDate) {</span>
-<span class="nc" id="L171">				final Long date = parseDate(attributes.getString(index));</span>
-<span class="nc bnc" id="L172" title="All 2 branches missed.">				if (date != null) options.date(date);</span>
-<span class="nc bnc" id="L173" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDateMin) {</span>
-<span class="nc" id="L174">				final Long date = parseDate(attributes.getString(index));</span>
-<span class="nc bnc" id="L175" title="All 2 branches missed.">				if (date != null) options.minDate(date);</span>
-<span class="nc bnc" id="L176" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDateMax) {</span>
+	protected void onConfigureDialogOptions(
+			@NonNull final DatePickerDialog.DateOptions options,
+			@NonNull final Context context,
+			@Nullable final AttributeSet attrs,
+			@AttrRes final int defStyleAttr,
+			@StyleRes final int defStyleRes
+	) {
+<span class="nc" id="L168">		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L169">		String formatPattern = FORMAT_PATTERN;</span>
+<span class="nc" id="L170">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DateDialogPreference, defStyleAttr, defStyleRes);</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
+<span class="nc" id="L172">			final int index = attributes.getIndex(i);</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_DateDialogPreference_uiSettingDateFormat) {</span>
+<span class="nc" id="L174">				final String dateFormat = attributes.getString(index);</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">				formatPattern = TextUtils.isEmpty(dateFormat) ? formatPattern : dateFormat;</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDate) {</span>
 <span class="nc" id="L177">				final Long date = parseDate(attributes.getString(index));</span>
-<span class="nc bnc" id="L178" title="All 2 branches missed.">				if (date != null) options.maxDate(date);</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">				if (date != null) options.date(date);</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDateMin) {</span>
+<span class="nc" id="L180">				final Long date = parseDate(attributes.getString(index));</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">				if (date != null) options.minDate(date);</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DateDialogPreference_dialogDateMax) {</span>
+<span class="nc" id="L183">				final Long date = parseDate(attributes.getString(index));</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">				if (date != null) options.maxDate(date);</span>
 			}
 		}
-<span class="nc" id="L181">		attributes.recycle();</span>
-<span class="nc" id="L182">		setFormat(new SimpleDateFormat(formatPattern, Locale.getDefault()));</span>
-<span class="nc" id="L183">	}</span>
+<span class="nc" id="L187">		attributes.recycle();</span>
+<span class="nc" id="L188">		setFormat(new SimpleDateFormat(formatPattern, Locale.getDefault()));</span>
+<span class="nc" id="L189">	}</span>
 
 	/**
 	 */
 	@Override
-	long onParseDefaultValue(@NonNull Object defaultValue) {
-<span class="nc" id="L189">		final Long date = parseDate((String) defaultValue);</span>
-<span class="nc bnc" id="L190" title="All 2 branches missed.">		return date == null ? 0 : date;</span>
+	long onParseDefaultValue(@NonNull final Object defaultValue) {
+<span class="nc" id="L195">		final Long date = parseDate((String) defaultValue);</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">		return date == null ? 0 : date;</span>
 	}
 
 	/**
@@ -197,9 +203,9 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 *             to {@code 0}.
 	 * @see #getDate()
 	 */
-	public void setDate(@Nullable Date date) {
-<span class="nc bnc" id="L201" title="All 2 branches missed.">		setDate(date == null ? 0 : date.getTime());</span>
-<span class="nc" id="L202">	}</span>
+	public void setDate(@Nullable final Date date) {
+<span class="nc bnc" id="L207" title="All 2 branches missed.">		setDate(date == null ? 0 : date.getTime());</span>
+<span class="nc" id="L208">	}</span>
 
 	/**
 	 * Sets a preferred date value for this preference.
@@ -210,9 +216,9 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * @param dateInMillis The preferred date in milliseconds to be persisted.
 	 * @see #getDateInMillis()
 	 */
-	public void setDate(long dateInMillis) {
-<span class="nc" id="L214">		setMilliseconds(dateInMillis);</span>
-<span class="nc" id="L215">	}</span>
+	public void setDate(final long dateInMillis) {
+<span class="nc" id="L220">		setMilliseconds(dateInMillis);</span>
+<span class="nc" id="L221">	}</span>
 
 	/**
 	 * Like {@link #getDateInMillis()}, but this method may be used to check whether the date value
@@ -225,7 +231,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 */
 	@Nullable
 	public Date getDate() {
-<span class="nc bnc" id="L228" title="All 2 branches missed.">		return areMillisecondsSet() ? new Date(getDateInMillis()) : null;</span>
+<span class="nc bnc" id="L234" title="All 2 branches missed.">		return areMillisecondsSet() ? new Date(getDateInMillis()) : null;</span>
 	}
 
 	/**
@@ -237,7 +243,7 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	 * @see #getDialogOptions()
 	 */
 	public long getDateInMillis() {
-<span class="nc" id="L240">		return getMilliseconds();</span>
+<span class="nc" id="L246">		return getMilliseconds();</span>
 	}
 
 	/**
@@ -249,30 +255,30 @@ public final class SettingDateDialogPreference extends SettingDateTimeDialogPref
 	@NonNull
 	@Override
 	public DatePickerDialog.DateOptions getDialogOptions() {
-<span class="nc" id="L252">		final DatePickerDialog.DateOptions options = super.getDialogOptions();</span>
-<span class="nc bnc" id="L253" title="All 2 branches missed.">		if (areMillisecondsSet()) {</span>
-<span class="nc" id="L254">			options.date(getDateInMillis());</span>
+<span class="nc" id="L258">		final DatePickerDialog.DateOptions options = super.getDialogOptions();</span>
+<span class="nc bnc" id="L259" title="All 2 branches missed.">		if (areMillisecondsSet()) {</span>
+<span class="nc" id="L260">			options.date(getDateInMillis());</span>
 		}
-<span class="nc" id="L256">		return options;</span>
+<span class="nc" id="L262">		return options;</span>
 	}
 
 	/**
 	 */
 	@Override
-	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
-<span class="nc bnc" id="L263" title="All 2 branches missed.">		if (dialog instanceof DatePickerDialog) {</span>
-<span class="nc bnc" id="L264" title="All 2 branches missed.">			switch (button) {</span>
+	protected boolean onHandleDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
+<span class="nc bnc" id="L269" title="All 2 branches missed.">		if (dialog instanceof DatePickerDialog) {</span>
+<span class="nc bnc" id="L270" title="All 2 branches missed.">			switch (button) {</span>
 				case Dialog.BUTTON_POSITIVE:
-<span class="nc" id="L266">					setDate(((DatePickerDialog) dialog).getDate());</span>
-<span class="nc" id="L267">					return true;</span>
+<span class="nc" id="L272">					setDate(((DatePickerDialog) dialog).getDate());</span>
+<span class="nc" id="L273">					return true;</span>
 				default:
-<span class="nc" id="L269">					return true;</span>
+<span class="nc" id="L275">					return true;</span>
 			}
 		}
-<span class="nc" id="L272">		return super.onHandleDialogButtonClick(dialog, button);</span>
+<span class="nc" id="L278">		return super.onHandleDialogButtonClick(dialog, button);</span>
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

@@ -67,7 +67,7 @@ import universum.studios.android.dialog.DialogOptions;
  */
 public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; extends SettingPreference {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -83,7 +83,7 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 */
 	public static final int NO_DIALOG_ID = -1;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
@@ -103,11 +103,11 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 		boolean onDialogPreferenceClick(@NonNull SettingDialogPreference dialogPreference);
 	}
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -123,14 +123,14 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 */
 	private O mDialogOptions;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingDialogPreference(@NonNull Context context) {
+	public SettingDialogPreference(@NonNull final Context context) {
 <span class="nc" id="L134">		this(context, null);</span>
 <span class="nc" id="L135">	}</span>
 
@@ -138,7 +138,7 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 * Same as {@link #SettingDialogPreference(Context, AttributeSet, int)} with
 	 * {@link android.R.attr#dialogPreferenceStyle} as attribute for default style.
 	 */
-	public SettingDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 <span class="nc" id="L142">		this(context, attrs, android.R.attr.dialogPreferenceStyle);</span>
 <span class="nc" id="L143">	}</span>
 
@@ -146,7 +146,7 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 * Same as {@link #SettingDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+	public SettingDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 <span class="nc" id="L150">		super(context, attrs, defStyleAttr);</span>
 <span class="nc" id="L151">		this.init(context, attrs, defStyleAttr, 0);</span>
 <span class="nc" id="L152">	}</span>
@@ -161,12 +161,12 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 <span class="nc" id="L165">		super(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L166">		this.init(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L167">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -178,7 +178,7 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 * The specified &lt;var&gt;defStyleAttr&lt;/var&gt; and &lt;var&gt;defStyleRes&lt;/var&gt; are used to obtain default
 	 * data from the current theme provided by the specified &lt;var&gt;context&lt;/var&gt;.
 	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	private void init(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 <span class="nc" id="L182">		this.mDialogOptions = onCreateDialogOptions(context.getResources());</span>
 <span class="nc" id="L183">		onConfigureDialogOptions(mDialogOptions, context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L184">	}</span>
@@ -189,40 +189,46 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 * @param options The options created via {@link #onCreateDialogOptions(Resources)}.
 	 */
 	@SuppressWarnings(&quot;ResourceType&quot;)
-	protected void onConfigureDialogOptions(@NonNull O options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
-<span class="nc" id="L193">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DialogPreference, defStyleAttr, defStyleRes);</span>
-<span class="nc bnc" id="L194" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
-<span class="nc" id="L195">			final int index = attributes.getIndex(i);</span>
-<span class="nc bnc" id="L196" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_DialogPreference_dialogId) {</span>
-<span class="nc" id="L197">				this.mDialogId = attributes.getResourceId(index, NO_DIALOG_ID);</span>
-<span class="nc bnc" id="L198" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogIcon) {</span>
-<span class="nc" id="L199">				options.icon(attributes.getResourceId(index, options.icon()));</span>
-<span class="nc bnc" id="L200" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogVectorIcon) {</span>
-<span class="nc" id="L201">				options.vectorIcon(attributes.getResourceId(index, options.vectorIcon()));</span>
-<span class="nc bnc" id="L202" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogTitle) {</span>
-<span class="nc" id="L203">				options.title(attributes.getText(index));</span>
-<span class="nc bnc" id="L204" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogContent) {</span>
-<span class="nc" id="L205">				options.content(attributes.getText(index));</span>
-<span class="nc bnc" id="L206" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogPositiveButton) {</span>
-<span class="nc" id="L207">				options.positiveButton(attributes.getText(index));</span>
-<span class="nc bnc" id="L208" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogNeutralButton) {</span>
-<span class="nc" id="L209">				options.neutralButton(attributes.getText(index));</span>
-<span class="nc bnc" id="L210" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogNegativeButton) {</span>
-<span class="nc" id="L211">				options.negativeButton(attributes.getText(index));</span>
-<span class="nc bnc" id="L212" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogButtonsWidthMode) {</span>
-<span class="nc" id="L213">				options.buttonsWidthMode(attributes.getInt(index, options.buttonsWidthMode()));</span>
-<span class="nc bnc" id="L214" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogCancelable) {</span>
-<span class="nc" id="L215">				options.cancelable(attributes.getBoolean(index, options.shouldBeCancelable()));</span>
-<span class="nc bnc" id="L216" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogDismissOnRestore) {</span>
-<span class="nc" id="L217">				options.dismissOnRestore(attributes.getBoolean(index, options.shouldDismissOnRestore()));</span>
-<span class="nc bnc" id="L218" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogRemain) {</span>
-<span class="nc" id="L219">				options.remain(attributes.getBoolean(index, options.shouldRemain()));</span>
-<span class="nc bnc" id="L220" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogTheme) {</span>
-<span class="nc" id="L221">				options.theme(attributes.getResourceId(index, options.theme()));</span>
+	protected void onConfigureDialogOptions(
+			@NonNull final O options,
+			@NonNull final Context context,
+			@Nullable final AttributeSet attrs,
+			@AttrRes final int defStyleAttr,
+			@StyleRes final int defStyleRes
+	) {
+<span class="nc" id="L199">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DialogPreference, defStyleAttr, defStyleRes);</span>
+<span class="nc bnc" id="L200" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
+<span class="nc" id="L201">			final int index = attributes.getIndex(i);</span>
+<span class="nc bnc" id="L202" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_DialogPreference_dialogId) {</span>
+<span class="nc" id="L203">				this.mDialogId = attributes.getResourceId(index, NO_DIALOG_ID);</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogIcon) {</span>
+<span class="nc" id="L205">				options.icon(attributes.getResourceId(index, options.icon()));</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogVectorIcon) {</span>
+<span class="nc" id="L207">				options.vectorIcon(attributes.getResourceId(index, options.vectorIcon()));</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogTitle) {</span>
+<span class="nc" id="L209">				options.title(attributes.getText(index));</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogContent) {</span>
+<span class="nc" id="L211">				options.content(attributes.getText(index));</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogPositiveButton) {</span>
+<span class="nc" id="L213">				options.positiveButton(attributes.getText(index));</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogNeutralButton) {</span>
+<span class="nc" id="L215">				options.neutralButton(attributes.getText(index));</span>
+<span class="nc bnc" id="L216" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogNegativeButton) {</span>
+<span class="nc" id="L217">				options.negativeButton(attributes.getText(index));</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogButtonsWidthMode) {</span>
+<span class="nc" id="L219">				options.buttonsWidthMode(attributes.getInt(index, options.buttonsWidthMode()));</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogCancelable) {</span>
+<span class="nc" id="L221">				options.cancelable(attributes.getBoolean(index, options.shouldBeCancelable()));</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogDismissOnRestore) {</span>
+<span class="nc" id="L223">				options.dismissOnRestore(attributes.getBoolean(index, options.shouldDismissOnRestore()));</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogRemain) {</span>
+<span class="nc" id="L225">				options.remain(attributes.getBoolean(index, options.shouldRemain()));</span>
+<span class="nc bnc" id="L226" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_DialogPreference_dialogTheme) {</span>
+<span class="nc" id="L227">				options.theme(attributes.getResourceId(index, options.theme()));</span>
 			}
 		}
-<span class="nc" id="L224">		attributes.recycle();</span>
-<span class="nc" id="L225">	}</span>
+<span class="nc" id="L230">		attributes.recycle();</span>
+<span class="nc" id="L231">	}</span>
 
 	/**
 	 * Called to create instance of dialog options specific for this dialog preference.
@@ -235,8 +241,8 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 */
 	@NonNull
 	@SuppressWarnings(&quot;unchecked&quot;)
-	protected O onCreateDialogOptions(@NonNull Resources resources) {
-<span class="nc" id="L239">		return (O) new DialogOptions(resources);</span>
+	protected O onCreateDialogOptions(@NonNull final Resources resources) {
+<span class="nc" id="L245">		return (O) new DialogOptions(resources);</span>
 	}
 
 	/**
@@ -249,16 +255,16 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 * @param listener The desired callback. May be {@code null} to clear the current one.
 	 */
 	public void setOnClickListener(@Nullable final OnClickListener listener) {
-<span class="nc bnc" id="L252" title="All 2 branches missed.">		setOnPreferenceClickListener(listener == null ? null : new OnPreferenceClickListener() {</span>
+<span class="nc bnc" id="L258" title="All 2 branches missed.">		setOnPreferenceClickListener(listener == null ? null : new OnPreferenceClickListener() {</span>
 
 			/**
 			 */
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-<span class="nc" id="L258">				return listener.onDialogPreferenceClick((SettingDialogPreference) preference);</span>
+<span class="nc" id="L264">				return listener.onDialogPreferenceClick((SettingDialogPreference) preference);</span>
 			}
 		});
-<span class="nc" id="L261">	}</span>
+<span class="nc" id="L267">	}</span>
 
 	/**
 	 * Returns id of the dialog associated with this dialog preference.
@@ -267,7 +273,7 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 * @see R.attr#dialogId dialog:dialogId
 	 */
 	public final int getDialogId() {
-<span class="nc" id="L270">		return mDialogId;</span>
+<span class="nc" id="L276">		return mDialogId;</span>
 	}
 
 	/**
@@ -280,7 +286,7 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 */
 	@NonNull
 	public O getDialogOptions() {
-<span class="nc" id="L283">		return mDialogOptions;</span>
+<span class="nc" id="L289">		return mDialogOptions;</span>
 	}
 
 	/**
@@ -294,18 +300,18 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 *
 	 * @param view The root view of this preference.
 	 */
-	protected void synchronizeSummaryView(@NonNull View view) {
-<span class="nc" id="L298">		final TextView summaryView = (TextView) view.findViewById(android.R.id.summary);</span>
-<span class="nc bnc" id="L299" title="All 2 branches missed.">		if (summaryView != null) {</span>
-<span class="nc" id="L300">			final CharSequence summaryText = onGetSummaryText();</span>
-<span class="nc bnc" id="L301" title="All 2 branches missed.">			if (TextUtils.isEmpty(summaryText)) {</span>
-<span class="nc" id="L302">				summaryView.setVisibility(View.GONE);</span>
+	protected void synchronizeSummaryView(@NonNull final View view) {
+<span class="nc" id="L304">		final TextView summaryView = (TextView) view.findViewById(android.R.id.summary);</span>
+<span class="nc bnc" id="L305" title="All 2 branches missed.">		if (summaryView != null) {</span>
+<span class="nc" id="L306">			final CharSequence summaryText = onGetSummaryText();</span>
+<span class="nc bnc" id="L307" title="All 2 branches missed.">			if (TextUtils.isEmpty(summaryText)) {</span>
+<span class="nc" id="L308">				summaryView.setVisibility(View.GONE);</span>
 			} else {
-<span class="nc" id="L304">				summaryView.setText(summaryText);</span>
-<span class="nc" id="L305">				summaryView.setVisibility(View.VISIBLE);</span>
+<span class="nc" id="L310">				summaryView.setText(summaryText);</span>
+<span class="nc" id="L311">				summaryView.setVisibility(View.VISIBLE);</span>
 			}
 		}
-<span class="nc" id="L308">	}</span>
+<span class="nc" id="L314">	}</span>
 
 	/**
 	 * Called from {@link #synchronizeSummaryView(View)} to retrieve the current summary text for
@@ -317,7 +323,7 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 */
 	@Nullable
 	protected CharSequence onGetSummaryText() {
-<span class="nc" id="L320">		return getSummary();</span>
+<span class="nc" id="L326">		return getSummary();</span>
 	}
 
 	/**
@@ -329,8 +335,8 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 * event has been successfully handled by this preference, {@code false} otherwise so it should
 	 * be handled by the caller.
 	 */
-	public boolean handleOnDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
-<span class="nc bnc" id="L333" title="All 4 branches missed.">		return dialog.getDialogId() == mDialogId &amp;&amp; onHandleDialogButtonClick(dialog, button);</span>
+	public boolean handleOnDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
+<span class="nc bnc" id="L339" title="All 4 branches missed.">		return dialog.getDialogId() == mDialogId &amp;&amp; onHandleDialogButtonClick(dialog, button);</span>
 	}
 
 	/**
@@ -342,11 +348,11 @@ public class SettingDialogPreference&lt;O extends DialogOptions&lt;O&gt;&gt; ext
 	 * @return {@code True} if the button click event has been successfully handled, {@code false}
 	 * otherwise.
 	 */
-	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
-<span class="nc" id="L346">		return false;</span>
+	protected boolean onHandleDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
+<span class="nc" id="L352">		return false;</span>
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

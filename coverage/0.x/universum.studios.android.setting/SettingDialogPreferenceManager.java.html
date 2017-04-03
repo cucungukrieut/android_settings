@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SettingDialogPreferencesManager.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">universum.studios.android.setting</a> &gt; <span class="el_source">SettingDialogPreferencesManager.java</span></div><h1>SettingDialogPreferencesManager.java</h1><pre class="source lang-java linenums">/*
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SettingDialogPreferenceManager.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=0;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">debugAndroidTest</a> &gt; <a href="index.source.html" class="el_package">universum.studios.android.setting</a> &gt; <span class="el_source">SettingDialogPreferenceManager.java</span></div><h1>SettingDialogPreferenceManager.java</h1><pre class="source lang-java linenums">/*
  * =================================================================================================
  *                             Copyright (C) 2017 Universum Studios
  * =================================================================================================
@@ -51,26 +51,26 @@ import universum.studios.android.dialog.manage.DialogXmlFactory;
  * @author Martin Albedinsky
  */
 @SuppressLint(&quot;LongLogTag&quot;)
-public class SettingDialogPreferencesManager implements SettingDialogPreference.OnClickListener {
+public class SettingDialogPreferenceManager implements SettingDialogPreference.OnClickListener {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
 	/**
 	 * Log TAG.
 	 */
-	private static final String TAG = &quot;SettingDialogPreferencesManager&quot;;
+	private static final String TAG = &quot;SettingDialogPreferenceManager&quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -101,7 +101,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 */
 	private SparseArray&lt;SettingDialogPreference&gt; mDialogPreferences;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
@@ -113,10 +113,10 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * {@link #setDialogFactory(DialogFactory)} otherwise the new manager will throw an exception if
 	 * functionality related to dialogs is requested.
 	 *
-	 * @see #SettingDialogPreferencesManager(Activity)
-	 * @see #SettingDialogPreferencesManager(Fragment)
+	 * @see #SettingDialogPreferenceManager(Activity)
+	 * @see #SettingDialogPreferenceManager(Fragment)
 	 */
-	public SettingDialogPreferencesManager() {
+	public SettingDialogPreferenceManager() {
 <span class="nc" id="L120">		this(null, null);</span>
 <span class="nc" id="L121">	}</span>
 
@@ -130,12 +130,12 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 *
 	 * @param activity The activity used to instantiate the default dialog controller along with
 	 *                 default dialog factory.
-	 * @see #SettingDialogPreferencesManager(Fragment)
+	 * @see #SettingDialogPreferenceManager(Fragment)
 	 * @see DialogController#DialogController(Activity)
 	 * @see #getDialogController()
 	 * @see #getDialogFactory()
 	 */
-	public SettingDialogPreferencesManager(@NonNull Activity activity) {
+	public SettingDialogPreferenceManager(@NonNull final Activity activity) {
 <span class="nc" id="L139">		this(new DialogController(activity), new DialogXmlFactory(activity, R.xml.ui_settings_dialogs));</span>
 <span class="nc" id="L140">	}</span>
 
@@ -149,12 +149,12 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 *
 	 * @param fragment The fragment used to instantiate the default dialog controller along with
 	 *                 default dialog factory.
-	 * @see #SettingDialogPreferencesManager(Activity)
+	 * @see #SettingDialogPreferenceManager(Activity)
 	 * @see DialogController#DialogController(Fragment)
 	 * @see #getDialogController()
 	 * @see #getDialogFactory()
 	 */
-	public SettingDialogPreferencesManager(@NonNull Fragment fragment) {
+	public SettingDialogPreferenceManager(@NonNull final Fragment fragment) {
 <span class="nc" id="L158">		this(new DialogController(fragment), new DialogXmlFactory(fragment.getActivity(), R.xml.ui_settings_dialogs));</span>
 <span class="nc" id="L159">	}</span>
 
@@ -169,7 +169,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @see DialogController#DialogController(FragmentManager)
 	 * @see #getDialogController()
 	 */
-	public SettingDialogPreferencesManager(@NonNull FragmentManager fragmentManager) {
+	public SettingDialogPreferenceManager(@NonNull final FragmentManager fragmentManager) {
 <span class="nc" id="L173">		this(new DialogController(fragmentManager), null);</span>
 <span class="nc" id="L174">	}</span>
 
@@ -180,7 +180,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @param dialogController Dialog controller used to show dialogs for clicked preferences.
 	 * @param dialogFactory    Factory providing dialog instances for the given dialog controller.
 	 */
-<span class="nc" id="L183">	private SettingDialogPreferencesManager(DialogController dialogController, DialogFactory dialogFactory) {</span>
+<span class="nc" id="L183">	private SettingDialogPreferenceManager(final DialogController dialogController, final DialogFactory dialogFactory) {</span>
 <span class="nc" id="L184">		this.mDialogController = dialogController;</span>
 <span class="nc" id="L185">		this.mDialogFactory = dialogFactory;</span>
 <span class="nc bnc" id="L186" title="All 4 branches missed.">		if (mDialogController != null &amp;&amp; mDialogFactory != null) {</span>
@@ -188,7 +188,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 		}
 <span class="nc" id="L189">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -203,7 +203,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @see #getDialogController()
 	 * @see #setDialogFactory(DialogFactory)
 	 */
-	public void setDialogController(@NonNull DialogController dialogController) {
+	public void setDialogController(@NonNull final DialogController dialogController) {
 <span class="nc" id="L207">		this.mDialogController = dialogController;</span>
 <span class="nc bnc" id="L208" title="All 2 branches missed.">		if (!mDialogController.hasFactory()) {</span>
 <span class="nc" id="L209">			mDialogController.setFactory(mDialogFactory);</span>
@@ -214,9 +214,9 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * Returns the dialog controller used by this manager.
 	 *
 	 * @return Default dialog controller or the one specified via {@link #setDialogController(DialogController)}.
-	 * @see #SettingDialogPreferencesManager(Activity)
-	 * @see #SettingDialogPreferencesManager(Fragment)
-	 * @see #SettingDialogPreferencesManager(FragmentManager)
+	 * @see #SettingDialogPreferenceManager(Activity)
+	 * @see #SettingDialogPreferenceManager(Fragment)
+	 * @see #SettingDialogPreferenceManager(FragmentManager)
 	 */
 	@NonNull
 	public DialogController getDialogController() {
@@ -232,7 +232,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @see #getDialogFactory()
 	 * @see #setDialogController(DialogController)
 	 */
-	public void setDialogFactory(@Nullable DialogFactory dialogFactory) {
+	public void setDialogFactory(@Nullable final DialogFactory dialogFactory) {
 <span class="nc" id="L236">		mDialogController.setFactory(mDialogFactory = dialogFactory);</span>
 <span class="nc" id="L237">	}</span>
 
@@ -241,8 +241,8 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 *
 	 * @return Default dialog factory or the one specified via {@link #setDialogFactory(DialogFactory)}
 	 * @see #setDialogFactory(DialogFactory)
-	 * @see #SettingDialogPreferencesManager(Activity)
-	 * @see #SettingDialogPreferencesManager(Fragment)
+	 * @see #SettingDialogPreferenceManager(Activity)
+	 * @see #SettingDialogPreferenceManager(Fragment)
 	 */
 	@Nullable
 	public DialogFactory getDialogFactory() {
@@ -264,7 +264,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 *
 	 * @param preferenceScreen The preference screen to attach to.
 	 */
-	public void attachToPreferenceScreen(@NonNull PreferenceScreen preferenceScreen) {
+	public void attachToPreferenceScreen(@NonNull final PreferenceScreen preferenceScreen) {
 <span class="nc bnc" id="L268" title="All 2 branches missed.">		if (mAttachedToPreferenceScreen) {</span>
 <span class="nc" id="L269">			throw new IllegalStateException(&quot;Already attached to preference screen! Detach via detachFromPreferenceScreen(...) first.&quot;);</span>
 		}
@@ -285,7 +285,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @param preference The preference to which attach on click listener if it is a dialog preference
 	 *                   type.
 	 */
-	private void attachToPreference(Preference preference) {
+	private void attachToPreference(final Preference preference) {
 <span class="nc bnc" id="L289" title="All 2 branches missed.">		if (preference instanceof SettingDialogPreference) {</span>
 <span class="nc" id="L290">			final SettingDialogPreference dialogPreference = (SettingDialogPreference) preference;</span>
 <span class="nc" id="L291">			final int dialogId = dialogPreference.getDialogId();</span>
@@ -311,7 +311,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @param dialogPreference The dialog preference to which has been this manager just attached.
 	 * @see #attachToPreferenceScreen(PreferenceScreen)
 	 */
-	protected void onAttachedToPreference(@NonNull SettingDialogPreference dialogPreference) {
+	protected void onAttachedToPreference(@NonNull final SettingDialogPreference dialogPreference) {
 		// May be implemented by the inheritance hierarchies.
 <span class="nc" id="L316">	}</span>
 
@@ -327,7 +327,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * screen at this time or there is no dialog preference with such dialog id associated.
 	 */
 	@Nullable
-	public SettingDialogPreference findDialogPreference(int dialogId) {
+	public SettingDialogPreference findDialogPreference(final int dialogId) {
 <span class="nc bnc" id="L331" title="All 2 branches missed.">		return mDialogPreferences == null ? null : mDialogPreferences.get(dialogId);</span>
 	}
 
@@ -337,7 +337,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 *
 	 * @param preferenceScreen The preference screen from which to detach this manager.
 	 */
-	public void detachFromPreferenceScreen(@NonNull PreferenceScreen preferenceScreen) {
+	public void detachFromPreferenceScreen(@NonNull final PreferenceScreen preferenceScreen) {
 <span class="nc bnc" id="L341" title="All 2 branches missed.">		if (mAttachedToPreferenceScreen) {</span>
 <span class="nc bnc" id="L342" title="All 2 branches missed.">			for (int i = 0; i &lt; mDialogPreferences.size(); i++) {</span>
 <span class="nc" id="L343">				final SettingDialogPreference preference = mDialogPreferences.get(mDialogPreferences.keyAt(i));</span>
@@ -355,7 +355,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @param dialogPreference The dialog preference from which has been this manager just detached.
 	 * @see #detachFromPreferenceScreen(PreferenceScreen)
 	 */
-	protected void onDetachedFromPreference(@NonNull SettingDialogPreference dialogPreference) {
+	protected void onDetachedFromPreference(@NonNull final SettingDialogPreference dialogPreference) {
 		// May be implemented by the inheritance hierarchies.
 <span class="nc" id="L360">	}</span>
 
@@ -366,7 +366,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * to show the preference dialog.
 	 */
 	@Override
-	public boolean onDialogPreferenceClick(@NonNull SettingDialogPreference dialogPreference) {
+	public boolean onDialogPreferenceClick(@NonNull final SettingDialogPreference dialogPreference) {
 <span class="nc" id="L370">		final int dialogId = dialogPreference.getDialogId();</span>
 <span class="nc bnc" id="L371" title="All 2 branches missed.">		if (dialogId != SettingDialogPreference.NO_DIALOG_ID) {</span>
 <span class="nc" id="L372">			final DialogFactory dialogFactory = mDialogController.getFactory();</span>
@@ -396,8 +396,8 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * @param preference       The preference that has been clicked.
 	 * @return {@code True} if the preference dialog has been successfully shown, {@code false} otherwise.
 	 */
-	protected boolean onShowPreferenceDialog(@NonNull DialogController dialogController, @NonNull SettingDialogPreference preference) {
-<span class="nc bnc" id="L400" title="All 2 branches missed.">		return dialogController.newRequest(preference.getDialogId()).dialogOptions(preference.getDialogOptions()).execute() != null;</span>
+	protected boolean onShowPreferenceDialog(@NonNull final DialogController dialogController, @NonNull final SettingDialogPreference preference) {
+<span class="nc bnc" id="L400" title="All 2 branches missed.">		return dialogController.newRequest(preference.getDialogId()).options(preference.getDialogOptions()).execute() != null;</span>
 	}
 
 	/**
@@ -409,7 +409,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 	 * has been successfully handled by the associated dialog preference, {@code false} otherwise.
 	 * @see SettingDialogPreference#handleOnDialogButtonClick(Dialog, int)
 	 */
-	public boolean handleOnPreferenceDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+	public boolean handleOnPreferenceDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
 <span class="nc bnc" id="L413" title="All 2 branches missed.">		if (mAttachedToPreferenceScreen) {</span>
 <span class="nc" id="L414">			final int dialogId = dialog.getDialogId();</span>
 <span class="nc" id="L415">			final SettingDialogPreference dialogPreference = findDialogPreference(dialogId);</span>
@@ -422,7 +422,7 @@ public class SettingDialogPreferencesManager implements SettingDialogPreference.
 <span class="nc" id="L422">		return false;</span>
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

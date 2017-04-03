@@ -46,7 +46,7 @@ import android.view.ViewGroup;
  */
 public class SettingEmptyPreference extends SettingPreference {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -55,26 +55,26 @@ public class SettingEmptyPreference extends SettingPreference {
 	 */
 	// private static final String TAG = &quot;SettingEmptyPreference&quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingEmptyPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingEmptyPreference(@NonNull Context context) {
+	public SettingEmptyPreference(@NonNull final Context context) {
 <span class="nc" id="L78">		this(context, null);</span>
 <span class="nc" id="L79">	}</span>
 
@@ -82,7 +82,7 @@ public class SettingEmptyPreference extends SettingPreference {
 	 * Same as {@link #SettingEmptyPreference(Context, AttributeSet, int)} with {@code 0} as
 	 * attribute for default style.
 	 */
-	public SettingEmptyPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingEmptyPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 <span class="nc" id="L86">		this(context, attrs, 0);</span>
 <span class="nc" id="L87">	}</span>
 
@@ -90,7 +90,7 @@ public class SettingEmptyPreference extends SettingPreference {
 	 * Same as {@link #SettingEmptyPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingEmptyPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingEmptyPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 <span class="nc" id="L94">		super(context, attrs, defStyleAttr);</span>
 <span class="nc" id="L95">		setEnabled(false);</span>
 <span class="nc" id="L96">		setSelectable(false);</span>
@@ -107,13 +107,13 @@ public class SettingEmptyPreference extends SettingPreference {
 	 */
 	@SuppressWarnings(&quot;unused&quot;)
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingEmptyPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingEmptyPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 <span class="nc" id="L111">		super(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L112">		setEnabled(false);</span>
 <span class="nc" id="L113">		setSelectable(false);</span>
 <span class="nc" id="L114">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -121,13 +121,13 @@ public class SettingEmptyPreference extends SettingPreference {
 	 */
 	@Override
 	@SuppressLint(&quot;MissingSuperCall&quot;)
-	protected View onCreateView(ViewGroup parent) {
+	protected View onCreateView(@NonNull final ViewGroup parent) {
 <span class="nc" id="L125">		final Space space = new Space(parent.getContext());</span>
 <span class="nc" id="L126">		space.setVisibility(View.GONE);</span>
 <span class="nc" id="L127">		return space;</span>
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

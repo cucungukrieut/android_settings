@@ -81,7 +81,7 @@ import universum.studios.android.dialog.adapter.DialogSelectionAdapter;
  */
 public class SettingSelectionDialogPreference extends SettingDialogPreference&lt;SelectionDialog.SelectionOptions&gt; {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -95,7 +95,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 */
 	private static final String SUMMARY_ENTRIES_SEPARATOR = &quot;, &quot;;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
@@ -141,11 +141,11 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 		CharSequence build();
 	}
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -192,14 +192,14 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 */
 	private SummaryTextBuilder mSummaryTextBuilder;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingSelectionDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingSelectionDialogPreference(@NonNull Context context) {
+	public SettingSelectionDialogPreference(@NonNull final Context context) {
 <span class="nc" id="L203">		this(context, null);</span>
 <span class="nc" id="L204">	}</span>
 
@@ -207,7 +207,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 * Same as {@link #SettingSelectionDialogPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingSelectionDialogPreferenceStyle} as attribute for default style.
 	 */
-	public SettingSelectionDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingSelectionDialogPreference(@NonNull final Context context, @Nullable AttributeSet attrs) {
 <span class="nc" id="L211">		this(context, attrs, R.attr.uiSettingSelectionDialogPreferenceStyle);</span>
 <span class="nc" id="L212">	}</span>
 
@@ -215,7 +215,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 * Same as {@link #SettingSelectionDialogPreference(Context, AttributeSet, int, int)} with {@code 0}
 	 * as default style.
 	 */
-	public SettingSelectionDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingSelectionDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 <span class="nc" id="L219">		super(context, attrs, defStyleAttr);</span>
 <span class="nc" id="L220">		this.init(context, attrs, defStyleAttr, 0);</span>
 <span class="nc" id="L221">	}</span>
@@ -230,12 +230,12 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingSelectionDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingSelectionDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 <span class="nc" id="L234">		super(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L235">		this.init(context, attrs, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L236">	}</span>
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -247,7 +247,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 * The specified &lt;var&gt;defStyleAttr&lt;/var&gt; and &lt;var&gt;defStyleRes&lt;/var&gt; are used to obtain default
 	 * data from the current theme provided by the specified &lt;var&gt;context&lt;/var&gt;.
 	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	private void init(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 <span class="nc" id="L251">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SelectionDialogPreference, defStyleAttr, defStyleRes);</span>
 <span class="nc" id="L252">		setEntries(attributes.getTextArray(R.styleable.Ui_Settings_SelectionDialogPreference_android_entries));</span>
 <span class="nc" id="L253">		setEntryValues(attributes.getTextArray(R.styleable.Ui_Settings_SelectionDialogPreference_android_entryValues));</span>
@@ -270,28 +270,34 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 */
 	@Override
 	@SuppressWarnings(&quot;ResourceType&quot;)
-	protected void onConfigureDialogOptions(@NonNull SelectionDialog.SelectionOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
-<span class="nc" id="L274">		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L275">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SelectionDialogPreference, defStyleAttr, defStyleRes);</span>
-<span class="nc bnc" id="L276" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
-<span class="nc" id="L277">			final int index = attributes.getIndex(i);</span>
-<span class="nc bnc" id="L278" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_SelectionDialogPreference_dialogSelectionMode) {</span>
-<span class="nc" id="L279">				options.selectionMode(attributes.getInt(index, options.selectionMode()));</span>
-<span class="nc bnc" id="L280" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_SelectionDialogPreference_dialogEmptySelectionAllowed) {</span>
-<span class="nc" id="L281">				options.emptySelectionAllowed(attributes.getBoolean(index, options.shouldAllowEmptySelection()));</span>
+	protected void onConfigureDialogOptions(
+			@NonNull final SelectionDialog.SelectionOptions options,
+			@NonNull final Context context,
+			@Nullable final AttributeSet attrs,
+			@AttrRes final int defStyleAttr,
+			@StyleRes final int defStyleRes
+	) {
+<span class="nc" id="L280">		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L281">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SelectionDialogPreference, defStyleAttr, defStyleRes);</span>
+<span class="nc bnc" id="L282" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
+<span class="nc" id="L283">			final int index = attributes.getIndex(i);</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_SelectionDialogPreference_dialogSelectionMode) {</span>
+<span class="nc" id="L285">				options.selectionMode(attributes.getInt(index, options.selectionMode()));</span>
+<span class="nc bnc" id="L286" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_SelectionDialogPreference_dialogEmptySelectionAllowed) {</span>
+<span class="nc" id="L287">				options.emptySelectionAllowed(attributes.getBoolean(index, options.shouldAllowEmptySelection()));</span>
 			}
 		}
-<span class="nc" id="L284">		attributes.recycle();</span>
-<span class="nc" id="L285">	}</span>
+<span class="nc" id="L290">		attributes.recycle();</span>
+<span class="nc" id="L291">	}</span>
 
 	/**
 	 * Same as {@link #setEntries(CharSequence[])} for resource id.
 	 *
 	 * @param resId Resource id of the desired text array with entries.
 	 */
-	public void setEntries(@ArrayRes int resId) {
-<span class="nc" id="L293">		setEntries(getContext().getResources().getTextArray(resId));</span>
-<span class="nc" id="L294">	}</span>
+	public void setEntries(@ArrayRes final int resId) {
+<span class="nc" id="L299">		setEntries(getContext().getResources().getTextArray(resId));</span>
+<span class="nc" id="L300">	}</span>
 
 	/**
 	 * Specifies an array of entries that should be displayed in the associated selection dialog.
@@ -300,18 +306,18 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 * @see android.R.attr#entries
 	 * @see #setEntryValues(CharSequence[])
 	 */
-	public void setEntries(@Nullable CharSequence[] entries) {
-<span class="nc" id="L304">		this.mEntries = entries;</span>
-<span class="nc bnc" id="L305" title="All 2 branches missed.">		if (entries == null) {</span>
-<span class="nc" id="L306">			this.mDialogItems = null;</span>
+	public void setEntries(@Nullable final CharSequence[] entries) {
+<span class="nc" id="L310">		this.mEntries = entries;</span>
+<span class="nc bnc" id="L311" title="All 2 branches missed.">		if (entries == null) {</span>
+<span class="nc" id="L312">			this.mDialogItems = null;</span>
 		} else {
-<span class="nc" id="L308">			this.mDialogItems = new ArrayList&lt;&gt;(entries.length);</span>
-<span class="nc bnc" id="L309" title="All 2 branches missed.">			for (int i = 0; i &lt; entries.length; i++) {</span>
-<span class="nc" id="L310">				final CharSequence entry = entries[i];</span>
-<span class="nc" id="L311">				mDialogItems.add(new SelectionDialog.TextItem(i, entry));</span>
+<span class="nc" id="L314">			this.mDialogItems = new ArrayList&lt;&gt;(entries.length);</span>
+<span class="nc bnc" id="L315" title="All 2 branches missed.">			for (int i = 0; i &lt; entries.length; i++) {</span>
+<span class="nc" id="L316">				final CharSequence entry = entries[i];</span>
+<span class="nc" id="L317">				mDialogItems.add(new SelectionDialog.TextItem(i, entry));</span>
 			}
 		}
-<span class="nc" id="L314">	}</span>
+<span class="nc" id="L320">	}</span>
 
 	/**
 	 * Returns the array of entries specified for this preference.
@@ -322,7 +328,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 */
 	@Nullable
 	public CharSequence[] getEntries() {
-<span class="nc" id="L325">		return mEntries;</span>
+<span class="nc" id="L331">		return mEntries;</span>
 	}
 
 	/**
@@ -330,9 +336,9 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 *
 	 * @param resId Resource id of the desired text array with values for entries.
 	 */
-	public void setEntryValues(@ArrayRes int resId) {
-<span class="nc" id="L334">		setEntryValues(getContext().getResources().getTextArray(resId));</span>
-<span class="nc" id="L335">	}</span>
+	public void setEntryValues(@ArrayRes final int resId) {
+<span class="nc" id="L340">		setEntryValues(getContext().getResources().getTextArray(resId));</span>
+<span class="nc" id="L341">	}</span>
 
 	/**
 	 * Specifies an array of entry values where each value should be associated with corresponding
@@ -345,9 +351,9 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 *                    to clear the current ones.
 	 * @see android.R.attr#entryValues
 	 */
-	public void setEntryValues(@Nullable CharSequence[] entryValues) {
-<span class="nc" id="L349">		this.mEntryValues = entryValues;</span>
-<span class="nc" id="L350">	}</span>
+	public void setEntryValues(@Nullable final CharSequence[] entryValues) {
+<span class="nc" id="L355">		this.mEntryValues = entryValues;</span>
+<span class="nc" id="L356">	}</span>
 
 	/**
 	 * Returns the array of entry values associated with the entries specified for this preference.
@@ -358,7 +364,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 */
 	@Nullable
 	public CharSequence[] getEntryValues() {
-<span class="nc" id="L361">		return mEntryValues;</span>
+<span class="nc" id="L367">		return mEntryValues;</span>
 	}
 
 	/**
@@ -371,28 +377,28 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 * @param textBuilder The desired builder for the summary text. May be {@code null} to use the
 	 *                    default one.
 	 */
-	public void setSummaryTextBuilder(@Nullable SummaryTextBuilder textBuilder) {
-<span class="nc bnc" id="L375" title="All 2 branches missed.">		this.mSummaryTextBuilder = textBuilder == null ? new DefaultSummaryTextBuilder(SUMMARY_ENTRIES_SEPARATOR) : textBuilder;</span>
-<span class="nc" id="L376">	}</span>
+	public void setSummaryTextBuilder(@Nullable final SummaryTextBuilder textBuilder) {
+<span class="nc bnc" id="L381" title="All 2 branches missed.">		this.mSummaryTextBuilder = textBuilder == null ? new DefaultSummaryTextBuilder(SUMMARY_ENTRIES_SEPARATOR) : textBuilder;</span>
+<span class="nc" id="L382">	}</span>
 
 	/**
 	 */
 	@Override
-	protected Object onGetDefaultValue(@NonNull TypedArray typedArray, int index) {
-<span class="nc" id="L382">		return typedArray.getText(index);</span>
+	protected Object onGetDefaultValue(@NonNull final TypedArray typedArray, final int index) {
+<span class="nc" id="L388">		return typedArray.getText(index);</span>
 	}
 
 	/**
 	 */
 	@Override
-	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
-<span class="nc bnc" id="L389" title="All 2 branches missed.">		if (restorePersistedValue) {</span>
-<span class="nc" id="L390">			final String persistedValues = getPersistedString(null);</span>
-<span class="nc bnc" id="L391" title="All 2 branches missed.">			setSelection(persistedValues == null ? mSelection : createSelectionFromPersistedValues(persistedValues));</span>
-<span class="nc" id="L392">		} else {</span>
-<span class="nc" id="L393">			setSelection(createSelectionFromPersistedValues((String) defaultValue));</span>
+	protected void onSetInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
+<span class="nc bnc" id="L395" title="All 2 branches missed.">		if (restorePersistedValue) {</span>
+<span class="nc" id="L396">			final String persistedValues = getPersistedString(null);</span>
+<span class="nc bnc" id="L397" title="All 2 branches missed.">			setSelection(persistedValues == null ? mSelection : createSelectionFromPersistedValues(persistedValues));</span>
+<span class="nc" id="L398">		} else {</span>
+<span class="nc" id="L399">			setSelection(createSelectionFromPersistedValues((String) defaultValue));</span>
 		}
-<span class="nc" id="L395">	}</span>
+<span class="nc" id="L401">	}</span>
 
 	/**
 	 * Creates an array of selected entry values from the given &lt;var&gt;persistedValues&lt;/var&gt; String.
@@ -403,18 +409,18 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 * have been selected/persisted yet.
 	 */
 	@Nullable
-	public static String[] selectedEntryValuesFromPersistedValues(@NonNull String persistedValues) {
+	public static String[] selectedEntryValuesFromPersistedValues(@NonNull final String persistedValues) {
 		try {
-<span class="nc" id="L408">			final JSONArray persistedArray = new JSONArray(persistedValues);</span>
-<span class="nc" id="L409">			final String[] selectedValues = new String[persistedArray.length()];</span>
-<span class="nc bnc" id="L410" title="All 2 branches missed.">			for (int i = 0; i &lt; persistedArray.length(); i++) {</span>
-<span class="nc" id="L411">				selectedValues[i] = persistedArray.getString(i);</span>
+<span class="nc" id="L414">			final JSONArray persistedArray = new JSONArray(persistedValues);</span>
+<span class="nc" id="L415">			final String[] selectedValues = new String[persistedArray.length()];</span>
+<span class="nc bnc" id="L416" title="All 2 branches missed.">			for (int i = 0; i &lt; persistedArray.length(); i++) {</span>
+<span class="nc" id="L417">				selectedValues[i] = persistedArray.getString(i);</span>
 			}
-<span class="nc" id="L413">			return selectedValues;</span>
-<span class="nc" id="L414">		} catch (JSONException e) {</span>
-<span class="nc" id="L415">			e.printStackTrace();</span>
+<span class="nc" id="L419">			return selectedValues;</span>
+<span class="nc" id="L420">		} catch (JSONException e) {</span>
+<span class="nc" id="L421">			e.printStackTrace();</span>
 		}
-<span class="nc" id="L417">		return null;</span>
+<span class="nc" id="L423">		return null;</span>
 	}
 
 	/**
@@ -423,24 +429,24 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 * @param persistedValues The persisted selection values, created via {@link #createPersistableValuesFromSelection(long[])}.
 	 * @return Selection array containing indexes of the selected entries.
 	 */
-	private long[] createSelectionFromPersistedValues(String persistedValues) {
+	private long[] createSelectionFromPersistedValues(final String persistedValues) {
 		try {
-<span class="nc" id="L428">			final JSONArray persistedArray = new JSONArray(persistedValues);</span>
-<span class="nc" id="L429">			final long[] selection = new long[persistedArray.length()];</span>
-<span class="nc bnc" id="L430" title="All 2 branches missed.">			for (int i = 0; i &lt; persistedArray.length(); i++) {</span>
-<span class="nc" id="L431">				final String selectedValue = persistedArray.getString(i);</span>
-<span class="nc bnc" id="L432" title="All 2 branches missed.">				for (int j = 0; j &lt; mEntryValues.length; j++) {</span>
-<span class="nc bnc" id="L433" title="All 2 branches missed.">					if (mEntryValues[j].equals(selectedValue)) {</span>
-<span class="nc" id="L434">						selection[i] = j;</span>
-<span class="nc" id="L435">						break;</span>
+<span class="nc" id="L434">			final JSONArray persistedArray = new JSONArray(persistedValues);</span>
+<span class="nc" id="L435">			final long[] selection = new long[persistedArray.length()];</span>
+<span class="nc bnc" id="L436" title="All 2 branches missed.">			for (int i = 0; i &lt; persistedArray.length(); i++) {</span>
+<span class="nc" id="L437">				final String selectedValue = persistedArray.getString(i);</span>
+<span class="nc bnc" id="L438" title="All 2 branches missed.">				for (int j = 0; j &lt; mEntryValues.length; j++) {</span>
+<span class="nc bnc" id="L439" title="All 2 branches missed.">					if (mEntryValues[j].equals(selectedValue)) {</span>
+<span class="nc" id="L440">						selection[i] = j;</span>
+<span class="nc" id="L441">						break;</span>
 					}
 				}
 			}
-<span class="nc" id="L439">			return selection;</span>
-<span class="nc" id="L440">		} catch (JSONException e) {</span>
-<span class="nc" id="L441">			e.printStackTrace();</span>
+<span class="nc" id="L445">			return selection;</span>
+<span class="nc" id="L446">		} catch (JSONException e) {</span>
+<span class="nc" id="L447">			e.printStackTrace();</span>
 		}
-<span class="nc" id="L443">		return null;</span>
+<span class="nc" id="L449">		return null;</span>
 	}
 
 	/**
@@ -450,14 +456,14 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 * @return String containing array of entry values according to the specified selection in the
 	 * Json Array format.
 	 */
-	private String createPersistableValuesFromSelection(long[] selection) {
-<span class="nc" id="L454">		final JSONArray persistableArray = new JSONArray();</span>
-<span class="nc bnc" id="L455" title="All 2 branches missed.">		for (final long itemIndex : selection) {</span>
-<span class="nc bnc" id="L456" title="All 2 branches missed.">			if (((int) itemIndex) &lt; mEntryValues.length) {</span>
-<span class="nc" id="L457">				persistableArray.put(mEntryValues[(int) itemIndex]);</span>
+	private String createPersistableValuesFromSelection(final long[] selection) {
+<span class="nc" id="L460">		final JSONArray persistableArray = new JSONArray();</span>
+<span class="nc bnc" id="L461" title="All 2 branches missed.">		for (final long itemIndex : selection) {</span>
+<span class="nc bnc" id="L462" title="All 2 branches missed.">			if (((int) itemIndex) &lt; mEntryValues.length) {</span>
+<span class="nc" id="L463">				persistableArray.put(mEntryValues[(int) itemIndex]);</span>
 			}
 		}
-<span class="nc" id="L460">		return persistableArray.toString();</span>
+<span class="nc" id="L466">		return persistableArray.toString();</span>
 	}
 
 	/**
@@ -468,18 +474,18 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 *                  be persisted as {@link String} in Json Array format.
 	 * @see #getSelection()
 	 */
-	public void setSelection(@Nullable long[] selection) {
-<span class="nc bnc" id="L472" title="All 2 branches missed.">		final boolean changed = !Arrays.equals(mSelection, selection);</span>
-<span class="nc" id="L473">		final String selectionValues = createPersistableValuesFromSelection(selection);</span>
-<span class="nc bnc" id="L474" title="All 6 branches missed.">		if (callChangeListener(selectionValues) &amp;&amp; (changed || !mSelectionSet)) {</span>
-<span class="nc" id="L475">			this.mSelection = selection;</span>
-<span class="nc" id="L476">			this.mSelectionSet = true;</span>
-<span class="nc" id="L477">			persistString(selectionValues);</span>
-<span class="nc bnc" id="L478" title="All 2 branches missed.">			if (changed) {</span>
-<span class="nc" id="L479">				notifyChanged();</span>
+	public void setSelection(@Nullable final long[] selection) {
+<span class="nc bnc" id="L478" title="All 2 branches missed.">		final boolean changed = !Arrays.equals(mSelection, selection);</span>
+<span class="nc" id="L479">		final String selectionValues = createPersistableValuesFromSelection(selection);</span>
+<span class="nc bnc" id="L480" title="All 6 branches missed.">		if (callChangeListener(selectionValues) &amp;&amp; (changed || !mSelectionSet)) {</span>
+<span class="nc" id="L481">			this.mSelection = selection;</span>
+<span class="nc" id="L482">			this.mSelectionSet = true;</span>
+<span class="nc" id="L483">			persistString(selectionValues);</span>
+<span class="nc bnc" id="L484" title="All 2 branches missed.">			if (changed) {</span>
+<span class="nc" id="L485">				notifyChanged();</span>
 			}
 		}
-<span class="nc" id="L482">	}</span>
+<span class="nc" id="L488">	}</span>
 
 	/**
 	 * Returns the array of indexes of the preferred entry values of this preference.
@@ -491,7 +497,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 */
 	@Nullable
 	public long[] getSelection() {
-<span class="nc" id="L494">		return mSelection;</span>
+<span class="nc" id="L500">		return mSelection;</span>
 	}
 
 	/**
@@ -503,37 +509,37 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	 */
 	@Nullable
 	public CharSequence[] getSelecedEntryValues() {
-<span class="nc bnc" id="L506" title="All 2 branches missed.">		if (mSelectionSet) {</span>
-<span class="nc" id="L507">			final CharSequence[] selectedValues = new CharSequence[mSelection.length];</span>
-<span class="nc bnc" id="L508" title="All 2 branches missed.">			for (int i = 0; i &lt; mSelection.length; i++) {</span>
-<span class="nc" id="L509">				selectedValues[i] = mEntryValues[(int) mSelection[i]];</span>
+<span class="nc bnc" id="L512" title="All 2 branches missed.">		if (mSelectionSet) {</span>
+<span class="nc" id="L513">			final CharSequence[] selectedValues = new CharSequence[mSelection.length];</span>
+<span class="nc bnc" id="L514" title="All 2 branches missed.">			for (int i = 0; i &lt; mSelection.length; i++) {</span>
+<span class="nc" id="L515">				selectedValues[i] = mEntryValues[(int) mSelection[i]];</span>
 			}
-<span class="nc" id="L511">			return selectedValues;</span>
+<span class="nc" id="L517">			return selectedValues;</span>
 		}
-<span class="nc" id="L513">		return null;</span>
+<span class="nc" id="L519">		return null;</span>
 	}
 
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
-<span class="nc" id="L520">		super.onBindView(view);</span>
-<span class="nc" id="L521">		synchronizeSummaryView(view);</span>
-<span class="nc" id="L522">	}</span>
+	public void onBindView(@NonNull final View view) {
+<span class="nc" id="L526">		super.onBindView(view);</span>
+<span class="nc" id="L527">		synchronizeSummaryView(view);</span>
+<span class="nc" id="L528">	}</span>
 
 	/**
 	 */
 	@Nullable
 	@Override
 	protected CharSequence onGetSummaryText() {
-<span class="nc bnc" id="L529" title="All 4 branches missed.">		if (mSelectionSet &amp;&amp; mSelection.length &gt; 0) {</span>
-<span class="nc" id="L530">			mSummaryTextBuilder.clear();</span>
-<span class="nc bnc" id="L531" title="All 2 branches missed.">			for (final long itemIndex : mSelection) {</span>
-<span class="nc" id="L532">				mSummaryTextBuilder.appendEntry(mEntries[(int) itemIndex]);</span>
+<span class="nc bnc" id="L535" title="All 4 branches missed.">		if (mSelectionSet &amp;&amp; mSelection.length &gt; 0) {</span>
+<span class="nc" id="L536">			mSummaryTextBuilder.clear();</span>
+<span class="nc bnc" id="L537" title="All 2 branches missed.">			for (final long itemIndex : mSelection) {</span>
+<span class="nc" id="L538">				mSummaryTextBuilder.appendEntry(mEntries[(int) itemIndex]);</span>
 			}
-<span class="nc" id="L534">			return mSummaryTextBuilder.build();</span>
+<span class="nc" id="L540">			return mSummaryTextBuilder.build();</span>
 		}
-<span class="nc" id="L536">		return super.onGetSummaryText();</span>
+<span class="nc" id="L542">		return super.onGetSummaryText();</span>
 	}
 
 	/**
@@ -541,31 +547,31 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 	@NonNull
 	@Override
 	public SelectionDialog.SelectionOptions getDialogOptions() {
-<span class="nc" id="L544">		final SelectionDialog.SelectionOptions options = super.getDialogOptions();</span>
-<span class="nc" id="L545">		options.items(mDialogItems);</span>
-<span class="nc bnc" id="L546" title="All 2 branches missed.">		if (mSelectionSet) {</span>
-<span class="nc" id="L547">			options.selection(mSelection);</span>
+<span class="nc" id="L550">		final SelectionDialog.SelectionOptions options = super.getDialogOptions();</span>
+<span class="nc" id="L551">		options.items(mDialogItems);</span>
+<span class="nc bnc" id="L552" title="All 2 branches missed.">		if (mSelectionSet) {</span>
+<span class="nc" id="L553">			options.selection(mSelection);</span>
 		}
-<span class="nc" id="L549">		return options;</span>
+<span class="nc" id="L555">		return options;</span>
 	}
 
 	/**
 	 */
 	@Override
-	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
-<span class="nc bnc" id="L556" title="All 2 branches missed.">		if (dialog instanceof SelectionDialog) {</span>
-<span class="nc bnc" id="L557" title="All 2 branches missed.">			switch (button) {</span>
+	protected boolean onHandleDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
+<span class="nc bnc" id="L562" title="All 2 branches missed.">		if (dialog instanceof SelectionDialog) {</span>
+<span class="nc bnc" id="L563" title="All 2 branches missed.">			switch (button) {</span>
 				case Dialog.BUTTON_POSITIVE:
-<span class="nc" id="L559">					setSelection(((SelectionDialog) dialog).getSelection());</span>
-<span class="nc" id="L560">					return true;</span>
+<span class="nc" id="L565">					setSelection(((SelectionDialog) dialog).getSelection());</span>
+<span class="nc" id="L566">					return true;</span>
 				default:
-<span class="nc" id="L562">					return true;</span>
+<span class="nc" id="L568">					return true;</span>
 			}
 		}
-<span class="nc" id="L565">		return super.onHandleDialogButtonClick(dialog, button);</span>
+<span class="nc" id="L571">		return super.onHandleDialogButtonClick(dialog, button);</span>
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 
@@ -590,28 +596,28 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 		 *
 		 * @param separator The desired separator used to separate entry items.
 		 */
-<span class="nc" id="L593">		private DefaultSummaryTextBuilder(@NonNull String separator) {</span>
-<span class="nc" id="L594">			this.builder = new StringBuilder(64);</span>
-<span class="nc" id="L595">			this.separator = separator;</span>
-<span class="nc" id="L596">		}</span>
+<span class="nc" id="L599">		private DefaultSummaryTextBuilder(@NonNull final String separator) {</span>
+<span class="nc" id="L600">			this.builder = new StringBuilder(64);</span>
+<span class="nc" id="L601">			this.separator = separator;</span>
+<span class="nc" id="L602">		}</span>
 
 		/**
 		 */
 		@Override
 		public SummaryTextBuilder clear() {
-<span class="nc" id="L602">			builder.setLength(0);</span>
-<span class="nc" id="L603">			return this;</span>
+<span class="nc" id="L608">			builder.setLength(0);</span>
+<span class="nc" id="L609">			return this;</span>
 		}
 
 		/**
 		 */
 		@Override
-		public SummaryTextBuilder appendEntry(@NonNull CharSequence entry) {
-<span class="nc bnc" id="L610" title="All 2 branches missed.">			if (builder.length() &gt; 0) {</span>
-<span class="nc" id="L611">				builder.append(separator);</span>
+		public SummaryTextBuilder appendEntry(@NonNull final CharSequence entry) {
+<span class="nc bnc" id="L616" title="All 2 branches missed.">			if (builder.length() &gt; 0) {</span>
+<span class="nc" id="L617">				builder.append(separator);</span>
 			}
-<span class="nc" id="L613">			builder.append(entry);</span>
-<span class="nc" id="L614">			return this;</span>
+<span class="nc" id="L619">			builder.append(entry);</span>
+<span class="nc" id="L620">			return this;</span>
 		}
 
 		/**
@@ -619,7 +625,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference&lt
 		@NonNull
 		@Override
 		public CharSequence build() {
-<span class="nc" id="L622">			return builder.toString();</span>
+<span class="nc" id="L628">			return builder.toString();</span>
 		}
 	}
 }
