@@ -34,11 +34,11 @@ import java.util.Collections;
 import java.util.List;
 
 import universum.studios.android.ui.util.ResourceUtils;
-import universum.studios.android.widget.adapter.SimpleAdapter;
-import universum.studios.android.widget.adapter.ViewHolder;
+import universum.studios.android.widget.adapter.SimpleListAdapter;
+import universum.studios.android.widget.adapter.holder.ViewHolder;
 
 /**
- * A {@link SimpleAdapter} implementation used to provide data set of {@link Item Items} for adapter
+ * A {@link SimpleListAdapter} implementation used to provide data set of {@link Item Items} for adapter
  * view that displays a list of setting preferences in the context of {@link SettingsBaseActivity}.
  * &lt;p&gt;
  * This adapter uses the following view types to provide views for its data set of items:
@@ -55,7 +55,7 @@ import universum.studios.android.widget.adapter.ViewHolder;
  *
  * @author Martin Albedinsky
  */
-public class SettingHeadersAdapter extends SimpleAdapter&lt;SettingHeadersAdapter.Item, ViewHolder&gt; {
+public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAdapter, ViewHolder, SettingHeadersAdapter.Item&gt; {
 
 	/*
 	 * Constants ===================================================================================
@@ -123,7 +123,7 @@ public class SettingHeadersAdapter extends SimpleAdapter&lt;SettingHeadersAdapte
 	/**
 	 * Creates a new instance of SettingHeadersAdapter with empty data set.
 	 *
-	 * @see SimpleAdapter#SimpleAdapter(Context)
+	 * @see SimpleListAdapter#SimpleListAdapter(Context)
 	 * @see #SettingHeadersAdapter(Context, List)
 	 */
 	public SettingHeadersAdapter(@NonNull final Context context) {
@@ -347,35 +347,16 @@ public class SettingHeadersAdapter extends SimpleAdapter&lt;SettingHeadersAdapte
 	 */
 	@NonNull
 	@Override
-	protected View onCreateView(@NonNull final ViewGroup parent, final int position) {
-<span class="nc" id="L351">		final int viewType = currentViewType();</span>
-<span class="nc bnc" id="L352" title="All 4 branches missed.">		switch (viewType) {</span>
+	protected ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
+<span class="nc bnc" id="L351" title="All 4 branches missed.">		switch (viewType) {</span>
 			case VIEW_TYPE_CATEGORY:
-<span class="nc" id="L354">				return inflate(R.layout.ui_setting_category_header, parent);</span>
+<span class="nc" id="L353">				return new CategoryHolder(inflateView(R.layout.ui_setting_category_header, parent));</span>
 			case VIEW_TYPE_CATEGORY_DIVIDER:
-<span class="nc" id="L356">				return inflate(R.layout.ui_setting_category_divider, parent);</span>
+<span class="nc" id="L355">				return new CategoryDividerHolder(inflateView(R.layout.ui_setting_category_divider, parent));</span>
 			case VIEW_TYPE_HEADER:
-<span class="nc" id="L358">				return inflate(R.layout.ui_setting_header, parent);</span>
+<span class="nc" id="L357">				return new HeaderHolder(inflateView(R.layout.ui_setting_header, parent));</span>
 			default:
-<span class="nc" id="L360">				throw unknownViewTypeAtPositionException(viewType, position);</span>
-		}
-	}
-
-	/**
-	 */
-	@Nullable
-	@Override
-	protected ViewHolder onCreateViewHolder(@NonNull final View itemView, final int position) {
-<span class="nc" id="L369">		final int viewType = currentViewType();</span>
-<span class="nc bnc" id="L370" title="All 4 branches missed.">		switch (viewType) {</span>
-			case VIEW_TYPE_CATEGORY:
-<span class="nc" id="L372">				return new CategoryHolder(itemView);</span>
-			case VIEW_TYPE_CATEGORY_DIVIDER:
-<span class="nc" id="L374">				return new CategoryDividerHolder(itemView);</span>
-			case VIEW_TYPE_HEADER:
-<span class="nc" id="L376">				return new HeaderHolder(itemView);</span>
-			default:
-<span class="nc" id="L378">				throw unknownViewTypeAtPositionException(viewType, position);</span>
+<span class="nc" id="L359">				throw unknownViewTypeAtPositionException(viewType, NO_POSITION);</span>
 		}
 	}
 
@@ -384,47 +365,46 @@ public class SettingHeadersAdapter extends SimpleAdapter&lt;SettingHeadersAdapte
 	@Override
 	@SuppressWarnings(&quot;ResourceType&quot;)
 	protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
-<span class="nc" id="L387">		final int viewType = currentViewType();</span>
-<span class="nc bnc" id="L388" title="All 4 branches missed.">		switch (viewType) {</span>
+<span class="nc bnc" id="L368" title="All 4 branches missed.">		switch (viewHolder.getItemViewType()) {</span>
 			case VIEW_TYPE_CATEGORY:
-<span class="nc" id="L390">				final PreferenceActivity.Header categoryHeader = getItem(position).header;</span>
-<span class="nc" id="L391">				((CategoryHolder) viewHolder).title.setText(categoryHeader.getTitle(mResources));</span>
-<span class="nc" id="L392">				break;</span>
+<span class="nc" id="L370">				final PreferenceActivity.Header categoryHeader = getItem(position).header;</span>
+<span class="nc" id="L371">				((CategoryHolder) viewHolder).title.setText(categoryHeader.getTitle(mResources));</span>
+<span class="nc" id="L372">				break;</span>
 			case VIEW_TYPE_CATEGORY_DIVIDER:
-<span class="nc" id="L394">				final CategoryDividerHolder dividerHolder = (CategoryDividerHolder) viewHolder;</span>
-<span class="nc bnc" id="L395" title="All 2 branches missed.">				dividerHolder.shadowBottom.setVisibility(position == getItemCount() - 1 ? View.GONE : View.VISIBLE);</span>
-<span class="nc" id="L396">				break;</span>
+<span class="nc" id="L374">				final CategoryDividerHolder dividerHolder = (CategoryDividerHolder) viewHolder;</span>
+<span class="nc bnc" id="L375" title="All 2 branches missed.">				dividerHolder.shadowBottom.setVisibility(position == getItemCount() - 1 ? View.GONE : View.VISIBLE);</span>
+<span class="nc" id="L376">				break;</span>
 			case VIEW_TYPE_HEADER:
-<span class="nc" id="L398">				final Item item = getItem(position);</span>
-<span class="nc" id="L399">				final HeaderHolder headerHolder = (HeaderHolder) viewHolder;</span>
-<span class="nc bnc" id="L400" title="All 2 branches missed.">				if (item.header.iconRes == 0) {</span>
-<span class="nc" id="L401">					headerHolder.iconFrame.setVisibility(View.GONE);</span>
+<span class="nc" id="L378">				final Item item = getItem(position);</span>
+<span class="nc" id="L379">				final HeaderHolder headerHolder = (HeaderHolder) viewHolder;</span>
+<span class="nc bnc" id="L380" title="All 2 branches missed.">				if (item.header.iconRes == 0) {</span>
+<span class="nc" id="L381">					headerHolder.iconFrame.setVisibility(View.GONE);</span>
 				} else {
-<span class="nc" id="L403">					headerHolder.iconFrame.setVisibility(View.VISIBLE);</span>
-<span class="nc bnc" id="L404" title="All 2 branches missed.">					if (mUseVectorIcons) {</span>
-<span class="nc" id="L405">						headerHolder.icon.setImageDrawable(ResourceUtils.getVectorDrawable(</span>
+<span class="nc" id="L383">					headerHolder.iconFrame.setVisibility(View.VISIBLE);</span>
+<span class="nc bnc" id="L384" title="All 2 branches missed.">					if (mUseVectorIcons) {</span>
+<span class="nc" id="L385">						headerHolder.icon.setImageDrawable(ResourceUtils.getVectorDrawable(</span>
 								mResources,
-<span class="nc" id="L407">								item.header.iconRes,</span>
-<span class="nc" id="L408">								mContext.getTheme()</span>
+<span class="nc" id="L387">								item.header.iconRes,</span>
+<span class="nc" id="L388">								mContext.getTheme()</span>
 						));
 					} else {
-<span class="nc" id="L411">						headerHolder.icon.setImageResource(item.header.iconRes);</span>
+<span class="nc" id="L391">						headerHolder.icon.setImageResource(item.header.iconRes);</span>
 					}
 				}
-<span class="nc" id="L414">				headerHolder.title.setText(item.header.getTitle(mResources));</span>
-<span class="nc" id="L415">				final CharSequence summary = item.header.getSummary(mResources);</span>
-<span class="nc bnc" id="L416" title="All 2 branches missed.">				if (TextUtils.isEmpty(summary)) {</span>
-<span class="nc" id="L417">					headerHolder.summary.setVisibility(View.GONE);</span>
+<span class="nc" id="L394">				headerHolder.title.setText(item.header.getTitle(mResources));</span>
+<span class="nc" id="L395">				final CharSequence summary = item.header.getSummary(mResources);</span>
+<span class="nc bnc" id="L396" title="All 2 branches missed.">				if (TextUtils.isEmpty(summary)) {</span>
+<span class="nc" id="L397">					headerHolder.summary.setVisibility(View.GONE);</span>
 				} else {
-<span class="nc" id="L419">					headerHolder.summary.setVisibility(View.VISIBLE);</span>
-<span class="nc" id="L420">					headerHolder.summary.setText(summary);</span>
+<span class="nc" id="L399">					headerHolder.summary.setVisibility(View.VISIBLE);</span>
+<span class="nc" id="L400">					headerHolder.summary.setText(summary);</span>
 				}
-<span class="nc bnc" id="L422" title="All 2 branches missed.">				headerHolder.divider.setVisibility(item.showDivider ? View.VISIBLE : View.GONE);</span>
-<span class="nc" id="L423">				break;</span>
+<span class="nc bnc" id="L402" title="All 2 branches missed.">				headerHolder.divider.setVisibility(item.showDivider ? View.VISIBLE : View.GONE);</span>
+<span class="nc" id="L403">				break;</span>
 			default:
-<span class="nc" id="L425">				throw unknownViewTypeAtPositionException(viewType, position);</span>
+<span class="nc" id="L405">				throw unknownViewTypeAtPositionException(viewHolder.getItemViewType(), position);</span>
 		}
-<span class="nc" id="L427">	}</span>
+<span class="nc" id="L407">	}</span>
 
 	/**
 	 * Creates a new instance of IllegalArgumentException informing that the specified &lt;var&gt;viewType&lt;/var&gt;
@@ -434,7 +414,7 @@ public class SettingHeadersAdapter extends SimpleAdapter&lt;SettingHeadersAdapte
 	 * @param position Position for which the view type has been specified.
 	 */
 	private static IllegalArgumentException unknownViewTypeAtPositionException(final int viewType, final int position) {
-<span class="nc" id="L437">		return new IllegalArgumentException(&quot;Unknown view type(&quot; + viewType + &quot;) at(&quot; + position + &quot;)!&quot;);</span>
+<span class="nc bnc" id="L417" title="All 2 branches missed.">		return new IllegalArgumentException(&quot;Unknown view type(&quot; + viewType + &quot;) at(&quot; + (position == NO_POSITION ? &quot;UNSPECIFIED&quot; : position) + &quot;)!&quot;);</span>
 	}
 
 	/*
@@ -473,10 +453,10 @@ public class SettingHeadersAdapter extends SimpleAdapter&lt;SettingHeadersAdapte
 		 * @param viewType Type of the view that should be inflated for this item's data.
 		 * @param header   The header data to be associated with the new item.
 		 */
-<span class="nc" id="L476">		private Item(final int viewType, final PreferenceActivity.Header header) {</span>
-<span class="nc" id="L477">			this.viewType = viewType;</span>
-<span class="nc" id="L478">			this.header = header;</span>
-<span class="nc" id="L479">		}</span>
+<span class="nc" id="L456">		private Item(final int viewType, final PreferenceActivity.Header header) {</span>
+<span class="nc" id="L457">			this.viewType = viewType;</span>
+<span class="nc" id="L458">			this.header = header;</span>
+<span class="nc" id="L459">		}</span>
 
 		/**
 		 * Returns the header data associated with this item.
@@ -485,7 +465,7 @@ public class SettingHeadersAdapter extends SimpleAdapter&lt;SettingHeadersAdapte
 		 */
 		@NonNull
 		public PreferenceActivity.Header getHeader() {
-<span class="nc" id="L488">			return header;</span>
+<span class="nc" id="L468">			return header;</span>
 		}
 	}
 
@@ -507,9 +487,9 @@ public class SettingHeadersAdapter extends SimpleAdapter&lt;SettingHeadersAdapte
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
 		public CategoryHolder(@NonNull final View itemView) {
-<span class="nc" id="L510">			super(itemView);</span>
-<span class="nc" id="L511">			this.title = (TextView) itemView.findViewById(android.R.id.title);</span>
-<span class="nc" id="L512">		}</span>
+<span class="nc" id="L490">			super(itemView, VIEW_TYPE_CATEGORY);</span>
+<span class="nc" id="L491">			this.title = (TextView) itemView.findViewById(android.R.id.title);</span>
+<span class="nc" id="L492">		}</span>
 	}
 
 	/**
@@ -535,10 +515,10 @@ public class SettingHeadersAdapter extends SimpleAdapter&lt;SettingHeadersAdapte
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
 		public CategoryDividerHolder(@NonNull final View itemView) {
-<span class="nc" id="L538">			super(itemView);</span>
-<span class="nc" id="L539">			this.shadowTop = itemView.findViewById(R.id.ui_setting_category_divider_shadow_top);</span>
-<span class="nc" id="L540">			this.shadowBottom = itemView.findViewById(R.id.ui_setting_category_divider_shadow_bottom);</span>
-<span class="nc" id="L541">		}</span>
+<span class="nc" id="L518">			super(itemView, VIEW_TYPE_CATEGORY_DIVIDER);</span>
+<span class="nc" id="L519">			this.shadowTop = itemView.findViewById(R.id.ui_setting_category_divider_shadow_top);</span>
+<span class="nc" id="L520">			this.shadowBottom = itemView.findViewById(R.id.ui_setting_category_divider_shadow_bottom);</span>
+<span class="nc" id="L521">		}</span>
 	}
 
 	/**
@@ -581,13 +561,13 @@ public class SettingHeadersAdapter extends SimpleAdapter&lt;SettingHeadersAdapte
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
 		public HeaderHolder(@NonNull final View itemView) {
-<span class="nc" id="L584">			super(itemView);</span>
-<span class="nc" id="L585">			this.iconFrame = itemView.findViewById(R.id.icon_frame);</span>
-<span class="nc" id="L586">			this.icon = (ImageView) itemView.findViewById(android.R.id.icon);</span>
-<span class="nc" id="L587">			this.title = (TextView) itemView.findViewById(android.R.id.title);</span>
-<span class="nc" id="L588">			this.summary = (TextView) itemView.findViewById(android.R.id.summary);</span>
-<span class="nc" id="L589">			this.divider = itemView.findViewById(R.id.ui_setting_divider);</span>
-<span class="nc" id="L590">		}</span>
+<span class="nc" id="L564">			super(itemView, VIEW_TYPE_HEADER);</span>
+<span class="nc" id="L565">			this.iconFrame = itemView.findViewById(R.id.icon_frame);</span>
+<span class="nc" id="L566">			this.icon = (ImageView) itemView.findViewById(android.R.id.icon);</span>
+<span class="nc" id="L567">			this.title = (TextView) itemView.findViewById(android.R.id.title);</span>
+<span class="nc" id="L568">			this.summary = (TextView) itemView.findViewById(android.R.id.summary);</span>
+<span class="nc" id="L569">			this.divider = itemView.findViewById(R.id.ui_setting_divider);</span>
+<span class="nc" id="L570">		}</span>
 	}
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.3.0</div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.3.1</div></body></html>
