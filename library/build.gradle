@@ -122,6 +122,8 @@ dependencies {
     compile deps.androidSupport.appCompatV7
     compile deps.androidSupport.vectorDrawable
     compile deps.universumStudios.widgetAdaptersCore
+    compile deps.universumStudios.widgetAdaptersHolder
+    compile deps.universumStudios.widgetAdaptersSimple
     compile deps.universumStudios.widgetAdaptersList
     compile deps.universumStudios.widgetAdaptersSpinner
     compile deps.universumStudios.graphicsColorUtil
