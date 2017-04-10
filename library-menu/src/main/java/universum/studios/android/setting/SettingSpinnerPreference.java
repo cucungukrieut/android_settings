@@ -40,7 +40,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import universum.studios.android.widget.adapter.SimpleSpinnerAdapter;
-import universum.studios.android.widget.adapter.ViewHolder;
+import universum.studios.android.widget.adapter.holder.ViewHolder;
 
 /**
  * A {@link SettingPreference} implementation that provides {@link Spinner} widget with its related
@@ -426,7 +426,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * A {@link SimpleSpinnerAdapter} implementation that is used to provide entry items for the
 	 * {@link Spinner} widget of the parent spinner preference.
 	 */
-	private static final class EntriesAdapter extends SimpleSpinnerAdapter<CharSequence, EntryViewHolder, EntryDropDownViewHolder> {
+	private static final class EntriesAdapter extends SimpleSpinnerAdapter<EntriesAdapter, EntryViewHolder, EntryDropDownViewHolder, CharSequence> {
 
 		/**
 		 * Title text specified for this adapter to be displayed in the primary view.
@@ -434,12 +434,12 @@ public class SettingSpinnerPreference extends SettingPreference {
 		private CharSequence title;
 
 		/**
-		 * Layout resource of primary view inflated by this adapter in {@link #onCreateView(ViewGroup, int)}.
+		 * Layout resource of primary view inflated by this adapter in {@link #onCreateViewHolder(ViewGroup, int)}.
 		 */
 		private int viewLayoutResource;
 
 		/**
-		 * Layout resource of drop down view inflated by this adapter in {@link #onCreateDropDownView(ViewGroup, int)}.
+		 * Layout resource of drop down view inflated by this adapter in {@link #onCreateDropDownViewHolder(ViewGroup, int)}.
 		 */
 		private int dropDownViewLayoutResource;
 
@@ -492,32 +492,16 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 */
 		@NonNull
 		@Override
-		protected View onCreateView(@NonNull final ViewGroup parent, final int position) {
-			return inflate(viewLayoutResource, parent);
-		}
-
-		/**
-		 */
-		@Nullable
-		@Override
-		protected EntryViewHolder onCreateViewHolder(@NonNull final View itemView, final int position) {
-			return new EntryViewHolder(itemView);
+		protected EntryViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
+			return new EntryViewHolder(inflateView(viewLayoutResource, parent));
 		}
 
 		/**
 		 */
 		@NonNull
 		@Override
-		protected View onCreateDropDownView(@NonNull final ViewGroup parent, final int position) {
-			return inflate(dropDownViewLayoutResource, parent);
-		}
-
-		/**
-		 */
-		@Nullable
-		@Override
-		protected EntryDropDownViewHolder onCreateDropDownViewHolder(@NonNull final View itemView, final int position) {
-			return new EntryDropDownViewHolder(itemView);
+		protected EntryDropDownViewHolder onCreateDropDownViewHolder(@NonNull final ViewGroup parent, final int viewType) {
+			return new EntryDropDownViewHolder(inflateView(dropDownViewLayoutResource, parent));
 		}
 
 		/**
@@ -525,14 +509,14 @@ public class SettingSpinnerPreference extends SettingPreference {
 		@Override
 		protected void onBindViewHolder(@NonNull final EntryViewHolder holder, final int position) {
 			holder.titleView.setText(title);
-			holder.summaryView.setText(getSelectedItem());
+			holder.summaryView.setText(getItem(position));
 		}
 
 		/**
 		 */
 		@Override
-		protected void onUpdateViewHolder(@NonNull final EntryDropDownViewHolder holder, @NonNull final CharSequence entry, final int position) {
-			holder.titleView.setText(entry);
+		protected void onBindDropDownViewHolder(@NonNull EntryDropDownViewHolder holder, int position) {
+			holder.titleView.setText(getItem(position));
 		}
 	}
 

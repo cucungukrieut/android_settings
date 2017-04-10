@@ -1,6 +1,11 @@
 Change-Log
 ===============
 
+### [Pre-release 0.9.4](https://github.com/universum-studios/android_settings/releases/tag/0.9.4) ###
+> 10.04.2017
+
+- Updated to use **latest** version of the **[WidgetAdapters](https://github.com/universum-studios/android_widget_adapters)** library.
+
 ### [Pre-release 0.9.3](https://github.com/universum-studios/android_settings/releases/tag/0.9.3) ###
 > 02.04.2017
 
