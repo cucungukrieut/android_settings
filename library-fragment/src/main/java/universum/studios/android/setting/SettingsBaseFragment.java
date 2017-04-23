@@ -36,7 +36,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import universum.studios.android.setting.key.PreferenceScreenKeyModificator;
-import universum.studios.android.widget.adapter.DataSet;
 
 /**
  * A {@link PreferenceFragment} implementation which inflates its layout from a style specified in
@@ -57,6 +56,11 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingsBaseFragmentCompat";
+
+	/**
+	 * Constant that identifies invalid/unspecified position attached to a specified holder.
+	 */
+	private static final int NO_POSITION = -1;
 
 	/**
 	 * Base for keys used to store state of SettingsBaseFragment fragments.
@@ -121,7 +125,7 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 	 * @see #onViewCreated(View, Bundle)
 	 * @see #onDestroyView()
 	 */
-	private int mSavedFirstVisibleItemPosition = DataSet.NO_POSITION;
+	private int mSavedFirstVisibleItemPosition = NO_POSITION;
 
 	/**
 	 * Saved top offset of the first visible preference item from the preferences {@link ListView}.
@@ -312,10 +316,10 @@ public abstract class SettingsBaseFragment extends PreferenceFragment {
 			if (savedInstanceState != null) {
 				itemPosition = savedInstanceState.getInt(SAVED_STATE_FIRST_VISIBLE_ITEM_POSITION, 0);
 				itemTop = savedInstanceState.getInt(SAVED_STATE_FIRST_VISIBLE_ITEM_TOP, 0);
-			} else if (mSavedFirstVisibleItemPosition != DataSet.NO_POSITION) {
+			} else if (mSavedFirstVisibleItemPosition != NO_POSITION) {
 				itemPosition = mSavedFirstVisibleItemPosition;
 				itemTop = mSavedFirstVisibleItemTop;
-				this.mSavedFirstVisibleItemPosition = DataSet.NO_POSITION;
+				this.mSavedFirstVisibleItemPosition = NO_POSITION;
 				this.mSavedFirstVisibleItemTop = 0;
 			} else {
 				itemPosition = itemTop = 0;

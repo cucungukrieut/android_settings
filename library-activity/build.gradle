@@ -69,10 +69,6 @@ dependencies {
     compile deps.universumStudios.ui
     compile deps.universumStudios.fontCore
     compile deps.universumStudios.fontUtil
-    compile deps.universumStudios.widgetAdaptersCore
-    compile deps.universumStudios.widgetAdaptersHolder
-    compile deps.universumStudios.widgetAdaptersSimple
-    compile deps.universumStudios.widgetAdaptersList
     releaseCompile "universum.studios.android:settings-core:${config.library.version}@aar"
 
     /*

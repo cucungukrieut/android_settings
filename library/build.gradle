@@ -121,11 +121,6 @@ dependencies {
     compile deps.androidSupport.annotations
     compile deps.androidSupport.appCompatV7
     compile deps.androidSupport.vectorDrawable
-    compile deps.universumStudios.widgetAdaptersCore
-    compile deps.universumStudios.widgetAdaptersHolder
-    compile deps.universumStudios.widgetAdaptersSimple
-    compile deps.universumStudios.widgetAdaptersList
-    compile deps.universumStudios.widgetAdaptersSpinner
     compile deps.universumStudios.graphicsColorUtil
     compile deps.universumStudios.ui
     compile deps.universumStudios.fontCore
@@ -138,8 +133,7 @@ dependencies {
     androidTestCompile project(':test-core')
 }
 
-// Apply DEPLOY script.
-apply from: '../deploy/deploy.gradle'
-
-// Apply CODACY script.
+// Apply additional scripts.
+apply from: 'analysis.gradle'
 apply from: 'codacy.gradle'
+apply from: '../deploy/deploy.gradle'

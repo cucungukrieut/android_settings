@@ -30,17 +30,15 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Arrays;
-import java.util.Collections;
-
-import universum.studios.android.widget.adapter.SimpleSpinnerAdapter;
-import universum.studios.android.widget.adapter.holder.ViewHolder;
 
 /**
  * A {@link SettingPreference} implementation that provides {@link Spinner} widget with its related
@@ -250,11 +248,13 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 */
 	public void setEntries(@Nullable final CharSequence[] entries) {
 		this.mEntries = entries;
-		if (entries == null) {
-			this.mAdapter.changeItems(Collections.<CharSequence>emptyList());
-		} else {
-			this.mAdapter.changeItems(Arrays.asList(entries));
+		this.mAdapter.setNotifyOnChange(false);
+		this.mAdapter.clear();
+		if (entries != null) {
+			this.mAdapter.addAll(Arrays.asList(entries));
 		}
+		this.mAdapter.setNotifyOnChange(true);
+		this.mAdapter.notifyDataSetChanged();
 	}
 
 	/**
@@ -423,10 +423,20 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 */
 
 	/**
-	 * A {@link SimpleSpinnerAdapter} implementation that is used to provide entry items for the
+	 * An {@link ArrayAdapter} implementation that is used to provide entry items for the
 	 * {@link Spinner} widget of the parent spinner preference.
 	 */
-	private static final class EntriesAdapter extends SimpleSpinnerAdapter<EntriesAdapter, EntryViewHolder, EntryDropDownViewHolder, CharSequence> {
+	private static final class EntriesAdapter extends ArrayAdapter<CharSequence> {
+
+		/**
+		 * Constant that identifies invalid/unspecified position in data set.
+		 */
+		static final int NO_POSITION = -1;
+
+		/**
+		 * Layout inflater used to inflateView new views for this adapter.
+		 */
+		private final LayoutInflater mLayoutInflater;
 
 		/**
 		 * Title text specified for this adapter to be displayed in the primary view.
@@ -434,22 +444,21 @@ public class SettingSpinnerPreference extends SettingPreference {
 		private CharSequence title;
 
 		/**
-		 * Layout resource of primary view inflated by this adapter in {@link #onCreateViewHolder(ViewGroup, int)}.
+		 * Layout resource of primary view inflated by this adapter in {@link #getView(int, View, ViewGroup)}.
 		 */
 		private int viewLayoutResource;
 
 		/**
-		 * Layout resource of drop down view inflated by this adapter in {@link #onCreateDropDownViewHolder(ViewGroup, int)}.
+		 * Layout resource of drop down view inflated by this adapter in {@link #getDropDownView(int, View, ViewGroup)}.
 		 */
 		private int dropDownViewLayoutResource;
 
 		/**
 		 * Creates a new instance EntriesAdapter without initial entries.
-		 *
-		 * @see SimpleSpinnerAdapter#SimpleSpinnerAdapter(Context)
 		 */
-		private EntriesAdapter(@NonNull final Context context) {
-			super(context);
+		EntriesAdapter(final Context context) {
+			super(context, android.R.layout.simple_spinner_item);
+			this.mLayoutInflater = LayoutInflater.from(context);
 		}
 
 		/**
@@ -492,31 +501,68 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 */
 		@NonNull
 		@Override
-		protected EntryViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
-			return new EntryViewHolder(inflateView(viewLayoutResource, parent));
-		}
-
-		/**
-		 */
-		@NonNull
-		@Override
-		protected EntryDropDownViewHolder onCreateDropDownViewHolder(@NonNull final ViewGroup parent, final int viewType) {
-			return new EntryDropDownViewHolder(inflateView(dropDownViewLayoutResource, parent));
-		}
-
-		/**
-		 */
-		@Override
-		protected void onBindViewHolder(@NonNull final EntryViewHolder holder, final int position) {
-			holder.titleView.setText(title);
-			holder.summaryView.setText(getItem(position));
+		public View getView(final int position, @Nullable final View convertView, @NonNull final ViewGroup parent) {
+			View view = convertView;
+			EntryViewHolder viewHolder;
+			if (view == null) {
+				viewHolder = new EntryViewHolder(inflateView(viewLayoutResource, parent));
+				view = viewHolder.itemView;
+				view.setTag(viewHolder);
+			} else {
+				viewHolder = (EntryViewHolder) view.getTag();
+			}
+			viewHolder.titleView.setText(title);
+			viewHolder.summaryView.setText(getItem(position));
+			return view;
 		}
 
 		/**
 		 */
 		@Override
-		protected void onBindDropDownViewHolder(@NonNull EntryDropDownViewHolder holder, int position) {
-			holder.titleView.setText(getItem(position));
+		public View getDropDownView(final int position, @Nullable final View convertView, @NonNull final ViewGroup parent) {
+			View view = convertView;
+			EntryDropDownViewHolder viewHolder;
+			if (view == null) {
+				viewHolder = new EntryDropDownViewHolder(inflateView(dropDownViewLayoutResource, parent));
+				view = viewHolder.itemView;
+				view.setTag(viewHolder);
+			} else {
+				viewHolder = (EntryDropDownViewHolder) view.getTag();
+			}
+			viewHolder.titleView.setText(getItem(position));
+			return view;
+		}
+
+		/**
+		 * Inflates a new view hierarchy from the given xml resource.
+		 *
+		 * @param resource Resource id of a view to inflateView.
+		 * @param parent   A parent view, to resolve correct layout params for the newly creating view.
+		 * @return The root view of the inflated view hierarchy.
+		 * @see LayoutInflater#inflate(int, ViewGroup)
+		 */
+		private View inflateView(@LayoutRes final int resource, @Nullable final ViewGroup parent) {
+			return mLayoutInflater.inflate(resource, parent, false);
+		}
+	}
+
+	/**
+	 * Base class for view holder implementations used in {@link EntriesAdapter}.
+	 */
+	private static abstract class ViewHolder {
+
+		/**
+		 * Item view associated with this holder instance.
+		 */
+		final View itemView;
+
+		/**
+		 * Creates a new instance of ViewHolder with the specified <var>itemView</var>.
+		 *
+		 * @param itemView The item view to associate with the new holder.
+		 */
+		ViewHolder(@NonNull final View itemView) {
+			this.itemView = itemView;
 		}
 	}
 
@@ -540,7 +586,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
-		private EntryViewHolder(@NonNull final View itemView) {
+		EntryViewHolder(@NonNull final View itemView) {
 			super(itemView);
 			this.titleView = (TextView) itemView.findViewById(android.R.id.title);
 			this.summaryView = (TextView) itemView.findViewById(android.R.id.summary);
@@ -562,7 +608,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
-		private EntryDropDownViewHolder(@NonNull final View itemView) {
+		EntryDropDownViewHolder(@NonNull final View itemView) {
 			super(itemView);
 			this.titleView = (TextView) itemView.findViewById(android.R.id.title);
 		}
