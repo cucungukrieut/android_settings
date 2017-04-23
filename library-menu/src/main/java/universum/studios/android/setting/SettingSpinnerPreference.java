@@ -448,7 +448,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @see SimpleSpinnerAdapter#SimpleSpinnerAdapter(Context)
 		 */
-		private EntriesAdapter(@NonNull final Context context) {
+		EntriesAdapter(@NonNull final Context context) {
 			super(context);
 		}
 
@@ -540,7 +540,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
-		private EntryViewHolder(@NonNull final View itemView) {
+		EntryViewHolder(@NonNull final View itemView) {
 			super(itemView);
 			this.titleView = (TextView) itemView.findViewById(android.R.id.title);
 			this.summaryView = (TextView) itemView.findViewById(android.R.id.summary);
@@ -562,7 +562,7 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
-		private EntryDropDownViewHolder(@NonNull final View itemView) {
+		EntryDropDownViewHolder(@NonNull final View itemView) {
 			super(itemView);
 			this.titleView = (TextView) itemView.findViewById(android.R.id.title);
 		}

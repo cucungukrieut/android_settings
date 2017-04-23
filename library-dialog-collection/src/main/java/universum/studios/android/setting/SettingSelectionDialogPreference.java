@@ -596,7 +596,7 @@ public class SettingSelectionDialogPreference extends SettingDialogPreference<Se
 		 *
 		 * @param separator The desired separator used to separate entry items.
 		 */
-		private DefaultSummaryTextBuilder(@NonNull final String separator) {
+		DefaultSummaryTextBuilder(@NonNull final String separator) {
 			this.builder = new StringBuilder(64);
 			this.separator = separator;
 		}

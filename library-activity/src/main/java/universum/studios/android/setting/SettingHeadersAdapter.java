@@ -433,18 +433,18 @@ public class SettingHeadersAdapter extends SimpleListAdapter<SettingHeadersAdapt
 		 * Type of the view that should be inflated for this item. Should be one of view types defined
 		 * in {@link SettingHeadersAdapter}.
 		 */
-		private final int viewType;
+		final int viewType;
 
 		/**
 		 * Header data associated with this item.
 		 */
-		private final PreferenceActivity.Header header;
+		final PreferenceActivity.Header header;
 
 		/**
 		 * Boolean flag indicating whether there should be visible divider in the view inflated for
 		 * this item.
 		 */
-		private boolean showDivider;
+		boolean showDivider;
 
 		/**
 		 * Creates a new instance of Item with the specified <var>viewType</var> and <var>header</var>
@@ -453,7 +453,7 @@ public class SettingHeadersAdapter extends SimpleListAdapter<SettingHeadersAdapt
 		 * @param viewType Type of the view that should be inflated for this item's data.
 		 * @param header   The header data to be associated with the new item.
 		 */
-		private Item(final int viewType, final PreferenceActivity.Header header) {
+		Item(final int viewType, final PreferenceActivity.Header header) {
 			this.viewType = viewType;
 			this.header = header;
 		}
