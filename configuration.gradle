@@ -14,7 +14,7 @@ def testConfig = [
 
 def libraryConfig = [
         version          : '0.9.0',
-        preReleaseVersion: '0.9.3'
+        preReleaseVersion: '0.9.5'
 ]
 
 def mavenConfig = [

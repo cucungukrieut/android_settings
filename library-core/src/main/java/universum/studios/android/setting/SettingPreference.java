@@ -44,7 +44,7 @@ import android.view.View;
  */
 public class SettingPreference extends Preference {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -53,15 +53,15 @@ public class SettingPreference extends Preference {
 	 */
 	// private static final String TAG = "SettingPreference";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -71,14 +71,14 @@ public class SettingPreference extends Preference {
 	 */
 	private PreferenceDecorator mDecorator;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingPreference(@NonNull Context context) {
+	public SettingPreference(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -86,7 +86,7 @@ public class SettingPreference extends Preference {
 	 * Same as {@link #SettingPreference(Context, AttributeSet, int)} with
 	 * {@link android.R.attr#preferenceStyle} as attribute for default style.
 	 */
-	public SettingPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, android.R.attr.preferenceStyle);
 	}
 
@@ -94,7 +94,7 @@ public class SettingPreference extends Preference {
 	 * Same as {@link #SettingPreference(Context, AttributeSet, int, int)} with {@code 0} as default
 	 * style.
 	 */
-	public SettingPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+	public SettingPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		this.init(context, attrs, defStyleAttr, 0);
 	}
@@ -109,12 +109,12 @@ public class SettingPreference extends Preference {
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		this.init(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -126,7 +126,7 @@ public class SettingPreference extends Preference {
 	 * The specified <var>defStyleAttr</var> and <var>defStyleRes</var> are used to obtain default
 	 * data from the current theme provided by the specified <var>context</var>.
 	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	private void init(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		this.ensureDecorator();
 		mDecorator.processAttributes(context, attrs, defStyleAttr, defStyleRes);
 	}
@@ -141,14 +141,14 @@ public class SettingPreference extends Preference {
 			 */
 			@Nullable
 			@Override
-			Object onGetDefaultValue(@NonNull TypedArray attributes, int index) {
+			Object onGetDefaultValue(@NonNull final TypedArray attributes, final int index) {
 				return SettingPreference.this.onGetDefaultValue(attributes, index);
 			}
 
 			/**
 			 */
 			@Override
-			void onUpdateInitialValue(boolean restorePersistedValue, @Nullable Object defaultValue) {
+			void onUpdateInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
 				SettingPreference.this.onSetInitialValue(restorePersistedValue, defaultValue);
 			}
 		};
@@ -157,7 +157,7 @@ public class SettingPreference extends Preference {
 	/**
 	 */
 	@Override
-	public void setKey(@NonNull String key) {
+	public void setKey(@NonNull final String key) {
 		final boolean keyChanged = !key.equals(getKey());
 		super.setKey(key);
 		if (keyChanged) {
@@ -168,13 +168,13 @@ public class SettingPreference extends Preference {
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
+	public void onBindView(@NonNull final View view) {
 		super.onBindView(view);
 		this.ensureDecorator();
 		mDecorator.onBindView(view);
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

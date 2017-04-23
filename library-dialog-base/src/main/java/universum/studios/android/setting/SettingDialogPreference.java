@@ -67,7 +67,7 @@ import universum.studios.android.dialog.DialogOptions;
  */
 public class SettingDialogPreference<O extends DialogOptions<O>> extends SettingPreference {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -83,7 +83,7 @@ public class SettingDialogPreference<O extends DialogOptions<O>> extends Setting
 	 */
 	public static final int NO_DIALOG_ID = -1;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
@@ -103,11 +103,11 @@ public class SettingDialogPreference<O extends DialogOptions<O>> extends Setting
 		boolean onDialogPreferenceClick(@NonNull SettingDialogPreference dialogPreference);
 	}
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -123,14 +123,14 @@ public class SettingDialogPreference<O extends DialogOptions<O>> extends Setting
 	 */
 	private O mDialogOptions;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingDialogPreference(@NonNull Context context) {
+	public SettingDialogPreference(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -138,7 +138,7 @@ public class SettingDialogPreference<O extends DialogOptions<O>> extends Setting
 	 * Same as {@link #SettingDialogPreference(Context, AttributeSet, int)} with
 	 * {@link android.R.attr#dialogPreferenceStyle} as attribute for default style.
 	 */
-	public SettingDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, android.R.attr.dialogPreferenceStyle);
 	}
 
@@ -146,7 +146,7 @@ public class SettingDialogPreference<O extends DialogOptions<O>> extends Setting
 	 * Same as {@link #SettingDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+	public SettingDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		this.init(context, attrs, defStyleAttr, 0);
 	}
@@ -161,12 +161,12 @@ public class SettingDialogPreference<O extends DialogOptions<O>> extends Setting
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		this.init(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -178,7 +178,7 @@ public class SettingDialogPreference<O extends DialogOptions<O>> extends Setting
 	 * The specified <var>defStyleAttr</var> and <var>defStyleRes</var> are used to obtain default
 	 * data from the current theme provided by the specified <var>context</var>.
 	 */
-	private void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	private void init(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		this.mDialogOptions = onCreateDialogOptions(context.getResources());
 		onConfigureDialogOptions(mDialogOptions, context, attrs, defStyleAttr, defStyleRes);
 	}
@@ -189,7 +189,13 @@ public class SettingDialogPreference<O extends DialogOptions<O>> extends Setting
 	 * @param options The options created via {@link #onCreateDialogOptions(Resources)}.
 	 */
 	@SuppressWarnings("ResourceType")
-	protected void onConfigureDialogOptions(@NonNull O options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	protected void onConfigureDialogOptions(
+			@NonNull final O options,
+			@NonNull final Context context,
+			@Nullable final AttributeSet attrs,
+			@AttrRes final int defStyleAttr,
+			@StyleRes final int defStyleRes
+	) {
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_DialogPreference, defStyleAttr, defStyleRes);
 		for (int i = 0; i < attributes.getIndexCount(); i++) {
 			final int index = attributes.getIndex(i);
@@ -235,7 +241,7 @@ public class SettingDialogPreference<O extends DialogOptions<O>> extends Setting
 	 */
 	@NonNull
 	@SuppressWarnings("unchecked")
-	protected O onCreateDialogOptions(@NonNull Resources resources) {
+	protected O onCreateDialogOptions(@NonNull final Resources resources) {
 		return (O) new DialogOptions(resources);
 	}
 
@@ -294,7 +300,7 @@ public class SettingDialogPreference<O extends DialogOptions<O>> extends Setting
 	 *
 	 * @param view The root view of this preference.
 	 */
-	protected void synchronizeSummaryView(@NonNull View view) {
+	protected void synchronizeSummaryView(@NonNull final View view) {
 		final TextView summaryView = (TextView) view.findViewById(android.R.id.summary);
 		if (summaryView != null) {
 			final CharSequence summaryText = onGetSummaryText();
@@ -329,7 +335,7 @@ public class SettingDialogPreference<O extends DialogOptions<O>> extends Setting
 	 * event has been successfully handled by this preference, {@code false} otherwise so it should
 	 * be handled by the caller.
 	 */
-	public boolean handleOnDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+	public boolean handleOnDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
 		return dialog.getDialogId() == mDialogId && onHandleDialogButtonClick(dialog, button);
 	}
 
@@ -342,11 +348,11 @@ public class SettingDialogPreference<O extends DialogOptions<O>> extends Setting
 	 * @return {@code True} if the button click event has been successfully handled, {@code false}
 	 * otherwise.
 	 */
-	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+	protected boolean onHandleDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
 		return false;
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

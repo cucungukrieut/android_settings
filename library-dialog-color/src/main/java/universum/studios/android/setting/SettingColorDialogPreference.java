@@ -63,7 +63,7 @@ import universum.studios.android.setting.widget.SettingColorView;
  */
 public final class SettingColorDialogPreference extends SettingDialogPreference<ColorPickerDialog.ColorOptions> {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -72,15 +72,15 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	 */
 	// private static final String TAG = "SettingColorDialogPreference";
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
 
@@ -98,14 +98,14 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	 */
 	private int mColor = Color.TRANSPARENT;
 
-	/**
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Same as {@link #SettingColorDialogPreference(Context, AttributeSet)} without attributes.
 	 */
-	public SettingColorDialogPreference(@NonNull Context context) {
+	public SettingColorDialogPreference(@NonNull final Context context) {
 		this(context, null);
 	}
 
@@ -113,7 +113,7 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	 * Same as {@link #SettingColorDialogPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingColorDialogPreferenceStyle} as attribute for default style.
 	 */
-	public SettingColorDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SettingColorDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
 		this(context, attrs, R.attr.uiSettingColorDialogPreferenceStyle);
 	}
 
@@ -121,7 +121,7 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	 * Same as {@link #SettingColorDialogPreference(Context, AttributeSet, int, int)} with {@code 0} as
 	 * default style.
 	 */
-	public SettingColorDialogPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SettingColorDialogPreference(@NonNull final Context context, @NonNull final AttributeSet attrs, @AttrRes final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
@@ -135,11 +135,11 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	 * @param defStyleRes  Resource id of the default style for the new preference.
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SettingColorDialogPreference(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	public SettingColorDialogPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -147,14 +147,20 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	 */
 	@NonNull
 	@Override
-	protected ColorPickerDialog.ColorOptions onCreateDialogOptions(@NonNull Resources resources) {
+	protected ColorPickerDialog.ColorOptions onCreateDialogOptions(@NonNull final Resources resources) {
 		return new ColorPickerDialog.ColorOptions(resources);
 	}
 
 	/**
 	 */
 	@Override
-	protected void onConfigureDialogOptions(@NonNull ColorPickerDialog.ColorOptions options, @NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+	protected void onConfigureDialogOptions(
+			@NonNull final ColorPickerDialog.ColorOptions options,
+			@NonNull final Context context,
+			@Nullable final AttributeSet attrs,
+			@AttrRes final int defStyleAttr,
+			@StyleRes final int defStyleRes
+	) {
 		super.onConfigureDialogOptions(options, context, attrs, defStyleAttr, defStyleRes);
 		int canvasColor = options.canvasColor();
 		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_ColorDialogPreference, defStyleAttr, defStyleRes);
@@ -173,15 +179,15 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	/**
 	 */
 	@Override
-	protected Object onGetDefaultValue(@NonNull TypedArray typedArray, int index) {
-		return typedArray.getColor(index, mColor);
+	protected Object onGetDefaultValue(@NonNull final TypedArray attributes, final int index) {
+		return attributes.getColor(index, mColor);
 	}
 
 	/**
 	 */
 	@Override
-	@SuppressWarnings("ResourceType")
-	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
+	@SuppressWarnings({"ResourceType", "ConstantConditions"})
+	protected void onSetInitialValue(final boolean restorePersistedValue, @Nullable final Object defaultValue) {
 		setColor(restorePersistedValue ? getPersistedInt(mColor) : (Integer) defaultValue);
 	}
 
@@ -194,7 +200,7 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	 * @param color The preferred color to be persisted as {@link Integer}.
 	 * @see #getColor()
 	 */
-	public void setColor(@ColorInt int color) {
+	public void setColor(@ColorInt final int color) {
 		final boolean changed = mColor != color;
 		if (callChangeListener(color) && (changed || !mColorSet)) {
 			this.mColor = color;
@@ -221,7 +227,7 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	/**
 	 */
 	@Override
-	public void onBindView(View view) {
+	public void onBindView(@NonNull final View view) {
 		super.onBindView(view);
 		final SettingColorView colorView = (SettingColorView) view.findViewById(R.id.ui_setting_color_view);
 		if (colorView != null) {
@@ -249,7 +255,7 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 	/**
 	 */
 	@Override
-	protected boolean onHandleDialogButtonClick(@NonNull Dialog dialog, @Dialog.Button int button) {
+	protected boolean onHandleDialogButtonClick(@NonNull final Dialog dialog, @Dialog.Button final int button) {
 		if (dialog instanceof ColorPickerDialog) {
 			switch (button) {
 				case Dialog.BUTTON_POSITIVE:
@@ -262,7 +268,7 @@ public final class SettingColorDialogPreference extends SettingDialogPreference<
 		return super.onHandleDialogButtonClick(dialog, button);
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 }

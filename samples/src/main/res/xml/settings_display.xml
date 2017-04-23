@@ -23,7 +23,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<!--
-		Add empty preference at the top of preferences hierarchy so for example animations for the
+		Add empty preference at the top of preferences hierarchy so thumb animations for the
 		switch preference below will work properly.
 	-->
 	<universum.studios.android.setting.SettingEmptyPreference />

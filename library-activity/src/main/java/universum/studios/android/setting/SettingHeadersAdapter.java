@@ -19,26 +19,27 @@
 package universum.studios.android.setting;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.preference.PreferenceActivity;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import universum.studios.android.ui.util.ResourceUtils;
-import universum.studios.android.widget.adapter.SimpleAdapter;
-import universum.studios.android.widget.adapter.ViewHolder;
 
 /**
- * A {@link SimpleAdapter} implementation used to provide data set of {@link Item Items} for adapter
+ * A {@link BaseAdapter} implementation used to provide data set of {@link Item Items} for adapter
  * view that displays a list of setting preferences in the context of {@link SettingsBaseActivity}.
  * <p>
  * This adapter uses the following view types to provide views for its data set of items:
@@ -49,15 +50,14 @@ import universum.studios.android.widget.adapter.ViewHolder;
  * </ul>
  * <p>
  * Data set of items with associated headers may be supplied via {@link #SettingHeadersAdapter(Context, List)}
- * constructor or changed via {@link #changeHeaders(List)}. The current data set of transformed items
- * may be obtained via {@link #getItems()}. A specific item at a desired position may be obtained
- * via {@link #getItem(int)} and its associated header via {@link Item#getHeader() getItem(int).getHeader()}.
+ * constructor or changed via {@link #changeHeaders(List)}. A specific item at a desired position may
+ * be obtained via {@link #getItem(int)} and its associated header via {@link Item#getHeader() getItem(int).getHeader()}.
  *
  * @author Martin Albedinsky
  */
-public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.Item, ViewHolder> {
+public class SettingHeadersAdapter extends BaseAdapter {
 
-	/**
+	/*
 	 * Constants ===================================================================================
 	 */
 
@@ -65,6 +65,16 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 * Log TAG.
 	 */
 	// private static final String TAG = "SettingHeadersAdapter";
+
+	/**
+	 * Constant that identifies invalid/unspecified position attached to a specified holder.
+	 */
+	public static final int NO_POSITION = -1;
+
+	/**
+	 * Constant that identifies invalid/unspecified id.
+	 */
+	public static final long NO_ID = -1;
 
 	/**
 	 * Count of view types that this adapter may provide.
@@ -90,17 +100,34 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 */
 	public static final int VIEW_TYPE_HEADER = 2;
 
-	/**
+	/*
 	 * Interface ===================================================================================
 	 */
 
-	/**
+	/*
 	 * Static members ==============================================================================
 	 */
 
-	/**
+	/*
 	 * Members =====================================================================================
 	 */
+
+	/**
+	 * Context in which will be this adapter used.
+	 */
+	@NonNull
+	protected final Context mContext;
+
+	/**
+	 * Application resources that may be used to obtain strings, texts, drawables, ... and other resources.
+	 */
+	@NonNull
+	protected final Resources mResources;
+
+	/**
+	 * Layout inflater used to inflateView new views for this adapter.
+	 */
+	private final LayoutInflater mLayoutInflater;
 
 	/**
 	 * Boolean flag indicating whether this adapter should treat icon resource specified for each
@@ -112,28 +139,32 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	private boolean mUseVectorIcons;
 
 	/**
-	 * List containing headers supplied to this adapter via {@link #changeHeaders(List)}.
+	 * List containing original headers supplied to this adapter via {@link #changeHeaders(List)}.
 	 */
 	private List<PreferenceActivity.Header> mHeaders;
 
 	/**
+	 * todo:
+	 */
+	private List<SettingHeadersAdapter.Item> mItems;
+
+	/*
 	 * Constructors ================================================================================
 	 */
 
 	/**
 	 * Creates a new instance of SettingHeadersAdapter with empty data set.
 	 *
-	 * @see SimpleAdapter#SimpleAdapter(Context)
 	 * @see #SettingHeadersAdapter(Context, List)
 	 */
-	public SettingHeadersAdapter(@NonNull Context context) {
-		super(context);
+	public SettingHeadersAdapter(@NonNull final Context context) {
+		this(context, new ArrayList<PreferenceActivity.Header>(0));
 	}
 
 	/**
 	 * Same as {@link #SettingHeadersAdapter(Context, List)} for array of headers.
 	 */
-	public SettingHeadersAdapter(@NonNull Context context, @NonNull PreferenceActivity.Header[] headers) {
+	public SettingHeadersAdapter(@NonNull final Context context, @NonNull final PreferenceActivity.Header[] headers) {
 		this(context, Arrays.asList(headers));
 	}
 
@@ -143,14 +174,15 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 * @param context Context in which will be the new adapter used.
 	 * @param headers Initial data set of headers.
 	 * @see #changeHeaders(List)
-	 * @see #getItems()
 	 */
-	public SettingHeadersAdapter(@NonNull Context context, @NonNull List<PreferenceActivity.Header> headers) {
-		super(context);
+	public SettingHeadersAdapter(@NonNull final Context context, @NonNull final List<PreferenceActivity.Header> headers) {
+		this.mContext = context;
+		this.mResources = context.getResources();
+		this.mLayoutInflater = LayoutInflater.from(context);
 		changeHeaders(headers);
 	}
 
-	/**
+	/*
 	 * Methods =====================================================================================
 	 */
 
@@ -162,7 +194,7 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 * @param useVectorIcons {@code True} to apply icon resources of items as vector drawables,
 	 *                       {@code false} as standard drawables.
 	 */
-	public void setUseVectorIcons(boolean useVectorIcons) {
+	public void setUseVectorIcons(final boolean useVectorIcons) {
 		if (mUseVectorIcons != useVectorIcons) {
 			this.mUseVectorIcons = useVectorIcons;
 			notifyDataSetChanged();
@@ -170,42 +202,29 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	}
 
 	/**
-	 * @throws UnsupportedOperationException Use {@link #changeHeaders(List)} instead.
-	 */
-	@Override
-	public final void changeItems(@Nullable List<Item> items) {
-		throw new UnsupportedOperationException("Cannot change items of SettingHeadersAdapter directly! Use changeHeaders(...) instead.");
-	}
-
-	/**
 	 * Same as {@link #swapHeaders(List)} where the old headers are ignored.
 	 */
-	public void changeHeaders(@Nullable List<PreferenceActivity.Header> headers) {
+	public void changeHeaders(@Nullable final List<PreferenceActivity.Header> headers) {
 		swapHeaders(headers);
 	}
 
 	/**
 	 * Swaps the current data set of this adapter for the given <var>headers</var>.
 	 * <p>
-	 * <b>Note</b>, that as this adapter uses multiple view types to present its data set, the specified
-	 * headers are transformed into data set of {@link Item Items}. The items data set may be obtained
-	 * via {@link #getItems()} or a specific item at a desired position via {@link #getItem(int)}.
-	 * {@link PreferenceActivity.Header Header} associated with an item at a specific position may
-	 * be obtained via {@link Item#getHeader() getItem(int).getHeader()}.
+	 * <b>Note</b>, that as this adapter uses multiple view types to present its data set, the
+	 * specified headers are transformed into data set of {@link Item Items}. A specific item at a
+	 * desired position via {@link #getItem(int)}. {@link PreferenceActivity.Header Header} associated
+	 * with an item at a specific position may be obtained via {@link Item#getHeader() getItem(int).getHeader()}.
 	 *
 	 * @param headers The headers for which to create a new data set. May be {@code null} to clear
 	 *                the current data set.
 	 * @see #changeHeaders(List)
 	 */
 	@Nullable
-	public List<PreferenceActivity.Header> swapHeaders(@Nullable List<PreferenceActivity.Header> headers) {
+	public List<PreferenceActivity.Header> swapHeaders(@Nullable final List<PreferenceActivity.Header> headers) {
 		final List<PreferenceActivity.Header> oldHeaders = mHeaders;
 		this.mHeaders = headers;
-		if (headers == null || headers.isEmpty()) {
-			super.swapItems(Collections.<Item>emptyList());
-		} else {
-			super.swapItems(createItemsFromHeaders(headers));
-		}
+		this.mItems = headers == null || headers.isEmpty() ? null : createItemsFromHeaders(headers);
 		return oldHeaders;
 	}
 
@@ -221,7 +240,7 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 * associated.
 	 * @see #isCategoryHeader(PreferenceActivity.Header)
 	 */
-	private static List<Item> createItemsFromHeaders(List<PreferenceActivity.Header> headers) {
+	private static List<Item> createItemsFromHeaders(final List<PreferenceActivity.Header> headers) {
 		final List<Item> items = new ArrayList<>(headers.size());
 		final int headersCount = headers.size();
 		for (int i = 0; i < headersCount; i++) {
@@ -245,12 +264,35 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	}
 
 	/**
-	 * @throws UnsupportedOperationException Use {@link #swapHeaders(List)} instead.
 	 */
-	@Nullable
 	@Override
-	public final List<Item> swapItems(@Nullable List<Item> items) {
-		throw new UnsupportedOperationException("Cannot swap items of SettingHeadersAdapter directly! Use swapHeaders(...) instead.");
+	public int getCount() {
+		return mItems == null ? 0 : mItems.size();
+	}
+
+	/**
+	 * Returns a boolean flag indicating whether this data set has item that can provide data for the
+	 * specified <var>position</var> or not.
+	 *
+	 * @param position The position of item to check.
+	 * @return {@code True} if {@link #getItem(int)} can be called 'safely', {@code false} otherwise.
+	 */
+	public boolean hasItemAt(final int position) {
+		return position >= 0 && position < getCount();
+	}
+
+	/**
+	 */
+	@NonNull
+	@Override
+	public SettingHeadersAdapter.Item getItem(final int position) {
+		if (!hasItemAt(position)) {
+			throw new IndexOutOfBoundsException(
+					"Requested item at invalid position(" + position + "). " +
+							"Data set has items in count of(" + getCount() + ")."
+			);
+		}
+		return mItems.get(position);
 	}
 
 	/**
@@ -261,6 +303,13 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	}
 
 	/**
+	 */
+	@Override
+	public long getItemId(final int position) {
+		return hasItemAt(position) ? position : NO_ID;
+	}
+
+	/**
 	 * Performs check whether the given <var>header</var> should be treated as category header or not.
 	 *
 	 * @param header The header to check.
@@ -268,7 +317,7 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 * @see PreferenceActivity.Header#fragment
 	 * @see PreferenceActivity.Header#intent
 	 */
-	private static boolean isCategoryHeader(PreferenceActivity.Header header) {
+	private static boolean isCategoryHeader(final PreferenceActivity.Header header) {
 		return TextUtils.isEmpty(header.fragment) && header.intent == null;
 	}
 
@@ -282,7 +331,7 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	/**
 	 */
 	@Override
-	public int getItemViewType(int position) {
+	public int getItemViewType(final int position) {
 		if (isCategoryAt(position)) return VIEW_TYPE_CATEGORY;
 		if (isCategoryDividerAt(position)) return VIEW_TYPE_CATEGORY_DIVIDER;
 		else return VIEW_TYPE_HEADER;
@@ -293,7 +342,7 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 * @see #isHeaderAt(int)
 	 */
 	@Override
-	public boolean isEnabled(int position) {
+	public boolean isEnabled(final int position) {
 		return isHeaderAt(position);
 	}
 
@@ -303,7 +352,7 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 * @param position The position of item to check.
 	 * @return {@code True} if item at the position is header, {@code false} otherwise.
 	 */
-	public boolean isHeaderAt(int position) {
+	public boolean isHeaderAt(final int position) {
 		return hasItemAtViewTypeOf(position, VIEW_TYPE_HEADER);
 	}
 
@@ -315,7 +364,7 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 * @see #isHeaderAt(int)
 	 * @see #isCategoryDividerAt(int)
 	 */
-	public boolean isCategoryAt(int position) {
+	public boolean isCategoryAt(final int position) {
 		return hasItemAtViewTypeOf(position, VIEW_TYPE_CATEGORY);
 	}
 
@@ -326,7 +375,7 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 * @return {@code True} if item at the position is category divider, {@code false} otherwise.
 	 * @see #isCategoryAt(int)
 	 */
-	public boolean isCategoryDividerAt(int position) {
+	public boolean isCategoryDividerAt(final int position) {
 		return hasItemAtViewTypeOf(position, VIEW_TYPE_CATEGORY_DIVIDER);
 	}
 
@@ -338,61 +387,89 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 * @param viewType View type to check if the item has associated.
 	 * @return {@code True} if the item has the view type associated, {@code false} otherwise.
 	 */
-	private boolean hasItemAtViewTypeOf(int position, int viewType) {
+	private boolean hasItemAtViewTypeOf(final int position, final int viewType) {
 		final Item item = hasItemAt(position) ? getItem(position) : null;
 		return item != null && item.viewType == viewType;
 	}
 
 	/**
 	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public View getView(final int position, @Nullable final View convertView, @NonNull final ViewGroup parent) {
+		View view = convertView;
+		ViewHolder viewHolder;
+		if (view == null) {
+			viewHolder = onCreateViewHolder(parent, getItemViewType(position));
+			view = viewHolder.itemView;
+			view.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) view.getTag();
+		}
+		// Ensure that the view holder has always the actual adapter position specified.
+		viewHolder.updateAdapterPosition(position);
+		onBindViewHolder(viewHolder, position);
+		return view;
+	}
+
+	/**
+	 * Invoked from {@link #getView(int, View, ViewGroup)} in order to create a view holder along
+	 * with its corresponding item view for the specified <var>viewType</var>.
+	 *
+	 * @param parent   A parent view, to resolve correct layout params in case when the item view
+	 *                 will be inflated from an Xml layout.
+	 * @param viewType Type of the item view to be created with the holder. This is the same identifier
+	 *                 as obtained via {@link #getItemViewType(int)} for the position passed to
+	 *                 {@link #getView(int, View, ViewGroup)} method.
+	 * @return New view holder with the item view of the requested type.
+	 * @see #inflateView(int, ViewGroup)
+	 */
 	@NonNull
-	@Override
-	protected View onCreateView(@NonNull ViewGroup parent, int position) {
-		final int viewType = currentViewType();
+	protected ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
 		switch (viewType) {
 			case VIEW_TYPE_CATEGORY:
-				return inflate(R.layout.ui_setting_category_header, parent);
+				return new CategoryHolder(inflateView(R.layout.ui_setting_category_header, parent));
 			case VIEW_TYPE_CATEGORY_DIVIDER:
-				return inflate(R.layout.ui_setting_category_divider, parent);
+				return new CategoryDividerHolder(inflateView(R.layout.ui_setting_category_divider, parent));
 			case VIEW_TYPE_HEADER:
-				return inflate(R.layout.ui_setting_header, parent);
+				return new HeaderHolder(inflateView(R.layout.ui_setting_header, parent));
 			default:
-				throw unknownViewTypeAtPositionException(viewType, position);
+				throw unknownViewTypeAtPositionException(viewType, NO_POSITION);
 		}
 	}
 
 	/**
+	 * Inflates a new view hierarchy from the given xml resource.
+	 *
+	 * @param resource Resource id of a view to inflateView.
+	 * @param parent   A parent view, to resolve correct layout params for the newly creating view.
+	 * @return The root view of the inflated view hierarchy.
+	 * @see LayoutInflater#inflate(int, ViewGroup)
 	 */
-	@Nullable
-	@Override
-	protected ViewHolder onCreateViewHolder(@NonNull View itemView, int position) {
-		final int viewType = currentViewType();
-		switch (viewType) {
-			case VIEW_TYPE_CATEGORY:
-				return new CategoryHolder(itemView);
-			case VIEW_TYPE_CATEGORY_DIVIDER:
-				return new CategoryDividerHolder(itemView);
-			case VIEW_TYPE_HEADER:
-				return new HeaderHolder(itemView);
-			default:
-				throw unknownViewTypeAtPositionException(viewType, position);
-		}
+	@NonNull
+	public View inflateView(@LayoutRes final int resource, @Nullable final ViewGroup parent) {
+		return mLayoutInflater.inflate(resource, parent, false);
 	}
 
 	/**
+	 * Invoked from {@link #getView(int, View, ViewGroup)} in order to perform binding of the given
+	 * <var>viewHolder</var> with data of the item from this adapter's data set at the specified
+	 * <var>position</var>.
+	 *
+	 * @param viewHolder The view holder created via {@link #onCreateViewHolder(ViewGroup, int)}
+	 *                   with its corresponding item view to be bound with data.
+	 * @param position   Position of the item from the current data set of which data should be bound
+	 *                   to the view holder.
 	 */
-	@Override
-	@SuppressWarnings("ResourceType")
-	protected void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-		final int viewType = currentViewType();
-		switch (viewType) {
+	protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
+		switch (viewHolder.getItemViewType()) {
 			case VIEW_TYPE_CATEGORY:
 				final PreferenceActivity.Header categoryHeader = getItem(position).header;
 				((CategoryHolder) viewHolder).title.setText(categoryHeader.getTitle(mResources));
 				break;
 			case VIEW_TYPE_CATEGORY_DIVIDER:
 				final CategoryDividerHolder dividerHolder = (CategoryDividerHolder) viewHolder;
-				dividerHolder.shadowBottom.setVisibility(position == getItemCount() - 1 ? View.GONE : View.VISIBLE);
+				dividerHolder.shadowBottom.setVisibility(position == getCount() - 1 ? View.GONE : View.VISIBLE);
 				break;
 			case VIEW_TYPE_HEADER:
 				final Item item = getItem(position);
@@ -422,7 +499,7 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 				headerHolder.divider.setVisibility(item.showDivider ? View.VISIBLE : View.GONE);
 				break;
 			default:
-				throw unknownViewTypeAtPositionException(viewType, position);
+				throw unknownViewTypeAtPositionException(viewHolder.getItemViewType(), position);
 		}
 	}
 
@@ -433,11 +510,11 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 	 * @param viewType Type of the view that is not supported.
 	 * @param position Position for which the view type has been specified.
 	 */
-	private static IllegalArgumentException unknownViewTypeAtPositionException(int viewType, int position) {
-		return new IllegalArgumentException("Unknown view type(" + viewType + ") at(" + position + ")!");
+	private static IllegalArgumentException unknownViewTypeAtPositionException(final int viewType, final int position) {
+		return new IllegalArgumentException("Unknown view type(" + viewType + ") at(" + (position == NO_POSITION ? "UNSPECIFIED" : position) + ")!");
 	}
 
-	/**
+	/*
 	 * Inner classes ===============================================================================
 	 */
 
@@ -453,18 +530,18 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 		 * Type of the view that should be inflated for this item. Should be one of view types defined
 		 * in {@link SettingHeadersAdapter}.
 		 */
-		private final int viewType;
+		final int viewType;
 
 		/**
 		 * Header data associated with this item.
 		 */
-		private final PreferenceActivity.Header header;
+		final PreferenceActivity.Header header;
 
 		/**
 		 * Boolean flag indicating whether there should be visible divider in the view inflated for
 		 * this item.
 		 */
-		private boolean showDivider;
+		boolean showDivider;
 
 		/**
 		 * Creates a new instance of Item with the specified <var>viewType</var> and <var>header</var>
@@ -473,7 +550,7 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 		 * @param viewType Type of the view that should be inflated for this item's data.
 		 * @param header   The header data to be associated with the new item.
 		 */
-		private Item(int viewType, PreferenceActivity.Header header) {
+		Item(final int viewType, final PreferenceActivity.Header header) {
 			this.viewType = viewType;
 			this.header = header;
 		}
@@ -486,6 +563,91 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 		@NonNull
 		public PreferenceActivity.Header getHeader() {
 			return header;
+		}
+	}
+
+	/**
+	 * Base class for view holder implementations used in {@link SettingHeadersAdapter}.
+	 */
+	public static abstract class ViewHolder {
+
+		/**
+		 * Constant that identifies basic type of item view associated with a specified holder.
+		 */
+		public static final int BASIC_TYPE = 0;
+
+		/**
+		 * Item view associated with this holder instance.
+		 */
+		@NonNull
+		public final View itemView;
+
+		/**
+		 * Identifies type of the item view associated with this holder.
+		 */
+		final int mItemViewType;
+
+		/**
+		 * Current position of an item from the associated adapter's data set of which data are
+		 * presented in item view of this holder.
+		 */
+		int mAdapterPosition = NO_POSITION;
+
+		/**
+		 * Creates a new instance of ViewHolder for the given <var>itemView</var>.
+		 *
+		 * @param itemView Instance of the view to be associated with new holder.
+		 */
+		public ViewHolder(@NonNull final View itemView) {
+			this(itemView, BASIC_TYPE);
+		}
+
+		/**
+		 * Creates a new instance of ViewHolder for the given <var>itemView</var> that is of the
+		 * specified <var>itemViewType</var>.
+		 *
+		 * @param itemView Instance of the view to be associated with new holder.
+		 */
+		public ViewHolder(@NonNull final View itemView, final int itemViewType) {
+			this.itemView = itemView;
+			this.mItemViewType = itemViewType;
+		}
+
+		/**
+		 * Returns the type of the item view associated with this holder instance.
+		 * <p>
+		 * If this holder has been created without item view type explicitly specified then this method
+		 * should return {@link #BASIC_TYPE}.
+		 *
+		 * @return Type of this holder's item view.
+		 */
+		public final int getItemViewType() {
+			return mItemViewType;
+		}
+
+		/**
+		 * Updates the current adapter position of this holder instance.
+		 * <p>
+		 * <b>Note that this method should be only called by the associated adapter for which context
+		 * has been this holder instance created and from the appropriate {@code getView(...)} method.
+		 * Calling this method from outside of such context may cause inconsistent results of
+		 * {@link #getAdapterPosition()}.</b>
+		 *
+		 * @param position The new adapter position for this holder.
+		 * @see #getAdapterPosition()
+		 */
+		final void updateAdapterPosition(final int position) {
+			this.mAdapterPosition = position;
+		}
+
+		/**
+		 * Returns the adapter position of the item represented by this holder instance.
+		 *
+		 * @return Position of the item within associated adapter's data set or {@link #NO_POSITION}
+		 * if this holder is not bound yet or the position is unavailable at the time.
+		 */
+		public final int getAdapterPosition() {
+			return mAdapterPosition;
 		}
 	}
 
@@ -506,8 +668,8 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 		 *
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
-		public CategoryHolder(@NonNull View itemView) {
-			super(itemView);
+		public CategoryHolder(@NonNull final View itemView) {
+			super(itemView, VIEW_TYPE_CATEGORY);
 			this.title = (TextView) itemView.findViewById(android.R.id.title);
 		}
 	}
@@ -534,8 +696,8 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 		 *
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
-		public CategoryDividerHolder(@NonNull View itemView) {
-			super(itemView);
+		public CategoryDividerHolder(@NonNull final View itemView) {
+			super(itemView, VIEW_TYPE_CATEGORY_DIVIDER);
 			this.shadowTop = itemView.findViewById(R.id.ui_setting_category_divider_shadow_top);
 			this.shadowBottom = itemView.findViewById(R.id.ui_setting_category_divider_shadow_bottom);
 		}
@@ -580,8 +742,8 @@ public class SettingHeadersAdapter extends SimpleAdapter<SettingHeadersAdapter.I
 		 *
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
-		public HeaderHolder(@NonNull View itemView) {
-			super(itemView);
+		public HeaderHolder(@NonNull final View itemView) {
+			super(itemView, VIEW_TYPE_HEADER);
 			this.iconFrame = itemView.findViewById(R.id.icon_frame);
 			this.icon = (ImageView) itemView.findViewById(android.R.id.icon);
 			this.title = (TextView) itemView.findViewById(android.R.id.title);

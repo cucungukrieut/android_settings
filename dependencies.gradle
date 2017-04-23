@@ -4,7 +4,6 @@ def versions = [
         androidSupportMultiDexVersion        : '1.0.1',
         androidSupportTestVersion            : '0.5',
         androidSupportTestEspressoVersion    : '2.2.2',
-        universumStudiosWidgetAdaptersVersion: '1.0.1',
         universumStudiosGraphicsVersion      : '1.0.0',
         universumStudiosUIVersion            : '0.9.1',
         universumStudiosFontVersion          : '1.0.0',
@@ -46,10 +45,6 @@ def test = [
 ]
 
 def universumStudios = [
-        widgetAdaptersCore    : "universum.studios.android:widget-adapters-core:${versions.universumStudiosWidgetAdaptersVersion}@aar",
-        widgetAdaptersList    : "universum.studios.android:widget-adapters-list:${versions.universumStudiosWidgetAdaptersVersion}@aar",
-        widgetAdaptersListBase: "universum.studios.android:widget-adapters-list-base:${versions.universumStudiosWidgetAdaptersVersion}@aar",
-        widgetAdaptersSpinner : "universum.studios.android:widget-adapters-spinner:${versions.universumStudiosWidgetAdaptersVersion}@aar",
         graphicsColorUtil     : "universum.studios.android:graphics-color-util:${versions.universumStudiosGraphicsVersion}@aar",
         ui                    : "universum.studios.android:ui:${versions.universumStudiosUIVersion}@aar",
         fontCore              : "universum.studios.android:font-core:${versions.universumStudiosFontVersion}@aar",
