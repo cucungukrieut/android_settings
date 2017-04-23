@@ -1,7 +1,7 @@
 Change-Log
 ===============
 
-### Pre-release 0.9.5 ###
+### [Pre-release 0.9.5](https://github.com/universum-studios/android_settings/releases/tag/0.9.5) ###
 > 23.04.2017
 
 - Removed dependency on **[Widget Adapters](https://github.com/universum-studios/android_widget_adapters)**
