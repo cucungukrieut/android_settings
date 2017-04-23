@@ -30,8 +30,9 @@ as usually.
 - **[Core](https://github.com/universum-studios/android_settings/tree/master/library-core)**
 - **[Activity](https://github.com/universum-studios/android_settings/tree/master/library-activity)**
 - **[Fragment](https://github.com/universum-studios/android_settings/tree/master/library-fragment)**
-- **[Selection](https://github.com/universum-studios/android_settings/tree/master/library-selection)**
 - **[Menu](https://github.com/universum-studios/android_settings/tree/master/library-menu)**
+- **[Selection](https://github.com/universum-studios/android_settings/tree/master/library-selection)**
+- **[Slider](https://github.com/universum-studios/android_settings/tree/master/library-slider)**
 - **[Empty](https://github.com/universum-studios/android_settings/tree/master/library-empty)**
 - **[@Dialog](https://github.com/universum-studios/android_settings/tree/master/library-dialog_group)**
 - **[Dialog-Base](https://github.com/universum-studios/android_settings/tree/master/library-dialog-base)**
