@@ -121,11 +121,6 @@ dependencies {
     compile deps.androidSupport.annotations
     compile deps.androidSupport.appCompatV7
     compile deps.androidSupport.vectorDrawable
-    compile deps.universumStudios.widgetAdaptersCore
-    compile deps.universumStudios.widgetAdaptersHolder
-    compile deps.universumStudios.widgetAdaptersSimple
-    compile deps.universumStudios.widgetAdaptersList
-    compile deps.universumStudios.widgetAdaptersSpinner
     compile deps.universumStudios.graphicsColorUtil
     compile deps.universumStudios.ui
     compile deps.universumStudios.fontCore
