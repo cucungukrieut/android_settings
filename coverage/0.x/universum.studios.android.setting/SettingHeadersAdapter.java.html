@@ -19,26 +19,27 @@
 package universum.studios.android.setting;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.preference.PreferenceActivity;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import universum.studios.android.ui.util.ResourceUtils;
-import universum.studios.android.widget.adapter.SimpleListAdapter;
-import universum.studios.android.widget.adapter.holder.ViewHolder;
 
 /**
- * A {@link SimpleListAdapter} implementation used to provide data set of {@link Item Items} for adapter
+ * A {@link BaseAdapter} implementation used to provide data set of {@link Item Items} for adapter
  * view that displays a list of setting preferences in the context of {@link SettingsBaseActivity}.
  * &lt;p&gt;
  * This adapter uses the following view types to provide views for its data set of items:
@@ -49,13 +50,12 @@ import universum.studios.android.widget.adapter.holder.ViewHolder;
  * &lt;/ul&gt;
  * &lt;p&gt;
  * Data set of items with associated headers may be supplied via {@link #SettingHeadersAdapter(Context, List)}
- * constructor or changed via {@link #changeHeaders(List)}. The current data set of transformed items
- * may be obtained via {@link #getItems()}. A specific item at a desired position may be obtained
- * via {@link #getItem(int)} and its associated header via {@link Item#getHeader() getItem(int).getHeader()}.
+ * constructor or changed via {@link #changeHeaders(List)}. A specific item at a desired position may
+ * be obtained via {@link #getItem(int)} and its associated header via {@link Item#getHeader() getItem(int).getHeader()}.
  *
  * @author Martin Albedinsky
  */
-public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAdapter, ViewHolder, SettingHeadersAdapter.Item&gt; {
+public class SettingHeadersAdapter extends BaseAdapter {
 
 	/*
 	 * Constants ===================================================================================
@@ -65,6 +65,16 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 * Log TAG.
 	 */
 	// private static final String TAG = &quot;SettingHeadersAdapter&quot;;
+
+	/**
+	 * Constant that identifies invalid/unspecified position attached to a specified holder.
+	 */
+	public static final int NO_POSITION = -1;
+
+	/**
+	 * Constant that identifies invalid/unspecified id.
+	 */
+	public static final long NO_ID = -1;
 
 	/**
 	 * Count of view types that this adapter may provide.
@@ -103,6 +113,23 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 */
 
 	/**
+	 * Context in which will be this adapter used.
+	 */
+	@NonNull
+	protected final Context mContext;
+
+	/**
+	 * Application resources that may be used to obtain strings, texts, drawables, ... and other resources.
+	 */
+	@NonNull
+	protected final Resources mResources;
+
+	/**
+	 * Layout inflater used to inflateView new views for this adapter.
+	 */
+	private final LayoutInflater mLayoutInflater;
+
+	/**
 	 * Boolean flag indicating whether this adapter should treat icon resource specified for each
 	 * header item via {@link PreferenceActivity.Header#iconRes} as vector drawable or as standard
 	 * drawable.
@@ -112,9 +139,14 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	private boolean mUseVectorIcons;
 
 	/**
-	 * List containing headers supplied to this adapter via {@link #changeHeaders(List)}.
+	 * List containing original headers supplied to this adapter via {@link #changeHeaders(List)}.
 	 */
 	private List&lt;PreferenceActivity.Header&gt; mHeaders;
+
+	/**
+	 * todo:
+	 */
+	private List&lt;SettingHeadersAdapter.Item&gt; mItems;
 
 	/*
 	 * Constructors ================================================================================
@@ -123,19 +155,18 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	/**
 	 * Creates a new instance of SettingHeadersAdapter with empty data set.
 	 *
-	 * @see SimpleListAdapter#SimpleListAdapter(Context)
 	 * @see #SettingHeadersAdapter(Context, List)
 	 */
 	public SettingHeadersAdapter(@NonNull final Context context) {
-<span class="nc" id="L130">		super(context);</span>
-<span class="nc" id="L131">	}</span>
+<span class="nc" id="L161">		this(context, new ArrayList&lt;PreferenceActivity.Header&gt;(0));</span>
+<span class="nc" id="L162">	}</span>
 
 	/**
 	 * Same as {@link #SettingHeadersAdapter(Context, List)} for array of headers.
 	 */
 	public SettingHeadersAdapter(@NonNull final Context context, @NonNull final PreferenceActivity.Header[] headers) {
-<span class="nc" id="L137">		this(context, Arrays.asList(headers));</span>
-<span class="nc" id="L138">	}</span>
+<span class="nc" id="L168">		this(context, Arrays.asList(headers));</span>
+<span class="nc" id="L169">	}</span>
 
 	/**
 	 * Creates a new instance of SettingHeadersAdapter with the initial data set of headers.
@@ -143,12 +174,13 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 * @param context Context in which will be the new adapter used.
 	 * @param headers Initial data set of headers.
 	 * @see #changeHeaders(List)
-	 * @see #getItems()
 	 */
-	public SettingHeadersAdapter(@NonNull final Context context, @NonNull final List&lt;PreferenceActivity.Header&gt; headers) {
-<span class="nc" id="L149">		super(context);</span>
-<span class="nc" id="L150">		changeHeaders(headers);</span>
-<span class="nc" id="L151">	}</span>
+<span class="nc" id="L178">	public SettingHeadersAdapter(@NonNull final Context context, @NonNull final List&lt;PreferenceActivity.Header&gt; headers) {</span>
+<span class="nc" id="L179">		this.mContext = context;</span>
+<span class="nc" id="L180">		this.mResources = context.getResources();</span>
+<span class="nc" id="L181">		this.mLayoutInflater = LayoutInflater.from(context);</span>
+<span class="nc" id="L182">		changeHeaders(headers);</span>
+<span class="nc" id="L183">	}</span>
 
 	/*
 	 * Methods =====================================================================================
@@ -163,35 +195,26 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 *                       {@code false} as standard drawables.
 	 */
 	public void setUseVectorIcons(final boolean useVectorIcons) {
-<span class="nc bnc" id="L166" title="All 2 branches missed.">		if (mUseVectorIcons != useVectorIcons) {</span>
-<span class="nc" id="L167">			this.mUseVectorIcons = useVectorIcons;</span>
-<span class="nc" id="L168">			notifyDataSetChanged();</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">		if (mUseVectorIcons != useVectorIcons) {</span>
+<span class="nc" id="L199">			this.mUseVectorIcons = useVectorIcons;</span>
+<span class="nc" id="L200">			notifyDataSetChanged();</span>
 		}
-<span class="nc" id="L170">	}</span>
-
-	/**
-	 * @throws UnsupportedOperationException Use {@link #changeHeaders(List)} instead.
-	 */
-	@Override
-	public final void changeItems(@Nullable final List&lt;Item&gt; items) {
-<span class="nc" id="L177">		throw new UnsupportedOperationException(&quot;Cannot change items of SettingHeadersAdapter directly! Use changeHeaders(...) instead.&quot;);</span>
-	}
+<span class="nc" id="L202">	}</span>
 
 	/**
 	 * Same as {@link #swapHeaders(List)} where the old headers are ignored.
 	 */
 	public void changeHeaders(@Nullable final List&lt;PreferenceActivity.Header&gt; headers) {
-<span class="nc" id="L184">		swapHeaders(headers);</span>
-<span class="nc" id="L185">	}</span>
+<span class="nc" id="L208">		swapHeaders(headers);</span>
+<span class="nc" id="L209">	}</span>
 
 	/**
 	 * Swaps the current data set of this adapter for the given &lt;var&gt;headers&lt;/var&gt;.
 	 * &lt;p&gt;
-	 * &lt;b&gt;Note&lt;/b&gt;, that as this adapter uses multiple view types to present its data set, the specified
-	 * headers are transformed into data set of {@link Item Items}. The items data set may be obtained
-	 * via {@link #getItems()} or a specific item at a desired position via {@link #getItem(int)}.
-	 * {@link PreferenceActivity.Header Header} associated with an item at a specific position may
-	 * be obtained via {@link Item#getHeader() getItem(int).getHeader()}.
+	 * &lt;b&gt;Note&lt;/b&gt;, that as this adapter uses multiple view types to present its data set, the
+	 * specified headers are transformed into data set of {@link Item Items}. A specific item at a
+	 * desired position via {@link #getItem(int)}. {@link PreferenceActivity.Header Header} associated
+	 * with an item at a specific position may be obtained via {@link Item#getHeader() getItem(int).getHeader()}.
 	 *
 	 * @param headers The headers for which to create a new data set. May be {@code null} to clear
 	 *                the current data set.
@@ -199,14 +222,10 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 */
 	@Nullable
 	public List&lt;PreferenceActivity.Header&gt; swapHeaders(@Nullable final List&lt;PreferenceActivity.Header&gt; headers) {
-<span class="nc" id="L202">		final List&lt;PreferenceActivity.Header&gt; oldHeaders = mHeaders;</span>
-<span class="nc" id="L203">		this.mHeaders = headers;</span>
-<span class="nc bnc" id="L204" title="All 4 branches missed.">		if (headers == null || headers.isEmpty()) {</span>
-<span class="nc" id="L205">			super.swapItems(Collections.&lt;Item&gt;emptyList());</span>
-		} else {
-<span class="nc" id="L207">			super.swapItems(createItemsFromHeaders(headers));</span>
-		}
-<span class="nc" id="L209">		return oldHeaders;</span>
+<span class="nc" id="L225">		final List&lt;PreferenceActivity.Header&gt; oldHeaders = mHeaders;</span>
+<span class="nc" id="L226">		this.mHeaders = headers;</span>
+<span class="nc bnc" id="L227" title="All 4 branches missed.">		this.mItems = headers == null || headers.isEmpty() ? null : createItemsFromHeaders(headers);</span>
+<span class="nc" id="L228">		return oldHeaders;</span>
 	}
 
 	/**
@@ -222,42 +241,72 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 * @see #isCategoryHeader(PreferenceActivity.Header)
 	 */
 	private static List&lt;Item&gt; createItemsFromHeaders(final List&lt;PreferenceActivity.Header&gt; headers) {
-<span class="nc" id="L225">		final List&lt;Item&gt; items = new ArrayList&lt;&gt;(headers.size());</span>
-<span class="nc" id="L226">		final int headersCount = headers.size();</span>
-<span class="nc bnc" id="L227" title="All 2 branches missed.">		for (int i = 0; i &lt; headersCount; i++) {</span>
-<span class="nc" id="L228">			final PreferenceActivity.Header header = headers.get(i);</span>
-<span class="nc bnc" id="L229" title="All 2 branches missed.">			if (isCategoryHeader(header)) {</span>
+<span class="nc" id="L244">		final List&lt;Item&gt; items = new ArrayList&lt;&gt;(headers.size());</span>
+<span class="nc" id="L245">		final int headersCount = headers.size();</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">		for (int i = 0; i &lt; headersCount; i++) {</span>
+<span class="nc" id="L247">			final PreferenceActivity.Header header = headers.get(i);</span>
+<span class="nc bnc" id="L248" title="All 2 branches missed.">			if (isCategoryHeader(header)) {</span>
 				// Category header found.
-<span class="nc bnc" id="L231" title="All 2 branches missed.">				if (i &gt; 0) {</span>
+<span class="nc bnc" id="L250" title="All 2 branches missed.">				if (i &gt; 0) {</span>
 					// Add category divider before each new category.
-<span class="nc" id="L233">					items.add(new Item(VIEW_TYPE_CATEGORY_DIVIDER, null));</span>
+<span class="nc" id="L252">					items.add(new Item(VIEW_TYPE_CATEGORY_DIVIDER, null));</span>
 				}
-<span class="nc" id="L235">				items.add(new Item(VIEW_TYPE_CATEGORY, header));</span>
+<span class="nc" id="L254">				items.add(new Item(VIEW_TYPE_CATEGORY, header));</span>
 			} else {
-<span class="nc" id="L237">				final Item item = new Item(VIEW_TYPE_HEADER, header);</span>
-<span class="nc bnc" id="L238" title="All 4 branches missed.">				item.showDivider = i &lt; headersCount - 1 &amp;&amp; !isCategoryHeader(headers.get(i + 1));</span>
-<span class="nc" id="L239">				items.add(item);</span>
+<span class="nc" id="L256">				final Item item = new Item(VIEW_TYPE_HEADER, header);</span>
+<span class="nc bnc" id="L257" title="All 4 branches missed.">				item.showDivider = i &lt; headersCount - 1 &amp;&amp; !isCategoryHeader(headers.get(i + 1));</span>
+<span class="nc" id="L258">				items.add(item);</span>
 			}
 		}
 		// Add category divider also at the end of all items.
-<span class="nc" id="L243">		items.add(new Item(VIEW_TYPE_CATEGORY_DIVIDER, null));</span>
-<span class="nc" id="L244">		return items;</span>
+<span class="nc" id="L262">		items.add(new Item(VIEW_TYPE_CATEGORY_DIVIDER, null));</span>
+<span class="nc" id="L263">		return items;</span>
 	}
 
 	/**
-	 * @throws UnsupportedOperationException Use {@link #swapHeaders(List)} instead.
 	 */
-	@Nullable
 	@Override
-	public final List&lt;Item&gt; swapItems(@Nullable final List&lt;Item&gt; items) {
-<span class="nc" id="L253">		throw new UnsupportedOperationException(&quot;Cannot swap items of SettingHeadersAdapter directly! Use swapHeaders(...) instead.&quot;);</span>
+	public int getCount() {
+<span class="nc bnc" id="L270" title="All 2 branches missed.">		return mItems == null ? 0 : mItems.size();</span>
+	}
+
+	/**
+	 * Returns a boolean flag indicating whether this data set has item that can provide data for the
+	 * specified &lt;var&gt;position&lt;/var&gt; or not.
+	 *
+	 * @param position The position of item to check.
+	 * @return {@code True} if {@link #getItem(int)} can be called 'safely', {@code false} otherwise.
+	 */
+	public boolean hasItemAt(final int position) {
+<span class="nc bnc" id="L281" title="All 4 branches missed.">		return position &gt;= 0 &amp;&amp; position &lt; getCount();</span>
+	}
+
+	/**
+	 */
+	@NonNull
+	@Override
+	public SettingHeadersAdapter.Item getItem(final int position) {
+<span class="nc bnc" id="L289" title="All 2 branches missed.">		if (!hasItemAt(position)) {</span>
+<span class="nc" id="L290">			throw new IndexOutOfBoundsException(</span>
+					&quot;Requested item at invalid position(&quot; + position + &quot;). &quot; +
+<span class="nc" id="L292">							&quot;Data set has items in count of(&quot; + getCount() + &quot;).&quot;</span>
+			);
+		}
+<span class="nc" id="L295">		return mItems.get(position);</span>
 	}
 
 	/**
 	 */
 	@Override
 	public boolean hasStableIds() {
-<span class="nc" id="L260">		return true;</span>
+<span class="nc" id="L302">		return true;</span>
+	}
+
+	/**
+	 */
+	@Override
+	public long getItemId(final int position) {
+<span class="nc bnc" id="L309" title="All 2 branches missed.">		return hasItemAt(position) ? position : NO_ID;</span>
 	}
 
 	/**
@@ -269,23 +318,23 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 * @see PreferenceActivity.Header#intent
 	 */
 	private static boolean isCategoryHeader(final PreferenceActivity.Header header) {
-<span class="nc bnc" id="L272" title="All 4 branches missed.">		return TextUtils.isEmpty(header.fragment) &amp;&amp; header.intent == null;</span>
+<span class="nc bnc" id="L321" title="All 4 branches missed.">		return TextUtils.isEmpty(header.fragment) &amp;&amp; header.intent == null;</span>
 	}
 
 	/**
 	 */
 	@Override
 	public int getViewTypeCount() {
-<span class="nc" id="L279">		return VIEW_TYPES_COUNT;</span>
+<span class="nc" id="L328">		return VIEW_TYPES_COUNT;</span>
 	}
 
 	/**
 	 */
 	@Override
 	public int getItemViewType(final int position) {
-<span class="nc bnc" id="L286" title="All 2 branches missed.">		if (isCategoryAt(position)) return VIEW_TYPE_CATEGORY;</span>
-<span class="nc bnc" id="L287" title="All 2 branches missed.">		if (isCategoryDividerAt(position)) return VIEW_TYPE_CATEGORY_DIVIDER;</span>
-<span class="nc" id="L288">		else return VIEW_TYPE_HEADER;</span>
+<span class="nc bnc" id="L335" title="All 2 branches missed.">		if (isCategoryAt(position)) return VIEW_TYPE_CATEGORY;</span>
+<span class="nc bnc" id="L336" title="All 2 branches missed.">		if (isCategoryDividerAt(position)) return VIEW_TYPE_CATEGORY_DIVIDER;</span>
+<span class="nc" id="L337">		else return VIEW_TYPE_HEADER;</span>
 	}
 
 	/**
@@ -294,7 +343,7 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 */
 	@Override
 	public boolean isEnabled(final int position) {
-<span class="nc" id="L297">		return isHeaderAt(position);</span>
+<span class="nc" id="L346">		return isHeaderAt(position);</span>
 	}
 
 	/**
@@ -304,7 +353,7 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 * @return {@code True} if item at the position is header, {@code false} otherwise.
 	 */
 	public boolean isHeaderAt(final int position) {
-<span class="nc" id="L307">		return hasItemAtViewTypeOf(position, VIEW_TYPE_HEADER);</span>
+<span class="nc" id="L356">		return hasItemAtViewTypeOf(position, VIEW_TYPE_HEADER);</span>
 	}
 
 	/**
@@ -316,7 +365,7 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 * @see #isCategoryDividerAt(int)
 	 */
 	public boolean isCategoryAt(final int position) {
-<span class="nc" id="L319">		return hasItemAtViewTypeOf(position, VIEW_TYPE_CATEGORY);</span>
+<span class="nc" id="L368">		return hasItemAtViewTypeOf(position, VIEW_TYPE_CATEGORY);</span>
 	}
 
 	/**
@@ -327,7 +376,7 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 * @see #isCategoryAt(int)
 	 */
 	public boolean isCategoryDividerAt(final int position) {
-<span class="nc" id="L330">		return hasItemAtViewTypeOf(position, VIEW_TYPE_CATEGORY_DIVIDER);</span>
+<span class="nc" id="L379">		return hasItemAtViewTypeOf(position, VIEW_TYPE_CATEGORY_DIVIDER);</span>
 	}
 
 	/**
@@ -339,72 +388,120 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 * @return {@code True} if the item has the view type associated, {@code false} otherwise.
 	 */
 	private boolean hasItemAtViewTypeOf(final int position, final int viewType) {
-<span class="nc bnc" id="L342" title="All 2 branches missed.">		final Item item = hasItemAt(position) ? getItem(position) : null;</span>
-<span class="nc bnc" id="L343" title="All 4 branches missed.">		return item != null &amp;&amp; item.viewType == viewType;</span>
+<span class="nc bnc" id="L391" title="All 2 branches missed.">		final Item item = hasItemAt(position) ? getItem(position) : null;</span>
+<span class="nc bnc" id="L392" title="All 4 branches missed.">		return item != null &amp;&amp; item.viewType == viewType;</span>
 	}
 
 	/**
+	 */
+	@Override
+	@SuppressWarnings(&quot;unchecked&quot;)
+	public View getView(final int position, @Nullable final View convertView, @NonNull final ViewGroup parent) {
+<span class="nc" id="L400">		View view = convertView;</span>
+		ViewHolder viewHolder;
+<span class="nc bnc" id="L402" title="All 2 branches missed.">		if (view == null) {</span>
+<span class="nc" id="L403">			viewHolder = onCreateViewHolder(parent, getItemViewType(position));</span>
+<span class="nc" id="L404">			view = viewHolder.itemView;</span>
+<span class="nc" id="L405">			view.setTag(viewHolder);</span>
+		} else {
+<span class="nc" id="L407">			viewHolder = (ViewHolder) view.getTag();</span>
+		}
+		// Ensure that the view holder has always the actual adapter position specified.
+<span class="nc" id="L410">		viewHolder.updateAdapterPosition(position);</span>
+<span class="nc" id="L411">		onBindViewHolder(viewHolder, position);</span>
+<span class="nc" id="L412">		return view;</span>
+	}
+
+	/**
+	 * Invoked from {@link #getView(int, View, ViewGroup)} in order to create a view holder along
+	 * with its corresponding item view for the specified &lt;var&gt;viewType&lt;/var&gt;.
+	 *
+	 * @param parent   A parent view, to resolve correct layout params in case when the item view
+	 *                 will be inflated from an Xml layout.
+	 * @param viewType Type of the item view to be created with the holder. This is the same identifier
+	 *                 as obtained via {@link #getItemViewType(int)} for the position passed to
+	 *                 {@link #getView(int, View, ViewGroup)} method.
+	 * @return New view holder with the item view of the requested type.
+	 * @see #inflateView(int, ViewGroup)
 	 */
 	@NonNull
-	@Override
 	protected ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
-<span class="nc bnc" id="L351" title="All 4 branches missed.">		switch (viewType) {</span>
+<span class="nc bnc" id="L429" title="All 4 branches missed.">		switch (viewType) {</span>
 			case VIEW_TYPE_CATEGORY:
-<span class="nc" id="L353">				return new CategoryHolder(inflateView(R.layout.ui_setting_category_header, parent));</span>
+<span class="nc" id="L431">				return new CategoryHolder(inflateView(R.layout.ui_setting_category_header, parent));</span>
 			case VIEW_TYPE_CATEGORY_DIVIDER:
-<span class="nc" id="L355">				return new CategoryDividerHolder(inflateView(R.layout.ui_setting_category_divider, parent));</span>
+<span class="nc" id="L433">				return new CategoryDividerHolder(inflateView(R.layout.ui_setting_category_divider, parent));</span>
 			case VIEW_TYPE_HEADER:
-<span class="nc" id="L357">				return new HeaderHolder(inflateView(R.layout.ui_setting_header, parent));</span>
+<span class="nc" id="L435">				return new HeaderHolder(inflateView(R.layout.ui_setting_header, parent));</span>
 			default:
-<span class="nc" id="L359">				throw unknownViewTypeAtPositionException(viewType, NO_POSITION);</span>
+<span class="nc" id="L437">				throw unknownViewTypeAtPositionException(viewType, NO_POSITION);</span>
 		}
 	}
 
 	/**
+	 * Inflates a new view hierarchy from the given xml resource.
+	 *
+	 * @param resource Resource id of a view to inflateView.
+	 * @param parent   A parent view, to resolve correct layout params for the newly creating view.
+	 * @return The root view of the inflated view hierarchy.
+	 * @see LayoutInflater#inflate(int, ViewGroup)
 	 */
-	@Override
-	@SuppressWarnings(&quot;ResourceType&quot;)
+	@NonNull
+	public View inflateView(@LayoutRes final int resource, @Nullable final ViewGroup parent) {
+<span class="nc" id="L451">		return mLayoutInflater.inflate(resource, parent, false);</span>
+	}
+
+	/**
+	 * Invoked from {@link #getView(int, View, ViewGroup)} in order to perform binding of the given
+	 * &lt;var&gt;viewHolder&lt;/var&gt; with data of the item from this adapter's data set at the specified
+	 * &lt;var&gt;position&lt;/var&gt;.
+	 *
+	 * @param viewHolder The view holder created via {@link #onCreateViewHolder(ViewGroup, int)}
+	 *                   with its corresponding item view to be bound with data.
+	 * @param position   Position of the item from the current data set of which data should be bound
+	 *                   to the view holder.
+	 */
 	protected void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
-<span class="nc bnc" id="L368" title="All 4 branches missed.">		switch (viewHolder.getItemViewType()) {</span>
+<span class="nc bnc" id="L465" title="All 4 branches missed.">		switch (viewHolder.getItemViewType()) {</span>
 			case VIEW_TYPE_CATEGORY:
-<span class="nc" id="L370">				final PreferenceActivity.Header categoryHeader = getItem(position).header;</span>
-<span class="nc" id="L371">				((CategoryHolder) viewHolder).title.setText(categoryHeader.getTitle(mResources));</span>
-<span class="nc" id="L372">				break;</span>
+<span class="nc" id="L467">				final PreferenceActivity.Header categoryHeader = getItem(position).header;</span>
+<span class="nc" id="L468">				((CategoryHolder) viewHolder).title.setText(categoryHeader.getTitle(mResources));</span>
+<span class="nc" id="L469">				break;</span>
 			case VIEW_TYPE_CATEGORY_DIVIDER:
-<span class="nc" id="L374">				final CategoryDividerHolder dividerHolder = (CategoryDividerHolder) viewHolder;</span>
-<span class="nc bnc" id="L375" title="All 2 branches missed.">				dividerHolder.shadowBottom.setVisibility(position == getItemCount() - 1 ? View.GONE : View.VISIBLE);</span>
-<span class="nc" id="L376">				break;</span>
+<span class="nc" id="L471">				final CategoryDividerHolder dividerHolder = (CategoryDividerHolder) viewHolder;</span>
+<span class="nc bnc" id="L472" title="All 2 branches missed.">				dividerHolder.shadowBottom.setVisibility(position == getCount() - 1 ? View.GONE : View.VISIBLE);</span>
+<span class="nc" id="L473">				break;</span>
 			case VIEW_TYPE_HEADER:
-<span class="nc" id="L378">				final Item item = getItem(position);</span>
-<span class="nc" id="L379">				final HeaderHolder headerHolder = (HeaderHolder) viewHolder;</span>
-<span class="nc bnc" id="L380" title="All 2 branches missed.">				if (item.header.iconRes == 0) {</span>
-<span class="nc" id="L381">					headerHolder.iconFrame.setVisibility(View.GONE);</span>
+<span class="nc" id="L475">				final Item item = getItem(position);</span>
+<span class="nc" id="L476">				final HeaderHolder headerHolder = (HeaderHolder) viewHolder;</span>
+<span class="nc bnc" id="L477" title="All 2 branches missed.">				if (item.header.iconRes == 0) {</span>
+<span class="nc" id="L478">					headerHolder.iconFrame.setVisibility(View.GONE);</span>
 				} else {
-<span class="nc" id="L383">					headerHolder.iconFrame.setVisibility(View.VISIBLE);</span>
-<span class="nc bnc" id="L384" title="All 2 branches missed.">					if (mUseVectorIcons) {</span>
-<span class="nc" id="L385">						headerHolder.icon.setImageDrawable(ResourceUtils.getVectorDrawable(</span>
+<span class="nc" id="L480">					headerHolder.iconFrame.setVisibility(View.VISIBLE);</span>
+<span class="nc bnc" id="L481" title="All 2 branches missed.">					if (mUseVectorIcons) {</span>
+<span class="nc" id="L482">						headerHolder.icon.setImageDrawable(ResourceUtils.getVectorDrawable(</span>
 								mResources,
-<span class="nc" id="L387">								item.header.iconRes,</span>
-<span class="nc" id="L388">								mContext.getTheme()</span>
+								item.header.iconRes,
+<span class="nc" id="L485">								mContext.getTheme()</span>
 						));
 					} else {
-<span class="nc" id="L391">						headerHolder.icon.setImageResource(item.header.iconRes);</span>
+<span class="nc" id="L488">						headerHolder.icon.setImageResource(item.header.iconRes);</span>
 					}
 				}
-<span class="nc" id="L394">				headerHolder.title.setText(item.header.getTitle(mResources));</span>
-<span class="nc" id="L395">				final CharSequence summary = item.header.getSummary(mResources);</span>
-<span class="nc bnc" id="L396" title="All 2 branches missed.">				if (TextUtils.isEmpty(summary)) {</span>
-<span class="nc" id="L397">					headerHolder.summary.setVisibility(View.GONE);</span>
+<span class="nc" id="L491">				headerHolder.title.setText(item.header.getTitle(mResources));</span>
+<span class="nc" id="L492">				final CharSequence summary = item.header.getSummary(mResources);</span>
+<span class="nc bnc" id="L493" title="All 2 branches missed.">				if (TextUtils.isEmpty(summary)) {</span>
+<span class="nc" id="L494">					headerHolder.summary.setVisibility(View.GONE);</span>
 				} else {
-<span class="nc" id="L399">					headerHolder.summary.setVisibility(View.VISIBLE);</span>
-<span class="nc" id="L400">					headerHolder.summary.setText(summary);</span>
+<span class="nc" id="L496">					headerHolder.summary.setVisibility(View.VISIBLE);</span>
+<span class="nc" id="L497">					headerHolder.summary.setText(summary);</span>
 				}
-<span class="nc bnc" id="L402" title="All 2 branches missed.">				headerHolder.divider.setVisibility(item.showDivider ? View.VISIBLE : View.GONE);</span>
-<span class="nc" id="L403">				break;</span>
+<span class="nc bnc" id="L499" title="All 2 branches missed.">				headerHolder.divider.setVisibility(item.showDivider ? View.VISIBLE : View.GONE);</span>
+<span class="nc" id="L500">				break;</span>
 			default:
-<span class="nc" id="L405">				throw unknownViewTypeAtPositionException(viewHolder.getItemViewType(), position);</span>
+<span class="nc" id="L502">				throw unknownViewTypeAtPositionException(viewHolder.getItemViewType(), position);</span>
 		}
-<span class="nc" id="L407">	}</span>
+<span class="nc" id="L504">	}</span>
 
 	/**
 	 * Creates a new instance of IllegalArgumentException informing that the specified &lt;var&gt;viewType&lt;/var&gt;
@@ -414,7 +511,7 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 	 * @param position Position for which the view type has been specified.
 	 */
 	private static IllegalArgumentException unknownViewTypeAtPositionException(final int viewType, final int position) {
-<span class="nc bnc" id="L417" title="All 2 branches missed.">		return new IllegalArgumentException(&quot;Unknown view type(&quot; + viewType + &quot;) at(&quot; + (position == NO_POSITION ? &quot;UNSPECIFIED&quot; : position) + &quot;)!&quot;);</span>
+<span class="nc bnc" id="L514" title="All 2 branches missed.">		return new IllegalArgumentException(&quot;Unknown view type(&quot; + viewType + &quot;) at(&quot; + (position == NO_POSITION ? &quot;UNSPECIFIED&quot; : position) + &quot;)!&quot;);</span>
 	}
 
 	/*
@@ -433,18 +530,18 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 		 * Type of the view that should be inflated for this item. Should be one of view types defined
 		 * in {@link SettingHeadersAdapter}.
 		 */
-		private final int viewType;
+		final int viewType;
 
 		/**
 		 * Header data associated with this item.
 		 */
-		private final PreferenceActivity.Header header;
+		final PreferenceActivity.Header header;
 
 		/**
 		 * Boolean flag indicating whether there should be visible divider in the view inflated for
 		 * this item.
 		 */
-		private boolean showDivider;
+		boolean showDivider;
 
 		/**
 		 * Creates a new instance of Item with the specified &lt;var&gt;viewType&lt;/var&gt; and &lt;var&gt;header&lt;/var&gt;
@@ -453,10 +550,10 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 		 * @param viewType Type of the view that should be inflated for this item's data.
 		 * @param header   The header data to be associated with the new item.
 		 */
-<span class="nc" id="L456">		private Item(final int viewType, final PreferenceActivity.Header header) {</span>
-<span class="nc" id="L457">			this.viewType = viewType;</span>
-<span class="nc" id="L458">			this.header = header;</span>
-<span class="nc" id="L459">		}</span>
+<span class="nc" id="L553">		Item(final int viewType, final PreferenceActivity.Header header) {</span>
+<span class="nc" id="L554">			this.viewType = viewType;</span>
+<span class="nc" id="L555">			this.header = header;</span>
+<span class="nc" id="L556">		}</span>
 
 		/**
 		 * Returns the header data associated with this item.
@@ -465,7 +562,92 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 		 */
 		@NonNull
 		public PreferenceActivity.Header getHeader() {
-<span class="nc" id="L468">			return header;</span>
+<span class="nc" id="L565">			return header;</span>
+		}
+	}
+
+	/**
+	 * Base class for view holder implementations used in {@link SettingHeadersAdapter}.
+	 */
+	public static abstract class ViewHolder {
+
+		/**
+		 * Constant that identifies basic type of item view associated with a specified holder.
+		 */
+		public static final int BASIC_TYPE = 0;
+
+		/**
+		 * Item view associated with this holder instance.
+		 */
+		@NonNull
+		public final View itemView;
+
+		/**
+		 * Identifies type of the item view associated with this holder.
+		 */
+		final int mItemViewType;
+
+		/**
+		 * Current position of an item from the associated adapter's data set of which data are
+		 * presented in item view of this holder.
+		 */
+<span class="nc" id="L594">		int mAdapterPosition = NO_POSITION;</span>
+
+		/**
+		 * Creates a new instance of ViewHolder for the given &lt;var&gt;itemView&lt;/var&gt;.
+		 *
+		 * @param itemView Instance of the view to be associated with new holder.
+		 */
+		public ViewHolder(@NonNull final View itemView) {
+<span class="nc" id="L602">			this(itemView, BASIC_TYPE);</span>
+<span class="nc" id="L603">		}</span>
+
+		/**
+		 * Creates a new instance of ViewHolder for the given &lt;var&gt;itemView&lt;/var&gt; that is of the
+		 * specified &lt;var&gt;itemViewType&lt;/var&gt;.
+		 *
+		 * @param itemView Instance of the view to be associated with new holder.
+		 */
+<span class="nc" id="L611">		public ViewHolder(@NonNull final View itemView, final int itemViewType) {</span>
+<span class="nc" id="L612">			this.itemView = itemView;</span>
+<span class="nc" id="L613">			this.mItemViewType = itemViewType;</span>
+<span class="nc" id="L614">		}</span>
+
+		/**
+		 * Returns the type of the item view associated with this holder instance.
+		 * &lt;p&gt;
+		 * If this holder has been created without item view type explicitly specified then this method
+		 * should return {@link #BASIC_TYPE}.
+		 *
+		 * @return Type of this holder's item view.
+		 */
+		public final int getItemViewType() {
+<span class="nc" id="L625">			return mItemViewType;</span>
+		}
+
+		/**
+		 * Updates the current adapter position of this holder instance.
+		 * &lt;p&gt;
+		 * &lt;b&gt;Note that this method should be only called by the associated adapter for which context
+		 * has been this holder instance created and from the appropriate {@code getView(...)} method.
+		 * Calling this method from outside of such context may cause inconsistent results of
+		 * {@link #getAdapterPosition()}.&lt;/b&gt;
+		 *
+		 * @param position The new adapter position for this holder.
+		 * @see #getAdapterPosition()
+		 */
+		final void updateAdapterPosition(final int position) {
+<span class="nc" id="L640">			this.mAdapterPosition = position;</span>
+<span class="nc" id="L641">		}</span>
+
+		/**
+		 * Returns the adapter position of the item represented by this holder instance.
+		 *
+		 * @return Position of the item within associated adapter's data set or {@link #NO_POSITION}
+		 * if this holder is not bound yet or the position is unavailable at the time.
+		 */
+		public final int getAdapterPosition() {
+<span class="nc" id="L650">			return mAdapterPosition;</span>
 		}
 	}
 
@@ -487,9 +669,9 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
 		public CategoryHolder(@NonNull final View itemView) {
-<span class="nc" id="L490">			super(itemView, VIEW_TYPE_CATEGORY);</span>
-<span class="nc" id="L491">			this.title = (TextView) itemView.findViewById(android.R.id.title);</span>
-<span class="nc" id="L492">		}</span>
+<span class="nc" id="L672">			super(itemView, VIEW_TYPE_CATEGORY);</span>
+<span class="nc" id="L673">			this.title = (TextView) itemView.findViewById(android.R.id.title);</span>
+<span class="nc" id="L674">		}</span>
 	}
 
 	/**
@@ -515,10 +697,10 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
 		public CategoryDividerHolder(@NonNull final View itemView) {
-<span class="nc" id="L518">			super(itemView, VIEW_TYPE_CATEGORY_DIVIDER);</span>
-<span class="nc" id="L519">			this.shadowTop = itemView.findViewById(R.id.ui_setting_category_divider_shadow_top);</span>
-<span class="nc" id="L520">			this.shadowBottom = itemView.findViewById(R.id.ui_setting_category_divider_shadow_bottom);</span>
-<span class="nc" id="L521">		}</span>
+<span class="nc" id="L700">			super(itemView, VIEW_TYPE_CATEGORY_DIVIDER);</span>
+<span class="nc" id="L701">			this.shadowTop = itemView.findViewById(R.id.ui_setting_category_divider_shadow_top);</span>
+<span class="nc" id="L702">			this.shadowBottom = itemView.findViewById(R.id.ui_setting_category_divider_shadow_bottom);</span>
+<span class="nc" id="L703">		}</span>
 	}
 
 	/**
@@ -561,13 +743,13 @@ public class SettingHeadersAdapter extends SimpleListAdapter&lt;SettingHeadersAd
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
 		public HeaderHolder(@NonNull final View itemView) {
-<span class="nc" id="L564">			super(itemView, VIEW_TYPE_HEADER);</span>
-<span class="nc" id="L565">			this.iconFrame = itemView.findViewById(R.id.icon_frame);</span>
-<span class="nc" id="L566">			this.icon = (ImageView) itemView.findViewById(android.R.id.icon);</span>
-<span class="nc" id="L567">			this.title = (TextView) itemView.findViewById(android.R.id.title);</span>
-<span class="nc" id="L568">			this.summary = (TextView) itemView.findViewById(android.R.id.summary);</span>
-<span class="nc" id="L569">			this.divider = itemView.findViewById(R.id.ui_setting_divider);</span>
-<span class="nc" id="L570">		}</span>
+<span class="nc" id="L746">			super(itemView, VIEW_TYPE_HEADER);</span>
+<span class="nc" id="L747">			this.iconFrame = itemView.findViewById(R.id.icon_frame);</span>
+<span class="nc" id="L748">			this.icon = (ImageView) itemView.findViewById(android.R.id.icon);</span>
+<span class="nc" id="L749">			this.title = (TextView) itemView.findViewById(android.R.id.title);</span>
+<span class="nc" id="L750">			this.summary = (TextView) itemView.findViewById(android.R.id.summary);</span>
+<span class="nc" id="L751">			this.divider = itemView.findViewById(R.id.ui_setting_divider);</span>
+<span class="nc" id="L752">		}</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.3.1</div></body></html>

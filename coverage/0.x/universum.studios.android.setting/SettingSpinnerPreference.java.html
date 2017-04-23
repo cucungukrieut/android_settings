@@ -30,17 +30,15 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Arrays;
-import java.util.Collections;
-
-import universum.studios.android.widget.adapter.SimpleSpinnerAdapter;
-import universum.studios.android.widget.adapter.holder.ViewHolder;
 
 /**
  * A {@link SettingPreference} implementation that provides {@link Spinner} widget with its related
@@ -93,21 +91,21 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * Listener that is used to receive callbacks about changes in selection within the Spinner widget
 	 * of this preference.
 	 */
-<span class="nc" id="L96">	private final AdapterView.OnItemSelectedListener LISTENER = new AdapterView.OnItemSelectedListener() {</span>
+<span class="nc" id="L94">	private final AdapterView.OnItemSelectedListener LISTENER = new AdapterView.OnItemSelectedListener() {</span>
 
 		/**
 		 */
 		@Override
 		public void onItemSelected(@NonNull final AdapterView&lt;?&gt; parent, @NonNull final View view, final int position, final long id) {
-<span class="nc" id="L102">			setValueIndex(position);</span>
-<span class="nc" id="L103">		}</span>
+<span class="nc" id="L100">			setValueIndex(position);</span>
+<span class="nc" id="L101">		}</span>
 
 		/**
 		 */
 		@Override
 		public void onNothingSelected(@NonNull final AdapterView&lt;?&gt; parent) {
 			// Ignored.
-<span class="nc" id="L110">		}</span>
+<span class="nc" id="L108">		}</span>
 	};
 
 	/**
@@ -157,25 +155,25 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * Same as {@link #SettingSpinnerPreference(Context, AttributeSet)} without attributes.
 	 */
 	public SettingSpinnerPreference(@NonNull final Context context) {
-<span class="nc" id="L160">		this(context, null);</span>
-<span class="nc" id="L161">	}</span>
+<span class="nc" id="L158">		this(context, null);</span>
+<span class="nc" id="L159">	}</span>
 
 	/**
 	 * Same as {@link #SettingSpinnerPreference(Context, AttributeSet, int)} with
 	 * {@link R.attr#uiSettingSpinnerPreferenceStyle} as attribute for default style.
 	 */
 	public SettingSpinnerPreference(@NonNull final Context context, @Nullable final AttributeSet attrs) {
-<span class="nc" id="L168">		this(context, attrs, R.attr.uiSettingSpinnerPreferenceStyle);</span>
-<span class="nc" id="L169">	}</span>
+<span class="nc" id="L166">		this(context, attrs, R.attr.uiSettingSpinnerPreferenceStyle);</span>
+<span class="nc" id="L167">	}</span>
 
 	/**
 	 * Same as {@link #SettingSpinnerPreference(Context, AttributeSet, int, int)} with {@code 0}
 	 * as default style.
 	 */
 	public SettingSpinnerPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr) {
-<span class="nc" id="L176">		super(context, attrs, defStyleAttr);</span>
-<span class="nc" id="L177">		this.init(context, attrs, defStyleAttr, 0);</span>
-<span class="nc" id="L178">	}</span>
+<span class="nc" id="L174">		super(context, attrs, defStyleAttr);</span>
+<span class="nc" id="L175">		this.init(context, attrs, defStyleAttr, 0);</span>
+<span class="nc" id="L176">	}</span>
 
 	/**
 	 * Creates a new instance of SettingSpinnerPreference for the given &lt;var&gt;context&lt;/var&gt;.
@@ -188,9 +186,9 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	public SettingSpinnerPreference(@NonNull final Context context, @Nullable final AttributeSet attrs, @AttrRes final int defStyleAttr, @StyleRes final int defStyleRes) {
-<span class="nc" id="L191">		super(context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L192">		this.init(context, attrs, defStyleAttr, defStyleRes);</span>
-<span class="nc" id="L193">	}</span>
+<span class="nc" id="L189">		super(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L190">		this.init(context, attrs, defStyleAttr, defStyleRes);</span>
+<span class="nc" id="L191">	}</span>
 
 	/*
 	 * Methods =====================================================================================
@@ -205,31 +203,31 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * data from the current theme provided by the specified &lt;var&gt;context&lt;/var&gt;.
 	 */
 	private void init(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-<span class="nc" id="L208">		this.mAdapter = new EntriesAdapter(context);</span>
-<span class="nc" id="L209">		this.mAdapter.setTitle(getTitle());</span>
-<span class="nc" id="L210">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SpinnerPreference, defStyleAttr, defStyleRes);</span>
-<span class="nc bnc" id="L211" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
-<span class="nc" id="L212">			final int index = attributes.getIndex(i);</span>
-<span class="nc bnc" id="L213" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_SpinnerPreference_android_entries) {</span>
-<span class="nc" id="L214">				setEntries(attributes.getTextArray(index));</span>
-<span class="nc bnc" id="L215" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_SpinnerPreference_android_entryValues) {</span>
-<span class="nc" id="L216">				setEntryValues(attributes.getTextArray(index));</span>
-<span class="nc bnc" id="L217" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_SpinnerPreference_uiSettingSpinnerViewLayout) {</span>
-<span class="nc" id="L218">				mAdapter.setViewLayoutResource(attributes.getResourceId(index, R.layout.ui_setting_spinner_view));</span>
-<span class="nc bnc" id="L219" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_SpinnerPreference_uiSettingSpinnerDropDownViewLayout) {</span>
-<span class="nc" id="L220">				mAdapter.setDropDownViewLayoutResource(attributes.getResourceId(index, R.layout.ui_setting_spinner_drop_down_view));</span>
+<span class="nc" id="L206">		this.mAdapter = new EntriesAdapter(context);</span>
+<span class="nc" id="L207">		this.mAdapter.setTitle(getTitle());</span>
+<span class="nc" id="L208">		final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.Ui_Settings_SpinnerPreference, defStyleAttr, defStyleRes);</span>
+<span class="nc bnc" id="L209" title="All 2 branches missed.">		for (int i = 0; i &lt; attributes.getIndexCount(); i++) {</span>
+<span class="nc" id="L210">			final int index = attributes.getIndex(i);</span>
+<span class="nc bnc" id="L211" title="All 2 branches missed.">			if (index == R.styleable.Ui_Settings_SpinnerPreference_android_entries) {</span>
+<span class="nc" id="L212">				setEntries(attributes.getTextArray(index));</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_SpinnerPreference_android_entryValues) {</span>
+<span class="nc" id="L214">				setEntryValues(attributes.getTextArray(index));</span>
+<span class="nc bnc" id="L215" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_SpinnerPreference_uiSettingSpinnerViewLayout) {</span>
+<span class="nc" id="L216">				mAdapter.setViewLayoutResource(attributes.getResourceId(index, R.layout.ui_setting_spinner_view));</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">			} else if (index == R.styleable.Ui_Settings_SpinnerPreference_uiSettingSpinnerDropDownViewLayout) {</span>
+<span class="nc" id="L218">				mAdapter.setDropDownViewLayoutResource(attributes.getResourceId(index, R.layout.ui_setting_spinner_drop_down_view));</span>
 			}
 		}
-<span class="nc" id="L223">		attributes.recycle();</span>
-<span class="nc" id="L224">	}</span>
+<span class="nc" id="L221">		attributes.recycle();</span>
+<span class="nc" id="L222">	}</span>
 
 	/**
 	 */
 	@Override
 	public void setTitle(CharSequence title) {
-<span class="nc" id="L230">		super.setTitle(title);</span>
-<span class="nc" id="L231">		mAdapter.setTitle(title);</span>
-<span class="nc" id="L232">	}</span>
+<span class="nc" id="L228">		super.setTitle(title);</span>
+<span class="nc" id="L229">		mAdapter.setTitle(title);</span>
+<span class="nc" id="L230">	}</span>
 
 	/**
 	 * Same as {@link #setEntries(CharSequence[])} for resource id.
@@ -237,8 +235,8 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * @param resId Resource id of the desired text array with entries.
 	 */
 	public void setEntries(@ArrayRes final int resId) {
-<span class="nc" id="L240">		setEntries(getContext().getResources().getTextArray(resId));</span>
-<span class="nc" id="L241">	}</span>
+<span class="nc" id="L238">		setEntries(getContext().getResources().getTextArray(resId));</span>
+<span class="nc" id="L239">	}</span>
 
 	/**
 	 * Specifies an array of entries that should be displayed in the {@link Spinner} widget of
@@ -249,12 +247,14 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 * @see #setEntryValues(CharSequence[])
 	 */
 	public void setEntries(@Nullable final CharSequence[] entries) {
-<span class="nc" id="L252">		this.mEntries = entries;</span>
-<span class="nc bnc" id="L253" title="All 2 branches missed.">		if (entries == null) {</span>
-<span class="nc" id="L254">			this.mAdapter.changeItems(Collections.&lt;CharSequence&gt;emptyList());</span>
-		} else {
-<span class="nc" id="L256">			this.mAdapter.changeItems(Arrays.asList(entries));</span>
+<span class="nc" id="L250">		this.mEntries = entries;</span>
+<span class="nc" id="L251">		this.mAdapter.setNotifyOnChange(false);</span>
+<span class="nc" id="L252">		this.mAdapter.clear();</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">		if (entries != null) {</span>
+<span class="nc" id="L254">			this.mAdapter.addAll(Arrays.asList(entries));</span>
 		}
+<span class="nc" id="L256">		this.mAdapter.setNotifyOnChange(true);</span>
+<span class="nc" id="L257">		this.mAdapter.notifyDataSetChanged();</span>
 <span class="nc" id="L258">	}</span>
 
 	/**
@@ -423,10 +423,20 @@ public class SettingSpinnerPreference extends SettingPreference {
 	 */
 
 	/**
-	 * A {@link SimpleSpinnerAdapter} implementation that is used to provide entry items for the
+	 * An {@link ArrayAdapter} implementation that is used to provide entry items for the
 	 * {@link Spinner} widget of the parent spinner preference.
 	 */
-	private static final class EntriesAdapter extends SimpleSpinnerAdapter&lt;EntriesAdapter, EntryViewHolder, EntryDropDownViewHolder, CharSequence&gt; {
+	private static final class EntriesAdapter extends ArrayAdapter&lt;CharSequence&gt; {
+
+		/**
+		 * Constant that identifies invalid/unspecified position in data set.
+		 */
+		static final int NO_POSITION = -1;
+
+		/**
+		 * Layout inflater used to inflateView new views for this adapter.
+		 */
+		private final LayoutInflater mLayoutInflater;
 
 		/**
 		 * Title text specified for this adapter to be displayed in the primary view.
@@ -434,23 +444,22 @@ public class SettingSpinnerPreference extends SettingPreference {
 		private CharSequence title;
 
 		/**
-		 * Layout resource of primary view inflated by this adapter in {@link #onCreateViewHolder(ViewGroup, int)}.
+		 * Layout resource of primary view inflated by this adapter in {@link #getView(int, View, ViewGroup)}.
 		 */
 		private int viewLayoutResource;
 
 		/**
-		 * Layout resource of drop down view inflated by this adapter in {@link #onCreateDropDownViewHolder(ViewGroup, int)}.
+		 * Layout resource of drop down view inflated by this adapter in {@link #getDropDownView(int, View, ViewGroup)}.
 		 */
 		private int dropDownViewLayoutResource;
 
 		/**
 		 * Creates a new instance EntriesAdapter without initial entries.
-		 *
-		 * @see SimpleSpinnerAdapter#SimpleSpinnerAdapter(Context)
 		 */
-		private EntriesAdapter(@NonNull final Context context) {
-<span class="nc" id="L452">			super(context);</span>
-<span class="nc" id="L453">		}</span>
+		EntriesAdapter(final Context context) {
+<span class="nc" id="L460">			super(context, android.R.layout.simple_spinner_item);</span>
+<span class="nc" id="L461">			this.mLayoutInflater = LayoutInflater.from(context);</span>
+<span class="nc" id="L462">		}</span>
 
 		/**
 		 * Sets a title to be displayed in the primary view provided by this adapter.
@@ -458,11 +467,11 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 * @param title The desired title text. May be {@code null} to clear the current one.
 		 */
 		void setTitle(@Nullable final CharSequence title) {
-<span class="nc bnc" id="L461" title="All 2 branches missed.">			if (!TextUtils.equals(this.title, title)) {</span>
-<span class="nc" id="L462">				this.title = title;</span>
-<span class="nc" id="L463">				notifyDataSetChanged();</span>
+<span class="nc bnc" id="L470" title="All 2 branches missed.">			if (!TextUtils.equals(this.title, title)) {</span>
+<span class="nc" id="L471">				this.title = title;</span>
+<span class="nc" id="L472">				notifyDataSetChanged();</span>
 			}
-<span class="nc" id="L465">		}</span>
+<span class="nc" id="L474">		}</span>
 
 		/**
 		 * Sets a layout resource for primary view provided by this adapter.
@@ -470,11 +479,11 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 * @param layoutResource The desired layout resource.
 		 */
 		void setViewLayoutResource(@LayoutRes final int layoutResource) {
-<span class="nc" id="L473">			this.viewLayoutResource = layoutResource;</span>
-<span class="nc bnc" id="L474" title="All 2 branches missed.">			if (!isEmpty()) {</span>
-<span class="nc" id="L475">				notifyDataSetChanged();</span>
+<span class="nc" id="L482">			this.viewLayoutResource = layoutResource;</span>
+<span class="nc bnc" id="L483" title="All 2 branches missed.">			if (!isEmpty()) {</span>
+<span class="nc" id="L484">				notifyDataSetChanged();</span>
 			}
-<span class="nc" id="L477">		}</span>
+<span class="nc" id="L486">		}</span>
 
 		/**
 		 * Sets a layout resource for drop down views provided by this adapter.
@@ -482,42 +491,79 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 * @param layoutResource The desired layout resource.
 		 */
 		void setDropDownViewLayoutResource(@LayoutRes final int layoutResource) {
-<span class="nc" id="L485">			this.dropDownViewLayoutResource = layoutResource;</span>
-<span class="nc bnc" id="L486" title="All 2 branches missed.">			if (!isEmpty()) {</span>
-<span class="nc" id="L487">				notifyDataSetChanged();</span>
+<span class="nc" id="L494">			this.dropDownViewLayoutResource = layoutResource;</span>
+<span class="nc bnc" id="L495" title="All 2 branches missed.">			if (!isEmpty()) {</span>
+<span class="nc" id="L496">				notifyDataSetChanged();</span>
 			}
-<span class="nc" id="L489">		}</span>
+<span class="nc" id="L498">		}</span>
 
 		/**
 		 */
 		@NonNull
 		@Override
-		protected EntryViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, final int viewType) {
-<span class="nc" id="L496">			return new EntryViewHolder(inflateView(viewLayoutResource, parent));</span>
+		public View getView(final int position, @Nullable final View convertView, @NonNull final ViewGroup parent) {
+<span class="nc" id="L505">			View view = convertView;</span>
+			EntryViewHolder viewHolder;
+<span class="nc bnc" id="L507" title="All 2 branches missed.">			if (view == null) {</span>
+<span class="nc" id="L508">				viewHolder = new EntryViewHolder(inflateView(viewLayoutResource, parent));</span>
+<span class="nc" id="L509">				view = viewHolder.itemView;</span>
+<span class="nc" id="L510">				view.setTag(viewHolder);</span>
+			} else {
+<span class="nc" id="L512">				viewHolder = (EntryViewHolder) view.getTag();</span>
+			}
+<span class="nc" id="L514">			viewHolder.titleView.setText(title);</span>
+<span class="nc" id="L515">			viewHolder.summaryView.setText(getItem(position));</span>
+<span class="nc" id="L516">			return view;</span>
 		}
 
 		/**
 		 */
-		@NonNull
 		@Override
-		protected EntryDropDownViewHolder onCreateDropDownViewHolder(@NonNull final ViewGroup parent, final int viewType) {
-<span class="nc" id="L504">			return new EntryDropDownViewHolder(inflateView(dropDownViewLayoutResource, parent));</span>
+		public View getDropDownView(final int position, @Nullable final View convertView, @NonNull final ViewGroup parent) {
+<span class="nc" id="L523">			View view = convertView;</span>
+			EntryDropDownViewHolder viewHolder;
+<span class="nc bnc" id="L525" title="All 2 branches missed.">			if (view == null) {</span>
+<span class="nc" id="L526">				viewHolder = new EntryDropDownViewHolder(inflateView(dropDownViewLayoutResource, parent));</span>
+<span class="nc" id="L527">				view = viewHolder.itemView;</span>
+<span class="nc" id="L528">				view.setTag(viewHolder);</span>
+			} else {
+<span class="nc" id="L530">				viewHolder = (EntryDropDownViewHolder) view.getTag();</span>
+			}
+<span class="nc" id="L532">			viewHolder.titleView.setText(getItem(position));</span>
+<span class="nc" id="L533">			return view;</span>
 		}
 
 		/**
+		 * Inflates a new view hierarchy from the given xml resource.
+		 *
+		 * @param resource Resource id of a view to inflateView.
+		 * @param parent   A parent view, to resolve correct layout params for the newly creating view.
+		 * @return The root view of the inflated view hierarchy.
+		 * @see LayoutInflater#inflate(int, ViewGroup)
 		 */
-		@Override
-		protected void onBindViewHolder(@NonNull final EntryViewHolder holder, final int position) {
-<span class="nc" id="L511">			holder.titleView.setText(title);</span>
-<span class="nc" id="L512">			holder.summaryView.setText(getItem(position));</span>
-<span class="nc" id="L513">		}</span>
+		private View inflateView(@LayoutRes final int resource, @Nullable final ViewGroup parent) {
+<span class="nc" id="L545">			return mLayoutInflater.inflate(resource, parent, false);</span>
+		}
+	}
+
+	/**
+	 * Base class for view holder implementations used in {@link EntriesAdapter}.
+	 */
+	private static abstract class ViewHolder {
 
 		/**
+		 * Item view associated with this holder instance.
 		 */
-		@Override
-		protected void onBindDropDownViewHolder(@NonNull EntryDropDownViewHolder holder, int position) {
-<span class="nc" id="L519">			holder.titleView.setText(getItem(position));</span>
-<span class="nc" id="L520">		}</span>
+		final View itemView;
+
+		/**
+		 * Creates a new instance of ViewHolder with the specified &lt;var&gt;itemView&lt;/var&gt;.
+		 *
+		 * @param itemView The item view to associate with the new holder.
+		 */
+<span class="nc" id="L564">		ViewHolder(@NonNull final View itemView) {</span>
+<span class="nc" id="L565">			this.itemView = itemView;</span>
+<span class="nc" id="L566">		}</span>
 	}
 
 	/**
@@ -540,11 +586,11 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
-		private EntryViewHolder(@NonNull final View itemView) {
-<span class="nc" id="L544">			super(itemView);</span>
-<span class="nc" id="L545">			this.titleView = (TextView) itemView.findViewById(android.R.id.title);</span>
-<span class="nc" id="L546">			this.summaryView = (TextView) itemView.findViewById(android.R.id.summary);</span>
-<span class="nc" id="L547">		}</span>
+		EntryViewHolder(@NonNull final View itemView) {
+<span class="nc" id="L590">			super(itemView);</span>
+<span class="nc" id="L591">			this.titleView = (TextView) itemView.findViewById(android.R.id.title);</span>
+<span class="nc" id="L592">			this.summaryView = (TextView) itemView.findViewById(android.R.id.summary);</span>
+<span class="nc" id="L593">		}</span>
 	}
 
 	/**
@@ -562,10 +608,10 @@ public class SettingSpinnerPreference extends SettingPreference {
 		 *
 		 * @param itemView Instance of view to be hold by the holder.
 		 */
-		private EntryDropDownViewHolder(@NonNull final View itemView) {
-<span class="nc" id="L566">			super(itemView);</span>
-<span class="nc" id="L567">			this.titleView = (TextView) itemView.findViewById(android.R.id.title);</span>
-<span class="nc" id="L568">		}</span>
+		EntryDropDownViewHolder(@NonNull final View itemView) {
+<span class="nc" id="L612">			super(itemView);</span>
+<span class="nc" id="L613">			this.titleView = (TextView) itemView.findViewById(android.R.id.title);</span>
+<span class="nc" id="L614">		}</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.5.201505241946</span>Generated by the Android Gradle plugin 2.3.1</div></body></html>
