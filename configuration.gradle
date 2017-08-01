@@ -1,8 +1,8 @@
 // Defines configuration used across the library project.
 def buildConfig = [
-        compileSdkVersion: 25,
+        compileSdkVersion: 26,
         minSdkVersion    : 14,
-        targetSdkVersion : 25,
+        targetSdkVersion : 26,
         buildToolsVersion: '25.0.3'
 ]
 
@@ -17,6 +17,12 @@ def libraryConfig = [
         preReleaseVersion: '0.9.5'
 ]
 
+def githubConfig = [
+        owner      : 'universum-studios',
+        repository : 'android_settings',
+        accessToken: System.getenv('GITHUB_API_TOKEN')
+]
+
 def mavenConfig = [
         localUrl                 : System.getenv('MAVEN_URL_LOCAL'),
         groupId                  : 'universum.studios.android',
@@ -25,14 +31,14 @@ def mavenConfig = [
         packaging                : 'pom',
         projectName              : 'Android Settings',
         projectDescription       : 'Extended and common settings components for the Android Platform.',
-        projectUrl               : 'https://github.com/universum-studios/android_settings',
+        projectUrl               : "https://github.com/${githubConfig.owner}/${githubConfig.repository}",
         projectInceptionYear     : '2017',
-        projectIssueManagementUrl: 'https://github.com/universum-studios/android_settings/issues'
+        projectIssueManagementUrl: "https://github.com/${githubConfig.owner}/${githubConfig.repository}/issues"
 ]
 
 def bintrayConfig = [
         publish                  : false,
-        packageName              : mavenConfig.groupId + ':' + mavenConfig.artifactId,
+        packageName              : "${mavenConfig.groupId}:${mavenConfig.artifactId}",
         packageLabels            : ['android', 'setting', 'preference'],
         packageVersionName       : mavenConfig.version,
         packageVersionDescription: 'Pre-release patch.',
@@ -42,7 +48,7 @@ def bintrayConfig = [
 def codacyConfig = [
         // This path must be relative to the codacy.gradle file placed in the /library directory.
         tokensPath : '../../codacy.tokens',
-        projectName: 'android_settings'
+        projectName: "${githubConfig.repository}"
 ]
 
 def ciConfig = [
@@ -53,6 +59,7 @@ ext.config = [
         "build"  : buildConfig,
         "test"   : testConfig,
         "library": libraryConfig,
+        "github" : githubConfig,
         "maven"  : mavenConfig,
         "bintray": bintrayConfig,
         "codacy" : codacyConfig,

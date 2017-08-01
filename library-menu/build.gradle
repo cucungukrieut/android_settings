@@ -69,7 +69,6 @@ dependencies {
     compile deps.universumStudios.graphicsColorUtil
     compile deps.universumStudios.ui
     compile deps.universumStudios.fontCore
-    compile deps.universumStudios.fontUtil
     releaseCompile "universum.studios.android:settings-core:${config.library.version}@aar"
 
     /*
@@ -83,5 +82,4 @@ dependencies {
     androidTestCompile project(':test-core')
 }
 
-// Apply DEPLOY script.
-apply from: '../deploy/deploy.gradle'
+apply from: "${rootProject.rootDir}/deploy/deploy.gradle"

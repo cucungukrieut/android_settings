@@ -46,19 +46,19 @@ android {
 
     sourceSets {
         release.java.srcDirs = [
-                '../library-dialog-base/src/main/java',
-                '../library-dialog-collection/src/main/java',
-                '../library-dialog-color/src/main/java',
-                '../library-dialog-datetime/src/main/java',
-                '../library-dialog-edit/src/main/java'
+                "${rootProject.rootDir}/library-dialog-base/src/main/java",
+                "${rootProject.rootDir}/library-dialog-collection/src/main/java",
+                "${rootProject.rootDir}/library-dialog-color/src/main/java",
+                "${rootProject.rootDir}/library-dialog-datetime/src/main/java",
+                "${rootProject.rootDir}/library-dialog-edit/src/main/java"
         ]
         debug.java.srcDirs = release.java.srcDirs
         release.res.srcDirs = [
-                '../library-dialog-base/src/main/res',
-                '../library-dialog-collection/src/main/res',
-                '../library-dialog-color/src/main/res',
-                '../library-dialog-datetime/src/main/res',
-                '../library-dialog-edit/src/main/res'
+                "${rootProject.rootDir}/library-dialog-base/src/main/res",
+                "${rootProject.rootDir}/library-dialog-collection/src/main/res",
+                "${rootProject.rootDir}/library-dialog-color/src/main/res",
+                "${rootProject.rootDir}/library-dialog-datetime/src/main/res",
+                "${rootProject.rootDir}/library-dialog-edit/src/main/res"
         ]
         debug.res.srcDirs = release.res.srcDirs
     }
@@ -91,7 +91,6 @@ dependencies {
     compile deps.universumStudios.graphicsColorUtil
     compile deps.universumStudios.ui
     compile deps.universumStudios.fontCore
-    compile deps.universumStudios.fontUtil
     compile deps.universumStudios.dialogs
     releaseCompile "universum.studios.android:settings-core:${config.library.version}@aar"
 
@@ -101,5 +100,4 @@ dependencies {
     debugCompile project(':library-core')
 }
 
-// Apply DEPLOY script.
-apply from: '../deploy/deploy.gradle'
+apply from: "${rootProject.rootDir}/deploy/deploy.gradle"

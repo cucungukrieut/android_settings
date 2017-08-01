@@ -19,6 +19,7 @@
 package universum.studios.android.test.runner;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.test.runner.AndroidJUnitRunner;
 
@@ -34,7 +35,7 @@ public final class MultiDexAndroidJUnitRunner extends AndroidJUnitRunner {
 	/**
 	 */
 	@Override
-	public void onCreate(Bundle arguments) {
+	public void onCreate(@NonNull final Bundle arguments) {
 		MultiDex.install(getTargetContext());
 		super.onCreate(arguments);
 	}
