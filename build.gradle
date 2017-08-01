@@ -56,17 +56,31 @@ task updateArtifacts() {
 }
 
 /**
- * Task that deploys (uploads) all library modules (groups including) into Maven local repository.
+ * Task that deploys (uploads) all library modules (except groups) into Maven local repository.
  */
 task deployModulesToMavenLocal() {
-    subprojects.findAll { if (it.name.startsWith("library-")) dependsOn ":${it.name}:uploadArchives" }
+    subprojects.findAll { if (it.name.startsWith("library-") && !it.name.endsWith('_group')) dependsOn ":${it.name}:uploadArchives" }
 }
 
 /**
- * Task that deploys (uploads) all library modules (groups including) up to the Bintray repository.
+ * Task that deploys (uploads) all library module groups into Maven local repository.
+ */
+task deployGroupsToMavenLocal() {
+    subprojects.findAll { if (it.name.startsWith("library-") && it.name.endsWith('_group')) dependsOn ":${it.name}:uploadArchives" }
+}
+
+/**
+ * Task that deploys (uploads) all library modules (except groups) up to the Bintray repository.
  */
 task deployModulesToBintray() {
-    subprojects.findAll { if (it.name.startsWith("library-")) dependsOn ":${it.name}:bintrayUpload" }
+    subprojects.findAll { if (it.name.startsWith("library-") && !it.name.endsWith('_group')) dependsOn ":${it.name}:bintrayUpload" }
+}
+
+/**
+ * Task that deploys (uploads) all library module groups up to the Bintray repository.
+ */
+task deployGroupsToBintray() {
+    subprojects.findAll { if (it.name.startsWith("library-") && it.name.endsWith('_group')) dependsOn ":${it.name}:bintrayUpload" }
 }
 
 /**
