@@ -2,7 +2,7 @@
  * =================================================================================================
  *                             Copyright (C) 2017 Universum Studios
  * =================================================================================================
- *         Licensed under the Apache License, Version 2.0 or later (further "License" only).
+ *         Licensed under the Apache License,  2.0 or later (further "License" only).
  * -------------------------------------------------------------------------------------------------
  * You may use this file only in compliance with the License. More details and copy of this License
  * you may obtain at
@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * =================================================================================================
  */
-def boolean isModule = project.name.startsWith('library-') && !project.name.endsWith('_group')
+final boolean isModule = project.name.startsWith('library-') && !project.name.endsWith('_group')
 
 /**
  * Bundles project's classes into a .jar! file.
@@ -32,11 +32,12 @@ task classesJar(type: Jar) {
 task generateJavadoc(type: Javadoc) {
     source isModule ? android.sourceSets.main.java.sourceFiles : android.sourceSets.release.java.sourceFiles
     options {
-        author = true
-        memberLevel = JavadocMemberLevel.PROTECTED
-        header = config.maven.projectName + ' ' + config.maven.version + ' Documentation'
+        title = "${config.maven.projectName} API"
+        header = "Version ${config.maven.version} Documentation"
         links "http://docs.oracle.com/javase/8/docs/api/"
         linksOffline "http://developer.android.com/reference", "${android.sdkDirectory}\\docs\\reference"
+        author = true
+        memberLevel = JavadocMemberLevel.PROTECTED
     }
     if (JavaVersion.current().isJava8Compatible()) {
         // Uncomment this when Javadoc tool outputs some (not resolvable) errors like 'reference not found for R.attr#...'.
@@ -45,14 +46,14 @@ task generateJavadoc(type: Javadoc) {
     // Append class path with dependencies.
     classpath += files(
             android.getBootClasspath(),
-            "${android.sdkDirectory}\\extras\\android\\m2repository\\com\\android\\support\\support-annotations\\${versions.androidSupportVersion}\\support-annotations-${versions.androidSupportVersion}.jar",
-            "${android.sdkDirectory}\\extras\\android\\m2repository\\com\\android\\support\\support-v4\\${versions.androidSupportVersion}\\support-v4-${versions.androidSupportVersion}-sources.jar",
-            "${android.sdkDirectory}\\extras\\android\\m2repository\\com\\android\\support\\appcompat-v7\\${versions.androidSupportVersion}\\appcompat-v7-${versions.androidSupportVersion}-sources.jar",
-            "${android.sdkDirectory}\\extras\\android\\m2repository\\com\\android\\support\\support-vector-drawable\\${versions.androidSupportVersion}\\support-vector-drawable-${versions.androidSupportVersion}-sources.jar",
-            "${config.maven.localUrl}\\universum\\studios\\android\\ui\\${versions.universumStudiosUIVersion}\\ui-${versions.universumStudiosUIVersion}-sources.jar",
-            "${config.maven.localUrl}\\universum\\studios\\android\\font-core\\${versions.universumStudiosFontVersion}\\font-core-${versions.universumStudiosFontVersion}-sources.jar",
-            "${config.maven.localUrl}\\universum\\studios\\android\\font-util\\${versions.universumStudiosFontVersion}\\font-util-${versions.universumStudiosFontVersion}-sources.jar",
-            "${config.maven.localUrl}\\universum\\studios\\android\\dialogs\\${versions.universumStudiosDialogsVersion}\\dialogs-${versions.universumStudiosDialogsVersion}-sources.jar"
+            "${android.sdkDirectory}\\extras\\android\\m2repository\\com\\android\\support\\support-annotations\\${versions.androidSupport}\\support-annotations-${versions.androidSupport}.jar",
+            "${android.sdkDirectory}\\extras\\android\\m2repository\\com\\android\\support\\support-v4\\${versions.androidSupport}\\support-v4-${versions.androidSupport}-sources.jar",
+            "${android.sdkDirectory}\\extras\\android\\m2repository\\com\\android\\support\\appcompat-v7\\${versions.androidSupport}\\appcompat-v7-${versions.androidSupport}-sources.jar",
+            "${android.sdkDirectory}\\extras\\android\\m2repository\\com\\android\\support\\support-vector-drawable\\${versions.androidSupport}\\support-vector-drawable-${versions.androidSupport}-sources.jar",
+            "${config.maven.localUrl}\\universum\\studios\\android\\ui\\${versions.universumStudiosUI}\\ui-${versions.universumStudiosUI}-sources.jar",
+            "${config.maven.localUrl}\\universum\\studios\\android\\font-core\\${versions.universumStudiosFont}\\font-core-${versions.universumStudiosFont}-sources.jar",
+            "${config.maven.localUrl}\\universum\\studios\\android\\font-util\\${versions.universumStudiosFont}\\font-util-${versions.universumStudiosFont}-sources.jar",
+            "${config.maven.localUrl}\\universum\\studios\\android\\dialogs\\${versions.universumStudiosDialogs}\\dialogs-${versions.universumStudiosDialogs}-sources.jar"
     )
     failOnError false
 }
