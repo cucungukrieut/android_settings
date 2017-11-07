@@ -30,18 +30,18 @@ android {
         targetSdkVersion config.build.targetSdkVersion
         consumerProguardFiles 'proguard-rules.pro'
         multiDexEnabled true
-        testInstrumentationRunner config.test.instrumentationRunner
+        testInstrumentationRunner config.test.instrumentationRunner.multidexAndroidJUnit
     }
 
     buildTypes {
         release {
             minifyEnabled false
         }
-        if (!config.ci.travis) {
-            modules {
-                minifyEnabled false
-            }
-        }
+        // todo:
+        /*modules {
+            minifyEnabled false
+            matchingFallbacks = ['debug', 'release']
+        }*/
         debug {
             minifyEnabled false
             testCoverageEnabled true
@@ -50,55 +50,70 @@ android {
 
     sourceSets {
         release.java.srcDirs = [
-                '../library-core/src/main/java',
-                '../library-activity/src/main/java',
-                '../library-fragment/src/main/java',
-                '../library-dialog-base/src/main/java',
-                '../library-dialog-collection/src/main/java',
-                '../library-dialog-color/src/main/java',
-                '../library-dialog-datetime/src/main/java',
-                '../library-dialog-edit/src/main/java',
-                '../library-empty/src/main/java',
-                '../library-menu/src/main/java',
-                '../library-selection/src/main/java',
-                '../library-slider/src/main/java'
+                "${rootProject.rootDir}/library-core/src/main/java",
+                "${rootProject.rootDir}/library-activity/src/main/java",
+                "${rootProject.rootDir}/library-fragment/src/main/java",
+                "${rootProject.rootDir}/library-dialog-base/src/main/java",
+                "${rootProject.rootDir}/library-dialog-collection/src/main/java",
+                "${rootProject.rootDir}/library-dialog-color/src/main/java",
+                "${rootProject.rootDir}/library-dialog-datetime/src/main/java",
+                "${rootProject.rootDir}/library-dialog-edit/src/main/java",
+                "${rootProject.rootDir}/library-empty/src/main/java",
+                "${rootProject.rootDir}/library-menu/src/main/java",
+                "${rootProject.rootDir}/library-selection/src/main/java",
+                "${rootProject.rootDir}/library-slider/src/main/java"
         ]
         debug.java.srcDirs = release.java.srcDirs
         release.res.srcDirs = [
-                '../library-core/src/main/res',
-                '../library-activity/src/main/res',
-                '../library-fragment/src/main/res',
-                '../library-dialog-base/src/main/res',
-                '../library-dialog-collection/src/main/res',
-                '../library-dialog-color/src/main/res',
-                '../library-dialog-datetime/src/main/res',
-                '../library-dialog-edit/src/main/res',
-                '../library-empty/src/main/res',
-                '../library-menu/src/main/res',
-                '../library-selection/src/main/res',
-                '../library-slider/src/main/res'
+                "${rootProject.rootDir}/library-core/src/main/res",
+                "${rootProject.rootDir}/library-activity/src/main/res",
+                "${rootProject.rootDir}/library-fragment/src/main/res",
+                "${rootProject.rootDir}/library-dialog-base/src/main/res",
+                "${rootProject.rootDir}/library-dialog-collection/src/main/res",
+                "${rootProject.rootDir}/library-dialog-color/src/main/res",
+                "${rootProject.rootDir}/library-dialog-datetime/src/main/res",
+                "${rootProject.rootDir}/library-dialog-edit/src/main/res",
+                "${rootProject.rootDir}/library-empty/src/main/res",
+                "${rootProject.rootDir}/library-menu/src/main/res",
+                "${rootProject.rootDir}/library-selection/src/main/res",
+                "${rootProject.rootDir}/library-slider/src/main/res"
         ]
         debug.res.srcDirs = release.res.srcDirs
+        test.java.srcDirs = [
+                "${rootProject.rootDir}/library/src/test/java",
+                "${rootProject.rootDir}/library-core/src/test/java",
+                "${rootProject.rootDir}/library-activity/src/test/java",
+                "${rootProject.rootDir}/library-fragment/src/test/java",
+                "${rootProject.rootDir}/library-dialog-base/src/test/java",
+                "${rootProject.rootDir}/library-dialog-collection/src/test/java",
+                "${rootProject.rootDir}/library-dialog-color/src/test/java",
+                "${rootProject.rootDir}/library-dialog-datetime/src/test/java",
+                "${rootProject.rootDir}/library-dialog-edit/src/test/java",
+                "${rootProject.rootDir}/library-empty/src/test/java",
+                "${rootProject.rootDir}/library-menu/src/test/java",
+                "${rootProject.rootDir}/library-selection/src/test/java",
+                "${rootProject.rootDir}/library-slider/src/test/java"
+        ]
         androidTest.java.srcDirs = [
-                '../library/src/androidTest/java',
-                '../library-core/src/androidTest/java',
-                '../library-activity/src/androidTest/java',
-                '../library-fragment/src/androidTest/java',
-                '../library-dialog-base/src/androidTest/java',
-                '../library-dialog-collection/src/androidTest/java',
-                '../library-dialog-color/src/androidTest/java',
-                '../library-dialog-datetime/src/androidTest/java',
-                '../library-dialog-edit/src/androidTest/java',
-                '../library-empty/src/androidTest/java',
-                '../library-menu/src/androidTest/java',
-                '../library-selection/src/androidTest/java',
-                '../library-slider/src/androidTest/java'
+                "${rootProject.rootDir}/library/src/androidTest/java",
+                "${rootProject.rootDir}/library-core/src/androidTest/java",
+                "${rootProject.rootDir}/library-activity/src/androidTest/java",
+                "${rootProject.rootDir}/library-fragment/src/androidTest/java",
+                "${rootProject.rootDir}/library-dialog-base/src/androidTest/java",
+                "${rootProject.rootDir}/library-dialog-collection/src/androidTest/java",
+                "${rootProject.rootDir}/library-dialog-color/src/androidTest/java",
+                "${rootProject.rootDir}/library-dialog-datetime/src/androidTest/java",
+                "${rootProject.rootDir}/library-dialog-edit/src/androidTest/java",
+                "${rootProject.rootDir}/library-empty/src/androidTest/java",
+                "${rootProject.rootDir}/library-menu/src/androidTest/java",
+                "${rootProject.rootDir}/library-selection/src/androidTest/java",
+                "${rootProject.rootDir}/library-slider/src/androidTest/java"
         ]
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
@@ -118,22 +133,26 @@ dependencies {
     /*
      * RELEASE DEPENDENCIES ------------------------------------------------------------------------
      */
-    compile deps.androidSupport.annotations
-    compile deps.androidSupport.appCompatV7
-    compile deps.androidSupport.vectorDrawable
-    compile deps.universumStudios.graphicsColorUtil
-    compile deps.universumStudios.ui
-    compile deps.universumStudios.fontCore
-    compile deps.universumStudios.fontUtil
-    compile deps.universumStudios.dialogs
+    implementation deps.androidSupport.annotations
+    implementation deps.androidSupport.appCompatV7
+    implementation deps.androidSupport.vectorDrawable
+    implementation deps.universumStudios.graphicsColorUtil
+    implementation deps.universumStudios.ui
+    implementation deps.universumStudios.fontCore
+    implementation deps.universumStudios.dialogs
 
     /*
      * TEST DEPENDENCIES ---------------------------------------------------------------------------
      */
-    androidTestCompile project(':test-core')
+    testImplementation project(':test-local')
+    androidTestImplementation project(':test-instrumented')
 }
 
-// Apply additional scripts.
-apply from: 'analysis.gradle'
-apply from: 'codacy.gradle'
-apply from: '../deploy/deploy.gradle'
+/**
+ * Additional configuration ========================================================================
+ */
+apply from: 'analysis/analysis.gradle'
+apply from: 'coverage/jacoco.gradle'
+apply from: 'coverage/codacy.gradle'
+apply from: "${rootProject.rootDir}/deploy/deploy.gradle"
+apply from: 'github/github.gradle'

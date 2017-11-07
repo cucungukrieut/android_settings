@@ -24,13 +24,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import universum.studios.android.test.BaseInstrumentedTest;
+import universum.studios.android.test.instrumented.InstrumentedTestCase;
 
 /**
  * @author Martin Albedinsky
  */
 @RunWith(AndroidJUnit4.class)
-public final class SimplePreferenceScreenKeyModificatorTest extends BaseInstrumentedTest {
+public final class SimplePreferenceScreenKeyModificatorTest extends InstrumentedTestCase {
     
 	@SuppressWarnings("unused")
 	private static final String TAG = "SimplePreferenceScreenKeyModificatorTest";
