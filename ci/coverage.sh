@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-./gradlew uploadCoverageToCodacy
+./gradlew :library:jacocoTestReportDebug
+./gradlew :library:uploadCoverageToCodacy
+bash <(curl -s https://codecov.io/bash)

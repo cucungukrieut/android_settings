@@ -30,18 +30,18 @@ android {
         targetSdkVersion config.build.targetSdkVersion
         consumerProguardFiles 'proguard-rules.pro'
         multiDexEnabled true
-        testInstrumentationRunner config.test.instrumentationRunner
+        testInstrumentationRunner config.test.instrumentationRunner.multidexAndroidJUnit
     }
 
     buildTypes {
         release {
             minifyEnabled false
         }
-        if (!config.ci.travis) {
-            modules {
-                minifyEnabled false
-            }
-        }
+        // todo:
+        /*modules {
+            minifyEnabled false
+            matchingFallbacks = ['debug', 'release']
+        }*/
         debug {
             minifyEnabled false
             testCoverageEnabled true
@@ -79,6 +79,21 @@ android {
                 "${rootProject.rootDir}/library-slider/src/main/res"
         ]
         debug.res.srcDirs = release.res.srcDirs
+        test.java.srcDirs = [
+                "${rootProject.rootDir}/library/src/test/java",
+                "${rootProject.rootDir}/library-core/src/test/java",
+                "${rootProject.rootDir}/library-activity/src/test/java",
+                "${rootProject.rootDir}/library-fragment/src/test/java",
+                "${rootProject.rootDir}/library-dialog-base/src/test/java",
+                "${rootProject.rootDir}/library-dialog-collection/src/test/java",
+                "${rootProject.rootDir}/library-dialog-color/src/test/java",
+                "${rootProject.rootDir}/library-dialog-datetime/src/test/java",
+                "${rootProject.rootDir}/library-dialog-edit/src/test/java",
+                "${rootProject.rootDir}/library-empty/src/test/java",
+                "${rootProject.rootDir}/library-menu/src/test/java",
+                "${rootProject.rootDir}/library-selection/src/test/java",
+                "${rootProject.rootDir}/library-slider/src/test/java"
+        ]
         androidTest.java.srcDirs = [
                 "${rootProject.rootDir}/library/src/androidTest/java",
                 "${rootProject.rootDir}/library-core/src/androidTest/java",
@@ -97,8 +112,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
@@ -118,24 +133,26 @@ dependencies {
     /*
      * RELEASE DEPENDENCIES ------------------------------------------------------------------------
      */
-    compile deps.androidSupport.annotations
-    compile deps.androidSupport.appCompatV7
-    compile deps.androidSupport.vectorDrawable
-    compile deps.universumStudios.graphicsColorUtil
-    compile deps.universumStudios.ui
-    compile deps.universumStudios.fontCore
-    compile deps.universumStudios.dialogs
+    implementation deps.androidSupport.annotations
+    implementation deps.androidSupport.appCompatV7
+    implementation deps.androidSupport.vectorDrawable
+    implementation deps.universumStudios.graphicsColorUtil
+    implementation deps.universumStudios.ui
+    implementation deps.universumStudios.fontCore
+    implementation deps.universumStudios.dialogs
 
     /*
      * TEST DEPENDENCIES ---------------------------------------------------------------------------
      */
-    androidTestCompile project(':test-core')
+    testImplementation project(':test-local')
+    androidTestImplementation project(':test-instrumented')
 }
 
 /**
  * Additional configuration ========================================================================
  */
 apply from: 'analysis/analysis.gradle'
+apply from: 'coverage/jacoco.gradle'
 apply from: 'coverage/codacy.gradle'
 apply from: "${rootProject.rootDir}/deploy/deploy.gradle"
 apply from: 'github/github.gradle'

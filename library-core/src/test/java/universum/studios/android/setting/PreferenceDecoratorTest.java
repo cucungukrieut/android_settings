@@ -17,18 +17,14 @@
  * =================================================================================================
  */
 package universum.studios.android.setting; 
-import android.support.test.runner.AndroidJUnit4;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import universum.studios.android.test.BaseInstrumentedTest;
+import universum.studios.android.test.local.RobolectricTestCase;
 
-/**
+    /**
  * @author Martin Albedinsky
  */
-@RunWith(AndroidJUnit4.class)
-public final class PreferenceDecoratorTest extends BaseInstrumentedTest {
+public final class PreferenceDecoratorTest extends RobolectricTestCase {
     
 	@SuppressWarnings("unused")
 	private static final String TAG = "PreferenceDecoratorTest";
