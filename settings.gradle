@@ -1,5 +1,7 @@
 // Gradle project settings. Specifies which modules to include into project.
-include ':library', ':samples', ':test-core'
+include ':library'
 include ':library-core', ':library-activity', ':library-fragment'
 include ':library-empty', ':library-selection', ':library-menu', ':library-slider'
 include ':library-dialog_group', ':library-dialog-base', ':library-dialog-collection', ':library-dialog-edit', ':library-dialog-color', ':library-dialog-datetime'
+include ':samples'
+include ':test-local', ':test-instrumented'

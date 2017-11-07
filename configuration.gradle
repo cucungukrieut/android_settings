@@ -1,20 +1,27 @@
 // Defines configuration used across the library project.
-def buildConfig = [
-        compileSdkVersion: 25,
-        minSdkVersion    : 14,
-        targetSdkVersion : 25,
-        buildToolsVersion: '25.0.2'
-]
-
-def testConfig = [
-        // instrumentationRunner: 'android.support.test.runner.AndroidJUnitRunner'
-        // We use custom runner which supports MultiDex due to exceeded limit for methods count.
-        instrumentationRunner: 'universum.studios.android.test.runner.MultiDexAndroidJUnitRunner'
-]
-
 def libraryConfig = [
         version          : '0.9.0',
         preReleaseVersion: '0.9.5'
+]
+
+def buildConfig = [
+        compileSdkVersion: 27,
+        minSdkVersion    : 14,
+        targetSdkVersion : 27,
+        buildToolsVersion: '27.0.0'
+]
+
+def testConfig = [
+        instrumentationRunner: [
+                androidJUnit        : 'android.support.test.runner.AndroidJUnitRunner',
+                multidexAndroidJUnit: 'universum.studios.android.test.instrumented.MultiDexAndroidJUnitRunner'
+        ]
+]
+
+def githubConfig = [
+        owner      : 'universum-studios',
+        repository : 'android_settings',
+        accessToken: System.getenv('GITHUB_API_TOKEN')
 ]
 
 def mavenConfig = [
@@ -25,36 +32,31 @@ def mavenConfig = [
         packaging                : 'pom',
         projectName              : 'Android Settings',
         projectDescription       : 'Extended and common settings components for the Android Platform.',
-        projectUrl               : 'https://github.com/universum-studios/android_settings',
+        projectUrl               : "https://github.com/${githubConfig.owner}/${githubConfig.repository}",
         projectInceptionYear     : '2017',
-        projectIssueManagementUrl: 'https://github.com/universum-studios/android_settings/issues'
+        projectIssueManagementUrl: "https://github.com/${githubConfig.owner}/${githubConfig.repository}/issues"
 ]
 
 def bintrayConfig = [
         publish                  : false,
-        packageName              : mavenConfig.groupId + ':' + mavenConfig.artifactId,
+        packageName              : "${mavenConfig.groupId}:${mavenConfig.artifactId}",
         packageLabels            : ['android', 'setting', 'preference'],
         packageVersionName       : mavenConfig.version,
         packageVersionDescription: 'Pre-release patch.',
-        packageVersionTag        : mavenConfig.version
+        packageVersionTag        : "v${mavenConfig.version}"
 ]
 
 def codacyConfig = [
-        // This path must be relative to the codacy.gradle file placed in the /library directory.
-        tokensPath : '../../codacy.tokens',
-        projectName: 'android_settings'
-]
-
-def ciConfig = [
-        travis: Boolean.parseBoolean(System.getenv('TRAVIS'))
+        tokensPath : System.getenv('CODACY_PROJECT_TOKENS'),
+        projectName: "${githubConfig.repository}"
 ]
 
 ext.config = [
         "build"  : buildConfig,
         "test"   : testConfig,
         "library": libraryConfig,
+        "github" : githubConfig,
         "maven"  : mavenConfig,
         "bintray": bintrayConfig,
-        "codacy" : codacyConfig,
-        "ci"     : ciConfig
+        "codacy" : codacyConfig
 ]

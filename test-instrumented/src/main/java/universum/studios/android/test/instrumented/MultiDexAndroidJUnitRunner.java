@@ -16,9 +16,10 @@
 * See the License for the specific language governing permissions and limitations under the License.
 * =================================================================================================
 */
-package universum.studios.android.test.runner;
+package universum.studios.android.test.instrumented;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.test.runner.AndroidJUnitRunner;
 
@@ -34,7 +35,7 @@ public final class MultiDexAndroidJUnitRunner extends AndroidJUnitRunner {
 	/**
 	 */
 	@Override
-	public void onCreate(Bundle arguments) {
+	public void onCreate(@NonNull final Bundle arguments) {
 		MultiDex.install(getTargetContext());
 		super.onCreate(arguments);
 	}

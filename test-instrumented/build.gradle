@@ -28,12 +28,11 @@ android {
     defaultConfig {
         minSdkVersion config.build.minSdkVersion
         targetSdkVersion config.build.targetSdkVersion
-        testInstrumentationRunner config.test.instrumentationRunner
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
@@ -46,23 +45,23 @@ android {
  */
 dependencies {
     // Android MultiDex Instrumentation test dependencies.
-    compile deps.androidSupport.multiDex
-    compile deps.androidSupport.multiDexInstrumentation
+    implementation deps.androidSupport.multiDex
+    implementation deps.androidSupport.multiDexInstrumentation
     // Android Instrumentation test dependencies.
-    compile deps.test.androidSupportAnnotations
-    compile deps.test.androidRunner
-    compile deps.test.androidRules
-    compile deps.test.androidEspressoCore
-    compile deps.test.androidEspressoIntents
-    compile(deps.test.androidEspressoContrib) {
+    api deps.test.junit
+    api deps.test.mockitoCore
+    api deps.test.mockitoAndroid
+    api deps.test.androidRunner
+    api deps.test.androidRules
+    api deps.test.androidEspressoCore
+    api deps.test.androidEspressoIntents
+    api(deps.test.androidEspressoContrib) {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
-    // Local JUnit test dependencies.
-    compile deps.test.junit
-    compile deps.test.mockitoCore
-    compile deps.test.mockitoAndroid
+    api deps.test.androidSupportAnnotations
+    api deps.test.androidSupportV4
 }

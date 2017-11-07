@@ -28,7 +28,7 @@ android {
     defaultConfig {
         minSdkVersion config.build.minSdkVersion
         targetSdkVersion config.build.targetSdkVersion
-        testInstrumentationRunner config.test.instrumentationRunner
+        testInstrumentationRunner config.test.instrumentationRunner.multidexAndroidJUnit
     }
 
     buildTypes {
@@ -46,26 +46,26 @@ android {
 
     sourceSets {
         release.java.srcDirs = [
-                '../library-dialog-base/src/main/java',
-                '../library-dialog-collection/src/main/java',
-                '../library-dialog-color/src/main/java',
-                '../library-dialog-datetime/src/main/java',
-                '../library-dialog-edit/src/main/java'
+                "${rootProject.rootDir}/library-dialog-base/src/main/java",
+                "${rootProject.rootDir}/library-dialog-collection/src/main/java",
+                "${rootProject.rootDir}/library-dialog-color/src/main/java",
+                "${rootProject.rootDir}/library-dialog-datetime/src/main/java",
+                "${rootProject.rootDir}/library-dialog-edit/src/main/java"
         ]
         debug.java.srcDirs = release.java.srcDirs
         release.res.srcDirs = [
-                '../library-dialog-base/src/main/res',
-                '../library-dialog-collection/src/main/res',
-                '../library-dialog-color/src/main/res',
-                '../library-dialog-datetime/src/main/res',
-                '../library-dialog-edit/src/main/res'
+                "${rootProject.rootDir}/library-dialog-base/src/main/res",
+                "${rootProject.rootDir}/library-dialog-collection/src/main/res",
+                "${rootProject.rootDir}/library-dialog-color/src/main/res",
+                "${rootProject.rootDir}/library-dialog-datetime/src/main/res",
+                "${rootProject.rootDir}/library-dialog-edit/src/main/res"
         ]
         debug.res.srcDirs = release.res.srcDirs
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
@@ -86,20 +86,18 @@ dependencies {
     /*
      * RELEASE DEPENDENCIES ------------------------------------------------------------------------
      */
-    compile deps.androidSupport.annotations
-    compile deps.androidSupport.appCompatV7
-    compile deps.universumStudios.graphicsColorUtil
-    compile deps.universumStudios.ui
-    compile deps.universumStudios.fontCore
-    compile deps.universumStudios.fontUtil
-    compile deps.universumStudios.dialogs
-    releaseCompile "universum.studios.android:settings-core:${config.library.version}@aar"
+    implementation deps.androidSupport.annotations
+    implementation deps.androidSupport.appCompatV7
+    implementation deps.universumStudios.graphicsColorUtil
+    implementation deps.universumStudios.ui
+    implementation deps.universumStudios.fontCore
+    implementation deps.universumStudios.dialogs
+    releaseImplementation "universum.studios.android:settings-core:${config.library.version}@aar"
 
     /*
      * DEBUG DEPENDENCIES --------------------------------------------------------------------------
      */
-    debugCompile project(':library-core')
+    debugApi project(':library-core')
 }
 
-// Apply DEPLOY script.
-apply from: '../deploy/deploy.gradle'
+apply from: "${rootProject.rootDir}/deploy/deploy.gradle"
