@@ -16,6 +16,7 @@
 # See the License for the specific language governing permissions and limitations under the License.
 # ==================================================================================================
 ##
+
 # Keep names of all classes and theris methods form the Settings package.
 -keepnames class universum.studios.android.setting.** { *; }
 # Keep constructors for all setting widgets.

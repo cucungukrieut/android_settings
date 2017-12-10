@@ -31,19 +31,9 @@ android {
         testInstrumentationRunner config.test.instrumentationRunner.multidexAndroidJUnit
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-        debug {
-            minifyEnabled false
-            testCoverageEnabled true
-        }
-    }
-
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
     lintOptions {
@@ -61,9 +51,7 @@ repositories {
 }
 
 dependencies {
-    /*
-     * RELEASE DEPENDENCIES ------------------------------------------------------------------------
-     */
+    // PRODUCTION ----------------------------------------------------------------------------------
     implementation deps.androidSupport.annotations
     implementation deps.androidSupport.appCompatV7
     implementation deps.universumStudios.graphicsColorUtil
@@ -73,14 +61,11 @@ dependencies {
     releaseImplementation "universum.studios.android:settings-core:${config.library.version}@aar"
     releaseImplementation "universum.studios.android:settings-dialog-base:${config.library.version}@aar"
 
-    /*
-     * DEBUG DEPENDENCIES --------------------------------------------------------------------------
-     */
+    // DEVELOPMENT ---------------------------------------------------------------------------------
     debugApi project(':library-dialog-base')
 
-    /*
-     * TEST DEPENDENCIES ---------------------------------------------------------------------------
-     */
+    // TEST ----------------------------------------------------------------------------------------
+    testImplementation project(':test-local')
     androidTestImplementation project(':test-instrumented')
 }
 

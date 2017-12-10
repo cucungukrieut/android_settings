@@ -28,23 +28,13 @@ android {
     defaultConfig {
         minSdkVersion config.build.minSdkVersion
         targetSdkVersion config.build.targetSdkVersion
-        consumerProguardFiles 'proguard-rules.pro'
+        consumerProguardFiles "${rootProject.rootDir}/library/proguard-rules.pro"
         testInstrumentationRunner config.test.instrumentationRunner.multidexAndroidJUnit
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-        debug {
-            minifyEnabled false
-            testCoverageEnabled true
-        }
-    }
-
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
     lintOptions {
@@ -62,17 +52,17 @@ repositories {
 }
 
 dependencies {
-    /*
-     * RELEASE DEPENDENCIES ------------------------------------------------------------------------
-     */
+    // PRODUCTION ----------------------------------------------------------------------------------
     implementation deps.androidSupport.annotations
     implementation deps.androidSupport.appCompatV7
     implementation deps.universumStudios.ui
     implementation deps.universumStudios.fontCore
 
-    /*
-     * TEST DEPENDENCIES ---------------------------------------------------------------------------
-     */
+    // DEVELOPMENT ---------------------------------------------------------------------------------
+    // None.
+
+    // TEST ----------------------------------------------------------------------------------------
+    testImplementation project(':test-local')
     androidTestImplementation project(':test-instrumented')
 }
 
