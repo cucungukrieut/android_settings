@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * =================================================================================================
  */
-package universum.studios.android.setting;
+package universum.studios.android.setting.key;
 
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ import universum.studios.android.test.local.RobolectricTestCase;
 /**
  * @author Martin Albedinsky
  */
-public final class PreferenceDecoratorTest extends RobolectricTestCase {
+public final class KeyModificatorTest extends RobolectricTestCase {
 
 	@Test
 	public void test() {

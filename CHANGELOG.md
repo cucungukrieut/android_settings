@@ -5,6 +5,9 @@ More **detailed changelog** for each respective version may be viewed by pressin
 
 ## Version 0.x ##
 
+### 0.9.6 ###
+> upcoming
+
 ### [0.9.5](https://github.com/universum-studios/android_settings/releases/tag/0.9.5) ###
 > 23.04.2017
 

@@ -25,7 +25,7 @@ import universum.studios.android.test.local.RobolectricTestCase;
 /**
  * @author Martin Albedinsky
  */
-public final class PreferenceDecoratorTest extends RobolectricTestCase {
+public final class SettingSelectionDialogPreferenceTest extends RobolectricTestCase {
 
 	@Test
 	public void test() {

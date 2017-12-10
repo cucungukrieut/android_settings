@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.preference.Preference;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -55,12 +56,12 @@ abstract class PreferenceDecorator {
 	 * Boolean flag indicating whether call to {@link #setCanRecycleLayout(boolean)} should be
 	 * handled or not.
 	 */
-	private static final boolean HANDLE_CAN_RECYCLE_LAYOUT = !BuildConfig.APPLICATION_ID.contains("support");
+	private static final boolean HANDLE_LAYOUT_RECYCLING = !BuildConfig.APPLICATION_ID.contains("support");
 
 	/**
 	 * Name of the field that indicates whether the preference can recycle its layout or not.
 	 */
-	private static final String FIELD_NAME_CAN_RECYCLE_LAYOUT = "mCanRecycleLayout";
+	private static final String FIELD_NAME_RECYCLE_LAYOUT = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? "mRecycleEnabled" : "mCanRecycleLayout";
 
 	/*
 	 * Interface ===================================================================================
@@ -206,15 +207,15 @@ abstract class PreferenceDecorator {
 	 */
 	@SuppressWarnings("TryWithIdenticalCatches")
 	void setCanRecycleLayout(final boolean canRecycleLayout) {
-		if (HANDLE_CAN_RECYCLE_LAYOUT) {
+		if (HANDLE_LAYOUT_RECYCLING) {
 			try {
-				final Field canRecycleLayoutField = Preference.class.getDeclaredField(FIELD_NAME_CAN_RECYCLE_LAYOUT);
+				final Field canRecycleLayoutField = Preference.class.getDeclaredField(FIELD_NAME_RECYCLE_LAYOUT);
 				canRecycleLayoutField.setAccessible(true);
 				canRecycleLayoutField.setBoolean(mPreference, canRecycleLayout);
 			} catch (NoSuchFieldException e) {
-				Log.w(TAG, "Failed to set whether preference(" + getClass().getSimpleName() + ") can recycler its layout or not.", e);
+				Log.w(TAG, "Failed to set whether preference(" + mPreference.getClass().getSimpleName() + ") can recycle its layout or not.", e);
 			} catch (IllegalAccessException e) {
-				Log.w(TAG, "Failed to set whether preference(" + getClass().getSimpleName() + ") can recycler its layout or not.", e);
+				Log.w(TAG, "Failed to set whether preference(" + mPreference.getClass().getSimpleName() + ") can recycle its layout or not.", e);
 			}
 		}
 	}
