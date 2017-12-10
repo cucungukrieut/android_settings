@@ -30,9 +30,7 @@ import universum.studios.android.setting.SettingsBaseFragment;
 /**
  * @author Martin Albedinsky
  */
-public final class PreviewSettingsFragment extends SettingsBaseFragment
-		implements
-		Dialog.OnDialogListener {
+public final class PreviewSettingsFragment extends SettingsBaseFragment implements Dialog.OnDialogListener {
 
 	@SuppressWarnings("unused")
 	private static final String TAG = "PreviewSettingsFragment";

@@ -1,7 +1,12 @@
 Change-Log
 ===============
 
+More **detailed changelog** for each respective version may be viewed by pressing on a desired _version's name_.
+
 ## Version 0.x ##
+
+### 0.9.6 ###
+> upcoming
 
 ### [0.9.5](https://github.com/universum-studios/android_settings/releases/tag/0.9.5) ###
 > 23.04.2017
@@ -18,8 +23,6 @@ Change-Log
 > 02.04.2017
 
 - Removed `SettingsConfig` class as it was not used across the library.
-- Updated to use **0.9.2** version of [Dialogs](https://github.com/universum-studios/android_dialogs/releases)
-  library.
 
 ### 0.9.2 ###
 > 23.03.2017

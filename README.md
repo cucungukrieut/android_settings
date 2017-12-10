@@ -6,13 +6,13 @@ Settings
 [![Codacy](https://api.codacy.com/project/badge/Grade/562af4ff63714b9ebb626350598774d4)](https://www.codacy.com/app/universum-studios/android_settings?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=universum-studios/android_settings&amp;utm_campaign=Badge_Grade)
 
 ## Download ##
-[![Download](https://api.bintray.com/packages/universum-studios/android/universum.studios.android%3Asettings/images/download.svg)](https://bintray.com/universum-studios/android/universum.studios.android%3Asettings/_latestVersion)
+[![Bintray](https://api.bintray.com/packages/universum-studios/android/universum.studios.android%3Asettings/images/download.svg)](https://bintray.com/universum-studios/android/universum.studios.android%3Asettings/_latestVersion)
 
 Download the latest **[release](https://github.com/universum-studios/android_settings/releases "Latest Releases page")** or **add as dependency** in your project via:
 
 ### Gradle ###
 
-    compile "universum.studios.android:settings:${DESIRED_VERSION}@aar"
+    implementation "universum.studios.android:settings:${DESIRED_VERSION}@aar"
 
 ## Compatibility ##
 

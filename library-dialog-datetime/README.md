@@ -8,7 +8,7 @@ This module contains dialog preference implementations that allow to set a desir
 
 ### Gradle ###
 
-    compile "universum.studios.android:settings-dialog-datetime:${DESIRED_VERSION}@aar"
+    implementation "universum.studios.android:settings-dialog-datetime:${DESIRED_VERSION}@aar"
 
 _depends on:_
 [settings-core](https://github.com/universum-studios/android_settings/tree/master/library-core),

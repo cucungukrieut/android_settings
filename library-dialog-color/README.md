@@ -8,7 +8,7 @@ value that may be picked via simple color picker.
 
 ### Gradle ###
 
-    compile "universum.studios.android:settings-dialog-color:${DESIRED_VERSION}@aar"
+    implementation "universum.studios.android:settings-dialog-color:${DESIRED_VERSION}@aar"
 
 _depends on:_
 [settings-core](https://github.com/universum-studios/android_settings/tree/master/library-core),
