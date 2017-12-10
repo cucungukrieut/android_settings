@@ -1,0 +1,50 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+library,universum.studios.android.setting,SettingSpinnerPreference.EntryViewHolder,16,0,0,0,4,0,1,0,1,0
+library,universum.studios.android.setting,SettingSelectionDialogPreference.DefaultSummaryTextBuilder,39,0,2,0,11,0,5,0,4,0
+library,universum.studios.android.setting,SettingCheckBoxPreference.new PreferenceDecorator() {...},19,0,0,0,4,0,3,0,3,0
+library,universum.studios.android.setting,SettingSpinnerPreference,333,0,44,0,83,0,43,0,21,0
+library,universum.studios.android.setting,PreferenceDecorator,195,0,28,0,41,0,24,0,10,0
+library,universum.studios.android.setting,SettingsBaseActivity.new View.OnClickListener() {...},10,0,0,0,3,0,2,0,2,0
+library,universum.studios.android.setting,SettingHeadersAdapter.CategoryDividerHolder,15,0,0,0,4,0,1,0,1,0
+library,universum.studios.android.setting,SettingPreference,85,0,6,0,24,0,11,0,8,0
+library,universum.studios.android.setting,SettingPreference.new PreferenceDecorator() {...},19,0,0,0,4,0,3,0,3,0
+library,universum.studios.android.setting,SettingDialogPreferenceManager,339,0,36,0,76,0,36,0,18,0
+library,universum.studios.android.setting,SettingSelectionDialogPreference,508,0,54,0,116,0,53,0,26,0
+library,universum.studios.android.setting,SettingDialogPreference,288,0,38,0,61,0,33,0,14,0
+library,universum.studios.android.setting,SettingHeadersAdapter.HeaderHolder,33,0,0,0,7,0,1,0,1,0
+library,universum.studios.android.setting,SettingSpinnerPreference.new AdapterView.OnItemSelectedListener() {...},12,0,0,0,4,0,3,0,3,0
+library,universum.studios.android.setting,SettingsBaseFragment,258,0,28,0,67,0,31,0,17,0
+library,universum.studios.android.setting,SettingDateDialogPreference,208,0,32,0,48,0,30,0,14,0
+library,universum.studios.android.setting,SettingSeekBarPreference,176,0,18,0,42,0,21,0,12,0
+library,universum.studios.android.setting,SettingSwitchPreference.new PreferenceDecorator() {...},19,0,0,0,4,0,3,0,3,0
+library,universum.studios.android.setting,SettingHeadersAdapter.Item,12,0,0,0,5,0,2,0,2,0
+library,universum.studios.android.setting,SettingEmptyPreference,47,0,0,0,15,0,5,0,5,0
+library,universum.studios.android.setting,SettingSpinnerPreference.ViewHolder,6,0,0,0,3,0,1,0,1,0
+library,universum.studios.android.setting,SettingHeadersAdapter.CategoryHolder,11,0,0,0,3,0,1,0,1,0
+library,universum.studios.android.setting,SettingsBaseActivity.BasicLayoutCorrector,91,0,12,0,21,0,10,0,4,0
+library,universum.studios.android.setting,SettingHeadersAdapter.ViewHolder,27,0,0,0,11,0,5,0,5,0
+library,universum.studios.android.setting,SettingHeadersAdapter,484,0,62,0,94,0,58,0,25,0
+library,universum.studios.android.setting,SettingTimeDialogPreference,199,0,28,0,46,0,28,0,14,0
+library,universum.studios.android.setting,SettingSwitchPreference,96,0,10,0,29,0,12,0,7,0
+library,universum.studios.android.setting,SettingCheckBoxPreference,87,0,8,0,26,0,11,0,7,0
+library,universum.studios.android.setting,SettingSpinnerPreference.EntriesAdapter,116,0,10,0,33,0,12,0,7,0
+library,universum.studios.android.setting,SettingSeekBarPreference.new SeekBar.OnSeekBarChangeListener() {...},14,0,0,0,5,0,4,0,4,0
+library,universum.studios.android.setting,SettingColorDialogPreference,201,0,26,0,50,0,26,0,13,0
+library,universum.studios.android.setting,SettingsBaseActivity.BasicLayoutCorrector.new ViewGroup.OnHierarchyChangeListener() {...},18,0,0,0,4,0,3,0,3,0
+library,universum.studios.android.setting,SettingDateTimeDialogPreference,109,0,16,0,27,0,20,0,12,0
+library,universum.studios.android.setting,SettingEditDialogPreference,199,0,28,0,47,0,28,0,14,0
+library,universum.studios.android.setting,SettingDialogPreference.new Preference.OnPreferenceClickListener() {...},15,0,0,0,2,0,2,0,2,0
+library,universum.studios.android.setting,SettingsBaseActivity,302,0,16,0,81,0,40,0,32,0
+library,universum.studios.android.setting,SettingsBaseFragment.new Runnable() {...},23,0,0,0,3,0,2,0,2,0
+library,universum.studios.android.setting,SettingSpinnerPreference.EntryDropDownViewHolder,10,0,0,0,3,0,1,0,1,0
+library,universum.studios.android.setting,SettingPreferenceCategory,24,0,0,0,8,0,4,0,4,0
+library,universum.studios.android.setting.key,PreferenceScreenKeyModificator.new PreferenceScreenKeyModificator() {...},5,0,0,0,2,0,2,0,2,0
+library,universum.studios.android.setting.key,PreferenceScreenKeyModificator,5,0,0,0,1,0,1,0,1,0
+library,universum.studios.android.setting.key,PreferenceKeyModificator,5,0,0,0,1,0,1,0,1,0
+library,universum.studios.android.setting.key,SimplePreferenceScreenKeyModificator,28,0,4,0,8,0,4,0,2,0
+library,universum.studios.android.setting.key,KeyModificator.new KeyModificator() {...},5,0,0,0,2,0,2,0,2,0
+library,universum.studios.android.setting.key,SimplePreferenceKeyModificator,32,0,6,0,11,0,5,0,2,0
+library,universum.studios.android.setting.key,KeyModificator,5,0,0,0,1,0,1,0,1,0
+library,universum.studios.android.setting.key,PreferenceKeyModificator.new PreferenceKeyModificator() {...},5,0,0,0,2,0,2,0,2,0
+library,universum.studios.android.setting.widget,SettingSwitch,47,0,2,0,15,0,8,0,7,0
+library,universum.studios.android.setting.widget,SettingColorView,322,0,20,0,66,0,25,0,15,0
