@@ -79,8 +79,7 @@ workflows:
           context: org-global
           filters:
             branches:
-              ignore:
-                - gh-pages
+              ignore: gh-pages
       - test:
           context: org-global
           requires:
@@ -93,7 +92,6 @@ workflows:
             branches:
               only:
                 - /^release.*$/
-                - /^support-release.*$/
       - deploy:
           context: org-global
           requires:

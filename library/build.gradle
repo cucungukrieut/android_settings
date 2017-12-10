@@ -34,17 +34,8 @@ android {
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-        }
-        // todo:
-        /*modules {
-            minifyEnabled false
+        modules {
             matchingFallbacks = ['debug', 'release']
-        }*/
-        debug {
-            minifyEnabled false
-            testCoverageEnabled true
         }
     }
 
@@ -112,8 +103,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
     lintOptions {
@@ -130,9 +121,7 @@ repositories {
 }
 
 dependencies {
-    /*
-     * RELEASE DEPENDENCIES ------------------------------------------------------------------------
-     */
+    // PRODUCTION ----------------------------------------------------------------------------------
     implementation deps.androidSupport.annotations
     implementation deps.androidSupport.appCompatV7
     implementation deps.androidSupport.vectorDrawable
@@ -141,9 +130,10 @@ dependencies {
     implementation deps.universumStudios.fontCore
     implementation deps.universumStudios.dialogs
 
-    /*
-     * TEST DEPENDENCIES ---------------------------------------------------------------------------
-     */
+    // DEVELOPMENT ---------------------------------------------------------------------------------
+    // None.
+
+    // TEST ----------------------------------------------------------------------------------------
     testImplementation project(':test-local')
     androidTestImplementation project(':test-instrumented')
 }

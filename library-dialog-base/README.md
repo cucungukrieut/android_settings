@@ -7,7 +7,7 @@ This module contains base components for **dialog** related setting preferences.
 
 ### Gradle ###
 
-    compile "universum.studios.android:settings-dialog-base:${DESIRED_VERSION}@aar"
+    implementation "universum.studios.android:settings-dialog-base:${DESIRED_VERSION}@aar"
 
 _depends on:_
 [settings-core](https://github.com/universum-studios/android_settings/tree/master/library-core),

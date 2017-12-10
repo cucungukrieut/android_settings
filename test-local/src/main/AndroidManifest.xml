@@ -19,6 +19,6 @@
  * =================================================================================================
  */
 -->
-<manifest package="universum.studios.android.test">
+<manifest package="universum.studios.android.test.local">
 	<application/>
 </manifest>
