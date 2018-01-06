@@ -21,6 +21,7 @@ def modules = [
         libraryMenu            : "${modulesPrimaryId}-menu:${modulesVersion}@aar",
         librarySelection       : "${modulesPrimaryId}-selection:${modulesVersion}@aar",
         librarySlider          : "${modulesPrimaryId}-slider:${modulesVersion}@aar",
+        libraryDialog          : "${modulesPrimaryId}-dialog:${modulesVersion}@aar",
         libraryDialogBase      : "${modulesPrimaryId}-dialog-base:${modulesVersion}@aar",
         libraryDialogCollection: "${modulesPrimaryId}-dialog-collection:${modulesVersion}@aar",
         libraryDialogColor     : "${modulesPrimaryId}-dialog-color:${modulesVersion}@aar",
