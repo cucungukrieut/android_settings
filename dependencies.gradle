@@ -10,7 +10,23 @@ def versions = [
         robolectric               : '3.5.1'
 ]
 
-ext.versions = versions
+def modulesPrimaryId = "${config.pom.groupId}:${config.pom.artifactId}"
+def modulesVersion = "${config.library.version.production}"
+def modules = [
+        library                : "${modulesPrimaryId}:${modulesVersion}@aar",
+        libraryCore            : "${modulesPrimaryId}-core:${modulesVersion}@aar",
+        libraryActivity        : "${modulesPrimaryId}-activity:${modulesVersion}@aar",
+        libraryFragment        : "${modulesPrimaryId}-fragment:${modulesVersion}@aar",
+        libraryEmpty           : "${modulesPrimaryId}-empty:${modulesVersion}@aar",
+        libraryMenu            : "${modulesPrimaryId}-menu:${modulesVersion}@aar",
+        librarySelection       : "${modulesPrimaryId}-selection:${modulesVersion}@aar",
+        librarySlider          : "${modulesPrimaryId}-slider:${modulesVersion}@aar",
+        libraryDialogBase      : "${modulesPrimaryId}-dialog-base:${modulesVersion}@aar",
+        libraryDialogCollection: "${modulesPrimaryId}-dialog-collection:${modulesVersion}@aar",
+        libraryDialogColor     : "${modulesPrimaryId}-dialog-color:${modulesVersion}@aar",
+        libraryDialogDateTime  : "${modulesPrimaryId}-dialog-datetime:${modulesVersion}@aar",
+        libraryDialogEdit      : "${modulesPrimaryId}-dialog-edit:${modulesVersion}@aar"
+]
 
 def androidSupport = [
         multiDex               : "com.android.support:multidex:${versions.androidSupportMultiDex}",
@@ -53,7 +69,9 @@ def other = [
         butterknifeProcessor: "com.jakewharton:butterknife-compiler:${versions.butterknife}"
 ]
 
+ext.versions = versions
 ext.deps = [
+        "modules"         : modules,
         "androidSupport"  : androidSupport,
         "test"            : test,
         "universumStudios": universumStudios,

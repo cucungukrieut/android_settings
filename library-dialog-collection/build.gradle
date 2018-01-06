@@ -58,8 +58,8 @@ dependencies {
     implementation deps.universumStudios.ui
     implementation deps.universumStudios.fontCore
     implementation deps.universumStudios.dialogs
-    releaseImplementation "universum.studios.android:settings-core:${config.library.version}@aar"
-    releaseImplementation "universum.studios.android:settings-dialog-base:${config.library.version}@aar"
+    releaseImplementation deps.modules.libraryCore
+    releaseImplementation deps.modules.libraryDialogBase
 
     // DEVELOPMENT ---------------------------------------------------------------------------------
     debugApi project(':library-dialog-base')
